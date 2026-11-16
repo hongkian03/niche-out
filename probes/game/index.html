@@ -1,0 +1,8 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Niche protocol check</title>
+<body><h1>Niche protocol check</h1><p>Epic 3 test-only client. This page uses the production game protocol.</p>
+<p id="connection" role="status">Connecting…</p><p id="phase"></p><p id="prompt"></p><p id="personal"></p>
+<form id="join"><label>Nickname <input id="nickname" maxlength="32" value="Phone"></label><label> Game code <input id="code" inputmode="numeric" maxlength="6"></label><button>Join</button></form>
+<form id="answer" hidden><label>Answer <input id="text" autocomplete="off"></label><button>Submit</button></form>
+<button id="claim" hidden>Take control here</button><button id="reconnect">Reconnect transport</button>
+<p id="outcome" role="status"></p><details><summary>Permitted server view</summary><pre id="view" style="white-space:pre-wrap;overflow-wrap:anywhere"></pre></details>
+<script src="/client.js"></script><script src="/protocol-check.js"></script></body></html>

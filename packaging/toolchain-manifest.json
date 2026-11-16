@@ -1,0 +1,13 @@
+{
+  "zigVersion":"0.17.1",
+  "source":"https://ziglang.org/download/index.json",
+  "retrievedDate":"2026-11-16",
+  "darwin-arm64": {
+    "url":"https://ziglang.org/download/0.17.1/zig-aarch64-macos-0.17.1.tar.xz",
+    "sha256":"75f1bc7a1e9852f17ec9a0c1895f767c4ec56d46bc8a834920eece1d0359dd8d"
+  },
+  "windowsNodeLibrary": {
+    "url":"https://nodejs.org/dist/v24.22.3/win-x64/node.lib",
+    "sha256":"a0a84aa03917b578d286010b7521837e9ff1136ffb2e4a406c14316c33fd06f7"
+  }
+}

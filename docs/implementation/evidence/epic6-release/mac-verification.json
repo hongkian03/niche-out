@@ -1,0 +1,40 @@
+{
+  "status": "PASS",
+  "date": "2026-11-16",
+  "sourceManifestSha256": "48a6bc56ebfb9e7cdfccbe1e789e1c13ccb682b8816450eb6d78936cee564027",
+  "archiveSha256": "a45beaef7c7c2676c0ed558d04586a3fcde5dc04fc94dedc359dab411f781f6f",
+  "browserSmoke": {
+    "status": "PASS",
+    "package": "/Users/kianhong/Projects/niche_out/work/epic6/archives-cvzmTs/Niche-Out-0.1.0-private-darwin-arm64",
+    "checks": [
+      "bundled runtime, native adapter, assets, real tunnel and public readiness",
+      "real browser join, worker import, two-round play and 200-point final",
+      "browser-close survival and private owner recovery with final results",
+      "explicit quit stops packaged launcher"
+    ]
+  },
+  "shellLauncher": {
+    "status": "PASS",
+    "archiveSha256": "a45beaef7c7c2676c0ed558d04586a3fcde5dc04fc94dedc359dab411f781f6f",
+    "package": "/Users/kianhong/Projects/niche_out/work/epic6/archives-cvzmTs/Niche-Out-0.1.0-private-darwin-arm64",
+    "checks": [
+      "Actual packaged shell launcher and manifest bootstrap",
+      "Unrelated working directory",
+      "PATH excludes developer Node",
+      "Inherited NODE_OPTIONS/NODE_PATH/CLOUDFLARED_PATH neutralized",
+      "Private dashboard opener invoked (stub; URL not recorded)",
+      "SIGTERM exits zero"
+    ],
+    "scope": "Available Mac; no Gatekeeper/quarantine or physical terminal-close claim"
+  },
+  "differencesFromMeasuredBuild": [
+    "apps/server/dist/game/application.js"
+  ],
+  "differenceExplanation": "Private transport-close diagnostic string guard added after strict typecheck; gameplay implementation and browser assets unchanged. Full431-test regression/type/build and package checks passed after fix.",
+  "notVerified": [
+    "Physical sleep/wake or wall-clock change",
+    "Gatekeeper/quarantine on clean download",
+    "Publisher signing/notarization",
+    "Other host platforms"
+  ]
+}

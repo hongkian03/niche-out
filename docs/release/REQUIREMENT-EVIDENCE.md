@@ -1,0 +1,115 @@
+# Per-criterion release evidence
+
+Reviewed November 16, 2026. This accounts individually for all **28 PRD**, **35 UI/UX** and **26 additional architecture** criteria in [the baseline coverage map](../implementation/coverage.md). It is a release review ledger, not a declaration that G6 passed.
+
+**Recorded** means the named deterministic/prior integration evidence exists in the Epic 2–5 reports; the coordinator records the current regression rerun separately. **Partial** means a required boundary remains unverified. **Blocked release** means an unmet public-release prerequisite. Earlier passing checks do not certify changed final signed bytes or a different physical platform.
+
+Evidence locations: test basenames resolve under `tests/contracts`, `tests/core`, `tests/server`, `tests/hosting`, `tests/protocol` or `tests/web`; browser scripts are under `scripts`. Prior reports are [E2](../implementation/evidence/EPIC-2.md), [E3](../implementation/evidence/EPIC-3.md), [E4](../implementation/evidence/EPIC-4.md), [E5](../implementation/evidence/EPIC-5.md). Current [load](../implementation/evidence/EPIC-6-LOAD.md), [UI](../implementation/evidence/EPIC-6-UI.md) and [release](../implementation/evidence/EPIC-6-RELEASE.md) reports supplement these rows; read their exact limitations. Full story status remains exclusively in the master backlog.
+
+## PRD
+
+| ID / requirement | Status | Evidence | Boundary / remaining work |
+| --- | --- | --- | --- |
+| P01 — JSON prompts, accepted answers, aliases, tiers, points, and timing | Recorded | `pack.test.ts; compiler.test.ts` | JSON strict-contract/compiled-index checks; E2 compiler and E3 import evidence. |
+| P02 — Public code/nickname joining and direct HTTPS QR/link shortcuts | Recorded | `host.test.ts; app.test.ts` | E4 actual browser invite and user-confirmed physical iPhone QR join. |
+| P03 — 100 admitted players under declared host/uplink/provider workload | Partial | `EPIC-6-LOAD.md` | Local and real mixed 100-player-plus-host pass on the Mac/eduroam; all-polling full game remains unqualified after recovered 429s and later DNS interruption. |
+| P04 — Start requires tunnel readiness, closes entry and advances rounds automatically | Recorded | `engine.test.ts; manager.test.ts; host.test.ts` | E2 scheduler, E3 gated Start, E4 real two-round completion. |
+| P05 — Omitted durations use 3/25/10 seconds | Recorded | `pack.test.ts` | Omitted-duration fixtures assert 3/25/10 seconds; custom durations remain permitted. |
+| P06 — Case/space/alias matching and valid rejected retries | Recorded | `text.test.ts; compiler.test.ts; player.test.ts` | Case/space aliases and retry checks; E4 physical Banana rejection/Fall acceptance. |
+| P07 — First acceptance locks; assigned tier/points remain hidden through reload | Recorded | `projections.test.ts; application.test.ts; client.test.ts` | First-acceptance lock and role-filtered pre-reveal views across recovery. |
+| P08 — No unsubmitted/late answer credit; missed rounds score zero | Recorded | `engine.test.ts; application.test.ts; player.test.ts` | Strict server receipt deadline, no automatic draft submit and miss-zero tests. |
+| P09 — Manual points unaffected by duplicates; canonical frequency counts | Recorded | `engine.test.ts; projections.test.ts` | Controlled duplicate/alias fixtures retain manual points and canonical counts. |
+| P10 — Early closure, complete reveal interval, shared ranks and winners | Recorded | `engine.test.ts; integration.test.ts` | Early closure, full reveal interval, tied ranks; E4 physical joint winners on 200. |
+| P11 — Same-browser reconnection preserves accepted state/score without pause | Recorded | `identity.test.ts; client.test.ts; recovery.test.ts` | E3/E4 same-origin reconnect; full current phone matrix still deferred. |
+| P12 — Host removes a player from play and standings | Recorded | `application.test.ts; host.test.ts` | E4 removal defect fixed; named-player confirmation and removed membership response verified. |
+| P13 — Shared host presentation and independently sufficient player screens | Recorded | `host.test.ts; player.test.ts` | E4 1920x1080 host and phone layouts; independent phone gameplay. |
+| P14 — Final standings/recaps; subsequent fresh lobby/code | Recorded | `integration.test.ts; host.test.ts; player.test.ts` | E4 final private/aggregate recap and replacement clears old results. |
+| P15 — Bundled assets served through the tunnel with required internet access | Recorded | `check-browser-assets.mjs; application.test.ts` | 15 bundled asset scan and real-tunnel E4 loading; final signed artifact repeat outstanding. |
+| P16 — Highest-point unused example; aliases mark the canonical answer used | Recorded | `projections.test.ts; player.test.ts` | Highest unused canonical answer and alias-use fixtures; JSON tie ordering. |
+| P17 — One game-wide timing set, no per-prompt overrides | Recorded | `pack.test.ts` | Single game-wide timings and rejection of unsupported per-prompt fields. |
+| P18 — Strict whole-file validation and field-specific errors | Recorded | `pack.test.ts; imports.test.ts; import-routes.test.ts` | Whole-file errors/collisions, strict field paths and failed staging preserve committed state. |
+| P19 — Solo testing, fixed unique names, disconnected slots retained | Recorded | `engine.test.ts; identity.test.ts` | Solo, unique fixed nickname, retained disconnected slot tests. |
+| P20 — Removed statistics retained/excluded identity; positive eligible count for early finish | Recorded | `engine.test.ts; projections.test.ts` | Removed accepted-answer statistics retained; excluded identity; zero eligible does not early-finish. |
+| P21 — Shared server receipt deadline, host authority, hidden setup/answer data | Recorded | `application.test.ts; views.test.ts` | Authority/origin/receipt and redaction tests; no setup list broadcast. |
+| P22 — New game/restart invalidates temporary game/results | Recorded | `restart.test.ts; recovery.test.ts` | Old instance/game identities fenced and state discarded on restart/replacement. |
+| P23 — Host-authoritative game through operator-owned tunnel; instance-scoped codes | Recorded | `manager.test.ts; application.test.ts` | E1/E3 managed loopback authority and instance-scoped codes, not central game hosting. |
+| P24 — Public access from separate networks under exact origin and session controls | Recorded | `deployment.test.ts; application.test.ts` | Exact Origin/Host/cookie tests and E4 eduroam host + cellular phone. |
+| P25 — 101st newcomer refused without disrupting admitted players/reconnects | Recorded | `engine.test.ts; EPIC-6-LOAD.md` | GAME_FULL and simultaneous 100-player existing-player reconnect passed; provider 429 pressure and bounded recovery are separately disclosed. |
+| P26 — Automatic managed temporary hosting without required account/domain | Recorded | `manager.test.ts; public.test.ts` | E1/E4/E5 managed temporary URL runs without account/domain; limits documented. |
+| P27 — Hosting survives browser close and remains through results until finish/quit | Recorded | `manager.test.ts; e5-lifecycle.test.ts` | Browser/server lifetimes separated; Mac extraction/recovery/cleanup evidence E5. |
+| P28 — Same-origin recovery; explicit fresh session after endpoint loss/change | Partial | `manager.test.ts; e5-lifecycle.test.ts; client.test.ts` | Deterministic same-origin/change-origin behavior and E4 connector interruption; current provider fault qualification remains E6. |
+
+## UI/UX
+
+| ID / requirement | Status | Evidence | Boundary / remaining work |
+| --- | --- | --- | --- |
+| U01 — Ocean/stepped-frame/pixel-font/prompt/timer reference direction | Recorded | `components.test.ts` | E4 original ocean/pixel/stepped panels; E6 responsive review checks current candidate. |
+| U02 — Original wordmark/submarine/scenery/icons and multiplayer identity | Partial | `components.test.ts` | Original project assets declared in notices; owner asset-rights/license approval remains open. |
+| U03 — Correct configured public HTTPS invitation information | Recorded | `host.test.ts` | Invitation uses current permitted public HTTPS origin, E4 actual QR success. |
+| U04 — Long valid text readable at 320 px | Recorded | `test-web-layout.mjs; EPIC-6-UI.md` | Final 320 px long-text check passes with keyboard-scrollable personal wording and visible countdown/tabs; physical device matrix remains separate. |
+| U05 — Phone keyboard leaves timer and Submit reachable | Partial | `EPIC-4.md` | User physical iPhone confirmed reachable timer/Submit; full current/previous Safari and Android matrix remains. |
+| U06 — Distinct pending/rejected/accepted/missed/disconnected/removed/full/closed states | Recorded | `app.test.ts; player.test.ts; host.test.ts` | Distinct app/server fixtures and E4 actual rejection/outage/removal behavior. |
+| U07 — No pre-reveal outcome through colour, animation, totals, or recovery | Recorded | `client.test.ts; player.test.ts; views.test.ts` | Neutral acceptance and hidden outcomes; E4 actual pre-reveal checks. |
+| U08 — Custom tiers/equal points/valid zero/1–20 rounds/shared ranks | Recorded | `pack.test.ts; player.test.ts` | Variable-tier/zero/equal-point, boundary-length and tie fixtures. |
+| U09 — Timed count-based reveal with optional unused example | Recorded | `player.test.ts; projections.test.ts` | Countdown, grouped counts and unused-answer/all-used fixtures. |
+| U10 — Readable host projection and navigable 100-player lists | Partial | `test-web-layout.mjs; host.test.ts` | E4 projected host and 100-player roster fixtures; E6 narrow/zoom review and actual venue projection remain distinct. |
+| U11 — Reduced motion, keyboard, zoom, contrast, and real keyboards verified | Partial | `EPIC-6-UI.md` | Final 213 layout cases and 88 axe audits pass with zero reported violations; 107 web regressions pass. Actual browser zoom, AT speech and phone matrix remain unverified; axe contrast incompletes are documented. |
+| U12 — Bundled fonts/art/interface assets served from the host origin | Recorded | `check-browser-assets.mjs` | Font/OFL/art assets bundled; no external runtime image/font dependency. |
+| U13 — Manage players preserves clean display and running game | Recorded | `host.test.ts; test-browser-game.mjs` | E4 actual phase advance with roster open; clean presentation restored. |
+| U14 — Every removal confirms the named stable player | Recorded | `host.test.ts` | Named stable identity confirmation, Cancel focus and removal integration. |
+| U15 — Permitted desktop autofocus; mobile tap to focus | Recorded | `player.test.ts; test-web-layout.mjs` | Desktop-only focus fixture and mobile tap behavior; E4 phone gameplay. |
+| U16 — Phone Answers/Standings tabs with outcome/countdown and server advancement | Recorded | `player.test.ts; test-web-layout.mjs` | Keyboard tabs preserve within phase/reset each new reveal; server countdown advances. |
+| U17 — No names on grouped answers; own private result and public points | Recorded | `projections.test.ts; views.test.ts; player.test.ts` | Grouped anonymous counts vs own result, public standings fields. |
+| U18 — Earlier-round browsing only in final recap | Recorded | `app.test.ts; player.test.ts` | Previous rounds exposed only at final recap; server recap scope checked. |
+| U19 — Disconnected draft frozen and never queued for automatic submission | Recorded | `client.test.ts; test-browser-game.mjs` | E4 actual outage frozen draft and no queued auto-submit. |
+| U20 — Refresh clears draft, restores accepted state, and resolves uncertainty | Recorded | `client.test.ts; test-browser-game.mjs` | E4 actual refresh clears draft; locked state restored and uncertain submit resolved. |
+| U21 — Explicit Take control here without duplicate identity/takeover loops | Recorded | `identity.test.ts; client.test.ts` | E4 native Chrome Duplicate menu and explicit takeover plus deterministic continuation tests. |
+| U22 — Preview/commit split, confirmed-failure preservation, uncertain reconciliation | Recorded | `host.test.ts; recovery.test.ts; test-browser-game.mjs` | Actual dropped three commit replies reconcile once; invalid replacement retains old state. |
+| U23 — One-click Start with readiness gating and entry-closing feedback | Recorded | `host.test.ts; manager.test.ts` | Immediate gated Start, no extra countdown, repeated-operation protection. |
+| U24 — Nickname search and totals/no-match distinction on both host rosters | Recorded | `host.test.ts` | Both roster searches, full total and no-match behavior. |
+| U25 — Readiness from nonremoved eligibility including disconnects, no answer leakage | Recorded | `projections.test.ts; player.test.ts` | Nonremoved/disconnected denominator and accepted count, no pre-reveal detail. |
+| U26 — Grouped answers sorted by points descending then JSON order | Recorded | `projections.test.ts; player.test.ts` | Point-descending and JSON-order ties. |
+| U27 — Host joint winners/full standings/aggregate recap, no personal score | Recorded | `host.test.ts; test-browser-game.mjs` | Final host joint winners/standings/aggregate recap with no player score. |
+| U28 — Keyboard dismissal after lock/close, editing retained for rejection | Partial | `EPIC-4.md; player.test.ts` | Actual iPhone lock dismissal and retry confirmed previously; current supported physical keyboard matrix remains. |
+| U29 — Server-verified resume; fresh explicit admission after replacement | Recorded | `client.test.ts; app.test.ts` | Server-verified membership before resume, explicit fresh admission after replacement. |
+| U30 — Copy fallback and locally generated enlarged QR without owner secret | Recorded | `host.test.ts; test-browser-game.mjs` | Real browser copy fallback, local enlarged QR and private owner-token exclusion. |
+| U31 — Short/late phases, large text/scores, empty/capacity/auth/uncertain/conflict/title errors | Partial | `host.test.ts; player.test.ts; app.test.ts` | E4 short-phase/error/long-value fixture evidence; E6 current candidate reflow/AT review applies. |
+| U32 — Local setup and Start hosting before public availability | Recorded | `manager.test.ts; controller.test.ts` | E1 managed setup/local dashboard before public start; E5 extracted start. |
+| U33 — Clear readiness and current public link/QR sharing | Recorded | `public.test.ts; manager.test.ts; host.test.ts` | Readiness and current invitation; E4 actual cellular QR. |
+| U34 — Finish hosting/quit confirmation and browser-close survival | Partial | `manager.test.ts; e5-lifecycle.test.ts` | Confirmation/browser-close and Mac shutdown covered; final signed clean targets and deferred non-Mac execution remain. |
+| U35 — Recoverable interruption versus explicit fresh-session recovery | Partial | `manager.test.ts; e5-lifecycle.test.ts; app.test.ts` | Modeled/fault-injected recovery and E4 real connector interruption; final provider endurance result applies. |
+
+## Architecture
+
+| ID / requirement | Status | Evidence | Boundary / remaining work |
+| --- | --- | --- | --- |
+| A01 — Pinned stack, authoritative local process/game and owned connector, temporary state and bundled startup | Partial | `EPIC-3.md; EPIC-5.md` | Production local process and bundled artifacts proven; final signed outputs remain. |
+| A02 — Protocol schemas, clock/nullability/revision fields, full views and readiness-only 50 ms batching | Recorded | `messages.test.ts; views.test.ts; application.test.ts` | Strict full views and publication batching tests; load bandwidth measured separately. |
+| A03 — Owner one-use secret/rotation/role conflict and distinct guest/player authority | Recorded | `identity.test.ts; application.test.ts` | One-use owner link, rotation/conflict, role separation; actual E4 owner conflict/E5 recovery. |
+| A04 — R1 own-membership discovery before resume; no nickname-based restoration | Recorded | `identity.test.ts; client.test.ts` | Own membership discovery and no nickname identity recovery. |
+| A05 — R3 fresh-page IDs, reconnect reuse, rotating proof, explicit stale/ambiguous fallback | Recorded | `identity.test.ts; client.test.ts` | Rotating proof/continuation fencing and native browser Duplicate evidence. |
+| A06 — R4 authority/fingerprint/cache/new-operation order, strict receipt deadline, stale sequence rejection | Recorded | `ledger.test.ts; application.test.ts` | Receipt/fingerprint/authority/cached outcome ordering and stale sequence fixtures. |
+| A07 — R5 strict worker import, raw-byte bound, timeout, headroom/heap defaults, no fixed answer count | Partial | `imports.test.ts; import-routes.test.ts; EPIC-6-LOAD.md` | Bounded worker contracts and import diagnostics regression exist; current near-ceiling measurements required. |
+| A08 — Candidate expiry/setup generation, explicit atomic commit, lastGameCommit and positive outcome retention | Recorded | `imports.test.ts; recovery.test.ts` | Candidate expiry/setup generation, atomic commit and retained result tests. |
+| A09 — R2 two same-ID retries and atomic host recover-or-fence resolution after lost responses | Recorded | `ledger.test.ts; recovery.test.ts; client.test.ts` | Same-ID retry, resolve/fence and real dropped-response reconciliation. |
+| A10 — R6 guest/page/history/handshake/cache bounds, expiry, no active-player eviction | Partial | `identity.test.ts; ledger.test.ts; EPIC-6-LOAD.md` | Deterministic metadata caps/expiry; measured endurance report is separate. |
+| A11 — Shared schema: title/text/code-point/numeric/millisecond limits and strict unknown fields | Recorded | `pack.test.ts; text.test.ts` | Strict schema, code-point/numeric/millisecond boundary fixtures. |
+| A12 — Loopback ingress and configured Host/Origin with real provider polling/upgrade and explicit forwarding trust | Recorded | `application.test.ts; deployment.test.ts; EPIC-4.md` | Loopback/exact Host/Origin/forwarding tests and real polling->WebSocket flow. |
+| A13 — Idle-sleep prevention, one-expired-phase same-public-origin recovery, wall-clock immunity | Partial | `platform.test.ts; engine.test.ts; EPIC-5.md` | Native Mac awake-clock/idle assertion tested; physical sleep/wake/clock jumps and other-platform execution outstanding. |
+| A14 — Underlying IP changes preserve same-origin state; changed public origin requires fresh game/code | Partial | `e5-lifecycle.test.ts; manager.test.ts` | Deterministic underlying-IP vs changed-public-origin recovery; actual event transition follow-up outstanding. |
+| A15 — Visible launcher owns server and connector lifetime, no orphan helpers, local owner recovery | Partial | `e5-lifecycle.test.ts; EPIC-5.md` | Mac normal/forced parent cleanup and owner recovery pass; final signed/deferred platform execution remain. |
+| A16 — Four runtime-and-connector-inclusive artifacts, OS/CPU floors and actual Intel evidence | Partial | `EPIC-5.md; release-audit.mjs` | Four archive/runtime inventories; actual Intel/Windows/Linux execution deferred by owner. |
+| A17 — Project-authenticated Mac/Windows/Linux public outputs and appropriate tamper tests | Blocked release | `SIGNING.md; release-plan.mjs` | No publisher-signed final outputs; remaining native trust chain/container plus credentials and target tests explicit. |
+| A18 — R7 current-outcome secrecy, host-only tier catalogue, private versus aggregate final recap | Recorded | `projections.test.ts; views.test.ts` | Role/current-outcome redaction, private/aggregate recap tests and E4 actual game. |
+| A19 — Original bundled assets, imported text rendering and private-pack exclusion | Partial | `check-browser-assets.mjs; application.test.ts` | Original bundled graphics/imported text/no private fixtures verified; owner rights/license decision and final inventory remain. |
+| A20 — Processing p95 and separate internet/provider bandwidth/latency measurements | Recorded | `EPIC-6-LOAD.md` | All measured eligible processing groups below 100 ms p95; separate E2E/bytes/CPU/RSS/edge 429 metrics retained. Max 403 ms handler and 2.8 s event-loop tails remain explicit concerns. |
+| A21 — R8 per-criterion coverage and shared dialog focus/phase fallback without extra admin controls | Partial | `components.test.ts; REQUIREMENT-EVIDENCE.md; EPIC-6-UI.md` | Individual coverage here plus E4 modal fallback; E6 final accessibility findings control open checks. |
+| A22 — Publication identity/license/connector notices, manual updates and separate optional information site | Blocked release | `OWNER-DECISIONS.md; RELEASE-NOTES.md; OPERATOR-GUIDE.md` | Manual updates/provider guide prepared; project license/publisher/notices completion and publication authorization remain. |
+| A23 — Exact public origin, isolated local control, trusted proxy path and Secure session boundary | Recorded | `deployment.test.ts; application.test.ts; controller.test.ts` | Isolated local control, exact public origin and secure session tests. |
+| A24 — Connector lifecycle, same-origin recovery and changed-origin invalidation | Partial | `manager.test.ts; e5-lifecycle.test.ts; EPIC-6-LOAD.md` | Existing lifecycle/fault regressions; E6 provider churn and final signed targets still need respective evidence. |
+| A25 — Optional provider credential ownership, pinned connector distribution and plan limits | Partial | `release-connector-inventory.mjs; EPIC-5.md; SIGNING.md` | Four pinned connector binaries/modules recorded; full transitive notices and final signed payload mapping outstanding. |
+| A26 — Cross-network event qualification and preservation of sessions under public load | Partial | `EPIC-4.md; EPIC-6-LOAD.md` | Prior actual eduroam+cellular phone success; E6 simulated public load does not certify actual event conditions. |
+
+## Final gate
+
+This matrix covers every requested ID without relabelling mandatory unknowns as optional. E6-S11 final release readiness is not passed while signed artifacts, mandatory real-target checks, full notices/owner decisions or required provider/device evidence remain open. The owner's deliberate deferral of non-Mac tests permits private development handoff; it does not fabricate platform passes. Publication E6-S12 remains separately authorized and unstarted. The optional information site E6-S13 is outside this handoff.

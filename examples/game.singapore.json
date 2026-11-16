@@ -1,0 +1,1673 @@
+{
+  "schemaVersion": 1,
+  "title": "Niche Out: Singapore Edition",
+  "settings": {
+    "readingSeconds": 3,
+    "answerSeconds": 25,
+    "resultsSeconds": 10
+  },
+  "tiers": [
+    {
+      "id": "plankton",
+      "name": "Plankton",
+      "points": 10
+    },
+    {
+      "id": "too-clever",
+      "name": "Too Clever",
+      "points": 15
+    },
+    {
+      "id": "schooler",
+      "name": "Schooler",
+      "points": 30
+    },
+    {
+      "id": "rare",
+      "name": "Rare",
+      "points": 60
+    },
+    {
+      "id": "deep-cut",
+      "name": "Deep Cut",
+      "points": 85
+    },
+    {
+      "id": "one-in-a-krillion",
+      "name": "One in a Krillion",
+      "points": 100
+    }
+  ],
+  "prompts": [
+    {
+      "id": "singapore-expressways",
+      "text": "Name one of Singapore's ten operational expressways as of 16 November 2026. Full names or acronyms are accepted.",
+      "answers": [
+        {
+          "text": "Pan Island Expressway",
+          "tierId": "plankton",
+          "aliases": [
+            "PIE",
+            "Pan Island"
+          ]
+        },
+        {
+          "text": "Central Expressway",
+          "tierId": "plankton",
+          "aliases": [
+            "CTE",
+            "Central"
+          ]
+        },
+        {
+          "text": "East Coast Parkway",
+          "tierId": "schooler",
+          "aliases": [
+            "ECP",
+            "East Coast Expressway"
+          ]
+        },
+        {
+          "text": "Ayer Rajah Expressway",
+          "tierId": "schooler",
+          "aliases": [
+            "AYE",
+            "Ayer Rajah"
+          ]
+        },
+        {
+          "text": "Kallang-Paya Lebar Expressway",
+          "tierId": "too-clever",
+          "aliases": [
+            "KPE",
+            "Kallang Paya Lebar Expressway",
+            "Kallang Paya Lebar",
+            "Kallang-Paya Lebar"
+          ]
+        },
+        {
+          "text": "Tampines Expressway",
+          "tierId": "rare",
+          "aliases": [
+            "TPE",
+            "Tampines"
+          ]
+        },
+        {
+          "text": "Bukit Timah Expressway",
+          "tierId": "rare",
+          "aliases": [
+            "BKE",
+            "Bukit Timah"
+          ]
+        },
+        {
+          "text": "Marina Coastal Expressway",
+          "tierId": "deep-cut",
+          "aliases": [
+            "MCE",
+            "Marina Coastal"
+          ]
+        },
+        {
+          "text": "Seletar Expressway",
+          "tierId": "deep-cut",
+          "aliases": [
+            "SLE",
+            "Seletar"
+          ]
+        },
+        {
+          "text": "Kranji Expressway",
+          "tierId": "one-in-a-krillion",
+          "aliases": [
+            "KJE",
+            "Kranji"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "singapore-public-holidays",
+      "text": "Name a public holiday on Singapore's official 2026 calendar. Give the holiday name; both days of Chinese New Year count as one answer.",
+      "answers": [
+        {
+          "text": "New Year's Day",
+          "tierId": "schooler",
+          "aliases": [
+            "New Years Day",
+            "New Year",
+            "New Year’s Day",
+            "NYD"
+          ]
+        },
+        {
+          "text": "Chinese New Year",
+          "tierId": "plankton",
+          "aliases": [
+            "CNY",
+            "Lunar New Year",
+            "Chinese New Year Day 1",
+            "Chinese New Year Day 2",
+            "First day of Chinese New Year",
+            "Second day of Chinese New Year"
+          ]
+        },
+        {
+          "text": "Hari Raya Puasa",
+          "tierId": "schooler",
+          "aliases": [
+            "Eid al-Fitr",
+            "Eid al Fitr",
+            "Eid ul-Fitr",
+            "Eid ul Fitr",
+            "Eidulfitri",
+            "Aidilfitri",
+            "Hari Raya Aidilfitri"
+          ]
+        },
+        {
+          "text": "Good Friday",
+          "tierId": "rare",
+          "aliases": []
+        },
+        {
+          "text": "Labour Day",
+          "tierId": "rare",
+          "aliases": [
+            "Labor Day",
+            "May Day",
+            "International Workers Day",
+            "International Workers' Day"
+          ]
+        },
+        {
+          "text": "Hari Raya Haji",
+          "tierId": "deep-cut",
+          "aliases": [
+            "Eid al-Adha",
+            "Eid al Adha",
+            "Eid ul-Adha",
+            "Eid ul Adha",
+            "Aidiladha",
+            "Hari Raya Aidiladha",
+            "Festival of Sacrifice"
+          ]
+        },
+        {
+          "text": "Vesak Day",
+          "tierId": "rare",
+          "aliases": [
+            "Vesak",
+            "Wesak",
+            "Wesak Day",
+            "Buddha Day",
+            "Buddha's Birthday"
+          ]
+        },
+        {
+          "text": "National Day",
+          "tierId": "plankton",
+          "aliases": [
+            "Singapore National Day",
+            "Singapore Independence Day"
+          ]
+        },
+        {
+          "text": "Deepavali",
+          "tierId": "schooler",
+          "aliases": [
+            "Diwali",
+            "Festival of Lights"
+          ]
+        },
+        {
+          "text": "Christmas Day",
+          "tierId": "plankton",
+          "aliases": [
+            "Christmas",
+            "Xmas",
+            "Xmas Day"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "singapore-north-east-line",
+      "text": "Name an operational MRT station on Singapore's North East Line (purple line), as of 16 November 2026. Station names or NE codes are accepted.",
+      "answers": [
+        {
+          "text": "HarbourFront",
+          "tierId": "schooler",
+          "aliases": [
+            "HarbourFront MRT",
+            "HarbourFront MRT Station",
+            "HarbourFront Station",
+            "NE1",
+            "NE 1",
+            "Harbour Front",
+            "HarborFront",
+            "Harbor Front"
+          ]
+        },
+        {
+          "text": "Outram Park",
+          "tierId": "schooler",
+          "aliases": [
+            "Outram Park MRT",
+            "Outram Park MRT Station",
+            "Outram Park Station",
+            "NE3",
+            "NE 3"
+          ]
+        },
+        {
+          "text": "Chinatown",
+          "tierId": "plankton",
+          "aliases": [
+            "Chinatown MRT",
+            "Chinatown MRT Station",
+            "Chinatown Station",
+            "NE4",
+            "NE 4"
+          ]
+        },
+        {
+          "text": "Clarke Quay",
+          "tierId": "schooler",
+          "aliases": [
+            "Clarke Quay MRT",
+            "Clarke Quay MRT Station",
+            "Clarke Quay Station",
+            "NE5",
+            "NE 5"
+          ]
+        },
+        {
+          "text": "Dhoby Ghaut",
+          "tierId": "plankton",
+          "aliases": [
+            "Dhoby Ghaut MRT",
+            "Dhoby Ghaut MRT Station",
+            "Dhoby Ghaut Station",
+            "NE6",
+            "NE 6"
+          ]
+        },
+        {
+          "text": "Little India",
+          "tierId": "schooler",
+          "aliases": [
+            "Little India MRT",
+            "Little India MRT Station",
+            "Little India Station",
+            "NE7",
+            "NE 7"
+          ]
+        },
+        {
+          "text": "Farrer Park",
+          "tierId": "rare",
+          "aliases": [
+            "Farrer Park MRT",
+            "Farrer Park MRT Station",
+            "Farrer Park Station",
+            "NE8",
+            "NE 8"
+          ]
+        },
+        {
+          "text": "Boon Keng",
+          "tierId": "deep-cut",
+          "aliases": [
+            "Boon Keng MRT",
+            "Boon Keng MRT Station",
+            "Boon Keng Station",
+            "NE9",
+            "NE 9"
+          ]
+        },
+        {
+          "text": "Potong Pasir",
+          "tierId": "one-in-a-krillion",
+          "aliases": [
+            "Potong Pasir MRT",
+            "Potong Pasir MRT Station",
+            "Potong Pasir Station",
+            "NE10",
+            "NE 10"
+          ]
+        },
+        {
+          "text": "Woodleigh",
+          "tierId": "deep-cut",
+          "aliases": [
+            "Woodleigh MRT",
+            "Woodleigh MRT Station",
+            "Woodleigh Station",
+            "NE11",
+            "NE 11"
+          ]
+        },
+        {
+          "text": "Serangoon",
+          "tierId": "plankton",
+          "aliases": [
+            "Serangoon MRT",
+            "Serangoon MRT Station",
+            "Serangoon Station",
+            "NE12",
+            "NE 12"
+          ]
+        },
+        {
+          "text": "Kovan",
+          "tierId": "rare",
+          "aliases": [
+            "Kovan MRT",
+            "Kovan MRT Station",
+            "Kovan Station",
+            "NE13",
+            "NE 13"
+          ]
+        },
+        {
+          "text": "Hougang",
+          "tierId": "schooler",
+          "aliases": [
+            "Hougang MRT",
+            "Hougang MRT Station",
+            "Hougang Station",
+            "NE14",
+            "NE 14"
+          ]
+        },
+        {
+          "text": "Buangkok",
+          "tierId": "deep-cut",
+          "aliases": [
+            "Buangkok MRT",
+            "Buangkok MRT Station",
+            "Buangkok Station",
+            "NE15",
+            "NE 15"
+          ]
+        },
+        {
+          "text": "Sengkang",
+          "tierId": "schooler",
+          "aliases": [
+            "Sengkang MRT",
+            "Sengkang MRT Station",
+            "Sengkang Station",
+            "NE16",
+            "NE 16"
+          ]
+        },
+        {
+          "text": "Punggol",
+          "tierId": "schooler",
+          "aliases": [
+            "Punggol MRT",
+            "Punggol MRT Station",
+            "Punggol Station",
+            "NE17",
+            "NE 17"
+          ]
+        },
+        {
+          "text": "Punggol Coast",
+          "tierId": "too-clever",
+          "aliases": [
+            "Punggol Coast MRT",
+            "Punggol Coast MRT Station",
+            "Punggol Coast Station",
+            "NE18",
+            "NE 18"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "singapore-presidents",
+      "text": "Name someone who has served as President of Singapore from 1965 to 16 November 2026. Acting presidents do not count.",
+      "answers": [
+        {
+          "text": "Yusof Ishak",
+          "tierId": "plankton",
+          "aliases": [
+            "Yusof",
+            "Yusof bin Ishak",
+            "Encik Yusof Ishak",
+            "President Yusof Ishak"
+          ]
+        },
+        {
+          "text": "Benjamin Sheares",
+          "tierId": "deep-cut",
+          "aliases": [
+            "Benjamin Henry Sheares",
+            "Sheares",
+            "Dr Benjamin Sheares",
+            "President Benjamin Sheares"
+          ]
+        },
+        {
+          "text": "Devan Nair",
+          "tierId": "one-in-a-krillion",
+          "aliases": [
+            "C V Devan Nair",
+            "C. V. Devan Nair",
+            "Chengara Veetil Devan Nair",
+            "President Devan Nair"
+          ]
+        },
+        {
+          "text": "Wee Kim Wee",
+          "tierId": "rare",
+          "aliases": [
+            "Wee",
+            "President Wee Kim Wee"
+          ]
+        },
+        {
+          "text": "Ong Teng Cheong",
+          "tierId": "schooler",
+          "aliases": [
+            "Ong",
+            "OTC",
+            "President Ong Teng Cheong"
+          ]
+        },
+        {
+          "text": "S. R. Nathan",
+          "tierId": "schooler",
+          "aliases": [
+            "S R Nathan",
+            "SR Nathan",
+            "Nathan",
+            "Sellapan Ramanathan",
+            "President S R Nathan",
+            "President Nathan"
+          ]
+        },
+        {
+          "text": "Tony Tan Keng Yam",
+          "tierId": "schooler",
+          "aliases": [
+            "Tony Tan",
+            "Tan Keng Yam",
+            "President Tony Tan"
+          ]
+        },
+        {
+          "text": "Halimah Yacob",
+          "tierId": "plankton",
+          "aliases": [
+            "Halimah",
+            "Madam Halimah Yacob",
+            "Mdm Halimah Yacob",
+            "President Halimah Yacob"
+          ]
+        },
+        {
+          "text": "Tharman Shanmugaratnam",
+          "tierId": "plankton",
+          "aliases": [
+            "Tharman",
+            "President Tharman",
+            "President Tharman Shanmugaratnam"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sg-planning-areas",
+      "text": "Name one of Singapore's 55 URA planning areas. Use the planning-area name, not a smaller neighbourhood or subzone.",
+      "answers": [
+        {
+          "text": "Ang Mo Kio",
+          "tierId": "schooler",
+          "aliases": [
+            "AMK",
+            "Ang Mo Kio Planning Area"
+          ]
+        },
+        {
+          "text": "Bedok",
+          "tierId": "plankton",
+          "aliases": [
+            "Bedok Planning Area"
+          ]
+        },
+        {
+          "text": "Bishan",
+          "tierId": "schooler",
+          "aliases": [
+            "Bishan Planning Area"
+          ]
+        },
+        {
+          "text": "Boon Lay",
+          "tierId": "rare",
+          "aliases": [
+            "Boon Lay Planning Area"
+          ]
+        },
+        {
+          "text": "Bukit Batok",
+          "tierId": "schooler",
+          "aliases": [
+            "Bukit Batok Planning Area"
+          ]
+        },
+        {
+          "text": "Bukit Merah",
+          "tierId": "rare",
+          "aliases": [
+            "Bukit Merah Planning Area"
+          ]
+        },
+        {
+          "text": "Bukit Panjang",
+          "tierId": "schooler",
+          "aliases": [
+            "Bukit Panjang Planning Area"
+          ]
+        },
+        {
+          "text": "Bukit Timah",
+          "tierId": "schooler",
+          "aliases": [
+            "Bukit Timah Planning Area"
+          ]
+        },
+        {
+          "text": "Central Water Catchment",
+          "tierId": "deep-cut",
+          "aliases": [
+            "Central Water Catchment Planning Area"
+          ]
+        },
+        {
+          "text": "Changi",
+          "tierId": "plankton",
+          "aliases": [
+            "Changi Planning Area"
+          ]
+        },
+        {
+          "text": "Changi Bay",
+          "tierId": "deep-cut",
+          "aliases": [
+            "Changi Bay Planning Area"
+          ]
+        },
+        {
+          "text": "Choa Chu Kang",
+          "tierId": "schooler",
+          "aliases": [
+            "Chua Chu Kang",
+            "CCK",
+            "Choa Chu Kang Planning Area"
+          ]
+        },
+        {
+          "text": "Clementi",
+          "tierId": "schooler",
+          "aliases": [
+            "Clementi Planning Area"
+          ]
+        },
+        {
+          "text": "Downtown Core",
+          "tierId": "rare",
+          "aliases": [
+            "Downtown Core Planning Area"
+          ]
+        },
+        {
+          "text": "Geylang",
+          "tierId": "schooler",
+          "aliases": [
+            "Geylang Planning Area"
+          ]
+        },
+        {
+          "text": "Hougang",
+          "tierId": "schooler",
+          "aliases": [
+            "Hougang Planning Area"
+          ]
+        },
+        {
+          "text": "Jurong East",
+          "tierId": "schooler",
+          "aliases": [
+            "Jurong East Planning Area"
+          ]
+        },
+        {
+          "text": "Jurong West",
+          "tierId": "schooler",
+          "aliases": [
+            "Jurong West Planning Area"
+          ]
+        },
+        {
+          "text": "Kallang",
+          "tierId": "schooler",
+          "aliases": [
+            "Kallang Planning Area"
+          ]
+        },
+        {
+          "text": "Lim Chu Kang",
+          "tierId": "rare",
+          "aliases": [
+            "LCK",
+            "Lim Chu Kang Planning Area"
+          ]
+        },
+        {
+          "text": "Mandai",
+          "tierId": "rare",
+          "aliases": [
+            "Mandai Planning Area"
+          ]
+        },
+        {
+          "text": "Marina East",
+          "tierId": "deep-cut",
+          "aliases": [
+            "Marina East Planning Area"
+          ]
+        },
+        {
+          "text": "Marina South",
+          "tierId": "rare",
+          "aliases": [
+            "Marina South Planning Area"
+          ]
+        },
+        {
+          "text": "Marine Parade",
+          "tierId": "schooler",
+          "aliases": [
+            "Marine Parade Planning Area"
+          ]
+        },
+        {
+          "text": "Museum",
+          "tierId": "one-in-a-krillion",
+          "aliases": [
+            "Museum Planning Area"
+          ]
+        },
+        {
+          "text": "Newton",
+          "tierId": "rare",
+          "aliases": [
+            "Newton Planning Area"
+          ]
+        },
+        {
+          "text": "North-Eastern Islands",
+          "tierId": "deep-cut",
+          "aliases": [
+            "Northeastern Islands",
+            "North Eastern Islands",
+            "North-East Islands",
+            "North East Islands",
+            "North-Eastern Islands Planning Area"
+          ]
+        },
+        {
+          "text": "Novena",
+          "tierId": "schooler",
+          "aliases": [
+            "Novena Planning Area"
+          ]
+        },
+        {
+          "text": "Orchard",
+          "tierId": "plankton",
+          "aliases": [
+            "Orchard Planning Area"
+          ]
+        },
+        {
+          "text": "Outram",
+          "tierId": "rare",
+          "aliases": [
+            "Outram Planning Area"
+          ]
+        },
+        {
+          "text": "Pasir Ris",
+          "tierId": "schooler",
+          "aliases": [
+            "Pasir Ris Planning Area"
+          ]
+        },
+        {
+          "text": "Paya Lebar",
+          "tierId": "schooler",
+          "aliases": [
+            "Paya Lebar Planning Area"
+          ]
+        },
+        {
+          "text": "Pioneer",
+          "tierId": "rare",
+          "aliases": [
+            "Pioneer Planning Area"
+          ]
+        },
+        {
+          "text": "Punggol",
+          "tierId": "plankton",
+          "aliases": [
+            "Punggol Planning Area"
+          ]
+        },
+        {
+          "text": "Queenstown",
+          "tierId": "schooler",
+          "aliases": [
+            "Queenstown Planning Area"
+          ]
+        },
+        {
+          "text": "River Valley",
+          "tierId": "rare",
+          "aliases": [
+            "River Valley Planning Area"
+          ]
+        },
+        {
+          "text": "Rochor",
+          "tierId": "rare",
+          "aliases": [
+            "Rochor Planning Area"
+          ]
+        },
+        {
+          "text": "Seletar",
+          "tierId": "rare",
+          "aliases": [
+            "Seletar Planning Area"
+          ]
+        },
+        {
+          "text": "Sembawang",
+          "tierId": "schooler",
+          "aliases": [
+            "Sembawang Planning Area"
+          ]
+        },
+        {
+          "text": "Sengkang",
+          "tierId": "schooler",
+          "aliases": [
+            "Sengkang Planning Area"
+          ]
+        },
+        {
+          "text": "Serangoon",
+          "tierId": "schooler",
+          "aliases": [
+            "Serangoon Planning Area"
+          ]
+        },
+        {
+          "text": "Simpang",
+          "tierId": "one-in-a-krillion",
+          "aliases": [
+            "Simpang Planning Area"
+          ]
+        },
+        {
+          "text": "Singapore River",
+          "tierId": "rare",
+          "aliases": [
+            "Singapore River Planning Area"
+          ]
+        },
+        {
+          "text": "Southern Islands",
+          "tierId": "deep-cut",
+          "aliases": [
+            "Southern Islands Planning Area"
+          ]
+        },
+        {
+          "text": "Straits View",
+          "tierId": "one-in-a-krillion",
+          "aliases": [
+            "Straits View Planning Area"
+          ]
+        },
+        {
+          "text": "Sungei Kadut",
+          "tierId": "deep-cut",
+          "aliases": [
+            "Sungai Kadut",
+            "Sungei Kadut Planning Area"
+          ]
+        },
+        {
+          "text": "Tampines",
+          "tierId": "plankton",
+          "aliases": [
+            "Tampines Planning Area"
+          ]
+        },
+        {
+          "text": "Tanglin",
+          "tierId": "rare",
+          "aliases": [
+            "Tanglin Planning Area"
+          ]
+        },
+        {
+          "text": "Tengah",
+          "tierId": "rare",
+          "aliases": [
+            "Tengah Planning Area"
+          ]
+        },
+        {
+          "text": "Toa Payoh",
+          "tierId": "schooler",
+          "aliases": [
+            "TPY",
+            "Toa Payoh Planning Area"
+          ]
+        },
+        {
+          "text": "Tuas",
+          "tierId": "schooler",
+          "aliases": [
+            "Tuas Planning Area"
+          ]
+        },
+        {
+          "text": "Western Islands",
+          "tierId": "deep-cut",
+          "aliases": [
+            "Western Islands Planning Area"
+          ]
+        },
+        {
+          "text": "Western Water Catchment",
+          "tierId": "deep-cut",
+          "aliases": [
+            "Western Water Catchment Planning Area"
+          ]
+        },
+        {
+          "text": "Woodlands",
+          "tierId": "plankton",
+          "aliases": [
+            "Woodlands Planning Area"
+          ]
+        },
+        {
+          "text": "Yishun",
+          "tierId": "plankton",
+          "aliases": [
+            "Yishun Planning Area"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "portrait-banknote-denominations",
+      "text": "Name a denomination in Singapore's regular Portrait Series banknotes. Include denominations no longer issued; exclude commemorative notes. Enter a dollar amount.",
+      "answers": [
+        {
+          "text": "$2",
+          "tierId": "plankton",
+          "aliases": [
+            "2",
+            "S$2",
+            "SGD 2",
+            "2 dollars",
+            "two",
+            "two dollars",
+            "2 dollar note",
+            "two dollar note",
+            "two-dollar note"
+          ]
+        },
+        {
+          "text": "$5",
+          "tierId": "schooler",
+          "aliases": [
+            "5",
+            "S$5",
+            "SGD 5",
+            "5 dollars",
+            "five",
+            "five dollars",
+            "5 dollar note",
+            "five dollar note",
+            "five-dollar note"
+          ]
+        },
+        {
+          "text": "$10",
+          "tierId": "plankton",
+          "aliases": [
+            "10",
+            "S$10",
+            "SGD 10",
+            "10 dollars",
+            "ten",
+            "ten dollars",
+            "10 dollar note",
+            "ten dollar note",
+            "ten-dollar note"
+          ]
+        },
+        {
+          "text": "$50",
+          "tierId": "schooler",
+          "aliases": [
+            "50",
+            "S$50",
+            "SGD 50",
+            "50 dollars",
+            "fifty",
+            "fifty dollars",
+            "50 dollar note",
+            "fifty dollar note",
+            "fifty-dollar note"
+          ]
+        },
+        {
+          "text": "$100",
+          "tierId": "rare",
+          "aliases": [
+            "100",
+            "S$100",
+            "SGD 100",
+            "100 dollars",
+            "one hundred",
+            "one hundred dollars",
+            "100 dollar note",
+            "one hundred dollar note",
+            "one hundred-dollar note",
+            "a hundred",
+            "hundred",
+            "hundred dollars"
+          ]
+        },
+        {
+          "text": "$1000",
+          "tierId": "deep-cut",
+          "aliases": [
+            "1000",
+            "S$1000",
+            "SGD 1000",
+            "1000 dollars",
+            "one thousand",
+            "one thousand dollars",
+            "1000 dollar note",
+            "one thousand dollar note",
+            "one thousand-dollar note",
+            "1,000",
+            "$1,000",
+            "S$1,000",
+            "SGD 1,000",
+            "1,000 dollars",
+            "1k",
+            "$1k",
+            "a thousand",
+            "thousand",
+            "thousand dollars"
+          ]
+        },
+        {
+          "text": "$10000",
+          "tierId": "too-clever",
+          "aliases": [
+            "10000",
+            "S$10000",
+            "SGD 10000",
+            "10000 dollars",
+            "ten thousand",
+            "ten thousand dollars",
+            "10000 dollar note",
+            "ten thousand dollar note",
+            "ten thousand-dollar note",
+            "10,000",
+            "$10,000",
+            "S$10,000",
+            "SGD 10,000",
+            "10,000 dollars",
+            "10k",
+            "$10k"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sg-reservoirs",
+      "text": "Name one of Singapore's 17 PUB raw-water reservoirs (including Jurong Lake). Exclude treated-water service reservoirs.",
+      "answers": [
+        {
+          "text": "MacRitchie Reservoir",
+          "tierId": "plankton",
+          "aliases": [
+            "Mac Ritchie",
+            "Mac Ritchie Reservoir",
+            "MacRitchie"
+          ]
+        },
+        {
+          "text": "Marina Reservoir",
+          "tierId": "plankton",
+          "aliases": [
+            "Marina"
+          ]
+        },
+        {
+          "text": "Bedok Reservoir",
+          "tierId": "schooler",
+          "aliases": [
+            "Bedok"
+          ]
+        },
+        {
+          "text": "Lower Seletar Reservoir",
+          "tierId": "schooler",
+          "aliases": [
+            "Lower Seletar"
+          ]
+        },
+        {
+          "text": "Upper Seletar Reservoir",
+          "tierId": "rare",
+          "aliases": [
+            "Upper Seletar"
+          ]
+        },
+        {
+          "text": "Lower Peirce Reservoir",
+          "tierId": "rare",
+          "aliases": [
+            "Lower Pierce",
+            "Lower Pierce Reservoir",
+            "Lower Peirce"
+          ]
+        },
+        {
+          "text": "Upper Peirce Reservoir",
+          "tierId": "rare",
+          "aliases": [
+            "Upper Pierce",
+            "Upper Pierce Reservoir",
+            "Upper Peirce"
+          ]
+        },
+        {
+          "text": "Pandan Reservoir",
+          "tierId": "rare",
+          "aliases": [
+            "Pandan"
+          ]
+        },
+        {
+          "text": "Kranji Reservoir",
+          "tierId": "rare",
+          "aliases": [
+            "Kranji"
+          ]
+        },
+        {
+          "text": "Jurong Lake",
+          "tierId": "schooler",
+          "aliases": []
+        },
+        {
+          "text": "Punggol Reservoir",
+          "tierId": "rare",
+          "aliases": [
+            "Punggol"
+          ]
+        },
+        {
+          "text": "Serangoon Reservoir",
+          "tierId": "rare",
+          "aliases": [
+            "Serangoon"
+          ]
+        },
+        {
+          "text": "Tengeh Reservoir",
+          "tierId": "deep-cut",
+          "aliases": [
+            "Tengeh"
+          ]
+        },
+        {
+          "text": "Sarimbun Reservoir",
+          "tierId": "deep-cut",
+          "aliases": [
+            "Sarimbun"
+          ]
+        },
+        {
+          "text": "Poyan Reservoir",
+          "tierId": "one-in-a-krillion",
+          "aliases": [
+            "Poyan"
+          ]
+        },
+        {
+          "text": "Murai Reservoir",
+          "tierId": "one-in-a-krillion",
+          "aliases": [
+            "Murai"
+          ]
+        },
+        {
+          "text": "Tekong Reservoir",
+          "tierId": "deep-cut",
+          "aliases": [
+            "Pulau Tekong",
+            "Pulau Tekong Reservoir",
+            "Tekong"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "singapore-autonomous-universities",
+      "text": "Name one of Singapore's six autonomous universities. Full names or standard abbreviations are accepted.",
+      "answers": [
+        {
+          "text": "National University of Singapore",
+          "tierId": "plankton",
+          "aliases": [
+            "NUS"
+          ]
+        },
+        {
+          "text": "Nanyang Technological University",
+          "tierId": "plankton",
+          "aliases": [
+            "NTU",
+            "NTU Singapore",
+            "Nanyang Technological University Singapore",
+            "Nanyang Technological University, Singapore"
+          ]
+        },
+        {
+          "text": "Singapore Management University",
+          "tierId": "schooler",
+          "aliases": [
+            "SMU"
+          ]
+        },
+        {
+          "text": "Singapore Institute of Technology",
+          "tierId": "rare",
+          "aliases": [
+            "SIT"
+          ]
+        },
+        {
+          "text": "Singapore University of Technology and Design",
+          "tierId": "deep-cut",
+          "aliases": [
+            "SUTD",
+            "Singapore University of Technology & Design"
+          ]
+        },
+        {
+          "text": "Singapore University of Social Sciences",
+          "tierId": "rare",
+          "aliases": [
+            "SUSS"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "singapore-downtown-line",
+      "text": "Name an operational MRT station on Singapore's Downtown Line (blue line), as of 16 November 2026. Station names or DT codes are accepted.",
+      "answers": [
+        {
+          "text": "Bukit Panjang",
+          "tierId": "schooler",
+          "aliases": [
+            "Bukit Panjang MRT",
+            "Bukit Panjang MRT Station",
+            "Bukit Panjang Station",
+            "DT1",
+            "DT 1"
+          ]
+        },
+        {
+          "text": "Cashew",
+          "tierId": "deep-cut",
+          "aliases": [
+            "Cashew MRT",
+            "Cashew MRT Station",
+            "Cashew Station",
+            "DT2",
+            "DT 2"
+          ]
+        },
+        {
+          "text": "Hillview",
+          "tierId": "rare",
+          "aliases": [
+            "Hillview MRT",
+            "Hillview MRT Station",
+            "Hillview Station",
+            "DT3",
+            "DT 3"
+          ]
+        },
+        {
+          "text": "Hume",
+          "tierId": "too-clever",
+          "aliases": [
+            "Hume MRT",
+            "Hume MRT Station",
+            "Hume Station",
+            "DT4",
+            "DT 4"
+          ]
+        },
+        {
+          "text": "Beauty World",
+          "tierId": "schooler",
+          "aliases": [
+            "Beauty World MRT",
+            "Beauty World MRT Station",
+            "Beauty World Station",
+            "DT5",
+            "DT 5"
+          ]
+        },
+        {
+          "text": "King Albert Park",
+          "tierId": "rare",
+          "aliases": [
+            "King Albert Park MRT",
+            "King Albert Park MRT Station",
+            "King Albert Park Station",
+            "DT6",
+            "DT 6"
+          ]
+        },
+        {
+          "text": "Sixth Avenue",
+          "tierId": "deep-cut",
+          "aliases": [
+            "Sixth Avenue MRT",
+            "Sixth Avenue MRT Station",
+            "Sixth Avenue Station",
+            "DT7",
+            "DT 7"
+          ]
+        },
+        {
+          "text": "Tan Kah Kee",
+          "tierId": "deep-cut",
+          "aliases": [
+            "Tan Kah Kee MRT",
+            "Tan Kah Kee MRT Station",
+            "Tan Kah Kee Station",
+            "DT8",
+            "DT 8"
+          ]
+        },
+        {
+          "text": "Botanic Gardens",
+          "tierId": "schooler",
+          "aliases": [
+            "Botanic Gardens MRT",
+            "Botanic Gardens MRT Station",
+            "Botanic Gardens Station",
+            "DT9",
+            "DT 9"
+          ]
+        },
+        {
+          "text": "Stevens",
+          "tierId": "rare",
+          "aliases": [
+            "Stevens MRT",
+            "Stevens MRT Station",
+            "Stevens Station",
+            "DT10",
+            "DT 10"
+          ]
+        },
+        {
+          "text": "Newton",
+          "tierId": "schooler",
+          "aliases": [
+            "Newton MRT",
+            "Newton MRT Station",
+            "Newton Station",
+            "DT11",
+            "DT 11"
+          ]
+        },
+        {
+          "text": "Little India",
+          "tierId": "schooler",
+          "aliases": [
+            "Little India MRT",
+            "Little India MRT Station",
+            "Little India Station",
+            "DT12",
+            "DT 12"
+          ]
+        },
+        {
+          "text": "Rochor",
+          "tierId": "rare",
+          "aliases": [
+            "Rochor MRT",
+            "Rochor MRT Station",
+            "Rochor Station",
+            "DT13",
+            "DT 13"
+          ]
+        },
+        {
+          "text": "Bugis",
+          "tierId": "plankton",
+          "aliases": [
+            "Bugis MRT",
+            "Bugis MRT Station",
+            "Bugis Station",
+            "DT14",
+            "DT 14"
+          ]
+        },
+        {
+          "text": "Promenade",
+          "tierId": "schooler",
+          "aliases": [
+            "Promenade MRT",
+            "Promenade MRT Station",
+            "Promenade Station",
+            "DT15",
+            "DT 15"
+          ]
+        },
+        {
+          "text": "Bayfront",
+          "tierId": "plankton",
+          "aliases": [
+            "Bayfront MRT",
+            "Bayfront MRT Station",
+            "Bayfront Station",
+            "DT16",
+            "DT 16"
+          ]
+        },
+        {
+          "text": "Downtown",
+          "tierId": "too-clever",
+          "aliases": [
+            "Downtown MRT",
+            "Downtown MRT Station",
+            "Downtown Station",
+            "DT17",
+            "DT 17"
+          ]
+        },
+        {
+          "text": "Telok Ayer",
+          "tierId": "rare",
+          "aliases": [
+            "Telok Ayer MRT",
+            "Telok Ayer MRT Station",
+            "Telok Ayer Station",
+            "DT18",
+            "DT 18"
+          ]
+        },
+        {
+          "text": "Chinatown",
+          "tierId": "plankton",
+          "aliases": [
+            "Chinatown MRT",
+            "Chinatown MRT Station",
+            "Chinatown Station",
+            "DT19",
+            "DT 19"
+          ]
+        },
+        {
+          "text": "Fort Canning",
+          "tierId": "rare",
+          "aliases": [
+            "Fort Canning MRT",
+            "Fort Canning MRT Station",
+            "Fort Canning Station",
+            "DT20",
+            "DT 20"
+          ]
+        },
+        {
+          "text": "Bencoolen",
+          "tierId": "rare",
+          "aliases": [
+            "Bencoolen MRT",
+            "Bencoolen MRT Station",
+            "Bencoolen Station",
+            "DT21",
+            "DT 21"
+          ]
+        },
+        {
+          "text": "Jalan Besar",
+          "tierId": "rare",
+          "aliases": [
+            "Jalan Besar MRT",
+            "Jalan Besar MRT Station",
+            "Jalan Besar Station",
+            "DT22",
+            "DT 22"
+          ]
+        },
+        {
+          "text": "Bendemeer",
+          "tierId": "deep-cut",
+          "aliases": [
+            "Bendemeer MRT",
+            "Bendemeer MRT Station",
+            "Bendemeer Station",
+            "DT23",
+            "DT 23"
+          ]
+        },
+        {
+          "text": "Geylang Bahru",
+          "tierId": "deep-cut",
+          "aliases": [
+            "Geylang Bahru MRT",
+            "Geylang Bahru MRT Station",
+            "Geylang Bahru Station",
+            "DT24",
+            "DT 24"
+          ]
+        },
+        {
+          "text": "Mattar",
+          "tierId": "one-in-a-krillion",
+          "aliases": [
+            "Mattar MRT",
+            "Mattar MRT Station",
+            "Mattar Station",
+            "DT25",
+            "DT 25"
+          ]
+        },
+        {
+          "text": "MacPherson",
+          "tierId": "rare",
+          "aliases": [
+            "MacPherson MRT",
+            "MacPherson MRT Station",
+            "MacPherson Station",
+            "DT26",
+            "DT 26",
+            "Mac Pherson"
+          ]
+        },
+        {
+          "text": "Ubi",
+          "tierId": "deep-cut",
+          "aliases": [
+            "Ubi MRT",
+            "Ubi MRT Station",
+            "Ubi Station",
+            "DT27",
+            "DT 27"
+          ]
+        },
+        {
+          "text": "Kaki Bukit",
+          "tierId": "deep-cut",
+          "aliases": [
+            "Kaki Bukit MRT",
+            "Kaki Bukit MRT Station",
+            "Kaki Bukit Station",
+            "DT28",
+            "DT 28"
+          ]
+        },
+        {
+          "text": "Bedok North",
+          "tierId": "deep-cut",
+          "aliases": [
+            "Bedok North MRT",
+            "Bedok North MRT Station",
+            "Bedok North Station",
+            "DT29",
+            "DT 29"
+          ]
+        },
+        {
+          "text": "Bedok Reservoir",
+          "tierId": "rare",
+          "aliases": [
+            "Bedok Reservoir MRT",
+            "Bedok Reservoir MRT Station",
+            "Bedok Reservoir Station",
+            "DT30",
+            "DT 30"
+          ]
+        },
+        {
+          "text": "Tampines West",
+          "tierId": "rare",
+          "aliases": [
+            "Tampines West MRT",
+            "Tampines West MRT Station",
+            "Tampines West Station",
+            "DT31",
+            "DT 31"
+          ]
+        },
+        {
+          "text": "Tampines",
+          "tierId": "schooler",
+          "aliases": [
+            "Tampines MRT",
+            "Tampines MRT Station",
+            "Tampines Station",
+            "DT32",
+            "DT 32"
+          ]
+        },
+        {
+          "text": "Tampines East",
+          "tierId": "rare",
+          "aliases": [
+            "Tampines East MRT",
+            "Tampines East MRT Station",
+            "Tampines East Station",
+            "DT33",
+            "DT 33"
+          ]
+        },
+        {
+          "text": "Upper Changi",
+          "tierId": "deep-cut",
+          "aliases": [
+            "Upper Changi MRT",
+            "Upper Changi MRT Station",
+            "Upper Changi Station",
+            "DT34",
+            "DT 34"
+          ]
+        },
+        {
+          "text": "Expo",
+          "tierId": "schooler",
+          "aliases": [
+            "Expo MRT",
+            "Expo MRT Station",
+            "Expo Station",
+            "DT35",
+            "DT 35"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sg-nature-reserves",
+      "text": "Name one of Singapore's four gazetted nature reserves. Nature parks and marine parks do not count.",
+      "answers": [
+        {
+          "text": "Bukit Timah Nature Reserve",
+          "tierId": "plankton",
+          "aliases": [
+            "Bukit Timah",
+            "BTNR"
+          ]
+        },
+        {
+          "text": "Central Catchment Nature Reserve",
+          "tierId": "schooler",
+          "aliases": [
+            "Central Catchment",
+            "CCNR"
+          ]
+        },
+        {
+          "text": "Sungei Buloh Wetland Reserve",
+          "tierId": "schooler",
+          "aliases": [
+            "Sungei Buloh",
+            "Sungai Buloh",
+            "Sungai Buloh Wetland Reserve",
+            "Sungei Buloh Nature Reserve",
+            "SBWR"
+          ]
+        },
+        {
+          "text": "Labrador Nature Reserve",
+          "tierId": "rare",
+          "aliases": [
+            "Labrador",
+            "Labrador Park"
+          ]
+        }
+      ]
+    }
+  ]
+}

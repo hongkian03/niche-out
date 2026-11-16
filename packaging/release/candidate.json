@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "productName": "Niche Out",
+  "version": "0.1.0",
+  "channel": "private-candidate",
+  "publicationAuthorized": false,
+  "ownerDecisions": {
+    "publisher": null,
+    "projectLicenseSpdx": null,
+    "copyrightNotice": null,
+    "assetRightsApproved": false,
+    "publicationDestination": null
+  },
+  "signing": {
+    "macDeveloperId": null,
+    "macTeamId": null,
+    "macNotaryKeychainProfile": null,
+    "windowsCertificateThumbprint": null,
+    "windowsTimestampUrl": null,
+    "linuxOpenPgpFingerprint": null
+  },
+  "unimplementedPrerequisites": [
+    "mac-app-container-and-authenticated-launcher",
+    "mac-tested-hardened-runtime-entitlements",
+    "post-sign-resource-and-connector-digest-pipeline",
+    "windows-authenticode-native-resource-verifier",
+    "persistent-project-manifest-signing-chain"
+  ],
+  "noticeReviewComplete": false,
+  "finalSignedTargetEvidence": {
+    "darwin-arm64": null,
+    "darwin-x64": null,
+    "win32-x64": null,
+    "linux-x64": null
+  }
+}

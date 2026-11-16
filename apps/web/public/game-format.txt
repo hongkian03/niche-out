@@ -1,0 +1,36 @@
+NICHE — GAME FILE FORMAT (schemaVersion 1)
+
+Download game.example.json as a starting point. Edit the JSON in a text editor.
+The host validates the entire file before you explicitly create a lobby.
+
+Required top-level fields:
+  schemaVersion: 1
+  title: a nonempty game title, at most 256 characters
+  tiers: one or more objects with id, name, and nonnegative integer points
+  prompts: 1–20 ordered prompt objects
+
+Each prompt contains:
+  id: a unique prompt identifier
+  text: the prompt (up to 4,096 characters)
+  answers: one or more accepted answers
+
+Each answer contains:
+  text: its canonical wording (up to 512 characters)
+  tierId: the id of a tier declared above
+  aliases: an optional array of alternative spellings (up to 512 characters each)
+
+Matching ignores capitalization and normalizes whitespace. Only the declared
+answers and aliases match. Ambiguous duplicate normalized answers are rejected.
+Points come from the assigned tier; player answer counts do not change points.
+
+Optional settings apply to every prompt:
+  readingSeconds: 3 by default
+  answerSeconds: 25 by default
+  resultsSeconds: 10 by default
+Each duration must be between 0.1 and 600 seconds.
+
+The upload limit is 10 MiB. Unknown fields are rejected with a field-specific
+error. Content is plain text, never HTML. The prototype UI is in English.
+
+First accepted answers lock. Rejected answers can be edited and submitted again.
+No answer is submitted automatically. Tier and points appear only at round end.

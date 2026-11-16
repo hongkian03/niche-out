@@ -1,0 +1,19 @@
+node_modules/
+dist/
+build/
+test-results/
+tooling/
+.local/
+
+# Portable private artifacts and local verification output
+dist-release/
+work/
+
+# Local settings and credentials
+.DS_Store
+.env
+.env.*
+!.env.example
+*.pem
+*.p12
+*.pfx

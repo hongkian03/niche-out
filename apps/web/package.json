@@ -1,0 +1,19 @@
+{
+  "name": "@rarity/web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@rarity/contracts": "0.1.0",
+    "qrcode": "1.5.4",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "socket.io-client": "4.8.4"
+  },
+  "devDependencies": {
+    "vite": "8.3.8"
+  },
+  "scripts": {
+    "build": "vite build"
+  }
+}

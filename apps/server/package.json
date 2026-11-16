@@ -1,0 +1,22 @@
+{
+  "name": "@rarity/server",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@rarity/contracts": "0.1.0",
+    "@rarity/game-core": "0.1.0",
+    "fastify": "5.12.8",
+    "qrcode": "1.5.4",
+    "socket.io": "4.8.4"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  }
+}

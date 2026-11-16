@@ -1,0 +1,3418 @@
+{
+  "formatVersion": 1,
+  "note": "Summaries only. Full sample arrays remain at each rawPath; exact compiled asset identities are adjacent manifests. Owner confirmed eduroam during this session. Final root typecheck adds a string guard to diagnostic close reasons; no gameplay behavior change.",
+  "runs": [
+    {
+      "label": "local-mixed-100-1794849937557",
+      "started": "2026-11-16T17:25:37.557Z",
+      "ended": "2026-11-16T17:27:50.547Z",
+      "status": "PASS",
+      "config": {
+        "tunnel": false,
+        "transport": "mixed",
+        "count": 100,
+        "games": 30,
+        "idleSeconds": 60,
+        "creationBatch": 10,
+        "joinBatch": 10,
+        "reconnectBatch": 100,
+        "submitBatch": 100
+      },
+      "machine": {
+        "cpu": "Apple M3 Pro",
+        "cores": 11,
+        "memoryBytes": 19327352832,
+        "kernel": "25.5.0",
+        "node": "v24.22.3"
+      },
+      "checks": [
+        "100 simulated players connected; each fetched production JS/CSS assets",
+        "101st admission rejected while admitted identities retained",
+        "100-player reconnect 0 preserved identity/control while full",
+        "100-player reconnect 29 preserved identity/control while full",
+        "30 complete two-round games: correct scores, duplicate replay idempotent, stale old-game answers rejected",
+        "local-only 300 waiting-session admission pressure bounded, current players preserved",
+        "local-only read burst rate-limited without evicting active player",
+        "60 seconds idle heartbeat retention kept every admitted connection and final score"
+      ],
+      "http": {
+        "requests": 894,
+        "maxInFlight": 10,
+        "bodyBytes": 63300053,
+        "statusCounts": {
+          "200": 849,
+          "503": 45
+        }
+      },
+      "summary": {
+        "endToEnd": {
+          "count": 12487,
+          "p50Ms": 13.400792000000365,
+          "p95Ms": 74.39137499999924,
+          "p99Ms": 138.5724590000009,
+          "maxMs": 680.0445419999999
+        },
+        "endToEndByOutcome": {
+          "state.get:STATE": {
+            "count": 67,
+            "p50Ms": 4.972084000000905,
+            "p95Ms": 42.64141599999857,
+            "p99Ms": 66.75970799999959,
+            "maxMs": 66.75970799999959
+          },
+          "game.join:JOINED": {
+            "count": 3000,
+            "p50Ms": 25.200292000001355,
+            "p95Ms": 101.99566699999923,
+            "p99Ms": 134.0227500000001,
+            "maxMs": 151.39179200000217
+          },
+          "game.join:GAME_FULL": {
+            "count": 1,
+            "p50Ms": 0.5077080000000933,
+            "p95Ms": 0.5077080000000933,
+            "p99Ms": 0.5077080000000933,
+            "maxMs": 0.5077080000000933
+          },
+          "game.resume:RESUMED": {
+            "count": 200,
+            "p50Ms": 95.59554100000014,
+            "p95Ms": 539.8290830000001,
+            "p99Ms": 551.8400409999999,
+            "maxMs": 680.0445419999999
+          },
+          "game.start:STARTED": {
+            "count": 30,
+            "p50Ms": 22.91108400000121,
+            "p95Ms": 23.99295799999527,
+            "p99Ms": 25.536333000000013,
+            "maxMs": 25.536333000000013
+          },
+          "answer.submit:REJECTED": {
+            "count": 3000,
+            "p50Ms": 9.594124999995984,
+            "p95Ms": 22.652874999999767,
+            "p99Ms": 24.8961249999993,
+            "maxMs": 27.955375000005006
+          },
+          "answer.submit:ACCEPTED": {
+            "count": 6060,
+            "p50Ms": 13.594833999995899,
+            "p95Ms": 42.31037500000093,
+            "p99Ms": 113.21549999999843,
+            "maxMs": 248.76654199999984
+          },
+          "answer.submit:WRONG_GAME": {
+            "count": 29,
+            "p50Ms": 2.021042000000307,
+            "p95Ms": 2.976083000001381,
+            "p99Ms": 3.339332999999897,
+            "maxMs": 3.339332999999897
+          },
+          "clock.sample:CLOCK": {
+            "count": 40,
+            "p50Ms": 15.600665999998455,
+            "p95Ms": 20.611917000001995,
+            "p99Ms": 20.612291999990703,
+            "maxMs": 20.612291999990703
+          },
+          "clock.sample:RATE_LIMITED": {
+            "count": 60,
+            "p50Ms": 28.476999999998952,
+            "p95Ms": 34.7913750000007,
+            "p99Ms": 37.81637499999488,
+            "maxMs": 37.81637499999488
+          }
+        },
+        "serverByOutcome": {
+          "state.get:STATE": {
+            "count": 67,
+            "p50Ms": 0.44258399999671383,
+            "p95Ms": 4.648874999998952,
+            "p99Ms": 7.089583000008133,
+            "maxMs": 7.089583000008133
+          },
+          "game.join:JOINED": {
+            "count": 3000,
+            "p50Ms": 5.752749999999651,
+            "p95Ms": 12.690708000001905,
+            "p99Ms": 13.526207999999315,
+            "maxMs": 27.562416000000667
+          },
+          "game.join:GAME_FULL": {
+            "count": 1,
+            "p50Ms": 0.34433400000011716,
+            "p95Ms": 0.34433400000011716,
+            "p99Ms": 0.34433400000011716,
+            "maxMs": 0.34433400000011716
+          },
+          "game.resume:RESUMED": {
+            "count": 200,
+            "p50Ms": 9.73587499999985,
+            "p95Ms": 13.362082999999984,
+            "p99Ms": 13.646417000003566,
+            "maxMs": 21.33379099999729
+          },
+          "game.start:STARTED": {
+            "count": 30,
+            "p50Ms": 22.734832999998616,
+            "p95Ms": 23.79491699999926,
+            "p99Ms": 25.321957999999995,
+            "maxMs": 25.321957999999995
+          },
+          "answer.submit:REJECTED": {
+            "count": 3000,
+            "p50Ms": 0.14904199999728007,
+            "p95Ms": 0.21712499999557622,
+            "p99Ms": 0.31720799999675364,
+            "maxMs": 2.462999999999738
+          },
+          "answer.submit:ACCEPTED": {
+            "count": 6060,
+            "p50Ms": 0.30362500000046566,
+            "p95Ms": 0.44654199999786215,
+            "p99Ms": 8.929082999999991,
+            "maxMs": 81.02387499999986
+          },
+          "answer.submit:WRONG_GAME": {
+            "count": 29,
+            "p50Ms": 0.09054199999809498,
+            "p95Ms": 0.130207999999584,
+            "p99Ms": 0.13154199999917182,
+            "maxMs": 0.13154199999917182
+          },
+          "clock.sample:CLOCK": {
+            "count": 40,
+            "p50Ms": 0.3432089999987511,
+            "p95Ms": 0.3673750000016298,
+            "p99Ms": 0.7711669999989681,
+            "maxMs": 0.7711669999989681
+          },
+          "clock.sample:RATE_LIMITED": {
+            "count": 60,
+            "p50Ms": 0.2485409999935655,
+            "p95Ms": 0.2654590000020107,
+            "p99Ms": 0.28820800001267344,
+            "maxMs": 0.28820800001267344
+          }
+        }
+      },
+      "measuredServerSha256": "c02348ae5c552d8bc574e2c90c732c1f68a1d613e4ad52f69d2385c59919ee6a",
+      "sourceManifestSha256": "7c1d7b833fdb043e76c3301a996d2aa7967cfaf395b61e68f37570b127ef67c7",
+      "assets": [
+        "/assets/index-CxbVSO4d.js",
+        "/assets/index--XyYokn1.css",
+        "/assets/VT323-Regular-DICElq-Y.ttf"
+      ],
+      "cycles": [
+        {
+          "cycle": 0,
+          "reconnectMs": 1573.7325000000003
+        },
+        {
+          "cycle": 0,
+          "heapAfterGc": 24520640,
+          "rss": 258015232,
+          "diagnostics": {
+            "connectedSockets": 101,
+            "players": 100,
+            "importMetrics": {
+              "bytes": 553,
+              "elapsedMs": 58.85904099999999,
+              "workerStarted": true,
+              "baselineRssBytes": 115228672,
+              "peakRssBytes": 142442496,
+              "parentPeakHeapBytes": 33091376,
+              "workerPeakHeapBytes": 12827384,
+              "transferRssBytes": 142442496
+            },
+            "upstreamTransport": {
+              "connections": 969,
+              "openConnections": 106,
+              "maxOpenConnections": 115,
+              "httpRequests": 1303,
+              "upgrades": 162,
+              "openHttpRequests": 14,
+              "maxOpenHttpRequests": 21,
+              "readBytes": 576162,
+              "writtenBytes": 86934452
+            }
+          }
+        },
+        {
+          "cycle": 1,
+          "heapAfterGc": 24822864,
+          "rss": 262242304,
+          "diagnostics": {
+            "connectedSockets": 101,
+            "players": 100,
+            "importMetrics": {
+              "bytes": 553,
+              "elapsedMs": 54.33458299999984,
+              "workerStarted": true,
+              "baselineRssBytes": 258097152,
+              "peakRssBytes": 264552448,
+              "parentPeakHeapBytes": 45841160,
+              "workerPeakHeapBytes": 12446896,
+              "transferRssBytes": 264552448
+            },
+            "upstreamTransport": {
+              "connections": 1544,
+              "openConnections": 84,
+              "maxOpenConnections": 115,
+              "httpRequests": 1880,
+              "upgrades": 162,
+              "openHttpRequests": 0,
+              "maxOpenHttpRequests": 21,
+              "readBytes": 889034,
+              "writtenBytes": 105629454
+            }
+          }
+        },
+        {
+          "cycle": 2,
+          "heapAfterGc": 24928272,
+          "rss": 265682944,
+          "diagnostics": {
+            "connectedSockets": 101,
+            "players": 100,
+            "importMetrics": {
+              "bytes": 553,
+              "elapsedMs": 49.27325000000019,
+              "workerStarted": true,
+              "baselineRssBytes": 261931008,
+              "peakRssBytes": 268910592,
+              "parentPeakHeapBytes": 49013152,
+              "workerPeakHeapBytes": 12424352,
+              "transferRssBytes": 268910592
+            },
+            "upstreamTransport": {
+              "connections": 2187,
+              "openConnections": 94,
+              "maxOpenConnections": 115,
+              "httpRequests": 2526,
+              "upgrades": 162,
+              "openHttpRequests": 10,
+              "maxOpenHttpRequests": 21,
+              "readBytes": 1224716,
+              "writtenBytes": 124908994
+            }
+          }
+        },
+        {
+          "cycle": 3,
+          "heapAfterGc": 24775088,
+          "rss": 268632064,
+          "diagnostics": {
+            "connectedSockets": 101,
+            "players": 100,
+            "importMetrics": {
+              "bytes": 553,
+              "elapsedMs": 42.88329200000044,
+              "workerStarted": true,
+              "baselineRssBytes": 265682944,
+              "peakRssBytes": 271761408,
+              "parentPeakHeapBytes": 49125024,
+              "workerPeakHeapBytes": 13098104,
+              "transferRssBytes": 271761408
+            },
+            "upstreamTransport": {
+              "connections": 2753,
+              "openConnections": 94,
+              "maxOpenConnections": 115,
+              "httpRequests": 3095,
+              "upgrades": 162,
+              "openHttpRequests": 10,
+              "maxOpenHttpRequests": 21,
+              "readBytes": 1536340,
+              "writtenBytes": 141226461
+            }
+          }
+        },
+        {
+          "cycle": 4,
+          "heapAfterGc": 25146216,
+          "rss": 269123584,
+          "diagnostics": {
+            "connectedSockets": 101,
+            "players": 100,
+            "importMetrics": {
+              "bytes": 553,
+              "elapsedMs": 42.79258300000038,
+              "workerStarted": true,
+              "baselineRssBytes": 268713984,
+              "peakRssBytes": 272465920,
+              "parentPeakHeapBytes": 46886648,
+              "workerPeakHeapBytes": 13052816,
+              "transferRssBytes": 272465920
+            },
+            "upstreamTransport": {
+              "connections": 3346,
+              "openConnections": 84,
+              "maxOpenConnections": 115,
+              "httpRequests": 3691,
+              "upgrades": 162,
+              "openHttpRequests": 0,
+              "maxOpenHttpRequests": 21,
+              "readBytes": 1857858,
+              "writtenBytes": 158807078
+            }
+          }
+        },
+        {
+          "cycle": 5,
+          "heapAfterGc": 24904432,
+          "rss": 268550144,
+          "diagnostics": {
+            "connectedSockets": 101,
+            "players": 100,
+            "importMetrics": {
+              "bytes": 553,
+              "elapsedMs": 44.55383299999994,
+              "workerStarted": true,
+              "baselineRssBytes": 269123584,
+              "peakRssBytes": 272089088,
+              "parentPeakHeapBytes": 50223032,
+              "workerPeakHeapBytes": 13078352,
+              "transferRssBytes": 272089088
+            },
+            "upstreamTransport": {
+              "connections": 3978,
+              "openConnections": 91,
+              "maxOpenConnections": 115,
+              "httpRequests": 4326,
+              "upgrades": 162,
+              "openHttpRequests": 7,
+              "maxOpenHttpRequests": 21,
+              "readBytes": 2189499,
+              "writtenBytes": 178263714
+            }
+          }
+        },
+        {
+          "cycle": 6,
+          "heapAfterGc": 25510224,
+          "rss": 267517952,
+          "diagnostics": {
+            "connectedSockets": 101,
+            "players": 100,
+            "importMetrics": {
+              "bytes": 553,
+              "elapsedMs": 50.44054200000028,
+              "workerStarted": true,
+              "baselineRssBytes": 268566528,
+              "peakRssBytes": 271663104,
+              "parentPeakHeapBytes": 49481688,
+              "workerPeakHeapBytes": 12480984,
+              "transferRssBytes": 271663104
+            },
+            "upstreamTransport": {
+              "connections": 4558,
+              "openConnections": 84,
+              "maxOpenConnections": 115,
+              "httpRequests": 4909,
+              "upgrades": 162,
+              "openHttpRequests": 0,
+              "maxOpenHttpRequests": 21,
+              "readBytes": 2505577,
+              "writtenBytes": 197118391
+            }
+          }
+        },
+        {
+          "cycle": 7,
+          "heapAfterGc": 25132688,
+          "rss": 266878976,
+          "diagnostics": {
+            "connectedSockets": 101,
+            "players": 100,
+            "importMetrics": {
+              "bytes": 553,
+              "elapsedMs": 43.73266700000022,
+              "workerStarted": true,
+              "baselineRssBytes": 267616256,
+              "peakRssBytes": 270532608,
+              "parentPeakHeapBytes": 50817568,
+              "workerPeakHeapBytes": 12403760,
+              "transferRssBytes": 270532608
+            },
+            "upstreamTransport": {
+              "connections": 5208,
+              "openConnections": 100,
+              "maxOpenConnections": 115,
+              "httpRequests": 5564,
+              "upgrades": 162,
+              "openHttpRequests": 18,
+              "maxOpenHttpRequests": 21,
+              "readBytes": 2844740,
+              "writtenBytes": 215132105
+            }
+          }
+        },
+        {
+          "cycle": 8,
+          "heapAfterGc": 25294256,
+          "rss": 266534912,
+          "diagnostics": {
+            "connectedSockets": 101,
+            "players": 100,
+            "importMetrics": {
+              "bytes": 553,
+              "elapsedMs": 43.37670900000012,
+              "workerStarted": true,
+              "baselineRssBytes": 266993664,
+              "peakRssBytes": 270123008,
+              "parentPeakHeapBytes": 46497680,
+              "workerPeakHeapBytes": 13067216,
+              "transferRssBytes": 270123008
+            },
+            "upstreamTransport": {
+              "connections": 5791,
+              "openConnections": 97,
+              "maxOpenConnections": 115,
+              "httpRequests": 6148,
+              "upgrades": 162,
+              "openHttpRequests": 13,
+              "maxOpenHttpRequests": 21,
+              "readBytes": 3161114,
+              "writtenBytes": 234306215
+            }
+          }
+        },
+        {
+          "cycle": 9,
+          "heapAfterGc": 25357416,
+          "rss": 265945088,
+          "diagnostics": {
+            "connectedSockets": 101,
+            "players": 100,
+            "importMetrics": {
+              "bytes": 553,
+              "elapsedMs": 46.75225000000137,
+              "workerStarted": true,
+              "baselineRssBytes": 266551296,
+              "peakRssBytes": 269467648,
+              "parentPeakHeapBytes": 49327416,
+              "workerPeakHeapBytes": 13049896,
+              "transferRssBytes": 269467648
+            },
+            "upstreamTransport": {
+              "connections": 6434,
+              "openConnections": 97,
+              "maxOpenConnections": 115,
+              "httpRequests": 6794,
+              "upgrades": 162,
+              "openHttpRequests": 13,
+              "maxOpenHttpRequests": 21,
+              "readBytes": 3497613,
+              "writtenBytes": 254743438
+            }
+          }
+        },
+        {
+          "cycle": 10,
+          "heapAfterGc": 25417976,
+          "rss": 262995968,
+          "diagnostics": {
+            "connectedSockets": 101,
+            "players": 100,
+            "importMetrics": {
+              "bytes": 553,
+              "elapsedMs": 44.144124999998894,
+              "workerStarted": true,
+              "baselineRssBytes": 265961472,
+              "peakRssBytes": 268976128,
+              "parentPeakHeapBytes": 47173760,
+              "workerPeakHeapBytes": 13068320,
+              "transferRssBytes": 268976128
+            },
+            "upstreamTransport": {
+              "connections": 7013,
+              "openConnections": 90,
+              "maxOpenConnections": 115,
+              "httpRequests": 7376,
+              "upgrades": 162,
+              "openHttpRequests": 6,
+              "maxOpenHttpRequests": 21,
+              "readBytes": 3813388,
+              "writtenBytes": 273706692
+            }
+          }
+        },
+        {
+          "cycle": 11,
+          "heapAfterGc": 25413368,
+          "rss": 263634944,
+          "diagnostics": {
+            "connectedSockets": 101,
+            "players": 100,
+            "importMetrics": {
+              "bytes": 553,
+              "elapsedMs": 45.388458000001265,
+              "workerStarted": true,
+              "baselineRssBytes": 263192576,
+              "peakRssBytes": 267190272,
+              "parentPeakHeapBytes": 47890944,
+              "workerPeakHeapBytes": 13033816,
+              "transferRssBytes": 267190272
+            },
+            "upstreamTransport": {
+              "connections": 7611,
+              "openConnections": 95,
+              "maxOpenConnections": 115,
+              "httpRequests": 7977,
+              "upgrades": 162,
+              "openHttpRequests": 11,
+              "maxOpenHttpRequests": 21,
+              "readBytes": 4136091,
+              "writtenBytes": 290139085
+            }
+          }
+        },
+        {
+          "cycle": 12,
+          "heapAfterGc": 25554816,
+          "rss": 263356416,
+          "diagnostics": {
+            "connectedSockets": 101,
+            "players": 100,
+            "importMetrics": {
+              "bytes": 553,
+              "elapsedMs": 43.068834000001516,
+              "workerStarted": true,
+              "baselineRssBytes": 263667712,
+              "peakRssBytes": 266911744,
+              "parentPeakHeapBytes": 50554592,
+              "workerPeakHeapBytes": 12467104,
+              "transferRssBytes": 266911744
+            },
+            "upstreamTransport": {
+              "connections": 8195,
+              "openConnections": 100,
+              "maxOpenConnections": 115,
+              "httpRequests": 8566,
+              "upgrades": 162,
+              "openHttpRequests": 18,
+              "maxOpenHttpRequests": 21,
+              "readBytes": 4454421,
+              "writtenBytes": 306569575
+            }
+          }
+        },
+        {
+          "cycle": 13,
+          "heapAfterGc": 25556936,
+          "rss": 263143424,
+          "diagnostics": {
+            "connectedSockets": 101,
+            "players": 100,
+            "importMetrics": {
+              "bytes": 553,
+              "elapsedMs": 44.032750000002125,
+              "workerStarted": true,
+              "baselineRssBytes": 263389184,
+              "peakRssBytes": 266747904,
+              "parentPeakHeapBytes": 46876992,
+              "workerPeakHeapBytes": 12999440,
+              "transferRssBytes": 266747904
+            },
+            "upstreamTransport": {
+              "connections": 8780,
+              "openConnections": 99,
+              "maxOpenConnections": 115,
+              "httpRequests": 9152,
+              "upgrades": 162,
+              "openHttpRequests": 15,
+              "maxOpenHttpRequests": 21,
+              "readBytes": 4771387,
+              "writtenBytes": 324466901
+            }
+          }
+        },
+        {
+          "cycle": 14,
+          "heapAfterGc": 25649176,
+          "rss": 263733248,
+          "diagnostics": {
+            "connectedSockets": 101,
+            "players": 100,
+            "importMetrics": {
+              "bytes": 553,
+              "elapsedMs": 43.725750000001426,
+              "workerStarted": true,
+              "baselineRssBytes": 263192576,
+              "peakRssBytes": 267239424,
+              "parentPeakHeapBytes": 47092608,
+              "workerPeakHeapBytes": 13062368,
+              "transferRssBytes": 267239424
+            },
+            "upstreamTransport": {
+              "connections": 9413,
+              "openConnections": 99,
+              "maxOpenConnections": 115,
+              "httpRequests": 9788,
+              "upgrades": 162,
+              "openHttpRequests": 15,
+              "maxOpenHttpRequests": 21,
+              "readBytes": 5104930,
+              "writtenBytes": 343626614
+            }
+          }
+        },
+        {
+          "cycle": 15,
+          "heapAfterGc": 25692560,
+          "rss": 263225344,
+          "diagnostics": {
+            "connectedSockets": 101,
+            "players": 100,
+            "importMetrics": {
+              "bytes": 553,
+              "elapsedMs": 43.28429199999664,
+              "workerStarted": true,
+              "baselineRssBytes": 263766016,
+              "peakRssBytes": 266813440,
+              "parentPeakHeapBytes": 49402168,
+              "workerPeakHeapBytes": 13088056,
+              "transferRssBytes": 266813440
+            },
+            "upstreamTransport": {
+              "connections": 9980,
+              "openConnections": 100,
+              "maxOpenConnections": 115,
+              "httpRequests": 10360,
+              "upgrades": 162,
+              "openHttpRequests": 18,
+              "maxOpenHttpRequests": 21,
+              "readBytes": 5417752,
+              "writtenBytes": 360054474
+            }
+          }
+        },
+        {
+          "cycle": 16,
+          "heapAfterGc": 25867608,
+          "rss": 264732672,
+          "diagnostics": {
+            "connectedSockets": 101,
+            "players": 100,
+            "importMetrics": {
+              "bytes": 553,
+              "elapsedMs": 43.28191599999991,
+              "workerStarted": true,
+              "baselineRssBytes": 263258112,
+              "peakRssBytes": 267354112,
+              "parentPeakHeapBytes": 46994472,
+              "workerPeakHeapBytes": 12960824,
+              "transferRssBytes": 267354112
+            },
+            "upstreamTransport": {
+              "connections": 10568,
+              "openConnections": 99,
+              "maxOpenConnections": 115,
+              "httpRequests": 10949,
+              "upgrades": 162,
+              "openHttpRequests": 15,
+              "maxOpenHttpRequests": 21,
+              "readBytes": 5737215,
+              "writtenBytes": 376486120
+            }
+          }
+        },
+        {
+          "cycle": 17,
+          "heapAfterGc": 25909224,
+          "rss": 264830976,
+          "diagnostics": {
+            "connectedSockets": 101,
+            "players": 100,
+            "importMetrics": {
+              "bytes": 553,
+              "elapsedMs": 42.86791700000322,
+              "workerStarted": true,
+              "baselineRssBytes": 264781824,
+              "peakRssBytes": 268337152,
+              "parentPeakHeapBytes": 47453184,
+              "workerPeakHeapBytes": 13102616,
+              "transferRssBytes": 268337152
+            },
+            "upstreamTransport": {
+              "connections": 11159,
+              "openConnections": 100,
+              "maxOpenConnections": 115,
+              "httpRequests": 11545,
+              "upgrades": 162,
+              "openHttpRequests": 18,
+              "maxOpenHttpRequests": 21,
+              "readBytes": 6057319,
+              "writtenBytes": 394193531
+            }
+          }
+        },
+        {
+          "cycle": 18,
+          "heapAfterGc": 25928832,
+          "rss": 265240576,
+          "diagnostics": {
+            "connectedSockets": 101,
+            "players": 100,
+            "importMetrics": {
+              "bytes": 553,
+              "elapsedMs": 44.29954100000032,
+              "workerStarted": true,
+              "baselineRssBytes": 264863744,
+              "peakRssBytes": 268779520,
+              "parentPeakHeapBytes": 49376928,
+              "workerPeakHeapBytes": 12405248,
+              "transferRssBytes": 268779520
+            },
+            "upstreamTransport": {
+              "connections": 11752,
+              "openConnections": 87,
+              "maxOpenConnections": 115,
+              "httpRequests": 12139,
+              "upgrades": 162,
+              "openHttpRequests": 3,
+              "maxOpenHttpRequests": 21,
+              "readBytes": 6376660,
+              "writtenBytes": 413158435
+            }
+          }
+        },
+        {
+          "cycle": 19,
+          "heapAfterGc": 25900976,
+          "rss": 265797632,
+          "diagnostics": {
+            "connectedSockets": 101,
+            "players": 100,
+            "importMetrics": {
+              "bytes": 553,
+              "elapsedMs": 44.42433300000266,
+              "workerStarted": true,
+              "baselineRssBytes": 266027008,
+              "peakRssBytes": 269320192,
+              "parentPeakHeapBytes": 48650944,
+              "workerPeakHeapBytes": 12473112,
+              "transferRssBytes": 269320192
+            },
+            "upstreamTransport": {
+              "connections": 12362,
+              "openConnections": 89,
+              "maxOpenConnections": 115,
+              "httpRequests": 12752,
+              "upgrades": 162,
+              "openHttpRequests": 5,
+              "maxOpenHttpRequests": 21,
+              "readBytes": 6703398,
+              "writtenBytes": 432336351
+            }
+          }
+        },
+        {
+          "cycle": 20,
+          "heapAfterGc": 25962896,
+          "rss": 266338304,
+          "diagnostics": {
+            "connectedSockets": 101,
+            "players": 100,
+            "importMetrics": {
+              "bytes": 553,
+              "elapsedMs": 48.01654200000485,
+              "workerStarted": true,
+              "baselineRssBytes": 266649600,
+              "peakRssBytes": 269877248,
+              "parentPeakHeapBytes": 48473536,
+              "workerPeakHeapBytes": 13062528,
+              "transferRssBytes": 269877248
+            },
+            "upstreamTransport": {
+              "connections": 12978,
+              "openConnections": 99,
+              "maxOpenConnections": 115,
+              "httpRequests": 13371,
+              "upgrades": 162,
+              "openHttpRequests": 15,
+              "maxOpenHttpRequests": 21,
+              "readBytes": 7030139,
+              "writtenBytes": 451301424
+            }
+          }
+        },
+        {
+          "cycle": 21,
+          "heapAfterGc": 25994096,
+          "rss": 267452416,
+          "diagnostics": {
+            "connectedSockets": 101,
+            "players": 100,
+            "importMetrics": {
+              "bytes": 553,
+              "elapsedMs": 43.13837500000227,
+              "workerStarted": true,
+              "baselineRssBytes": 267206656,
+              "peakRssBytes": 271024128,
+              "parentPeakHeapBytes": 49703864,
+              "workerPeakHeapBytes": 13053496,
+              "transferRssBytes": 271024128
+            },
+            "upstreamTransport": {
+              "connections": 13583,
+              "openConnections": 100,
+              "maxOpenConnections": 115,
+              "httpRequests": 13981,
+              "upgrades": 162,
+              "openHttpRequests": 18,
+              "maxOpenHttpRequests": 21,
+              "readBytes": 7355811,
+              "writtenBytes": 468990044
+            }
+          }
+        },
+        {
+          "cycle": 22,
+          "heapAfterGc": 26312672,
+          "rss": 267780096,
+          "diagnostics": {
+            "connectedSockets": 101,
+            "players": 100,
+            "importMetrics": {
+              "bytes": 553,
+              "elapsedMs": 43.5859169999967,
+              "workerStarted": true,
+              "baselineRssBytes": 268353536,
+              "peakRssBytes": 272039936,
+              "parentPeakHeapBytes": 47301336,
+              "workerPeakHeapBytes": 12498304,
+              "transferRssBytes": 272039936
+            },
+            "upstreamTransport": {
+              "connections": 14179,
+              "openConnections": 84,
+              "maxOpenConnections": 115,
+              "httpRequests": 14578,
+              "upgrades": 162,
+              "openHttpRequests": 0,
+              "maxOpenHttpRequests": 21,
+              "readBytes": 7676211,
+              "writtenBytes": 489139728
+            }
+          }
+        },
+        {
+          "cycle": 23,
+          "heapAfterGc": 26071536,
+          "rss": 266190848,
+          "diagnostics": {
+            "connectedSockets": 101,
+            "players": 100,
+            "importMetrics": {
+              "bytes": 553,
+              "elapsedMs": 44.49883299999783,
+              "workerStarted": true,
+              "baselineRssBytes": 268746752,
+              "peakRssBytes": 271941632,
+              "parentPeakHeapBytes": 51626936,
+              "workerPeakHeapBytes": 13019352,
+              "transferRssBytes": 271941632
+            },
+            "upstreamTransport": {
+              "connections": 14774,
+              "openConnections": 95,
+              "maxOpenConnections": 115,
+              "httpRequests": 15176,
+              "upgrades": 162,
+              "openHttpRequests": 11,
+              "maxOpenHttpRequests": 21,
+              "readBytes": 7996736,
+              "writtenBytes": 505853375
+            }
+          }
+        },
+        {
+          "cycle": 24,
+          "heapAfterGc": 26170952,
+          "rss": 267419648,
+          "diagnostics": {
+            "connectedSockets": 101,
+            "players": 100,
+            "importMetrics": {
+              "bytes": 553,
+              "elapsedMs": 43.43837500000518,
+              "workerStarted": true,
+              "baselineRssBytes": 267173888,
+              "peakRssBytes": 271024128,
+              "parentPeakHeapBytes": 50162288,
+              "workerPeakHeapBytes": 13118568,
+              "transferRssBytes": 271024128
+            },
+            "upstreamTransport": {
+              "connections": 15386,
+              "openConnections": 99,
+              "maxOpenConnections": 115,
+              "httpRequests": 15791,
+              "upgrades": 162,
+              "openHttpRequests": 15,
+              "maxOpenHttpRequests": 21,
+              "readBytes": 8324269,
+              "writtenBytes": 523549672
+            }
+          }
+        },
+        {
+          "cycle": 25,
+          "heapAfterGc": 26306920,
+          "rss": 268025856,
+          "diagnostics": {
+            "connectedSockets": 101,
+            "players": 100,
+            "importMetrics": {
+              "bytes": 553,
+              "elapsedMs": 42.84533300000476,
+              "workerStarted": true,
+              "baselineRssBytes": 268435456,
+              "peakRssBytes": 271663104,
+              "parentPeakHeapBytes": 47771560,
+              "workerPeakHeapBytes": 13073608,
+              "transferRssBytes": 271663104
+            },
+            "upstreamTransport": {
+              "connections": 15964,
+              "openConnections": 84,
+              "maxOpenConnections": 115,
+              "httpRequests": 16372,
+              "upgrades": 162,
+              "openHttpRequests": 0,
+              "maxOpenHttpRequests": 21,
+              "readBytes": 8640566,
+              "writtenBytes": 542718595
+            }
+          }
+        },
+        {
+          "cycle": 26,
+          "heapAfterGc": 26217752,
+          "rss": 269336576,
+          "diagnostics": {
+            "connectedSockets": 101,
+            "players": 100,
+            "importMetrics": {
+              "bytes": 553,
+              "elapsedMs": 44.28729100000055,
+              "workerStarted": true,
+              "baselineRssBytes": 269074432,
+              "peakRssBytes": 272711680,
+              "parentPeakHeapBytes": 51024216,
+              "workerPeakHeapBytes": 13253640,
+              "transferRssBytes": 272711680
+            },
+            "upstreamTransport": {
+              "connections": 16621,
+              "openConnections": 94,
+              "maxOpenConnections": 115,
+              "httpRequests": 17032,
+              "upgrades": 162,
+              "openHttpRequests": 10,
+              "maxOpenHttpRequests": 21,
+              "readBytes": 8981842,
+              "writtenBytes": 561902702
+            }
+          }
+        },
+        {
+          "cycle": 27,
+          "heapAfterGc": 26232248,
+          "rss": 268091392,
+          "diagnostics": {
+            "connectedSockets": 101,
+            "players": 100,
+            "importMetrics": {
+              "bytes": 553,
+              "elapsedMs": 42.68224999999802,
+              "workerStarted": true,
+              "baselineRssBytes": 267599872,
+              "peakRssBytes": 271597568,
+              "parentPeakHeapBytes": 48280072,
+              "workerPeakHeapBytes": 12471936,
+              "transferRssBytes": 271597568
+            },
+            "upstreamTransport": {
+              "connections": 17215,
+              "openConnections": 100,
+              "maxOpenConnections": 115,
+              "httpRequests": 17631,
+              "upgrades": 162,
+              "openHttpRequests": 18,
+              "maxOpenHttpRequests": 21,
+              "readBytes": 9303638,
+              "writtenBytes": 579617226
+            }
+          }
+        },
+        {
+          "cycle": 28,
+          "heapAfterGc": 26232776,
+          "rss": 270401536,
+          "diagnostics": {
+            "connectedSockets": 101,
+            "players": 100,
+            "importMetrics": {
+              "bytes": 553,
+              "elapsedMs": 43.463874999994005,
+              "workerStarted": true,
+              "baselineRssBytes": 270270464,
+              "peakRssBytes": 273940480,
+              "parentPeakHeapBytes": 49714376,
+              "workerPeakHeapBytes": 12417176,
+              "transferRssBytes": 273940480
+            },
+            "upstreamTransport": {
+              "connections": 17800,
+              "openConnections": 99,
+              "maxOpenConnections": 115,
+              "httpRequests": 18217,
+              "upgrades": 162,
+              "openHttpRequests": 15,
+              "maxOpenHttpRequests": 21,
+              "readBytes": 9621415,
+              "writtenBytes": 598798359
+            }
+          }
+        },
+        {
+          "cycle": 29,
+          "reconnectMs": 1292.746917000004
+        },
+        {
+          "cycle": 29,
+          "heapAfterGc": 26608208,
+          "rss": 273645568,
+          "diagnostics": {
+            "connectedSockets": 101,
+            "players": 100,
+            "importMetrics": {
+              "bytes": 553,
+              "elapsedMs": 43.19670800000313,
+              "workerStarted": true,
+              "baselineRssBytes": 271564800,
+              "peakRssBytes": 275103744,
+              "parentPeakHeapBytes": 47822888,
+              "workerPeakHeapBytes": 13052672,
+              "transferRssBytes": 275103744
+            },
+            "upstreamTransport": {
+              "connections": 18696,
+              "openConnections": 99,
+              "maxOpenConnections": 115,
+              "httpRequests": 19038,
+              "upgrades": 242,
+              "openHttpRequests": 17,
+              "maxOpenHttpRequests": 21,
+              "readBytes": 10084344,
+              "writtenBytes": 624654765
+            }
+          }
+        },
+        {
+          "idleElapsedSeconds": 10.030999999999999,
+          "heapAfterGc": 26823624,
+          "rss": 263815168,
+          "diagnostics": {
+            "connectedSockets": 101,
+            "players": 100,
+            "importMetrics": {
+              "bytes": 553,
+              "elapsedMs": 43.19670800000313,
+              "workerStarted": true,
+              "baselineRssBytes": 271564800,
+              "peakRssBytes": 275103744,
+              "parentPeakHeapBytes": 47822888,
+              "workerPeakHeapBytes": 13052672,
+              "transferRssBytes": 275103744
+            },
+            "upstreamTransport": {
+              "connections": 18837,
+              "openConnections": 101,
+              "maxOpenConnections": 115,
+              "httpRequests": 19479,
+              "upgrades": 242,
+              "openHttpRequests": 20,
+              "maxOpenHttpRequests": 21,
+              "readBytes": 10229530,
+              "writtenBytes": 624900461
+            }
+          }
+        },
+        {
+          "idleElapsedSeconds": 20.067,
+          "heapAfterGc": 26739384,
+          "rss": 205701120,
+          "diagnostics": {
+            "connectedSockets": 101,
+            "players": 100,
+            "importMetrics": {
+              "bytes": 553,
+              "elapsedMs": 43.19670800000313,
+              "workerStarted": true,
+              "baselineRssBytes": 271564800,
+              "peakRssBytes": 275103744,
+              "parentPeakHeapBytes": 47822888,
+              "workerPeakHeapBytes": 13052672,
+              "transferRssBytes": 275103744
+            },
+            "upstreamTransport": {
+              "connections": 18917,
+              "openConnections": 101,
+              "maxOpenConnections": 115,
+              "httpRequests": 19559,
+              "upgrades": 242,
+              "openHttpRequests": 20,
+              "maxOpenHttpRequests": 21,
+              "readBytes": 10257046,
+              "writtenBytes": 624928858
+            }
+          }
+        },
+        {
+          "idleElapsedSeconds": 30.084,
+          "heapAfterGc": 26622272,
+          "rss": 125599744,
+          "diagnostics": {
+            "connectedSockets": 101,
+            "players": 100,
+            "importMetrics": {
+              "bytes": 553,
+              "elapsedMs": 43.19670800000313,
+              "workerStarted": true,
+              "baselineRssBytes": 271564800,
+              "peakRssBytes": 275103744,
+              "parentPeakHeapBytes": 47822888,
+              "workerPeakHeapBytes": 13052672,
+              "transferRssBytes": 275103744
+            },
+            "upstreamTransport": {
+              "connections": 18997,
+              "openConnections": 101,
+              "maxOpenConnections": 115,
+              "httpRequests": 19639,
+              "upgrades": 242,
+              "openHttpRequests": 20,
+              "maxOpenHttpRequests": 21,
+              "readBytes": 10284562,
+              "writtenBytes": 624957255
+            }
+          }
+        },
+        {
+          "idleElapsedSeconds": 40.120000000000005,
+          "heapAfterGc": 26618072,
+          "rss": 119144448,
+          "diagnostics": {
+            "connectedSockets": 101,
+            "players": 100,
+            "importMetrics": {
+              "bytes": 553,
+              "elapsedMs": 43.19670800000313,
+              "workerStarted": true,
+              "baselineRssBytes": 271564800,
+              "peakRssBytes": 275103744,
+              "parentPeakHeapBytes": 47822888,
+              "workerPeakHeapBytes": 13052672,
+              "transferRssBytes": 275103744
+            },
+            "upstreamTransport": {
+              "connections": 19077,
+              "openConnections": 101,
+              "maxOpenConnections": 115,
+              "httpRequests": 19719,
+              "upgrades": 242,
+              "openHttpRequests": 20,
+              "maxOpenHttpRequests": 21,
+              "readBytes": 10312078,
+              "writtenBytes": 624985653
+            }
+          }
+        },
+        {
+          "idleElapsedSeconds": 50.153,
+          "heapAfterGc": 26619920,
+          "rss": 117637120,
+          "diagnostics": {
+            "connectedSockets": 101,
+            "players": 100,
+            "importMetrics": {
+              "bytes": 553,
+              "elapsedMs": 43.19670800000313,
+              "workerStarted": true,
+              "baselineRssBytes": 271564800,
+              "peakRssBytes": 275103744,
+              "parentPeakHeapBytes": 47822888,
+              "workerPeakHeapBytes": 13052672,
+              "transferRssBytes": 275103744
+            },
+            "upstreamTransport": {
+              "connections": 19157,
+              "openConnections": 101,
+              "maxOpenConnections": 115,
+              "httpRequests": 19799,
+              "upgrades": 242,
+              "openHttpRequests": 20,
+              "maxOpenHttpRequests": 21,
+              "readBytes": 10339594,
+              "writtenBytes": 625014051
+            }
+          }
+        },
+        {
+          "idleElapsedSeconds": 60.032,
+          "heapAfterGc": 26623624,
+          "rss": 112377856,
+          "diagnostics": {
+            "connectedSockets": 101,
+            "players": 100,
+            "importMetrics": {
+              "bytes": 553,
+              "elapsedMs": 43.19670800000313,
+              "workerStarted": true,
+              "baselineRssBytes": 271564800,
+              "peakRssBytes": 275103744,
+              "parentPeakHeapBytes": 47822888,
+              "workerPeakHeapBytes": 13052672,
+              "transferRssBytes": 275103744
+            },
+            "upstreamTransport": {
+              "connections": 19237,
+              "openConnections": 101,
+              "maxOpenConnections": 115,
+              "httpRequests": 19879,
+              "upgrades": 242,
+              "openHttpRequests": 20,
+              "maxOpenHttpRequests": 21,
+              "readBytes": 10367110,
+              "writtenBytes": 625042449
+            }
+          }
+        }
+      ],
+      "rawPath": "work/load/local-mixed-100-1794849937557.json",
+      "title": "Local churn",
+      "ownerConfirmedUplink": "eduroam",
+      "server": {
+        "elapsedMs": 131108.28062499998,
+        "cpu": {
+          "user": 49378278,
+          "system": 3985722
+        },
+        "memory": {
+          "rss": 112377856,
+          "heapTotal": 34865152,
+          "heapUsed": 26608232,
+          "external": 4059106,
+          "arrayBuffers": 963313
+        },
+        "peakRssBytes": 277200896,
+        "eventLoop": {
+          "p50Ms": 11.452415,
+          "p95Ms": 36.372479,
+          "p99Ms": 76.677119,
+          "maxMs": 637.009919
+        },
+        "logicalSocketEgressBytes": 552730521,
+        "diagnostics": {
+          "connectedSockets": 101,
+          "players": 100,
+          "importMetrics": {
+            "bytes": 553,
+            "elapsedMs": 43.19670800000313,
+            "workerStarted": true,
+            "baselineRssBytes": 271564800,
+            "peakRssBytes": 275103744,
+            "parentPeakHeapBytes": 47822888,
+            "workerPeakHeapBytes": 13052672,
+            "transferRssBytes": 275103744
+          },
+          "upstreamTransport": {
+            "connections": 19237,
+            "openConnections": 101,
+            "maxOpenConnections": 115,
+            "httpRequests": 19879,
+            "upgrades": 242,
+            "openHttpRequests": 20,
+            "maxOpenHttpRequests": 21,
+            "readBytes": 10367110,
+            "writtenBytes": 625042449
+          }
+        },
+        "transportEventCounts": {}
+      },
+      "failures": [],
+      "interpretation": {
+        "cpuAverageFractionOfOneCore": 0.40702234630498574,
+        "clientRecorded429s": 0,
+        "serverPeakHttpRequests": 21
+      }
+    },
+    {
+      "label": "tunnel-mixed-100-1794850665511",
+      "started": "2026-11-16T17:37:45.511Z",
+      "ended": "2026-11-16T17:41:40.702Z",
+      "status": "PASS",
+      "config": {
+        "tunnel": true,
+        "fault": false,
+        "transport": "mixed",
+        "count": 100,
+        "games": 3,
+        "rounds": 20,
+        "idleSeconds": 0,
+        "creationBatch": 5,
+        "joinBatch": 10,
+        "reconnectBatch": 100,
+        "submitBatch": 100
+      },
+      "machine": {
+        "cpu": "Apple M3 Pro",
+        "cores": 11,
+        "memoryBytes": 19327352832,
+        "kernel": "25.5.0",
+        "node": "v24.22.3"
+      },
+      "checks": [
+        "100 simulated players connected; each fetched production JS/CSS assets",
+        "101st admission rejected while admitted identities retained",
+        "100-player reconnect 0 preserved identity/control while full",
+        "100-player reconnect 2 preserved identity/control while full",
+        "3 complete 20-round games: correct scores, duplicate replay idempotent, stale old-game answers rejected"
+      ],
+      "checkpoints": [
+        {
+          "check": "100 simulated players connected; each fetched production JS/CSS assets",
+          "elapsedMs": 100596.01379200001
+        },
+        {
+          "check": "101st admission rejected while admitted identities retained",
+          "elapsedMs": 105773.67675000001
+        },
+        {
+          "check": "100-player reconnect 0 preserved identity/control while full",
+          "elapsedMs": 108631.53000000001
+        },
+        {
+          "check": "100-player reconnect 2 preserved identity/control while full",
+          "elapsedMs": 190461.61225
+        },
+        {
+          "check": "3 complete 20-round games: correct scores, duplicate replay idempotent, stale old-game answers rejected",
+          "elapsedMs": 225162.595459
+        }
+      ],
+      "http": {
+        "requests": 513,
+        "maxInFlight": 5,
+        "bodyBytes": 63269876,
+        "statusCounts": {
+          "200": 513
+        }
+      },
+      "summary": {
+        "endToEnd": {
+          "count": 6872,
+          "p50Ms": 138.8574170000211,
+          "p95Ms": 1497.480499999976,
+          "p99Ms": 1811.7090420000022,
+          "maxMs": 2506.0380000000005
+        },
+        "endToEndByOutcome": {
+          "state.get:STATE": {
+            "count": 6,
+            "p50Ms": 63.90945799998008,
+            "p95Ms": 75.99533299999894,
+            "p99Ms": 75.99533299999894,
+            "maxMs": 75.99533299999894
+          },
+          "game.join:JOINED": {
+            "count": 300,
+            "p50Ms": 79.74166699999478,
+            "p95Ms": 487.82137499999953,
+            "p99Ms": 631.103374999977,
+            "maxMs": 677.5257500000007
+          },
+          "game.join:GAME_FULL": {
+            "count": 1,
+            "p50Ms": 33.161332999996375,
+            "p95Ms": 33.161332999996375,
+            "p99Ms": 33.161332999996375,
+            "maxMs": 33.161332999996375
+          },
+          "game.resume:RESUMED": {
+            "count": 200,
+            "p50Ms": 535.0471250000119,
+            "p95Ms": 1028.2164579999808,
+            "p99Ms": 1100.9866249999905,
+            "maxMs": 1113.7322080000013
+          },
+          "game.start:STARTED": {
+            "count": 3,
+            "p50Ms": 165.85979200000293,
+            "p95Ms": 223.98787500002072,
+            "p99Ms": 223.98787500002072,
+            "maxMs": 223.98787500002072
+          },
+          "answer.submit:REJECTED": {
+            "count": 300,
+            "p50Ms": 41.12187499998254,
+            "p95Ms": 246.33337500000198,
+            "p99Ms": 283.57474999999977,
+            "maxMs": 295.69625000000815
+          },
+          "answer.submit:ACCEPTED": {
+            "count": 6060,
+            "p50Ms": 146.09137500001816,
+            "p95Ms": 1546.3543750000244,
+            "p99Ms": 1820.0569169999799,
+            "maxMs": 2506.0380000000005
+          },
+          "answer.submit:WRONG_GAME": {
+            "count": 2,
+            "p50Ms": 221.71045800001593,
+            "p95Ms": 221.71045800001593,
+            "p99Ms": 221.71045800001593,
+            "maxMs": 221.71045800001593
+          }
+        },
+        "serverByOutcome": {
+          "state.get:STATE": {
+            "count": 6,
+            "p50Ms": 3.105582999996841,
+            "p95Ms": 10.353250000014668,
+            "p99Ms": 10.353250000014668,
+            "maxMs": 10.353250000014668
+          },
+          "game.join:JOINED": {
+            "count": 300,
+            "p50Ms": 8.147582999998122,
+            "p95Ms": 20.614833999978146,
+            "p99Ms": 38.75574999998207,
+            "maxMs": 102.08654200000456
+          },
+          "game.join:GAME_FULL": {
+            "count": 1,
+            "p50Ms": 0.7932080000027781,
+            "p95Ms": 0.7932080000027781,
+            "p99Ms": 0.7932080000027781,
+            "maxMs": 0.7932080000027781
+          },
+          "game.resume:RESUMED": {
+            "count": 200,
+            "p50Ms": 12.917042000000947,
+            "p95Ms": 15.957792000001064,
+            "p99Ms": 26.216083999999682,
+            "maxMs": 37.90904199999932
+          },
+          "game.start:STARTED": {
+            "count": 3,
+            "p50Ms": 37.7422910000023,
+            "p95Ms": 41.242167000003974,
+            "p99Ms": 41.242167000003974,
+            "maxMs": 41.242167000003974
+          },
+          "answer.submit:REJECTED": {
+            "count": 300,
+            "p50Ms": 0.21154200000455603,
+            "p95Ms": 0.3104159999929834,
+            "p99Ms": 0.4798750000190921,
+            "maxMs": 2.2006669999973383
+          },
+          "answer.submit:ACCEPTED": {
+            "count": 6063,
+            "p50Ms": 1.921834000007948,
+            "p95Ms": 3.550374999991618,
+            "p99Ms": 33.68250000002445,
+            "maxMs": 403.72395799998776
+          },
+          "answer.submit:WRONG_GAME": {
+            "count": 2,
+            "p50Ms": 0.5865000000048894,
+            "p95Ms": 0.5865000000048894,
+            "p99Ms": 0.5865000000048894,
+            "maxMs": 0.5865000000048894
+          }
+        }
+      },
+      "measuredServerSha256": "6b4b5dec08e84728253ce38b819cdfb3586c36c31bcb1edcb7f0ab48f1644e77",
+      "sourceManifestSha256": "7c1d7b833fdb043e76c3301a996d2aa7967cfaf395b61e68f37570b127ef67c7",
+      "assets": [
+        "/assets/index-dnoctMNn.js",
+        "/assets/index-lb1N9Y27.css",
+        "/assets/VT323-Regular-DICElq-Y.ttf"
+      ],
+      "cycles": [
+        {
+          "cycle": 0,
+          "reconnectMs": 2648.4636670000036
+        },
+        {
+          "cycle": 0,
+          "elapsedMs": 140949.190625,
+          "heapAfterGc": 29628184,
+          "rss": 306135040,
+          "diagnostics": {
+            "connectedSockets": 101,
+            "players": 100,
+            "importMetrics": {
+              "bytes": 3402,
+              "elapsedMs": 107.92574999999488,
+              "workerStarted": true,
+              "baselineRssBytes": 118964224,
+              "peakRssBytes": 145457152,
+              "parentPeakHeapBytes": 27904344,
+              "workerPeakHeapBytes": 12607264,
+              "transferRssBytes": 145457152
+            },
+            "upstreamTransport": {
+              "connections": 222,
+              "openConnections": 141,
+              "maxOpenConnections": 141,
+              "httpRequests": 2913,
+              "upgrades": 162,
+              "openHttpRequests": 20,
+              "maxOpenHttpRequests": 22,
+              "readBytes": 3028839,
+              "writtenBytes": 179265332
+            }
+          }
+        },
+        {
+          "cycle": 1,
+          "elapsedMs": 181286.96820899998,
+          "heapAfterGc": 29437464,
+          "rss": 266633216,
+          "diagnostics": {
+            "connectedSockets": 101,
+            "players": 100,
+            "importMetrics": {
+              "bytes": 3402,
+              "elapsedMs": 66.00862499998766,
+              "workerStarted": true,
+              "baselineRssBytes": 306184192,
+              "peakRssBytes": 311525376,
+              "parentPeakHeapBytes": 49090840,
+              "workerPeakHeapBytes": 12787792,
+              "transferRssBytes": 311525376
+            },
+            "upstreamTransport": {
+              "connections": 222,
+              "openConnections": 122,
+              "maxOpenConnections": 141,
+              "httpRequests": 5039,
+              "upgrades": 162,
+              "openHttpRequests": 20,
+              "maxOpenHttpRequests": 22,
+              "readBytes": 5397488,
+              "writtenBytes": 295375108
+            }
+          }
+        },
+        {
+          "cycle": 2,
+          "reconnectMs": 2683.2905829999945
+        },
+        {
+          "cycle": 2,
+          "elapsedMs": 224993.465125,
+          "heapAfterGc": 29944456,
+          "rss": 264273920,
+          "diagnostics": {
+            "connectedSockets": 101,
+            "players": 100,
+            "importMetrics": {
+              "bytes": 3402,
+              "elapsedMs": 70.73841699998593,
+              "workerStarted": true,
+              "baselineRssBytes": 266682368,
+              "peakRssBytes": 279920640,
+              "parentPeakHeapBytes": 57428192,
+              "workerPeakHeapBytes": 13105496,
+              "transferRssBytes": 279920640
+            },
+            "upstreamTransport": {
+              "connections": 321,
+              "openConnections": 141,
+              "maxOpenConnections": 141,
+              "httpRequests": 7447,
+              "upgrades": 242,
+              "openHttpRequests": 19,
+              "maxOpenHttpRequests": 22,
+              "readBytes": 8068101,
+              "writtenBytes": 422454079
+            }
+          }
+        }
+      ],
+      "recoveries": [],
+      "retries": [
+        {
+          "name": "answer.submit",
+          "attempt": 1,
+          "message": "operation has timed out",
+          "transport": "polling"
+        },
+        {
+          "name": "answer.submit",
+          "attempt": 1,
+          "message": "operation has timed out",
+          "transport": "polling"
+        },
+        {
+          "name": "answer.submit",
+          "attempt": 1,
+          "message": "operation has timed out",
+          "transport": "polling"
+        }
+      ],
+      "transportErrors": [],
+      "disconnects": {
+        "io client disconnect": 302
+      },
+      "retainedAfterDroppingMeasurementSamples": {
+        "rss": 264372224,
+        "heapTotal": 167854080,
+        "heapUsed": 28932976,
+        "external": 5283563,
+        "arrayBuffers": 1113947
+      },
+      "rawPath": "work/load/tunnel-mixed-100-1794850665511.json",
+      "title": "Public mixed 60 rounds",
+      "ownerConfirmedUplink": "eduroam",
+      "server": {
+        "elapsedMs": 225010.87649999998,
+        "cpu": {
+          "user": 77022655,
+          "system": 3556518
+        },
+        "memory": {
+          "rss": 264323072,
+          "heapTotal": 168116224,
+          "heapUsed": 29588520,
+          "external": 5283579,
+          "arrayBuffers": 1113931
+        },
+        "peakRssBytes": 313098240,
+        "eventLoop": {
+          "p50Ms": 10.575871,
+          "p95Ms": 11.460607,
+          "p99Ms": 182.190079,
+          "maxMs": 953.679871
+        },
+        "logicalSocketEgressBytes": 417550407,
+        "diagnostics": {
+          "connectedSockets": 101,
+          "players": 100,
+          "importMetrics": {
+            "bytes": 3402,
+            "elapsedMs": 70.73841699998593,
+            "workerStarted": true,
+            "baselineRssBytes": 266682368,
+            "peakRssBytes": 279920640,
+            "parentPeakHeapBytes": 57428192,
+            "workerPeakHeapBytes": 13105496,
+            "transferRssBytes": 279920640
+          },
+          "upstreamTransport": {
+            "connections": 321,
+            "openConnections": 141,
+            "maxOpenConnections": 141,
+            "httpRequests": 7448,
+            "upgrades": 242,
+            "openHttpRequests": 20,
+            "maxOpenHttpRequests": 22,
+            "readBytes": 8068797,
+            "writtenBytes": 422454079
+          }
+        },
+        "transportEventCounts": {
+          "open:websocket": 242,
+          "open:polling": 60,
+          "close:transport error": 10,
+          "close:transport close": 191
+        }
+      },
+      "failures": [],
+      "interpretation": {
+        "cpuAverageFractionOfOneCore": 0.3581123466269418,
+        "clientRecorded429s": 0,
+        "serverPeakHttpRequests": 22
+      }
+    },
+    {
+      "label": "tunnel-polling-100-1794850957680",
+      "started": "2026-11-16T17:42:37.681Z",
+      "ended": "2026-11-16T17:44:30.421Z",
+      "status": "FAIL",
+      "config": {
+        "tunnel": true,
+        "fault": true,
+        "faultCycle": 1,
+        "transport": "polling",
+        "count": 100,
+        "games": 2,
+        "rounds": 20,
+        "idleSeconds": 0,
+        "creationBatch": 5,
+        "joinBatch": 10,
+        "reconnectBatch": 100,
+        "submitBatch": 100
+      },
+      "machine": {
+        "uplink": "eduroam",
+        "cpu": "Apple M3 Pro",
+        "cores": 11,
+        "memoryBytes": 19327352832,
+        "kernel": "25.5.0",
+        "node": "v24.22.3"
+      },
+      "checks": [
+        "100 simulated players connected; each fetched production JS/CSS assets",
+        "101st admission rejected while admitted identities retained"
+      ],
+      "checkpoints": [
+        {
+          "check": "100 simulated players connected; each fetched production JS/CSS assets",
+          "elapsedMs": 104729.970584
+        },
+        {
+          "check": "101st admission rejected while admitted identities retained",
+          "elapsedMs": 111510.126
+        }
+      ],
+      "http": {
+        "requests": 507,
+        "maxInFlight": 5,
+        "bodyBytes": 63268135,
+        "statusCounts": {
+          "200": 507
+        }
+      },
+      "summary": {
+        "endToEnd": {
+          "count": 102,
+          "p50Ms": 439.86354199999187,
+          "p95Ms": 521.40804200001,
+          "p99Ms": 564.8839589999989,
+          "maxMs": 583.1385410000075
+        },
+        "endToEndByOutcome": {
+          "state.get:STATE": {
+            "count": 1,
+            "p50Ms": 288.6132920000091,
+            "p95Ms": 288.6132920000091,
+            "p99Ms": 288.6132920000091,
+            "maxMs": 288.6132920000091
+          },
+          "game.join:JOINED": {
+            "count": 100,
+            "p50Ms": 442.38520800000697,
+            "p95Ms": 525.6291669999919,
+            "p99Ms": 583.1385410000075,
+            "maxMs": 583.1385410000075
+          },
+          "game.join:GAME_FULL": {
+            "count": 1,
+            "p50Ms": 187.1822919999977,
+            "p95Ms": 187.1822919999977,
+            "p99Ms": 187.1822919999977,
+            "maxMs": 187.1822919999977
+          }
+        },
+        "serverByOutcome": {
+          "state.get:STATE": {
+            "count": 1,
+            "p50Ms": 4.808208000002196,
+            "p95Ms": 4.808208000002196,
+            "p99Ms": 4.808208000002196,
+            "maxMs": 4.808208000002196
+          },
+          "game.join:JOINED": {
+            "count": 100,
+            "p50Ms": 6.726958999992348,
+            "p95Ms": 13.742749999990338,
+            "p99Ms": 31.107750000010128,
+            "maxMs": 31.107750000010128
+          },
+          "game.join:GAME_FULL": {
+            "count": 1,
+            "p50Ms": 1.6436250000115251,
+            "p95Ms": 1.6436250000115251,
+            "p99Ms": 1.6436250000115251,
+            "maxMs": 1.6436250000115251
+          }
+        }
+      },
+      "measuredServerSha256": "6b4b5dec08e84728253ce38b819cdfb3586c36c31bcb1edcb7f0ab48f1644e77",
+      "sourceManifestSha256": "7c1d7b833fdb043e76c3301a996d2aa7967cfaf395b61e68f37570b127ef67c7",
+      "assets": [
+        "/assets/index-dnoctMNn.js",
+        "/assets/index-lb1N9Y27.css",
+        "/assets/VT323-Regular-DICElq-Y.ttf"
+      ],
+      "cycles": [],
+      "recoveries": [],
+      "retries": [],
+      "transportErrors": [
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        }
+      ],
+      "disconnects": {
+        "io client disconnect": 101,
+        "transport error": 1
+      },
+      "endpointReadyMs": 83397.745667,
+      "processingTarget": {
+        "boundary": "handler entry to ack enqueue, excluding network and event-loop queue",
+        "targetP95Ms": 100,
+        "passed": true,
+        "exceeded": []
+      },
+      "rawPath": "work/load/tunnel-polling-100-1794850957680.json",
+      "title": "Polling strict reconnect",
+      "ownerConfirmedUplink": "eduroam",
+      "server": {
+        "elapsedMs": 112210.20375,
+        "cpu": {
+          "user": 3855877,
+          "system": 933175
+        },
+        "memory": {
+          "rss": 265207808,
+          "heapTotal": 167591936,
+          "heapUsed": 26500504,
+          "external": 6036391,
+          "arrayBuffers": 1791927
+        },
+        "peakRssBytes": 264011776,
+        "eventLoop": {
+          "p50Ms": 10.559487,
+          "p95Ms": 11.247615,
+          "p99Ms": 11.698175,
+          "maxMs": 581.435391
+        },
+        "logicalSocketEgressBytes": 7229383,
+        "diagnostics": {
+          "connectedSockets": 1,
+          "players": 100,
+          "importMetrics": {
+            "bytes": 3402,
+            "elapsedMs": 121.13520799999242,
+            "workerStarted": true,
+            "baselineRssBytes": 110231552,
+            "peakRssBytes": 138395648,
+            "parentPeakHeapBytes": 29593264,
+            "workerPeakHeapBytes": 12797400,
+            "transferRssBytes": 138379264
+          },
+          "upstreamTransport": {
+            "connections": 106,
+            "openConnections": 104,
+            "maxOpenConnections": 104,
+            "httpRequests": 2824,
+            "upgrades": 0,
+            "openHttpRequests": 16,
+            "maxOpenHttpRequests": 103,
+            "readBytes": 1949407,
+            "writtenBytes": 64616042
+          }
+        },
+        "transportEventCounts": {
+          "open:polling": 115,
+          "close:transport close": 49
+        }
+      },
+      "failures": [
+        {
+          "message": "xhr poll error",
+          "status": 429,
+          "description": 429,
+          "cause": ""
+        }
+      ],
+      "interpretation": {
+        "cpuAverageFractionOfOneCore": 0.04267929154348407,
+        "clientRecorded429s": 45,
+        "serverPeakHttpRequests": 103
+      }
+    },
+    {
+      "label": "tunnel-polling-100-1794851273322",
+      "started": "2026-11-16T17:47:53.322Z",
+      "ended": "2026-11-16T17:50:27.079Z",
+      "status": "FAIL",
+      "config": {
+        "tunnel": true,
+        "fault": true,
+        "faultCycle": 1,
+        "coldAfter": true,
+        "transport": "polling",
+        "count": 100,
+        "games": 2,
+        "rounds": 20,
+        "idleSeconds": 0,
+        "creationBatch": 5,
+        "joinBatch": 10,
+        "reconnectBatch": 100,
+        "submitBatch": 100
+      },
+      "machine": {
+        "uplink": "eduroam",
+        "cpu": "Apple M3 Pro",
+        "cores": 11,
+        "memoryBytes": 19327352832,
+        "kernel": "25.5.0",
+        "node": "v24.22.3"
+      },
+      "checks": [
+        "100 simulated players connected; each fetched production JS/CSS assets",
+        "101st admission rejected while admitted identities retained",
+        "100-player reconnect 0 preserved identity/control while full"
+      ],
+      "checkpoints": [
+        {
+          "check": "100 simulated players connected; each fetched production JS/CSS assets",
+          "elapsedMs": 102030.114166
+        },
+        {
+          "check": "101st admission rejected while admitted identities retained",
+          "elapsedMs": 109045.019125
+        },
+        {
+          "check": "100-player reconnect 0 preserved identity/control while full",
+          "elapsedMs": 112617.261041
+        }
+      ],
+      "http": {
+        "requests": 507,
+        "maxInFlight": 5,
+        "bodyBytes": 63268135,
+        "statusCounts": {
+          "200": 507
+        }
+      },
+      "summary": {
+        "endToEnd": {
+          "count": 1817,
+          "p50Ms": 603.5120000000024,
+          "p95Ms": 1742.0289580000099,
+          "p99Ms": 2367.647874999995,
+          "maxMs": 2969.229915999982
+        },
+        "endToEndByOutcome": {
+          "state.get:STATE": {
+            "count": 1,
+            "p50Ms": 305.80304199999955,
+            "p95Ms": 305.80304199999955,
+            "p99Ms": 305.80304199999955,
+            "maxMs": 305.80304199999955
+          },
+          "game.join:JOINED": {
+            "count": 100,
+            "p50Ms": 453.56020900000294,
+            "p95Ms": 638.7060000000056,
+            "p99Ms": 707.0234590000036,
+            "maxMs": 707.0234590000036
+          },
+          "game.join:GAME_FULL": {
+            "count": 1,
+            "p50Ms": 214.12291599999298,
+            "p95Ms": 214.12291599999298,
+            "p99Ms": 214.12291599999298,
+            "maxMs": 214.12291599999298
+          },
+          "game.resume:RESUMED": {
+            "count": 100,
+            "p50Ms": 519.8908329999977,
+            "p95Ms": 693.1746660000063,
+            "p99Ms": 745.0291670000006,
+            "maxMs": 745.0291670000006
+          },
+          "game.start:STARTED": {
+            "count": 1,
+            "p50Ms": 2047.2749160000094,
+            "p95Ms": 2047.2749160000094,
+            "p99Ms": 2047.2749160000094,
+            "maxMs": 2047.2749160000094
+          },
+          "answer.submit:REJECTED": {
+            "count": 100,
+            "p50Ms": 331.5493750000023,
+            "p95Ms": 434.9571250000008,
+            "p99Ms": 528.7070830000011,
+            "maxMs": 528.7070830000011
+          },
+          "answer.submit:ACCEPTED": {
+            "count": 1513,
+            "p50Ms": 762.0867089999956,
+            "p95Ms": 1771.3412499999977,
+            "p99Ms": 2488.4026670000167,
+            "maxMs": 2969.229915999982
+          },
+          "answer.submit:STALE_REQUEST": {
+            "count": 1,
+            "p50Ms": 2663.0037499999744,
+            "p95Ms": 2663.0037499999744,
+            "p99Ms": 2663.0037499999744,
+            "maxMs": 2663.0037499999744
+          }
+        },
+        "serverByOutcome": {
+          "state.get:STATE": {
+            "count": 1,
+            "p50Ms": 7.863042000011774,
+            "p95Ms": 7.863042000011774,
+            "p99Ms": 7.863042000011774,
+            "maxMs": 7.863042000011774
+          },
+          "game.join:JOINED": {
+            "count": 100,
+            "p50Ms": 6.72537500000908,
+            "p95Ms": 14.705415999997058,
+            "p99Ms": 26.979042000006302,
+            "maxMs": 26.979042000006302
+          },
+          "game.join:GAME_FULL": {
+            "count": 1,
+            "p50Ms": 1.8600829999923008,
+            "p95Ms": 1.8600829999923008,
+            "p99Ms": 1.8600829999923008,
+            "maxMs": 1.8600829999923008
+          },
+          "game.resume:RESUMED": {
+            "count": 143,
+            "p50Ms": 12.05379200000607,
+            "p95Ms": 15.259999999994761,
+            "p99Ms": 16.464665999999852,
+            "maxMs": 251.02262500001234
+          },
+          "game.start:STARTED": {
+            "count": 1,
+            "p50Ms": 34.31537500000559,
+            "p95Ms": 34.31537500000559,
+            "p99Ms": 34.31537500000559,
+            "maxMs": 34.31537500000559
+          },
+          "answer.submit:REJECTED": {
+            "count": 100,
+            "p50Ms": 0.17866600000706967,
+            "p95Ms": 0.24912499998754356,
+            "p99Ms": 1.3639169999951264,
+            "maxMs": 1.3639169999951264
+          },
+          "answer.submit:ACCEPTED": {
+            "count": 1532,
+            "p50Ms": 1.6653750000114087,
+            "p95Ms": 2.8720420000026934,
+            "p99Ms": 7.122250000000349,
+            "maxMs": 407.7972920000029
+          },
+          "answer.submit:STALE_REQUEST": {
+            "count": 1,
+            "p50Ms": 1.7161250000062864,
+            "p95Ms": 1.7161250000062864,
+            "p99Ms": 1.7161250000062864,
+            "maxMs": 1.7161250000062864
+          }
+        }
+      },
+      "measuredServerSha256": "6b4b5dec08e84728253ce38b819cdfb3586c36c31bcb1edcb7f0ab48f1644e77",
+      "sourceManifestSha256": "7c1d7b833fdb043e76c3301a996d2aa7967cfaf395b61e68f37570b127ef67c7",
+      "assets": [
+        "/assets/index-dnoctMNn.js",
+        "/assets/index-lb1N9Y27.css",
+        "/assets/VT323-Regular-DICElq-Y.ttf"
+      ],
+      "cycles": [
+        {
+          "cycle": 0,
+          "reconnectMs": 3355.596249999988
+        }
+      ],
+      "recoveries": [
+        {
+          "transport": "polling",
+          "attempts": 1,
+          "durationMs": 1948.5967919999966
+        },
+        {
+          "transport": "polling",
+          "attempts": 1,
+          "durationMs": 1947.5771249999962
+        },
+        {
+          "transport": "polling",
+          "attempts": 1,
+          "durationMs": 1948.3213329999999
+        },
+        {
+          "transport": "polling",
+          "attempts": 1,
+          "durationMs": 2067.232375000007
+        },
+        {
+          "transport": "polling",
+          "attempts": 1,
+          "durationMs": 2065.1928330000082
+        },
+        {
+          "transport": "polling",
+          "attempts": 1,
+          "durationMs": 2098.2587090000015
+        },
+        {
+          "transport": "polling",
+          "attempts": 1,
+          "durationMs": 2062.4524999999994
+        },
+        {
+          "transport": "polling",
+          "attempts": 1,
+          "durationMs": 2100.1290420000005
+        },
+        {
+          "transport": "polling",
+          "attempts": 1,
+          "durationMs": 2026.7332499999902
+        },
+        {
+          "transport": "polling",
+          "attempts": 1,
+          "durationMs": 2081.424874999997
+        },
+        {
+          "transport": "polling",
+          "attempts": 1,
+          "durationMs": 2089.359083000003
+        },
+        {
+          "transport": "polling",
+          "attempts": 1,
+          "durationMs": 2072.3677499999903
+        },
+        {
+          "transport": "polling",
+          "attempts": 1,
+          "durationMs": 2053.987792
+        },
+        {
+          "transport": "polling",
+          "attempts": 1,
+          "durationMs": 2134.2835840000043
+        },
+        {
+          "transport": "polling",
+          "attempts": 1,
+          "durationMs": 2080.224833
+        },
+        {
+          "transport": "polling",
+          "attempts": 1,
+          "durationMs": 2176.1031670000084
+        },
+        {
+          "transport": "polling",
+          "attempts": 1,
+          "durationMs": 2181.3692909999954
+        },
+        {
+          "transport": "polling",
+          "attempts": 1,
+          "durationMs": 2162.4269169999898
+        },
+        {
+          "transport": "polling",
+          "attempts": 1,
+          "durationMs": 2046.8556670000107
+        },
+        {
+          "transport": "polling",
+          "attempts": 1,
+          "durationMs": 2223.9242079999967
+        },
+        {
+          "transport": "polling",
+          "attempts": 1,
+          "durationMs": 2234.2216250000056
+        },
+        {
+          "transport": "polling",
+          "attempts": 1,
+          "durationMs": 2255.946250000008
+        },
+        {
+          "transport": "polling",
+          "attempts": 1,
+          "durationMs": 2115.4486659999966
+        },
+        {
+          "transport": "polling",
+          "attempts": 1,
+          "durationMs": 2155.2963750000054
+        },
+        {
+          "transport": "polling",
+          "attempts": 1,
+          "durationMs": 2292.2689170000085
+        },
+        {
+          "transport": "polling",
+          "attempts": 1,
+          "durationMs": 2318.0043330000044
+        },
+        {
+          "transport": "polling",
+          "attempts": 1,
+          "durationMs": 2250.7628339999937
+        },
+        {
+          "transport": "polling",
+          "attempts": 1,
+          "durationMs": 2331.2956669999985
+        },
+        {
+          "transport": "polling",
+          "attempts": 1,
+          "durationMs": 2300.4673750000075
+        },
+        {
+          "transport": "polling",
+          "attempts": 1,
+          "durationMs": 2264.385374999998
+        },
+        {
+          "transport": "polling",
+          "attempts": 1,
+          "durationMs": 2348.3663750000123
+        },
+        {
+          "transport": "polling",
+          "attempts": 1,
+          "durationMs": 2323.8994999999995
+        },
+        {
+          "transport": "polling",
+          "attempts": 1,
+          "durationMs": 2390.6794579999987
+        },
+        {
+          "transport": "polling",
+          "attempts": 1,
+          "durationMs": 2303.5520830000023
+        },
+        {
+          "transport": "polling",
+          "attempts": 1,
+          "durationMs": 2381.5235419999954
+        },
+        {
+          "transport": "polling",
+          "attempts": 1,
+          "durationMs": 2417.067332999999
+        },
+        {
+          "transport": "polling",
+          "attempts": 1,
+          "durationMs": 2542.773000000001
+        },
+        {
+          "transport": "polling",
+          "attempts": 1,
+          "durationMs": 2524.5615410000028
+        },
+        {
+          "transport": "polling",
+          "attempts": 1,
+          "durationMs": 2446.3263749999896
+        },
+        {
+          "transport": "polling",
+          "attempts": 1,
+          "durationMs": 2458.1086249999935
+        },
+        {
+          "transport": "polling",
+          "attempts": 1,
+          "durationMs": 2489.383209000007
+        },
+        {
+          "transport": "polling",
+          "attempts": 1,
+          "durationMs": 2485.420041000005
+        },
+        {
+          "transport": "polling",
+          "attempts": 1,
+          "durationMs": 1511.8215829999972
+        },
+        {
+          "transport": "polling",
+          "attempts": 1,
+          "durationMs": 2394.9604160000163
+        }
+      ],
+      "retries": [
+        {
+          "name": "answer.submit",
+          "attempt": 1,
+          "message": "operation has timed out",
+          "transport": "polling"
+        },
+        {
+          "name": "answer.submit",
+          "attempt": 1,
+          "message": "operation has timed out",
+          "transport": "polling"
+        },
+        {
+          "name": "answer.submit",
+          "attempt": 1,
+          "message": "operation has timed out",
+          "transport": "polling"
+        },
+        {
+          "name": "answer.submit",
+          "attempt": 1,
+          "message": "operation has timed out",
+          "transport": "polling"
+        },
+        {
+          "name": "answer.submit",
+          "attempt": 1,
+          "message": "operation has timed out",
+          "transport": "polling"
+        },
+        {
+          "name": "answer.submit",
+          "attempt": 1,
+          "message": "operation has timed out",
+          "transport": "polling"
+        },
+        {
+          "name": "answer.submit",
+          "attempt": 1,
+          "message": "operation has timed out",
+          "transport": "polling"
+        },
+        {
+          "name": "answer.submit",
+          "attempt": 1,
+          "message": "operation has timed out",
+          "transport": "polling"
+        },
+        {
+          "name": "answer.submit",
+          "attempt": 1,
+          "message": "socket has been disconnected",
+          "transport": "polling"
+        },
+        {
+          "name": "answer.submit",
+          "attempt": 1,
+          "message": "operation has timed out",
+          "transport": "polling"
+        },
+        {
+          "name": "answer.submit",
+          "attempt": 1,
+          "message": "operation has timed out",
+          "transport": "polling"
+        },
+        {
+          "name": "answer.submit",
+          "attempt": 1,
+          "message": "operation has timed out",
+          "transport": "polling"
+        },
+        {
+          "name": "answer.submit",
+          "attempt": 1,
+          "message": "operation has timed out",
+          "transport": "polling"
+        },
+        {
+          "name": "answer.submit",
+          "attempt": 1,
+          "message": "operation has timed out",
+          "transport": "polling"
+        },
+        {
+          "name": "answer.submit",
+          "attempt": 1,
+          "message": "operation has timed out",
+          "transport": "polling"
+        },
+        {
+          "name": "answer.submit",
+          "attempt": 1,
+          "message": "operation has timed out",
+          "transport": "polling"
+        },
+        {
+          "name": "answer.submit",
+          "attempt": 1,
+          "message": "operation has timed out",
+          "transport": "polling"
+        },
+        {
+          "name": "answer.submit",
+          "attempt": 1,
+          "message": "operation has timed out",
+          "transport": "polling"
+        },
+        {
+          "name": "answer.submit",
+          "attempt": 1,
+          "message": "operation has timed out",
+          "transport": "polling"
+        },
+        {
+          "name": "answer.submit",
+          "attempt": 1,
+          "message": "operation has timed out",
+          "transport": "polling"
+        }
+      ],
+      "transportErrors": [
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr poll error",
+          "description": 429,
+          "status": 429,
+          "cause": ""
+        },
+        {
+          "message": "xhr post error",
+          "description": 0,
+          "status": 0,
+          "cause": "ENOTFOUND"
+        }
+      ],
+      "disconnects": {
+        "io client disconnect": 202,
+        "transport error": 2
+      },
+      "stormInitialFailures": 42,
+      "endpointReadyMs": 82921.83283300001,
+      "processingTarget": {
+        "boundary": "handler entry to ack enqueue, excluding network and event-loop queue",
+        "targetP95Ms": 100,
+        "passed": true,
+        "exceeded": []
+      },
+      "rawPath": "work/load/tunnel-polling-100-1794851273322.json",
+      "title": "Polling bounded follow-up",
+      "ownerConfirmedUplink": "eduroam",
+      "server": {
+        "elapsedMs": 148856.770208,
+        "cpu": {
+          "user": 29373629,
+          "system": 2080573
+        },
+        "memory": {
+          "rss": 328384512,
+          "heapTotal": 172310528,
+          "heapUsed": 28512968,
+          "external": 17448613,
+          "arrayBuffers": 1082772
+        },
+        "peakRssBytes": 352632832,
+        "eventLoop": {
+          "p50Ms": 10.526719,
+          "p95Ms": 11.403263,
+          "p99Ms": 48.463871,
+          "maxMs": 563.609599
+        },
+        "logicalSocketEgressBytes": 150406255,
+        "diagnostics": {
+          "connectedSockets": 101,
+          "players": 100,
+          "importMetrics": {
+            "bytes": 3402,
+            "elapsedMs": 122.30495799999335,
+            "workerStarted": true,
+            "baselineRssBytes": 114737152,
+            "peakRssBytes": 141885440,
+            "parentPeakHeapBytes": 35349176,
+            "workerPeakHeapBytes": 12910152,
+            "transferRssBytes": 141869056
+          },
+          "upstreamTransport": {
+            "connections": 953,
+            "openConnections": 102,
+            "maxOpenConnections": 155,
+            "httpRequests": 13779,
+            "upgrades": 0,
+            "openHttpRequests": 100,
+            "maxOpenHttpRequests": 103,
+            "readBytes": 10236408,
+            "writtenBytes": 99000431
+          }
+        },
+        "transportEventCounts": {
+          "open:polling": 204,
+          "close:transport close": 78,
+          "close:ping timeout": 25
+        }
+      },
+      "failures": [
+        {
+          "message": "[{\"code\":\"STALE_REQUEST\",\"message\":\"stale request\",\"requestId\":\"<redacted>\"}]",
+          "cause": ""
+        }
+      ],
+      "interpretation": {
+        "cpuAverageFractionOfOneCore": 0.2113051489431655,
+        "clientRecorded429s": 43,
+        "serverPeakHttpRequests": 103
+      }
+    },
+    {
+      "label": "tunnel-mixed-100-1794851450096",
+      "started": "2026-11-16T17:50:50.096Z",
+      "ended": "2026-11-16T17:53:05.866Z",
+      "status": "PASS",
+      "config": {
+        "tunnel": true,
+        "fault": true,
+        "faultCycle": 0,
+        "coldAfter": true,
+        "transport": "mixed",
+        "count": 100,
+        "games": 1,
+        "rounds": 2,
+        "idleSeconds": 0,
+        "creationBatch": 5,
+        "joinBatch": 10,
+        "reconnectBatch": 100,
+        "submitBatch": 100
+      },
+      "machine": {
+        "uplink": "eduroam",
+        "cpu": "Apple M3 Pro",
+        "cores": 11,
+        "memoryBytes": 19327352832,
+        "kernel": "25.5.0",
+        "node": "v24.22.3"
+      },
+      "checks": [
+        "100 simulated players connected; each fetched production JS/CSS assets",
+        "101st admission rejected while admitted identities retained",
+        "100-player reconnect 0 preserved identity/control while full",
+        "3-second live connector suspension: explicit resume preserved locks, identities and progressing timer",
+        "1 complete 2-round games: correct scores, duplicate replay idempotent",
+        "100 simultaneous cold reloads served HTML + JS/CSS in parallel + font; existing sockets closed first"
+      ],
+      "checkpoints": [
+        {
+          "check": "100 simulated players connected; each fetched production JS/CSS assets",
+          "elapsedMs": 98357.324709
+        },
+        {
+          "check": "101st admission rejected while admitted identities retained",
+          "elapsedMs": 103803.56199999999
+        },
+        {
+          "check": "100-player reconnect 0 preserved identity/control while full",
+          "elapsedMs": 106952.76483399999
+        },
+        {
+          "check": "3-second live connector suspension: explicit resume preserved locks, identities and progressing timer",
+          "elapsedMs": 120740.219
+        },
+        {
+          "check": "1 complete 2-round games: correct scores, duplicate replay idempotent",
+          "elapsedMs": 122279.68029199999
+        },
+        {
+          "check": "100 simultaneous cold reloads served HTML + JS/CSS in parallel + font; existing sockets closed first",
+          "elapsedMs": 135372.96358399998
+        }
+      ],
+      "http": {
+        "requests": 907,
+        "maxInFlight": 196,
+        "bodyBytes": 126486134,
+        "statusCounts": {
+          "200": 907
+        }
+      },
+      "summary": {
+        "endToEnd": {
+          "count": 611,
+          "p50Ms": 57.45000000001164,
+          "p95Ms": 711.5876250000001,
+          "p99Ms": 1147.2370419999934,
+          "maxMs": 1221.845874999999
+        },
+        "endToEndByOutcome": {
+          "state.get:STATE": {
+            "count": 107,
+            "p50Ms": 44.974915999991936,
+            "p95Ms": 208.7401669999963,
+            "p99Ms": 278.39574999999604,
+            "maxMs": 350.4698749999952
+          },
+          "game.join:JOINED": {
+            "count": 100,
+            "p50Ms": 83.36774999999034,
+            "p95Ms": 490.5142909999995,
+            "p99Ms": 598.1575830000074,
+            "maxMs": 598.1575830000074
+          },
+          "game.join:GAME_FULL": {
+            "count": 1,
+            "p50Ms": 37.98329100001138,
+            "p95Ms": 37.98329100001138,
+            "p99Ms": 37.98329100001138,
+            "maxMs": 37.98329100001138
+          },
+          "game.resume:RESUMED": {
+            "count": 100,
+            "p50Ms": 608.1124579999887,
+            "p95Ms": 1173.3333329999878,
+            "p99Ms": 1221.845874999999,
+            "maxMs": 1221.845874999999
+          },
+          "game.start:STARTED": {
+            "count": 1,
+            "p50Ms": 97.96312499999476,
+            "p95Ms": 97.96312499999476,
+            "p99Ms": 97.96312499999476,
+            "maxMs": 97.96312499999476
+          },
+          "answer.submit:REJECTED": {
+            "count": 100,
+            "p50Ms": 53.106291999996756,
+            "p95Ms": 233.29875000000175,
+            "p99Ms": 290.10954199999105,
+            "maxMs": 290.10954199999105
+          },
+          "answer.submit:ACCEPTED": {
+            "count": 202,
+            "p50Ms": 54.10104099998716,
+            "p95Ms": 587.3262079999986,
+            "p99Ms": 634.1001660000038,
+            "maxMs": 873.8517500000016
+          }
+        },
+        "serverByOutcome": {
+          "state.get:STATE": {
+            "count": 107,
+            "p50Ms": 1.5131660000042757,
+            "p95Ms": 3.186374999990221,
+            "p99Ms": 3.7958329999964917,
+            "maxMs": 6.5200000000040745
+          },
+          "game.join:JOINED": {
+            "count": 100,
+            "p50Ms": 8.233542000001762,
+            "p95Ms": 17.693708000006154,
+            "p99Ms": 23.040791999999783,
+            "maxMs": 23.040791999999783
+          },
+          "game.join:GAME_FULL": {
+            "count": 1,
+            "p50Ms": 1.9666250000009313,
+            "p95Ms": 1.9666250000009313,
+            "p99Ms": 1.9666250000009313,
+            "maxMs": 1.9666250000009313
+          },
+          "game.resume:RESUMED": {
+            "count": 100,
+            "p50Ms": 13.30808300001081,
+            "p95Ms": 24.832792000001064,
+            "p99Ms": 45.427999999999884,
+            "maxMs": 45.427999999999884
+          },
+          "game.start:STARTED": {
+            "count": 1,
+            "p50Ms": 38.14387500000885,
+            "p95Ms": 38.14387500000885,
+            "p99Ms": 38.14387500000885,
+            "maxMs": 38.14387500000885
+          },
+          "answer.submit:REJECTED": {
+            "count": 100,
+            "p50Ms": 0.2181669999990845,
+            "p95Ms": 0.3200419999920996,
+            "p99Ms": 2.6230409999989206,
+            "maxMs": 2.6230409999989206
+          },
+          "answer.submit:ACCEPTED": {
+            "count": 202,
+            "p50Ms": 0.48666700000467245,
+            "p95Ms": 0.7057080000085989,
+            "p99Ms": 1.169540999995661,
+            "maxMs": 70.17583300000115
+          }
+        }
+      },
+      "measuredServerSha256": "6b4b5dec08e84728253ce38b819cdfb3586c36c31bcb1edcb7f0ab48f1644e77",
+      "sourceManifestSha256": "7c1d7b833fdb043e76c3301a996d2aa7967cfaf395b61e68f37570b127ef67c7",
+      "assets": [
+        "/assets/index-dnoctMNn.js",
+        "/assets/index-lb1N9Y27.css",
+        "/assets/VT323-Regular-DICElq-Y.ttf"
+      ],
+      "cycles": [
+        {
+          "cycle": 0,
+          "reconnectMs": 2922.315333000006
+        },
+        {
+          "cycle": 0,
+          "elapsedMs": 122088.650875,
+          "heapAfterGc": 26064000,
+          "rss": 253329408,
+          "diagnostics": {
+            "connectedSockets": 101,
+            "players": 100,
+            "importMetrics": {
+              "bytes": 547,
+              "elapsedMs": 114.12816700000258,
+              "workerStarted": true,
+              "baselineRssBytes": 116801536,
+              "peakRssBytes": 143065088,
+              "parentPeakHeapBytes": 31300416,
+              "workerPeakHeapBytes": 12861520,
+              "transferRssBytes": 143065088
+            },
+            "upstreamTransport": {
+              "connections": 222,
+              "openConnections": 141,
+              "maxOpenConnections": 141,
+              "httpRequests": 1546,
+              "upgrades": 162,
+              "openHttpRequests": 20,
+              "maxOpenHttpRequests": 21,
+              "readBytes": 1360587,
+              "writtenBytes": 91359759
+            }
+          }
+        }
+      ],
+      "recoveries": [],
+      "retries": [],
+      "transportErrors": [],
+      "disconnects": {
+        "io client disconnect": 202
+      },
+      "faultRecovery": {
+        "restoredPlayers": 0,
+        "acceptedLocksPreserved": 50,
+        "clockAdvancedMs": 9611.774791000003
+      },
+      "coldBurst": {
+        "clients": 100,
+        "parallelAssetsPerClient": 2,
+        "elapsedMs": 2035.1403329999885,
+        "httpResponses": {
+          "200": 400
+        },
+        "responseBodyBytes": 63218000,
+        "requests": 400
+      },
+      "endpointReadyMs": 81412.509125,
+      "retainedAfterDroppingMeasurementSamples": {
+        "rss": 248741888,
+        "heapTotal": 34160640,
+        "heapUsed": 24343704,
+        "external": 5187143,
+        "arrayBuffers": 1017527
+      },
+      "processingTarget": {
+        "boundary": "handler entry to ack enqueue, excluding network and event-loop queue",
+        "targetP95Ms": 100,
+        "passed": true,
+        "exceeded": []
+      },
+      "rawPath": "work/load/tunnel-mixed-100-1794851450096.json",
+      "title": "Mixed outage + cold burst",
+      "ownerConfirmedUplink": "eduroam",
+      "server": {
+        "elapsedMs": 135189.417,
+        "cpu": {
+          "user": 9540824,
+          "system": 1515082
+        },
+        "memory": {
+          "rss": 248725504,
+          "heapTotal": 34422784,
+          "heapUsed": 24542120,
+          "external": 5252670,
+          "arrayBuffers": 1017511
+        },
+        "peakRssBytes": 285818880,
+        "eventLoop": {
+          "p50Ms": 10.575871,
+          "p95Ms": 11.280383,
+          "p99Ms": 12.648447,
+          "maxMs": 2785.017855
+        },
+        "logicalSocketEgressBytes": 109078920,
+        "diagnostics": {
+          "connectedSockets": 1,
+          "players": 100,
+          "importMetrics": {
+            "bytes": 547,
+            "elapsedMs": 114.12816700000258,
+            "workerStarted": true,
+            "baselineRssBytes": 116801536,
+            "peakRssBytes": 143065088,
+            "parentPeakHeapBytes": 31300416,
+            "workerPeakHeapBytes": 12861520,
+            "transferRssBytes": 143065088
+          },
+          "upstreamTransport": {
+            "connections": 333,
+            "openConnections": 101,
+            "maxOpenConnections": 172,
+            "httpRequests": 1990,
+            "upgrades": 162,
+            "openHttpRequests": 0,
+            "maxOpenHttpRequests": 21,
+            "readBytes": 1612822,
+            "writtenBytes": 205041998
+          }
+        },
+        "transportEventCounts": {
+          "open:websocket": 162,
+          "open:polling": 40,
+          "close:transport error": 12,
+          "close:transport close": 189
+        }
+      },
+      "failures": [],
+      "interpretation": {
+        "cpuAverageFractionOfOneCore": 0.08178085419215915,
+        "clientRecorded429s": 0,
+        "serverPeakHttpRequests": 21
+      }
+    }
+  ]
+}

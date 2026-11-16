@@ -1,0 +1,217 @@
+{
+  "schemaVersion": 1,
+  "title": "Five-Round Test Game",
+  "settings": {
+    "readingSeconds": 3,
+    "answerSeconds": 25,
+    "resultsSeconds": 10
+  },
+  "tiers": [
+    {
+      "id": "common",
+      "name": "Common",
+      "points": 10
+    },
+    {
+      "id": "uncommon",
+      "name": "Uncommon",
+      "points": 60
+    },
+    {
+      "id": "rare",
+      "name": "Rare",
+      "points": 100
+    }
+  ],
+  "prompts": [
+    {
+      "id": "seasons",
+      "text": "Name one of the four seasons.",
+      "answers": [
+        {
+          "text": "Spring",
+          "tierId": "uncommon"
+        },
+        {
+          "text": "Summer",
+          "tierId": "common"
+        },
+        {
+          "text": "Autumn",
+          "tierId": "rare",
+          "aliases": [
+            "Fall"
+          ]
+        },
+        {
+          "text": "Winter",
+          "tierId": "uncommon"
+        }
+      ]
+    },
+    {
+      "id": "planets",
+      "text": "Name one of the eight planets in our Solar System.",
+      "answers": [
+        {
+          "text": "Mercury",
+          "tierId": "rare"
+        },
+        {
+          "text": "Venus",
+          "tierId": "uncommon"
+        },
+        {
+          "text": "Earth",
+          "tierId": "common"
+        },
+        {
+          "text": "Mars",
+          "tierId": "common"
+        },
+        {
+          "text": "Jupiter",
+          "tierId": "uncommon"
+        },
+        {
+          "text": "Saturn",
+          "tierId": "uncommon"
+        },
+        {
+          "text": "Uranus",
+          "tierId": "rare"
+        },
+        {
+          "text": "Neptune",
+          "tierId": "rare"
+        }
+      ]
+    },
+    {
+      "id": "weekdays",
+      "text": "Name a day of the week.",
+      "answers": [
+        {
+          "text": "Monday",
+          "tierId": "common",
+          "aliases": [
+            "Mon"
+          ]
+        },
+        {
+          "text": "Tuesday",
+          "tierId": "uncommon",
+          "aliases": [
+            "Tue"
+          ]
+        },
+        {
+          "text": "Wednesday",
+          "tierId": "rare",
+          "aliases": [
+            "Wed"
+          ]
+        },
+        {
+          "text": "Thursday",
+          "tierId": "rare",
+          "aliases": [
+            "Thu"
+          ]
+        },
+        {
+          "text": "Friday",
+          "tierId": "common",
+          "aliases": [
+            "Fri"
+          ]
+        },
+        {
+          "text": "Saturday",
+          "tierId": "uncommon",
+          "aliases": [
+            "Sat"
+          ]
+        },
+        {
+          "text": "Sunday",
+          "tierId": "uncommon",
+          "aliases": [
+            "Sun"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "chess",
+      "text": "Name a type of piece in standard chess.",
+      "answers": [
+        {
+          "text": "King",
+          "tierId": "common"
+        },
+        {
+          "text": "Queen",
+          "tierId": "common"
+        },
+        {
+          "text": "Rook",
+          "tierId": "uncommon"
+        },
+        {
+          "text": "Bishop",
+          "tierId": "rare"
+        },
+        {
+          "text": "Knight",
+          "tierId": "rare"
+        },
+        {
+          "text": "Pawn",
+          "tierId": "uncommon"
+        }
+      ]
+    },
+    {
+      "id": "oceans",
+      "text": "Name one of the five named oceans on Earth.",
+      "answers": [
+        {
+          "text": "Pacific Ocean",
+          "tierId": "common",
+          "aliases": [
+            "Pacific"
+          ]
+        },
+        {
+          "text": "Atlantic Ocean",
+          "tierId": "common",
+          "aliases": [
+            "Atlantic"
+          ]
+        },
+        {
+          "text": "Indian Ocean",
+          "tierId": "uncommon",
+          "aliases": [
+            "Indian"
+          ]
+        },
+        {
+          "text": "Arctic Ocean",
+          "tierId": "rare",
+          "aliases": [
+            "Arctic"
+          ]
+        },
+        {
+          "text": "Southern Ocean",
+          "tierId": "rare",
+          "aliases": [
+            "Southern"
+          ]
+        }
+      ]
+    }
+  ]
+}

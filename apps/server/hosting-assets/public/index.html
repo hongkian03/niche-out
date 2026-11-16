@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Niche connection check</title>
+<style>body{font:18px system-ui;max-width:40rem;margin:2rem auto;padding:1rem;background:#10202c;color:#fff}button,input{font:inherit;padding:.7rem;margin:.4rem 0;max-width:100%;box-sizing:border-box}button{cursor:pointer}output{display:block;margin:1rem 0;overflow-wrap:anywhere}label{display:block}</style></head>
+<body>
+<h1>Niche connection check</h1>
+<p>This is a connection test with temporary sample data. The playable game is not available yet. Keep this page open to observe reconnects.</p>
+<output id="connection" aria-live="polite">Connecting…</output>
+<output id="control" aria-live="polite">Checking session…</output>
+<label>Temporary draft <input id="draft" autocomplete="off"></label>
+<button id="check">Check current control</button>
+<button id="claim">Take control here</button>
+<button id="reconnect">Reconnect transport</button>
+<button id="upload">Test small upload</button>
+<output id="uploadResult" aria-live="polite"></output>
+<script src="/client.js"></script><script src="/page.js"></script>
+</body></html>

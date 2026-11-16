@@ -1,0 +1,43 @@
+{
+  "version": "2026.11.0",
+  "releaseUrl": "https://github.com/cloudflare/cloudflared/releases/tag/2026.11.0",
+  "metadataUrl": "https://api.github.com/repos/cloudflare/cloudflared/releases/tags/2026.11.0",
+  "retrievedDate": "2026-11-14",
+  "license": "Apache-2.0",
+  "licenseUrl": "https://github.com/cloudflare/cloudflared/blob/2026.11.0/LICENSE",
+  "checksumNotes": "GitHub asset digests hash downloaded archives. For Mac, the release body values labelled tgz hash extracted executables; confirmed on arm64. x64 executable digest awaits actual-target validation.",
+  "platforms": {
+    "darwin-arm64": {
+      "asset": "cloudflared-darwin-arm64.tgz",
+      "url": "https://github.com/cloudflare/cloudflared/releases/download/2026.11.0/cloudflared-darwin-arm64.tgz",
+      "bytes": 19890696,
+      "archiveSha256": "8c2f90277ef06a6080bb40b964d33f09f1188102f8798f2e344174b6cf41accf",
+      "executableSha256": "97e24268d9704a570fab276293028f3580ae2c7d5d2678621a4809e90f776a5e",
+      "archive": "tgz"
+    },
+    "darwin-x64": {
+      "asset": "cloudflared-darwin-amd64.tgz",
+      "url": "https://github.com/cloudflare/cloudflared/releases/download/2026.11.0/cloudflared-darwin-amd64.tgz",
+      "bytes": 21825349,
+      "archiveSha256": "8a59d51120cebbe902f0a8d6e1b7a7fd4f9a5bb4dcb3e0f05872483e75e7db6b",
+      "executableSha256": "be6be8d4aa0c3ff66917e265002fc9f702d42eae877edf495143f5b874c424af",
+      "archive": "tgz"
+    },
+    "win32-x64": {
+      "asset": "cloudflared-windows-amd64.exe",
+      "url": "https://github.com/cloudflare/cloudflared/releases/download/2026.11.0/cloudflared-windows-amd64.exe",
+      "bytes": 55397592,
+      "archiveSha256": "d5c1d82031da6253dcdcff64c944cd0fe063016edeb2e4fd088075fc9bd52d0a",
+      "executableSha256": "d5c1d82031da6253dcdcff64c944cd0fe063016edeb2e4fd088075fc9bd52d0a",
+      "archive": "executable"
+    },
+    "linux-x64": {
+      "asset": "cloudflared-linux-amd64",
+      "url": "https://github.com/cloudflare/cloudflared/releases/download/2026.11.0/cloudflared-linux-amd64",
+      "bytes": 40283099,
+      "archiveSha256": "51f7c68b57ed7269164075d7e789efce5b59355982f06392deeb037d982a51fd",
+      "executableSha256": "51f7c68b57ed7269164075d7e789efce5b59355982f06392deeb037d982a51fd",
+      "archive": "executable"
+    }
+  }
+}

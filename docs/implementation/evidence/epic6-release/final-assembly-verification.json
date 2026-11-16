@@ -1,0 +1,45 @@
+{
+  "date": "2026-11-16T17:58:10.650Z",
+  "status": "PASS",
+  "scope": "Actual archive extraction, checksum, private test signature, exact file inventory and resource integrity. Not publisher authentication or cross-platform execution.",
+  "artifacts": [
+    {
+      "target": "darwin-arm64",
+      "archive": "Niche-Out-0.1.0-private-darwin-arm64.tar.gz",
+      "sha256": "a45beaef7c7c2676c0ed558d04586a3fcde5dc04fc94dedc359dab411f781f6f",
+      "bytes": 66595188,
+      "manifestSha256": "f22af5a00ff43740e33b364f786729acd0e781886ffec37272948d6d8721e56d",
+      "files": 3999,
+      "directory": "/Users/kianhong/Projects/niche_out/work/epic6/archives-cvzmTs/Niche-Out-0.1.0-private-darwin-arm64"
+    },
+    {
+      "target": "darwin-x64",
+      "archive": "Niche-Out-0.1.0-private-darwin-x64.tar.gz",
+      "sha256": "ceb0478db207a714f035d1a91899377512f30760bf9e10f34fd9fdeffbad924e",
+      "bytes": 69884520,
+      "manifestSha256": "63103ce032008495a23edeed6a1a538099d2507b6a5e1811bab81fafec41c439",
+      "files": 3999,
+      "directory": "/Users/kianhong/Projects/niche_out/work/epic6/archives-cvzmTs/Niche-Out-0.1.0-private-darwin-x64"
+    },
+    {
+      "target": "win32-x64",
+      "archive": "Niche-Out-0.1.0-private-win32-x64.zip",
+      "sha256": "904c3a495d9a8306ce93cef1530399f1e17ab99cbf1d9287af2d312126b43b93",
+      "bytes": 63157983,
+      "manifestSha256": "70d3d447e00e2ed96ecab612588b4d9874abae037bbfc968248d2ad46d6fef5a",
+      "files": 3998,
+      "directory": "/Users/kianhong/Projects/niche_out/work/epic6/archives-cvzmTs/Niche-Out-0.1.0-private-win32-x64"
+    },
+    {
+      "target": "linux-x64",
+      "archive": "Niche-Out-0.1.0-private-linux-x64.tar.gz",
+      "sha256": "6dfd0d203eec4f92d1363c30c9ab1318534909cf9f917aff9cd62b3523feaef7",
+      "bytes": 72023884,
+      "manifestSha256": "6b51ff94d1ac99491e2a0345a0d798c2121120955b63adaff42c027cde14a5c3",
+      "files": 3999,
+      "directory": "/Users/kianhong/Projects/niche_out/work/epic6/archives-cvzmTs/Niche-Out-0.1.0-private-linux-x64"
+    }
+  ],
+  "extracted": "/Users/kianhong/Projects/niche_out/work/epic6/archives-cvzmTs",
+  "sourceManifestSha256": "48a6bc56ebfb9e7cdfccbe1e789e1c13ccb682b8816450eb6d78936cee564027"
+}
