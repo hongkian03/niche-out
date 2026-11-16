@@ -94,3 +94,7 @@ For recovery and troubleshooting, read the [operator guide](docs/release/OPERATO
 - **React, Fastify, Socket.IO, and the project's other dependencies** — the libraries behind the interface, server, and real-time connections.
 
 The ocean scenery, submarine, and other decorative graphics are original project SVG/CSS artwork. See the [asset notices](apps/web/public/asset-notices.txt) for details.
+
+## License
+
+Licensed under the [MIT License](LICENSE).
