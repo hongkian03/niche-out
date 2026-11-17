@@ -46,13 +46,18 @@ export interface GameApplicationOptions {
   importsOptions?: ConstructorParameters<typeof ImportService>[1];
   diagnosticAssets?: Map<string, { bytes: Buffer; type: string }>;
   /** Optional private measurement sink. No payloads, identities or secrets are supplied. */
-  onDiagnostic?: (sample: { kind: 'command' | 'egress' | 'transport'; name: string; durationMs?: number; outcome?: string; bytes?: number }) => void;
+  diagnosticMode?: 'light' | 'detailed';
+  onDiagnostic?: (sample: { kind: 'command' | 'egress' | 'transport' | 'profile'; name: string; durationMs?: number; outcome?: string; bytes?: number; cause?: string; phase?: string; role?: string; recipients?: number }) => void;
 }
 /** Production application behind one verified public origin. Local launcher routes are never mounted here. */
 export async function createGameApplication(sessionId: string, healthToken: string, options: GameApplicationOptions = {}) {
   const now = options.now ?? (() => performance.now());
   const diagnostic = (sample: Parameters<NonNullable<GameApplicationOptions['onDiagnostic']>>[0]) => {
     try { options.onDiagnostic?.(sample); } catch { /* Measurement cannot change gameplay. */ }
+  };
+  const detailed = Boolean(options.onDiagnostic && options.diagnosticMode !== 'light');
+  const profile = (name: string, started: number, extra: { cause?: string; role?: string; recipients?: number; bytes?: number } = {}) => {
+    if (detailed) diagnostic({ kind: 'profile', name, durationMs: performance.now() - started, phase: engine.state().phase, ...extra });
   };
   let closed = false;
   let reportedActive = false;
@@ -104,20 +109,26 @@ export async function createGameApplication(sessionId: string, healthToken: stri
       ...(pinKey ? { pinKey } : {}), ...(actor.kind !== 'host' && !member(actor) ? { rejectedLimit: 1 } : {}) };
   };
   const hostView = (requestedRoundId?: string) => {
+    const started = detailed ? performance.now() : 0;
     const state = engine.state();
-    return projectHost(state, { hosting, serverNowMs: now(), importInProgress: imports.busy,
+    const view = projectHost(state, { hosting, serverNowMs: now(), importInProgress: imports.busy,
       ...(config && state.gameCode ? { invitation: invitationForOrigin(config.publicOrigin, state.gameCode) } : {}), requestedRoundId });
+    profile('host-projection', started, { cause: 'all-host-views', role: 'host' }); return view;
   };
   const viewFor = (actor: Session, tabId: string, requestedRoundId?: string) => {
     if (actor.kind === 'host') return hostView(requestedRoundId);
+    const started = detailed ? performance.now() : 0;
     const player = currentMember(actor, engine.state().gameId); sessions.assertController(actor, tabId, engine.state().gameId!);
-    return projectPlayer(engine.state(), { playerId: player.playerId, controlGeneration: sessions.currentControl(actor)!.generation, serverNowMs: now(), requestedRoundId });
+    const view = projectPlayer(engine.state(), { playerId: player.playerId, controlGeneration: sessions.currentControl(actor)!.generation, serverNowMs: now(), requestedRoundId });
+    profile('player-projection', started, { cause: 'all-player-views', role: 'browser' }); return view;
   };
   const app = Fastify({ logger: false, trustProxy: false, bodyLimit: 4096, requestTimeout: 10000, connectionTimeout: 15000 });
   const measuredTransports = new Set<NetSocket>();
+  const measuredRequests = new WeakSet<IncomingMessage>();
   let closedReadBytes = 0, closedWrittenBytes = 0, transportRequests = 0, transportConnections = 0, maxOpenTransports = 0, openHttpRequests = 0, maxOpenHttpRequests = 0, upgrades = 0;
   const observeHttp = (request: IncomingMessage, response: ServerResponse) => {
-    if (!options.onDiagnostic || request.headers.upgrade?.toLowerCase() === 'websocket') return;
+    if (!options.onDiagnostic || request.headers.upgrade?.toLowerCase() === 'websocket' || measuredRequests.has(request)) return;
+    measuredRequests.add(request);
     transportRequests++; openHttpRequests++; maxOpenHttpRequests = Math.max(maxOpenHttpRequests, openHttpRequests);
     let complete = false; const done = () => { if (!complete) { complete = true; openHttpRequests--; } };
     response.once('finish', done); response.once('close', done);
@@ -142,7 +153,7 @@ export async function createGameApplication(sessionId: string, healthToken: stri
     if (!request.raw.url?.startsWith('/') || request.raw.url.startsWith('//')) fail('INVALID_PAYLOAD');
     if (!permit(request.raw)) fail('FORBIDDEN'); rate('http', 1000);
     if (request.method === 'POST' && request.url.split('?')[0] === '/api/host/import') {
-      requireOwner(request.raw); const ticket = imports.begin(); importTickets.set(request, ticket); publish();
+      requireOwner(request.raw); const ticket = imports.begin(); importTickets.set(request, ticket); publish(false, 'import-begin');
       request.raw.once('aborted', () => { const wasBusy = imports.busy; imports.abort(ticket); if (wasBusy && !imports.busy) engine.touchRevision(); publish(); });
     }
   });
@@ -184,7 +195,7 @@ export async function createGameApplication(sessionId: string, healthToken: stri
   });
   app.post('/api/host/import', { bodyLimit: 10 * 1024 * 1024 }, async request => {
     try { requireOwner(request.raw); return await imports.complete(importTickets.get(request)!, request.body as Buffer); }
-    finally { const ticket = importTickets.get(request); if (ticket) { imports.abort(ticket); engine.touchRevision(); } importTickets.delete(request); publish(); }
+    finally { const ticket = importTickets.get(request); if (ticket) { imports.abort(ticket); engine.touchRevision(); } importTickets.delete(request); publish(false, 'import-complete'); }
   });
   app.post('/api/host/games', async (request, reply) => {
     const actor = requireOwner(request.raw), input = commitRequest.parse(json(request));
@@ -196,7 +207,7 @@ export async function createGameApplication(sessionId: string, healthToken: stri
         imports.consume(input.candidateId);
         if (oldGameId) { io.emit('game.closed', { protocolVersion: 1, serverInstanceId: sessionId, gameId: oldGameId, revision: engine.state().revision, reason: 'replaced' }); sessions.invalidateGame(oldGameId); }
         ledger.replaceGame(); lastGameCommit = { requestId: input.requestId, candidateId: input.candidateId, gameId: result.gameId, setupGeneration: engine.state().setupGeneration, revision: engine.state().revision };
-        publish(); return { outcome: 'COMMITTED', ...lastGameCommit };
+        publish(false, 'game.commit'); return { outcome: 'COMMITTED', ...lastGameCommit };
       } catch (error) { return caught(error, input.requestId); }
     });
     if ('code' in output) reply.code(httpStatusForError[output.code as keyof typeof httpStatusForError] ?? 400);
@@ -225,7 +236,7 @@ export async function createGameApplication(sessionId: string, healthToken: stri
     if (ledger.isFenced(ctx)) return { outcome: 'NOT_APPLIED', view: hostView() };
     if (retired || (operation.kind === 'game.commit' && operation.original.expectedSetupGeneration !== engine.state().setupGeneration)) return { outcome: 'SUPERSEDED', view: hostView() };
     ledger.fence(ctx); if (operation.kind === 'game.commit') imports.invalidate();
-    publish(); return { outcome: 'NOT_APPLIED', view: hostView() };
+    publish(false, 'host.resolve'); return { outcome: 'NOT_APPLIED', view: hostView() };
   });
   const io = new Server(app.server, { serveClient: false, maxHttpBufferSize: 4096, connectTimeout: 10000, pingInterval: 5000, pingTimeout: 5000 });
   const pending = new Set<string>(), transports = new Map<string, string>();
@@ -261,17 +272,33 @@ export async function createGameApplication(sessionId: string, healthToken: stri
     } catch (error) { next(Object.assign(new Error(caught(error).code), { data: caught(error) })); }
   });
   let timer: ReturnType<typeof setTimeout> | undefined, readinessTimer: ReturnType<typeof setTimeout> | undefined;
-  const sendView = (socket: Socket, event = 'state.changed', requestedRoundId?: string) => {
-    try { const actor = requireActor(socket.request); if (actor.id !== socket.data.actor.id) return; const view = viewFor(actor, socket.data.tabId, requestedRoundId); socket.emit(event, view); if (options.onDiagnostic) diagnostic({ kind: 'egress', name: event, bytes: Buffer.byteLength(JSON.stringify(view)) }); } catch { /* Never emit a private view to an unauthorized recipient. */ }
+  const sendView = (socket: Socket, event = 'state.changed', requestedRoundId?: string, cause = 'targeted') => {
+    try {
+      const actor = requireActor(socket.request); if (actor.id !== socket.data.actor.id) return;
+      let started = detailed ? performance.now() : 0;
+      const view = viewFor(actor, socket.data.tabId, requestedRoundId);
+      profile('projection', started, { cause, role: actor.kind });
+      started = detailed ? performance.now() : 0;
+      socket.emit(event, view);
+      profile('emit', started, { cause, role: actor.kind });
+      if (detailed) {
+        started = performance.now(); const bytes = Buffer.byteLength(JSON.stringify(view));
+        profile('diagnostic-serialization', started, { cause, role: actor.kind, bytes });
+        diagnostic({ kind: 'egress', name: event, bytes, cause, role: actor.kind });
+      }
+    } catch { /* Never emit a private view to an unauthorized recipient. */ }
   };
-  function publish(readinessOnly = false) {
+  function publish(readinessOnly = false, cause = 'other') {
     if (closed) return;
-    if (readinessOnly) { if (!readinessTimer) readinessTimer = setTimeout(() => { readinessTimer = undefined; publish(); }, 50); return; }
+    if (readinessOnly) { if (!readinessTimer) readinessTimer = setTimeout(() => { readinessTimer = undefined; publish(false, 'readiness-batch'); }, 50); return; }
+    const started = detailed ? performance.now() : 0;
     if (readinessTimer) { clearTimeout(readinessTimer); readinessTimer = undefined; }
     reportActive(['Reading', 'Answering', 'Results'].includes(engine.state().phase));
-    for (const socket of io.sockets.sockets.values()) sendView(socket);
+    const recipients = io.sockets.sockets.size;
+    for (const socket of io.sockets.sockets.values()) sendView(socket, 'state.changed', undefined, cause);
     if (timer) clearTimeout(timer); const token = engine.timerToken();
-    if (token) timer = setTimeout(() => { timer = undefined; engine.wake(token); publish(); }, Math.max(1, token.deadlineMs - now()));
+    if (token) timer = setTimeout(() => { timer = undefined; engine.wake(token); publish(false, 'phase-timer'); }, Math.max(1, token.deadlineMs - now()));
+    profile('publish', started, { cause, recipients });
   }
   const answerRates = new WeakMap<Session, { tokens: number; at: number }>();
   const answerRate = (actor: Session) => { const time = now(), bucket = answerRates.get(actor) ?? { tokens: 8, at: time };
@@ -334,7 +361,7 @@ export async function createGameApplication(sessionId: string, healthToken: stri
           response = { outcome: result.outcome, roundId: input.roundId, locked: result.locked, ...(result.locked ? { submittedText: result.submittedText } : {}) };
         }
         const after = engine.state(); response = { requestId: input.requestId, gameId: after.gameId, revision: after.revision, ...response };
-        if (before.revision !== after.revision || ['game.join', 'game.resume', 'player.claimControl'].includes(name)) publish(name === 'answer.submit' && before.phaseId === after.phaseId && before.revision !== after.revision); return response;
+        if (before.revision !== after.revision || ['game.join', 'game.resume', 'player.claimControl'].includes(name)) publish(name === 'answer.submit' && before.phaseId === after.phaseId && before.revision !== after.revision, name); return response;
       } catch (error) { if (engine.state().revision !== before.revision) publish(); return caught(error, input.requestId); }
     });
   }
@@ -358,7 +385,11 @@ export async function createGameApplication(sessionId: string, healthToken: stri
         const durationMs = performance.now() - started; ack(value);
         if (options.onDiagnostic) {
           diagnostic({ kind: 'command', name, durationMs, outcome: value.code ?? value.outcome ?? 'UNKNOWN' });
-          diagnostic({ kind: 'egress', name: 'ack', bytes: Buffer.byteLength(JSON.stringify(value)) });
+          if (detailed) {
+            const started = performance.now(), bytes = Buffer.byteLength(JSON.stringify(value));
+            profile('diagnostic-ack-serialization', started, { cause: name, bytes });
+            diagnostic({ kind: 'egress', name: 'ack', bytes });
+          }
         }
       };
       try { const value = command(socket, name, raw, receivedAtMs); measuredAck(socketAcknowledgements[name].parse(value)); if (['game.join', 'game.resume', 'player.claimControl'].includes(name) && !('code' in value)) sendView(socket, 'state.snapshot'); }
@@ -367,7 +398,7 @@ export async function createGameApplication(sessionId: string, healthToken: stri
     socket.on('disconnect', () => {
       const actor: Session = socket.data.actor; sessions.detachTransport(actor, socket.data.tabId, socket.id);
       try { const player = member(actor), control = sessions.currentControl(actor);
-        if (player && !player.removed && control?.tabId === socket.data.tabId && !sessions.page(actor, socket.data.tabId).transportId) { engine.disconnect(engine.state().gameId!, player.playerId); publish(); } } catch { /* A retired session has no current transport. */ }
+        if (player && !player.removed && control?.tabId === socket.data.tabId && !sessions.page(actor, socket.data.tabId).transportId) { engine.disconnect(engine.state().gameId!, player.playerId); publish(false, 'disconnect'); } } catch { /* A retired session has no current transport. */ }
     });
   });
   await app.ready(); let port = options.port ?? 3210;
@@ -391,7 +422,7 @@ export async function createGameApplication(sessionId: string, healthToken: stri
       config = deploymentConfigSchema.parse({ mode: 'tunnel', purpose: 'event', provider: 'cloudflare', tunnelKind: 'quick', publicOrigin: origin,
         listen: { host: '127.0.0.1', port }, upstreamHost: 'public' });
     },
-    setHostingStatus(status: HostingStatus) { const next = hostingStatusSchema.parse(status); if (JSON.stringify(next) !== JSON.stringify(hosting)) { hosting = next; engine.touchRevision(); publish(); } },
+    setHostingStatus(status: HostingStatus) { const next = hostingStatusSchema.parse(status); if (JSON.stringify(next) !== JSON.stringify(hosting)) { hosting = next; engine.touchRevision(); publish(false, 'hosting-status'); } },
     mintOwnerLink() { if (!config || closed) throw new Error('Application unavailable'); return config.publicOrigin + '/host#' + owners.mint(); },
     hasDisposableState() { return engine.state().gameId !== null || imports.busy; },
     async close() {

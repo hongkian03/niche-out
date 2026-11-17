@@ -1,5 +1,20 @@
 # Niche Out development and testing
 
+## Networking investigation baseline
+
+The [baseline report](implementation/evidence/NETWORK-BASELINE.md) records the current 100-player failures, instrumentation overhead, per-stage broadcast costs and actual-browser recovery checks. It links permanent summaries and raw working measurements. No retry, transport, broadcast or provider optimization has been applied yet.
+
+After building with the pinned runtime, preview or run the serial baseline suite:
+
+```sh
+npm run test:network:baseline -- --plan --uplink=eduroam
+npm run test:network:baseline -- --out-dir=work/network-baseline/my-run --uplink=eduroam
+# After capacity jobs have stopped, watch the production-browser recovery probe:
+npm run test:network:browser -- --visible
+```
+
+Use a fresh output directory and supply your actual uplink label. The full suite runs local and real public-tunnel workloads; `--local-only` omits public jobs. A measured failure exits nonzero and remains in the generated report. These commands generate traffic against their own disposable application and tunnel. See [harness instructions](../scripts/load/README.md) for modes and measurement boundaries.
+
 Epic 1 supplies pack/protocol/deployment contracts, deterministic fixtures, a verified tunnel connector installer and a synthetic public HTTPS test page. Epic 2 implements the deterministic game rules and private projections. Epic 3 connects that engine to the production game protocol. Epic 4 implements the complete host/player browser game and has passed its functional gate, including real iPhone QR/gameplay checks with the Mac on eduroam. See the [Epic 4 handoff](../docs/implementation/evidence/EPIC-4.md); broader device/capacity qualification remains Epic 6.
 
 The managed hosting implementation now lives in `apps/server/src/hosting`, with its local and public browser assets in `apps/server/hosting-assets`. It provides automatic temporary tunnels, a separate authenticated local dashboard, public link/QR, private host access, and explicit recovery/shutdown. The launcher now starts the production game application; the public app now includes host setup, player admission, timed play, results, and recaps. See the [managed hosting handoff](../docs/implementation/evidence/EPIC-1-MANAGED.md) for actual evidence and outstanding checks.

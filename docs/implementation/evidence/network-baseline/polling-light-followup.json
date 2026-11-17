@@ -1,0 +1,3370 @@
+{
+  "rawReport": "../../../../work/network-baseline/followup/public-polling-light-light-tunnel-polling-100-1794887384884.json",
+  "sha256": "a5bfb758145e5a5ec1db64d2ef0d717b12d62a780bbd5685f76e1edd64457874",
+  "status": "FAIL",
+  "identity": {
+    "gitCommit": "1399c26c027de2140575b4e167ff5a9fa1a0f6e5",
+    "dirty": true,
+    "treeSha256": "ba5a8dbe6234b9330dd9a6b1eec5206f954ca1e5ef51d15b5b1e1186368b0304",
+    "lockSha256": "442e3e5745c77bcb77ab3a6f60c51a26088f86bc5643690f1867af1e9df3c2c0",
+    "buildSourceSha256": "07f9a67729196bf7e4fd061d78c22d71bbbc646c7846594fd6084276cb58fe4c",
+    "connector": {
+      "version": "2026.11.0",
+      "manifestSha256": "f0f2dc922a6cfcf7d0f33f053a1d87d8be20dcbcef183d4d87da2f5ce84ff427"
+    }
+  },
+  "compiledServerSha256": "5375ccb88cdeb87a78f4334fe4be7bb3513e38a7ba885d6e79ae880881cd0105",
+  "config": {
+    "instrumentation": "light",
+    "skipPressure": false,
+    "tunnel": true,
+    "fault": false,
+    "faultCycle": 0,
+    "coldAfter": false,
+    "transport": "polling",
+    "count": 100,
+    "games": 1,
+    "rounds": 20,
+    "idleSeconds": 0,
+    "creationBatch": 5,
+    "joinBatch": 10,
+    "reconnectBatch": 100,
+    "submitBatch": 100
+  },
+  "fixtureSha256": "de891f9bcf84052bda5cd256bf866e1632fa66ee10d4fa5e3cde8ad85e346416",
+  "workloadSha256": "4ca9642da855f4d2cb6b641d397bbb6ff94930c1b0ab9230c239abf920746a36",
+  "summary": {
+    "endToEnd": {
+      "count": 1311,
+      "p50Ms": 763.1378329999861,
+      "p95Ms": 1411.414625000005,
+      "p99Ms": 1879.751041999989,
+      "maxMs": 2782.805791999999
+    },
+    "endToEndByOutcome": {
+      "state.get:STATE": {
+        "count": 1,
+        "p50Ms": 511.2557500000112,
+        "p95Ms": 511.2557500000112,
+        "p99Ms": 511.2557500000112,
+        "maxMs": 511.2557500000112
+      },
+      "game.join:JOINED": {
+        "count": 100,
+        "p50Ms": 675.5159589999967,
+        "p95Ms": 1123.8750839999993,
+        "p99Ms": 1488.5142920000071,
+        "maxMs": 1488.5142920000071
+      },
+      "game.join:GAME_FULL": {
+        "count": 1,
+        "p50Ms": 291.75379200000316,
+        "p95Ms": 291.75379200000316,
+        "p99Ms": 291.75379200000316,
+        "maxMs": 291.75379200000316
+      },
+      "game.resume:RESUMED": {
+        "count": 100,
+        "p50Ms": 1231.2994159999944,
+        "p95Ms": 1550.5568340000027,
+        "p99Ms": 1643.9242920000106,
+        "maxMs": 1643.9242920000106
+      },
+      "game.start:STARTED": {
+        "count": 1,
+        "p50Ms": 694.0377089999965,
+        "p95Ms": 694.0377089999965,
+        "p99Ms": 694.0377089999965,
+        "maxMs": 694.0377089999965
+      },
+      "answer.submit:REJECTED": {
+        "count": 100,
+        "p50Ms": 365.55774999999267,
+        "p95Ms": 447.58254200000374,
+        "p99Ms": 467.8177499999874,
+        "maxMs": 467.8177499999874
+      },
+      "answer.submit:ACCEPTED": {
+        "count": 1008,
+        "p50Ms": 802.755124999996,
+        "p95Ms": 1393.845874999999,
+        "p99Ms": 1894.5274999999965,
+        "maxMs": 2782.805791999999
+      }
+    },
+    "serverByOutcome": {
+      "state.get:STATE": {
+        "count": 1,
+        "p50Ms": 1.5150829999911366,
+        "p95Ms": 1.5150829999911366,
+        "p99Ms": 1.5150829999911366,
+        "maxMs": 1.5150829999911366
+      },
+      "game.join:JOINED": {
+        "count": 100,
+        "p50Ms": 6.524541999999201,
+        "p95Ms": 13.19062500000291,
+        "p99Ms": 23.492832999996608,
+        "maxMs": 23.492832999996608
+      },
+      "game.join:GAME_FULL": {
+        "count": 1,
+        "p50Ms": 1.003167000002577,
+        "p95Ms": 1.003167000002577,
+        "p99Ms": 1.003167000002577,
+        "maxMs": 1.003167000002577
+      },
+      "game.resume:RESUMED": {
+        "count": 101,
+        "p50Ms": 11.753624999997555,
+        "p95Ms": 12.695832999990671,
+        "p99Ms": 14.818333999995957,
+        "maxMs": 17.749250000008033
+      },
+      "game.start:STARTED": {
+        "count": 1,
+        "p50Ms": 47.1516249999986,
+        "p95Ms": 47.1516249999986,
+        "p99Ms": 47.1516249999986,
+        "maxMs": 47.1516249999986
+      },
+      "answer.submit:REJECTED": {
+        "count": 100,
+        "p50Ms": 0.20179199999256525,
+        "p95Ms": 0.28208299999823794,
+        "p99Ms": 1.3717079999914858,
+        "maxMs": 1.3717079999914858
+      },
+      "answer.submit:ACCEPTED": {
+        "count": 1015,
+        "p50Ms": 1.086165999993682,
+        "p95Ms": 1.8533750000060536,
+        "p99Ms": 4.107625000004191,
+        "maxMs": 182.70799999998417
+      }
+    }
+  },
+  "checks": [
+    "100 simulated players connected; each fetched production JS/CSS assets",
+    "101st admission rejected while admitted identities retained",
+    "100-player reconnect 0 preserved identity/control while full"
+  ],
+  "failedActions": [
+    {
+      "name": "answer.submit",
+      "durationMs": 6003.511958000017,
+      "category": "action",
+      "message": "operation has timed out",
+      "atMs": 153010.27675,
+      "stage": "game-0-round-9-accepted-submit"
+    }
+  ],
+  "failures": [
+    {
+      "category": "run",
+      "message": "operation has timed out",
+      "atMs": 153010.330125,
+      "stage": "game-0-round-9-accepted-submit"
+    }
+  ],
+  "clientTransportErrors": [
+    {
+      "category": "provider-429",
+      "message": "xhr poll error",
+      "status": 429,
+      "atMs": 123433.2465,
+      "stage": "game-0-reconnect"
+    }
+  ],
+  "ackRetries": 7,
+  "recoveries": [
+    {
+      "transport": "polling",
+      "attempts": 1,
+      "durationMs": 2606.71712500001
+    }
+  ],
+  "serverTransportEvents": [
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "assets"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-admission"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "transport close",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "open",
+      "outcome": "polling",
+      "stage": "game-0-reconnect"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "ping timeout",
+      "stage": "game-0-round-0-accepted-submit"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "ping timeout",
+      "stage": "game-0-round-0-accepted-submit"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "ping timeout",
+      "stage": "game-0-round-0-accepted-submit"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "ping timeout",
+      "stage": "game-0-round-0-accepted-submit"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "ping timeout",
+      "stage": "game-0-round-0-accepted-submit"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "ping timeout",
+      "stage": "game-0-round-0-accepted-submit"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "ping timeout",
+      "stage": "game-0-round-0-accepted-submit"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "ping timeout",
+      "stage": "game-0-round-0-accepted-submit"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "ping timeout",
+      "stage": "game-0-round-0-accepted-submit"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "ping timeout",
+      "stage": "game-0-round-0-accepted-submit"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "ping timeout",
+      "stage": "game-0-round-1-accepted-submit"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "ping timeout",
+      "stage": "game-0-round-1-accepted-submit"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "ping timeout",
+      "stage": "game-0-round-1-accepted-submit"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "ping timeout",
+      "stage": "game-0-round-1-accepted-submit"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "ping timeout",
+      "stage": "game-0-round-1-accepted-submit"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "ping timeout",
+      "stage": "game-0-round-1-accepted-submit"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "ping timeout",
+      "stage": "game-0-round-2-accepted-submit"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "ping timeout",
+      "stage": "game-0-round-2-accepted-submit"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "ping timeout",
+      "stage": "game-0-round-2-accepted-submit"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "ping timeout",
+      "stage": "game-0-round-2-accepted-submit"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "ping timeout",
+      "stage": "game-0-round-2-accepted-submit"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "ping timeout",
+      "stage": "game-0-round-2-accepted-submit"
+    },
+    {
+      "kind": "transport",
+      "name": "close",
+      "outcome": "ping timeout",
+      "stage": "game-0-round-2-accepted-submit"
+    }
+  ],
+  "connectedSocketsAtSnapshot": 101,
+  "playersAtSnapshot": 100,
+  "appCpuSeconds": 18.402284,
+  "processResources": {
+    "application": {
+      "scope": "Application child; excludes generator and connector",
+      "cpu": {
+        "user": 16237101,
+        "system": 2166191
+      },
+      "peakRssBytes": 399196160
+    },
+    "connector": {
+      "scope": "cloudflared process only; excludes native guard; ps sampled every second",
+      "available": true,
+      "samples": 150,
+      "peakRssBytes": 63995904,
+      "cpuSeconds": 5.03,
+      "lastSampleElapsedMs": 152255.214583,
+      "lastSampleAgeMs": 517.0672079999931
+    }
+  },
+  "originTcp": {
+    "connections": 606,
+    "openConnections": 100,
+    "maxOpenConnections": 164,
+    "httpRequests": 9750,
+    "upgrades": 0,
+    "openHttpRequests": 99,
+    "maxOpenHttpRequests": 103,
+    "readBytes": 7286269,
+    "writtenBytes": 83587674
+  },
+  "endToEndByStage": {
+    "game-0-admission": {
+      "count": 102,
+      "p50Ms": 675.0804579999967,
+      "p95Ms": 1116.5334580000053,
+      "p99Ms": 1170.4356249999983,
+      "maxMs": 1488.5142920000071
+    },
+    "game-0-reconnect": {
+      "count": 100,
+      "p50Ms": 1231.2994159999944,
+      "p95Ms": 1550.5568340000027,
+      "p99Ms": 1643.9242920000106,
+      "maxMs": 1643.9242920000106
+    },
+    "game-0-start": {
+      "count": 1,
+      "p50Ms": 694.0377089999965,
+      "p95Ms": 694.0377089999965,
+      "p99Ms": 694.0377089999965,
+      "maxMs": 694.0377089999965
+    },
+    "game-0-round-0-invalid-submit": {
+      "count": 100,
+      "p50Ms": 365.55774999999267,
+      "p95Ms": 447.58254200000374,
+      "p99Ms": 467.8177499999874,
+      "maxMs": 467.8177499999874
+    },
+    "game-0-round-0-accepted-submit": {
+      "count": 101,
+      "p50Ms": 392.8350000000064,
+      "p95Ms": 938.608791000006,
+      "p99Ms": 1003.5083330000052,
+      "maxMs": 1166.3804579999996
+    },
+    "game-0-round-1-accepted-submit": {
+      "count": 101,
+      "p50Ms": 599.5727909999987,
+      "p95Ms": 861.2092910000065,
+      "p99Ms": 875.043709000005,
+      "maxMs": 1142.0638749999925
+    },
+    "game-0-round-2-accepted-submit": {
+      "count": 101,
+      "p50Ms": 641.7348749999946,
+      "p95Ms": 879.8641249999928,
+      "p99Ms": 888.9305830000085,
+      "maxMs": 908.1593749999884
+    },
+    "game-0-round-3-accepted-submit": {
+      "count": 101,
+      "p50Ms": 713.2966250000172,
+      "p95Ms": 953.6015420000185,
+      "p99Ms": 1105.4401249999937,
+      "maxMs": 1156.4150829999999
+    },
+    "game-0-round-4-accepted-submit": {
+      "count": 101,
+      "p50Ms": 743.4826670000039,
+      "p95Ms": 1032.3850419999799,
+      "p99Ms": 1077.1718330000003,
+      "maxMs": 1118.8591669999878
+    },
+    "game-0-round-5-accepted-submit": {
+      "count": 101,
+      "p50Ms": 998.1471250000177,
+      "p95Ms": 1100.5598340000142,
+      "p99Ms": 1198.421291000006,
+      "maxMs": 1243.580667000002
+    },
+    "game-0-round-6-accepted-submit": {
+      "count": 101,
+      "p50Ms": 824.5024169999815,
+      "p95Ms": 1003.8672920000099,
+      "p99Ms": 1104.4214999999967,
+      "maxMs": 1405.6357500000158
+    },
+    "game-0-round-7-accepted-submit": {
+      "count": 101,
+      "p50Ms": 1258.1743750000023,
+      "p95Ms": 1476.898165999999,
+      "p99Ms": 2474.1086659999855,
+      "maxMs": 2782.805791999999
+    },
+    "game-0-round-8-accepted-submit": {
+      "count": 101,
+      "p50Ms": 939.041333000001,
+      "p95Ms": 1652.1155000000144,
+      "p99Ms": 1662.1240830000024,
+      "maxMs": 1678.7003749999858
+    },
+    "game-0-round-9-accepted-submit": {
+      "count": 99,
+      "p50Ms": 915.2887920000067,
+      "p95Ms": 1900.9223749999946,
+      "p99Ms": 1964.5358339999802,
+      "maxMs": 1964.5358339999802
+    }
+  },
+  "stages": [
+    {
+      "name": "startup",
+      "startedMs": -0.12445900000000165,
+      "elapsedMs": 80281.650625,
+      "cpu": {
+        "user": 909811,
+        "system": 920507
+      },
+      "memory": {
+        "rss": 109920256,
+        "heapTotal": 56557568,
+        "heapUsed": 33202728,
+        "external": 44833778,
+        "arrayBuffers": 40658212
+      },
+      "eventLoop": {
+        "sampleCount": 7515,
+        "p50Ms": 10.625023,
+        "p95Ms": 11.231231,
+        "p99Ms": 12.165119,
+        "maxMs": 34.832383
+      },
+      "diagnostics": {
+        "connectedSockets": 0,
+        "players": 0,
+        "upstreamTransport": {
+          "connections": 1,
+          "openConnections": 1,
+          "maxOpenConnections": 1,
+          "httpRequests": 1,
+          "upgrades": 0,
+          "openHttpRequests": 0,
+          "maxOpenHttpRequests": 1,
+          "readBytes": 563,
+          "writtenBytes": 416
+        }
+      }
+    },
+    {
+      "name": "assets",
+      "startedMs": 80281.526166,
+      "elapsedMs": 31199.868791999994,
+      "cpu": {
+        "user": 1106115,
+        "system": 587932
+      },
+      "memory": {
+        "rss": 134283264,
+        "heapTotal": 48316416,
+        "heapUsed": 27352576,
+        "external": 5398378,
+        "arrayBuffers": 1220764
+      },
+      "eventLoop": {
+        "sampleCount": 2944,
+        "p50Ms": 10.510335,
+        "p95Ms": 11.321343,
+        "p99Ms": 12.115967,
+        "maxMs": 26.656767
+      },
+      "diagnostics": {
+        "connectedSockets": 101,
+        "players": 0,
+        "upstreamTransport": {
+          "connections": 99,
+          "openConnections": 99,
+          "maxOpenConnections": 99,
+          "httpRequests": 1387,
+          "upgrades": 0,
+          "openHttpRequests": 97,
+          "maxOpenHttpRequests": 98,
+          "readBytes": 922029,
+          "writtenBytes": 63572161
+        }
+      }
+    },
+    {
+      "name": "game-0-admission",
+      "startedMs": 111481.39495799999,
+      "elapsedMs": 11008.91754200001,
+      "cpu": {
+        "user": 1299734,
+        "system": 173317
+      },
+      "memory": {
+        "rss": 227033088,
+        "heapTotal": 134037504,
+        "heapUsed": 40377368,
+        "external": 7756935,
+        "arrayBuffers": 3581803
+      },
+      "eventLoop": {
+        "sampleCount": 997,
+        "p50Ms": 10.477567,
+        "p95Ms": 11.436031,
+        "p99Ms": 28.950527,
+        "maxMs": 113.704959
+      },
+      "diagnostics": {
+        "connectedSockets": 102,
+        "players": 100,
+        "importMetrics": {
+          "bytes": 3402,
+          "elapsedMs": 103.85024999998859,
+          "workerStarted": true,
+          "baselineRssBytes": 134447104,
+          "peakRssBytes": 151076864,
+          "parentPeakHeapBytes": 29401976,
+          "workerPeakHeapBytes": 12587464,
+          "transferRssBytes": 145358848
+        },
+        "upstreamTransport": {
+          "connections": 106,
+          "openConnections": 100,
+          "maxOpenConnections": 106,
+          "httpRequests": 2985,
+          "upgrades": 0,
+          "openHttpRequests": 93,
+          "maxOpenHttpRequests": 102,
+          "readBytes": 2066446,
+          "writtenBytes": 64584999
+        }
+      }
+    },
+    {
+      "name": "game-0-reconnect",
+      "startedMs": 122490.3125,
+      "elapsedMs": 3903.0515409999934,
+      "cpu": {
+        "user": 2201220,
+        "system": 70431
+      },
+      "memory": {
+        "rss": 291930112,
+        "heapTotal": 169689088,
+        "heapUsed": 57623944,
+        "external": 6314575,
+        "arrayBuffers": 2144986
+      },
+      "eventLoop": {
+        "sampleCount": 226,
+        "p50Ms": 10.616831,
+        "p95Ms": 24.641535,
+        "p99Ms": 219.938815,
+        "maxMs": 485.490687
+      },
+      "diagnostics": {
+        "connectedSockets": 101,
+        "players": 100,
+        "importMetrics": {
+          "bytes": 3402,
+          "elapsedMs": 103.85024999998859,
+          "workerStarted": true,
+          "baselineRssBytes": 134447104,
+          "peakRssBytes": 151076864,
+          "parentPeakHeapBytes": 29401976,
+          "workerPeakHeapBytes": 12587464,
+          "transferRssBytes": 145358848
+        },
+        "upstreamTransport": {
+          "connections": 272,
+          "openConnections": 101,
+          "maxOpenConnections": 164,
+          "httpRequests": 4145,
+          "upgrades": 0,
+          "openHttpRequests": 101,
+          "maxOpenHttpRequests": 102,
+          "readBytes": 2924449,
+          "writtenBytes": 65311385
+        }
+      }
+    },
+    {
+      "name": "game-0-start",
+      "startedMs": 126393.364041,
+      "elapsedMs": 694.478667000003,
+      "cpu": {
+        "user": 146360,
+        "system": 17050
+      },
+      "memory": {
+        "rss": 304316416,
+        "heapTotal": 165494784,
+        "heapUsed": 68621032,
+        "external": 11882347,
+        "arrayBuffers": 7710276
+      },
+      "eventLoop": {
+        "sampleCount": 59,
+        "p50Ms": 10.321919,
+        "p95Ms": 11.337727,
+        "p99Ms": 30.146559,
+        "maxMs": 53.018623
+      },
+      "diagnostics": {
+        "connectedSockets": 101,
+        "players": 100,
+        "importMetrics": {
+          "bytes": 3402,
+          "elapsedMs": 103.85024999998859,
+          "workerStarted": true,
+          "baselineRssBytes": 134447104,
+          "peakRssBytes": 151076864,
+          "parentPeakHeapBytes": 29401976,
+          "workerPeakHeapBytes": 12587464,
+          "transferRssBytes": 145358848
+        },
+        "upstreamTransport": {
+          "connections": 274,
+          "openConnections": 100,
+          "maxOpenConnections": 164,
+          "httpRequests": 4248,
+          "upgrades": 0,
+          "openHttpRequests": 0,
+          "maxOpenHttpRequests": 103,
+          "readBytes": 2995435,
+          "writtenBytes": 66277449
+        }
+      }
+    },
+    {
+      "name": "game-0-round-0-waiting",
+      "startedMs": 127087.842708,
+      "elapsedMs": 261.64512499999546,
+      "cpu": {
+        "user": 7535,
+        "system": 2214
+      },
+      "memory": {
+        "rss": 304316416,
+        "heapTotal": 165494784,
+        "heapUsed": 72461272,
+        "external": 11953924,
+        "arrayBuffers": 7781853
+      },
+      "eventLoop": {
+        "sampleCount": 24,
+        "p50Ms": 10.616831,
+        "p95Ms": 11.337727,
+        "p99Ms": 11.378687,
+        "maxMs": 11.378687
+      },
+      "diagnostics": {
+        "connectedSockets": 101,
+        "players": 100,
+        "importMetrics": {
+          "bytes": 3402,
+          "elapsedMs": 103.85024999998859,
+          "workerStarted": true,
+          "baselineRssBytes": 134447104,
+          "peakRssBytes": 151076864,
+          "parentPeakHeapBytes": 29401976,
+          "workerPeakHeapBytes": 12587464,
+          "transferRssBytes": 145358848
+        },
+        "upstreamTransport": {
+          "connections": 274,
+          "openConnections": 100,
+          "maxOpenConnections": 164,
+          "httpRequests": 4345,
+          "upgrades": 0,
+          "openHttpRequests": 96,
+          "maxOpenHttpRequests": 103,
+          "readBytes": 3061853,
+          "writtenBytes": 66277865
+        }
+      }
+    },
+    {
+      "name": "game-0-round-0-invalid-submit",
+      "startedMs": 127349.48783299999,
+      "elapsedMs": 480.66441700000723,
+      "cpu": {
+        "user": 41016,
+        "system": 5266
+      },
+      "memory": {
+        "rss": 304349184,
+        "heapTotal": 165756928,
+        "heapUsed": 49151384,
+        "external": 11907342,
+        "arrayBuffers": 7737753
+      },
+      "eventLoop": {
+        "sampleCount": 46,
+        "p50Ms": 10.108927,
+        "p95Ms": 11.296767,
+        "p99Ms": 14.131199,
+        "maxMs": 14.131199
+      },
+      "diagnostics": {
+        "connectedSockets": 101,
+        "players": 100,
+        "importMetrics": {
+          "bytes": 3402,
+          "elapsedMs": 103.85024999998859,
+          "workerStarted": true,
+          "baselineRssBytes": 134447104,
+          "peakRssBytes": 151076864,
+          "parentPeakHeapBytes": 29401976,
+          "workerPeakHeapBytes": 12587464,
+          "transferRssBytes": 145358848
+        },
+        "upstreamTransport": {
+          "connections": 278,
+          "openConnections": 101,
+          "maxOpenConnections": 164,
+          "httpRequests": 4502,
+          "upgrades": 0,
+          "openHttpRequests": 53,
+          "maxOpenHttpRequests": 103,
+          "readBytes": 3214755,
+          "writtenBytes": 66338265
+        }
+      }
+    },
+    {
+      "name": "game-0-round-0-accepted-submit",
+      "startedMs": 127830.15225,
+      "elapsedMs": 1572.2587910000002,
+      "cpu": {
+        "user": 360834,
+        "system": 28766
+      },
+      "memory": {
+        "rss": 306167808,
+        "heapTotal": 170475520,
+        "heapUsed": 56350072,
+        "external": 11826808,
+        "arrayBuffers": 7657219
+      },
+      "eventLoop": {
+        "sampleCount": 130,
+        "p50Ms": 10.321919,
+        "p95Ms": 11.321343,
+        "p99Ms": 45.678591,
+        "maxMs": 107.806719
+      },
+      "diagnostics": {
+        "connectedSockets": 101,
+        "players": 100,
+        "importMetrics": {
+          "bytes": 3402,
+          "elapsedMs": 103.85024999998859,
+          "workerStarted": true,
+          "baselineRssBytes": 134447104,
+          "peakRssBytes": 151076864,
+          "parentPeakHeapBytes": 29401976,
+          "workerPeakHeapBytes": 12587464,
+          "transferRssBytes": 145358848
+        },
+        "upstreamTransport": {
+          "connections": 280,
+          "openConnections": 100,
+          "maxOpenConnections": 164,
+          "httpRequests": 5048,
+          "upgrades": 0,
+          "openHttpRequests": 99,
+          "maxOpenHttpRequests": 103,
+          "readBytes": 3639181,
+          "writtenBytes": 67720408
+        }
+      }
+    },
+    {
+      "name": "game-0-round-1-waiting",
+      "startedMs": 129402.411041,
+      "elapsedMs": 1.2253749999945285,
+      "cpu": {
+        "user": 363,
+        "system": 49
+      },
+      "memory": {
+        "rss": 306167808,
+        "heapTotal": 170475520,
+        "heapUsed": 56430360,
+        "external": 11826872,
+        "arrayBuffers": 7657283
+      },
+      "eventLoop": {
+        "sampleCount": 0,
+        "p50Ms": null,
+        "p95Ms": null,
+        "p99Ms": null,
+        "maxMs": null
+      },
+      "diagnostics": {
+        "connectedSockets": 101,
+        "players": 100,
+        "importMetrics": {
+          "bytes": 3402,
+          "elapsedMs": 103.85024999998859,
+          "workerStarted": true,
+          "baselineRssBytes": 134447104,
+          "peakRssBytes": 151076864,
+          "parentPeakHeapBytes": 29401976,
+          "workerPeakHeapBytes": 12587464,
+          "transferRssBytes": 145358848
+        },
+        "upstreamTransport": {
+          "connections": 280,
+          "openConnections": 100,
+          "maxOpenConnections": 164,
+          "httpRequests": 5048,
+          "upgrades": 0,
+          "openHttpRequests": 99,
+          "maxOpenHttpRequests": 103,
+          "readBytes": 3639181,
+          "writtenBytes": 67720408
+        }
+      }
+    },
+    {
+      "name": "game-0-round-1-accepted-submit",
+      "startedMs": 129403.636416,
+      "elapsedMs": 2027.4896249999874,
+      "cpu": {
+        "user": 592890,
+        "system": 34683
+      },
+      "memory": {
+        "rss": 314425344,
+        "heapTotal": 169426944,
+        "heapUsed": 40353056,
+        "external": 6850251,
+        "arrayBuffers": 2680662
+      },
+      "eventLoop": {
+        "sampleCount": 158,
+        "p50Ms": 10.371071,
+        "p95Ms": 11.452415,
+        "p99Ms": 72.613887,
+        "maxMs": 81.395711
+      },
+      "diagnostics": {
+        "connectedSockets": 101,
+        "players": 100,
+        "importMetrics": {
+          "bytes": 3402,
+          "elapsedMs": 103.85024999998859,
+          "workerStarted": true,
+          "baselineRssBytes": 134447104,
+          "peakRssBytes": 151076864,
+          "parentPeakHeapBytes": 29401976,
+          "workerPeakHeapBytes": 12587464,
+          "transferRssBytes": 145358848
+        },
+        "upstreamTransport": {
+          "connections": 287,
+          "openConnections": 100,
+          "maxOpenConnections": 164,
+          "httpRequests": 5470,
+          "upgrades": 0,
+          "openHttpRequests": 100,
+          "maxOpenHttpRequests": 103,
+          "readBytes": 3972624,
+          "writtenBytes": 69241328
+        }
+      }
+    },
+    {
+      "name": "game-0-round-2-waiting",
+      "startedMs": 131431.12604099998,
+      "elapsedMs": 0.5820840000233147,
+      "cpu": {
+        "user": 119,
+        "system": 11
+      },
+      "memory": {
+        "rss": 314425344,
+        "heapTotal": 169426944,
+        "heapUsed": 40450168,
+        "external": 6850316,
+        "arrayBuffers": 2680727
+      },
+      "eventLoop": {
+        "sampleCount": 0,
+        "p50Ms": null,
+        "p95Ms": null,
+        "p99Ms": null,
+        "maxMs": null
+      },
+      "diagnostics": {
+        "connectedSockets": 101,
+        "players": 100,
+        "importMetrics": {
+          "bytes": 3402,
+          "elapsedMs": 103.85024999998859,
+          "workerStarted": true,
+          "baselineRssBytes": 134447104,
+          "peakRssBytes": 151076864,
+          "parentPeakHeapBytes": 29401976,
+          "workerPeakHeapBytes": 12587464,
+          "transferRssBytes": 145358848
+        },
+        "upstreamTransport": {
+          "connections": 287,
+          "openConnections": 100,
+          "maxOpenConnections": 164,
+          "httpRequests": 5470,
+          "upgrades": 0,
+          "openHttpRequests": 100,
+          "maxOpenHttpRequests": 103,
+          "readBytes": 3972624,
+          "writtenBytes": 69241328
+        }
+      }
+    },
+    {
+      "name": "game-0-round-2-accepted-submit",
+      "startedMs": 131431.708125,
+      "elapsedMs": 1559.2892500000016,
+      "cpu": {
+        "user": 659227,
+        "system": 25313
+      },
+      "memory": {
+        "rss": 314818560,
+        "heapTotal": 171786240,
+        "heapUsed": 50381120,
+        "external": 8490820,
+        "arrayBuffers": 4318749
+      },
+      "eventLoop": {
+        "sampleCount": 107,
+        "p50Ms": 10.567679,
+        "p95Ms": 69.926911,
+        "p99Ms": 90.570751,
+        "maxMs": 97.779711
+      },
+      "diagnostics": {
+        "connectedSockets": 101,
+        "players": 100,
+        "importMetrics": {
+          "bytes": 3402,
+          "elapsedMs": 103.85024999998859,
+          "workerStarted": true,
+          "baselineRssBytes": 134447104,
+          "peakRssBytes": 151076864,
+          "parentPeakHeapBytes": 29401976,
+          "workerPeakHeapBytes": 12587464,
+          "transferRssBytes": 145358848
+        },
+        "upstreamTransport": {
+          "connections": 308,
+          "openConnections": 100,
+          "maxOpenConnections": 164,
+          "httpRequests": 5892,
+          "upgrades": 0,
+          "openHttpRequests": 100,
+          "maxOpenHttpRequests": 103,
+          "readBytes": 4305824,
+          "writtenBytes": 70783083
+        }
+      }
+    },
+    {
+      "name": "game-0-round-3-waiting",
+      "startedMs": 132990.997375,
+      "elapsedMs": 1.7642079999786802,
+      "cpu": {
+        "user": 155,
+        "system": 68
+      },
+      "memory": {
+        "rss": 314818560,
+        "heapTotal": 171786240,
+        "heapUsed": 50499800,
+        "external": 8490885,
+        "arrayBuffers": 4318814
+      },
+      "eventLoop": {
+        "sampleCount": 0,
+        "p50Ms": null,
+        "p95Ms": null,
+        "p99Ms": null,
+        "maxMs": null
+      },
+      "diagnostics": {
+        "connectedSockets": 101,
+        "players": 100,
+        "importMetrics": {
+          "bytes": 3402,
+          "elapsedMs": 103.85024999998859,
+          "workerStarted": true,
+          "baselineRssBytes": 134447104,
+          "peakRssBytes": 151076864,
+          "parentPeakHeapBytes": 29401976,
+          "workerPeakHeapBytes": 12587464,
+          "transferRssBytes": 145358848
+        },
+        "upstreamTransport": {
+          "connections": 308,
+          "openConnections": 100,
+          "maxOpenConnections": 164,
+          "httpRequests": 5892,
+          "upgrades": 0,
+          "openHttpRequests": 100,
+          "maxOpenHttpRequests": 103,
+          "readBytes": 4305824,
+          "writtenBytes": 70783083
+        }
+      }
+    },
+    {
+      "name": "game-0-round-3-accepted-submit",
+      "startedMs": 132992.76158299998,
+      "elapsedMs": 1604.6529169999994,
+      "cpu": {
+        "user": 677604,
+        "system": 26645
+      },
+      "memory": {
+        "rss": 314867712,
+        "heapTotal": 169426944,
+        "heapUsed": 57337616,
+        "external": 5260058,
+        "arrayBuffers": 1090469
+      },
+      "eventLoop": {
+        "sampleCount": 112,
+        "p50Ms": 10.215423,
+        "p95Ms": 11.608063,
+        "p99Ms": 101.056511,
+        "maxMs": 119.472127
+      },
+      "diagnostics": {
+        "connectedSockets": 101,
+        "players": 100,
+        "importMetrics": {
+          "bytes": 3402,
+          "elapsedMs": 103.85024999998859,
+          "workerStarted": true,
+          "baselineRssBytes": 134447104,
+          "peakRssBytes": 151076864,
+          "parentPeakHeapBytes": 29401976,
+          "workerPeakHeapBytes": 12587464,
+          "transferRssBytes": 145358848
+        },
+        "upstreamTransport": {
+          "connections": 331,
+          "openConnections": 100,
+          "maxOpenConnections": 164,
+          "httpRequests": 6404,
+          "upgrades": 0,
+          "openHttpRequests": 88,
+          "maxOpenHttpRequests": 103,
+          "readBytes": 4706255,
+          "writtenBytes": 72246100
+        }
+      }
+    },
+    {
+      "name": "game-0-round-4-waiting",
+      "startedMs": 134597.41449999998,
+      "elapsedMs": 2.5163750000065193,
+      "cpu": {
+        "user": 183,
+        "system": 39
+      },
+      "memory": {
+        "rss": 314867712,
+        "heapTotal": 169426944,
+        "heapUsed": 57636240,
+        "external": 5260163,
+        "arrayBuffers": 1090574
+      },
+      "eventLoop": {
+        "sampleCount": 0,
+        "p50Ms": null,
+        "p95Ms": null,
+        "p99Ms": null,
+        "maxMs": null
+      },
+      "diagnostics": {
+        "connectedSockets": 101,
+        "players": 100,
+        "importMetrics": {
+          "bytes": 3402,
+          "elapsedMs": 103.85024999998859,
+          "workerStarted": true,
+          "baselineRssBytes": 134447104,
+          "peakRssBytes": 151076864,
+          "parentPeakHeapBytes": 29401976,
+          "workerPeakHeapBytes": 12587464,
+          "transferRssBytes": 145358848
+        },
+        "upstreamTransport": {
+          "connections": 331,
+          "openConnections": 100,
+          "maxOpenConnections": 164,
+          "httpRequests": 6405,
+          "upgrades": 0,
+          "openHttpRequests": 88,
+          "maxOpenHttpRequests": 103,
+          "readBytes": 4707002,
+          "writtenBytes": 72246275
+        }
+      }
+    },
+    {
+      "name": "game-0-round-4-accepted-submit",
+      "startedMs": 134599.930875,
+      "elapsedMs": 1941.9971249999944,
+      "cpu": {
+        "user": 1059707,
+        "system": 48067
+      },
+      "memory": {
+        "rss": 282361856,
+        "heapTotal": 170999808,
+        "heapUsed": 49914416,
+        "external": 7887066,
+        "arrayBuffers": 3717477
+      },
+      "eventLoop": {
+        "sampleCount": 107,
+        "p50Ms": 10.657791,
+        "p95Ms": 109.248511,
+        "p99Ms": 125.501439,
+        "maxMs": 159.514623
+      },
+      "diagnostics": {
+        "connectedSockets": 101,
+        "players": 100,
+        "importMetrics": {
+          "bytes": 3402,
+          "elapsedMs": 103.85024999998859,
+          "workerStarted": true,
+          "baselineRssBytes": 134447104,
+          "peakRssBytes": 151076864,
+          "parentPeakHeapBytes": 29401976,
+          "workerPeakHeapBytes": 12587464,
+          "transferRssBytes": 145358848
+        },
+        "upstreamTransport": {
+          "connections": 362,
+          "openConnections": 100,
+          "maxOpenConnections": 164,
+          "httpRequests": 6851,
+          "upgrades": 0,
+          "openHttpRequests": 50,
+          "maxOpenHttpRequests": 103,
+          "readBytes": 5057521,
+          "writtenBytes": 74053018
+        }
+      }
+    },
+    {
+      "name": "game-0-round-5-waiting",
+      "startedMs": 136541.92799999999,
+      "elapsedMs": 313.3257910000102,
+      "cpu": {
+        "user": 11275,
+        "system": 1440
+      },
+      "memory": {
+        "rss": 283049984,
+        "heapTotal": 170999808,
+        "heapUsed": 58906560,
+        "external": 7888771,
+        "arrayBuffers": 3719182
+      },
+      "eventLoop": {
+        "sampleCount": 29,
+        "p50Ms": 10.280959,
+        "p95Ms": 11.083775,
+        "p99Ms": 11.116543,
+        "maxMs": 11.116543
+      },
+      "diagnostics": {
+        "connectedSockets": 101,
+        "players": 100,
+        "importMetrics": {
+          "bytes": 3402,
+          "elapsedMs": 103.85024999998859,
+          "workerStarted": true,
+          "baselineRssBytes": 134447104,
+          "peakRssBytes": 151076864,
+          "parentPeakHeapBytes": 29401976,
+          "workerPeakHeapBytes": 12587464,
+          "transferRssBytes": 145358848
+        },
+        "upstreamTransport": {
+          "connections": 363,
+          "openConnections": 101,
+          "maxOpenConnections": 164,
+          "httpRequests": 6902,
+          "upgrades": 0,
+          "openHttpRequests": 100,
+          "maxOpenHttpRequests": 103,
+          "readBytes": 5092506,
+          "writtenBytes": 74057801
+        }
+      }
+    },
+    {
+      "name": "game-0-round-5-accepted-submit",
+      "startedMs": 136855.253791,
+      "elapsedMs": 1974.546250000014,
+      "cpu": {
+        "user": 1141941,
+        "system": 33999
+      },
+      "memory": {
+        "rss": 302465024,
+        "heapTotal": 172310528,
+        "heapUsed": 52867416,
+        "external": 7630712,
+        "arrayBuffers": 3461123
+      },
+      "eventLoop": {
+        "sampleCount": 108,
+        "p50Ms": 10.412031,
+        "p95Ms": 120.586239,
+        "p99Ms": 137.363455,
+        "maxMs": 146.800639
+      },
+      "diagnostics": {
+        "connectedSockets": 101,
+        "players": 100,
+        "importMetrics": {
+          "bytes": 3402,
+          "elapsedMs": 103.85024999998859,
+          "workerStarted": true,
+          "baselineRssBytes": 134447104,
+          "peakRssBytes": 151076864,
+          "parentPeakHeapBytes": 29401976,
+          "workerPeakHeapBytes": 12587464,
+          "transferRssBytes": 145358848
+        },
+        "upstreamTransport": {
+          "connections": 412,
+          "openConnections": 100,
+          "maxOpenConnections": 164,
+          "httpRequests": 7335,
+          "upgrades": 0,
+          "openHttpRequests": 100,
+          "maxOpenHttpRequests": 103,
+          "readBytes": 5433255,
+          "writtenBytes": 75734827
+        }
+      }
+    },
+    {
+      "name": "game-0-round-6-waiting",
+      "startedMs": 138829.800041,
+      "elapsedMs": 0.5476249999774154,
+      "cpu": {
+        "user": 38,
+        "system": 17
+      },
+      "memory": {
+        "rss": 302465024,
+        "heapTotal": 172310528,
+        "heapUsed": 53067192,
+        "external": 7630777,
+        "arrayBuffers": 3461188
+      },
+      "eventLoop": {
+        "sampleCount": 0,
+        "p50Ms": null,
+        "p95Ms": null,
+        "p99Ms": null,
+        "maxMs": null
+      },
+      "diagnostics": {
+        "connectedSockets": 101,
+        "players": 100,
+        "importMetrics": {
+          "bytes": 3402,
+          "elapsedMs": 103.85024999998859,
+          "workerStarted": true,
+          "baselineRssBytes": 134447104,
+          "peakRssBytes": 151076864,
+          "parentPeakHeapBytes": 29401976,
+          "workerPeakHeapBytes": 12587464,
+          "transferRssBytes": 145358848
+        },
+        "upstreamTransport": {
+          "connections": 412,
+          "openConnections": 100,
+          "maxOpenConnections": 164,
+          "httpRequests": 7335,
+          "upgrades": 0,
+          "openHttpRequests": 100,
+          "maxOpenHttpRequests": 103,
+          "readBytes": 5433255,
+          "writtenBytes": 75734827
+        }
+      }
+    },
+    {
+      "name": "game-0-round-6-accepted-submit",
+      "startedMs": 138830.347666,
+      "elapsedMs": 2070.409000000014,
+      "cpu": {
+        "user": 1181195,
+        "system": 34278
+      },
+      "memory": {
+        "rss": 327401472,
+        "heapTotal": 187252736,
+        "heapUsed": 32290712,
+        "external": 12041272,
+        "arrayBuffers": 7871683
+      },
+      "eventLoop": {
+        "sampleCount": 113,
+        "p50Ms": 10.493951,
+        "p95Ms": 67.239935,
+        "p99Ms": 150.208511,
+        "maxMs": 164.626431
+      },
+      "diagnostics": {
+        "connectedSockets": 101,
+        "players": 100,
+        "importMetrics": {
+          "bytes": 3402,
+          "elapsedMs": 103.85024999998859,
+          "workerStarted": true,
+          "baselineRssBytes": 134447104,
+          "peakRssBytes": 151076864,
+          "parentPeakHeapBytes": 29401976,
+          "workerPeakHeapBytes": 12587464,
+          "transferRssBytes": 145358848
+        },
+        "upstreamTransport": {
+          "connections": 462,
+          "openConnections": 100,
+          "maxOpenConnections": 164,
+          "httpRequests": 7917,
+          "upgrades": 0,
+          "openHttpRequests": 95,
+          "maxOpenHttpRequests": 103,
+          "readBytes": 5882539,
+          "writtenBytes": 77546805
+        }
+      }
+    },
+    {
+      "name": "game-0-round-7-waiting",
+      "startedMs": 140900.756666,
+      "elapsedMs": 152.73466699998244,
+      "cpu": {
+        "user": 2498,
+        "system": 666
+      },
+      "memory": {
+        "rss": 327401472,
+        "heapTotal": 187252736,
+        "heapUsed": 33227072,
+        "external": 12041441,
+        "arrayBuffers": 7871852
+      },
+      "eventLoop": {
+        "sampleCount": 13,
+        "p50Ms": 10.821631,
+        "p95Ms": 11.378687,
+        "p99Ms": 11.403263,
+        "maxMs": 11.403263
+      },
+      "diagnostics": {
+        "connectedSockets": 101,
+        "players": 100,
+        "importMetrics": {
+          "bytes": 3402,
+          "elapsedMs": 103.85024999998859,
+          "workerStarted": true,
+          "baselineRssBytes": 134447104,
+          "peakRssBytes": 151076864,
+          "parentPeakHeapBytes": 29401976,
+          "workerPeakHeapBytes": 12587464,
+          "transferRssBytes": 145358848
+        },
+        "upstreamTransport": {
+          "connections": 462,
+          "openConnections": 100,
+          "maxOpenConnections": 164,
+          "httpRequests": 7920,
+          "upgrades": 0,
+          "openHttpRequests": 97,
+          "maxOpenHttpRequests": 103,
+          "readBytes": 5884597,
+          "writtenBytes": 77551588
+        }
+      }
+    },
+    {
+      "name": "game-0-round-7-accepted-submit",
+      "startedMs": 141053.49133299998,
+      "elapsedMs": 3313.507958000002,
+      "cpu": {
+        "user": 1362351,
+        "system": 41707
+      },
+      "memory": {
+        "rss": 333758464,
+        "heapTotal": 187252736,
+        "heapUsed": 85230208,
+        "external": 22817542,
+        "arrayBuffers": 18645471
+      },
+      "eventLoop": {
+        "sampleCount": 207,
+        "p50Ms": 10.706943,
+        "p95Ms": 18.071551,
+        "p99Ms": 161.873919,
+        "maxMs": 165.281791
+      },
+      "diagnostics": {
+        "connectedSockets": 101,
+        "players": 100,
+        "importMetrics": {
+          "bytes": 3402,
+          "elapsedMs": 103.85024999998859,
+          "workerStarted": true,
+          "baselineRssBytes": 134447104,
+          "peakRssBytes": 151076864,
+          "parentPeakHeapBytes": 29401976,
+          "workerPeakHeapBytes": 12587464,
+          "transferRssBytes": 145358848
+        },
+        "upstreamTransport": {
+          "connections": 501,
+          "openConnections": 102,
+          "maxOpenConnections": 164,
+          "httpRequests": 8370,
+          "upgrades": 0,
+          "openHttpRequests": 100,
+          "maxOpenHttpRequests": 103,
+          "readBytes": 6238914,
+          "writtenBytes": 79234500
+        }
+      }
+    },
+    {
+      "name": "game-0-round-8-waiting",
+      "startedMs": 144366.999291,
+      "elapsedMs": 4.0674590000126045,
+      "cpu": {
+        "user": 167,
+        "system": 120
+      },
+      "memory": {
+        "rss": 333758464,
+        "heapTotal": 187252736,
+        "heapUsed": 85483632,
+        "external": 22817607,
+        "arrayBuffers": 18645536
+      },
+      "eventLoop": {
+        "sampleCount": 0,
+        "p50Ms": null,
+        "p95Ms": null,
+        "p99Ms": null,
+        "maxMs": null
+      },
+      "diagnostics": {
+        "connectedSockets": 101,
+        "players": 100,
+        "importMetrics": {
+          "bytes": 3402,
+          "elapsedMs": 103.85024999998859,
+          "workerStarted": true,
+          "baselineRssBytes": 134447104,
+          "peakRssBytes": 151076864,
+          "parentPeakHeapBytes": 29401976,
+          "workerPeakHeapBytes": 12587464,
+          "transferRssBytes": 145358848
+        },
+        "upstreamTransport": {
+          "connections": 501,
+          "openConnections": 102,
+          "maxOpenConnections": 164,
+          "httpRequests": 8370,
+          "upgrades": 0,
+          "openHttpRequests": 100,
+          "maxOpenHttpRequests": 103,
+          "readBytes": 6238914,
+          "writtenBytes": 79234500
+        }
+      }
+    },
+    {
+      "name": "game-0-round-8-accepted-submit",
+      "startedMs": 144371.06675,
+      "elapsedMs": 2118.684083,
+      "cpu": {
+        "user": 1460397,
+        "system": 31809
+      },
+      "memory": {
+        "rss": 342016000,
+        "heapTotal": 190660608,
+        "heapUsed": 94609392,
+        "external": 35417844,
+        "arrayBuffers": 31248255
+      },
+      "eventLoop": {
+        "sampleCount": 88,
+        "p50Ms": 10.846207,
+        "p95Ms": 170.524671,
+        "p99Ms": 174.325759,
+        "maxMs": 210.370559
+      },
+      "diagnostics": {
+        "connectedSockets": 101,
+        "players": 100,
+        "importMetrics": {
+          "bytes": 3402,
+          "elapsedMs": 103.85024999998859,
+          "workerStarted": true,
+          "baselineRssBytes": 134447104,
+          "peakRssBytes": 151076864,
+          "parentPeakHeapBytes": 29401976,
+          "workerPeakHeapBytes": 12587464,
+          "transferRssBytes": 145358848
+        },
+        "upstreamTransport": {
+          "connections": 548,
+          "openConnections": 100,
+          "maxOpenConnections": 164,
+          "httpRequests": 8886,
+          "upgrades": 0,
+          "openHttpRequests": 39,
+          "maxOpenHttpRequests": 103,
+          "readBytes": 6642413,
+          "writtenBytes": 81147055
+        }
+      }
+    },
+    {
+      "name": "game-0-round-9-waiting",
+      "startedMs": 146489.750833,
+      "elapsedMs": 261.3737919999985,
+      "cpu": {
+        "user": 19582,
+        "system": 894
+      },
+      "memory": {
+        "rss": 342016000,
+        "heapTotal": 190922752,
+        "heapUsed": 58082704,
+        "external": 35366647,
+        "arrayBuffers": 31197058
+      },
+      "eventLoop": {
+        "sampleCount": 24,
+        "p50Ms": 10.567679,
+        "p95Ms": 11.329535,
+        "p99Ms": 11.476991,
+        "maxMs": 11.476991
+      },
+      "diagnostics": {
+        "connectedSockets": 101,
+        "players": 100,
+        "importMetrics": {
+          "bytes": 3402,
+          "elapsedMs": 103.85024999998859,
+          "workerStarted": true,
+          "baselineRssBytes": 134447104,
+          "peakRssBytes": 151076864,
+          "parentPeakHeapBytes": 29401976,
+          "workerPeakHeapBytes": 12587464,
+          "transferRssBytes": 145358848
+        },
+        "upstreamTransport": {
+          "connections": 548,
+          "openConnections": 100,
+          "maxOpenConnections": 164,
+          "httpRequests": 8954,
+          "upgrades": 0,
+          "openHttpRequests": 96,
+          "maxOpenHttpRequests": 103,
+          "readBytes": 6689608,
+          "writtenBytes": 81153607
+        }
+      }
+    },
+    {
+      "name": "game-0-round-9-accepted-submit",
+      "startedMs": 146751.124625,
+      "elapsedMs": 6018.378208000009,
+      "cpu": {
+        "user": 1982450,
+        "system": 80322
+      },
+      "memory": {
+        "rss": 399196160,
+        "heapTotal": 173621248,
+        "heapUsed": 73540920,
+        "external": 6109680,
+        "arrayBuffers": 1940091
+      },
+      "eventLoop": {
+        "sampleCount": 428,
+        "p50Ms": 10.592255,
+        "p95Ms": 11.788287,
+        "p99Ms": 187.957247,
+        "maxMs": 214.433791
+      },
+      "diagnostics": {
+        "connectedSockets": 101,
+        "players": 100,
+        "importMetrics": {
+          "bytes": 3402,
+          "elapsedMs": 103.85024999998859,
+          "workerStarted": true,
+          "baselineRssBytes": 134447104,
+          "peakRssBytes": 151076864,
+          "parentPeakHeapBytes": 29401976,
+          "workerPeakHeapBytes": 12587464,
+          "transferRssBytes": 145358848
+        },
+        "upstreamTransport": {
+          "connections": 606,
+          "openConnections": 100,
+          "maxOpenConnections": 164,
+          "httpRequests": 9750,
+          "upgrades": 0,
+          "openHttpRequests": 99,
+          "maxOpenHttpRequests": 103,
+          "readBytes": 7286269,
+          "writtenBytes": 83587674
+        }
+      }
+    }
+  ]
+}

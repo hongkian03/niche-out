@@ -7,12 +7,22 @@ import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { cpus, totalmem, release } from 'node:os';
 import { createHash } from 'node:crypto';
 import { io } from 'socket.io-client';
+import {execFileSync} from 'node:child_process';
+import {join} from 'node:path';
+import {sanitizeDiagnostic} from './sanitize.mjs';
 import { setTimeout as delay } from 'node:timers/promises';
 import { request as httpRequest, Agent as HttpAgent } from 'node:http';
 import { request as httpsRequest } from 'node:https';
 const tunnel = process.argv.includes('--tunnel'), fault = process.argv.includes('--fault'), transport = process.argv.find(x => x.startsWith('--transport='))?.split('=')[1] ?? 'mixed';
 const faultCycle=Number(process.argv.find(x=>x.startsWith('--fault-cycle='))?.split('=')[1]??0);
 const uplink=process.argv.find(x=>x.startsWith('--uplink='))?.split('=')[1]??'not recorded';
+const instrumentation=process.argv.find(x=>x.startsWith('--diagnostics='))?.split('=')[1]??'detailed';
+assert(['off','light','detailed'].includes(instrumentation));
+const outDir=process.argv.find(x=>x.startsWith('--out-dir='))?.slice(10)??'work/load';
+const runTag=process.argv.find(x=>x.startsWith('--label='))?.slice(8)??'baseline';
+assert(/^[a-zA-Z0-9_-]{1,80}$/.test(runTag));
+const skipPressure=process.argv.includes('--skip-pressure');
+const hash=bytes=>createHash('sha256').update(bytes).digest('hex');
 const coldAfter=process.argv.includes('--cold-after');
 const count = Number(process.argv.find(x => x.startsWith('--players='))?.split('=')[1] ?? 100);
 const games = Number(process.argv.find(x => x.startsWith('--games='))?.split('=')[1] ?? (tunnel ? 3 : 10));
@@ -28,22 +38,32 @@ assert(Number.isInteger(games));
 assert(count >= 1 && count <= 100);
 assert(games >= 1 && games <= 30);
 assert(!fault || (Number.isInteger(faultCycle) && faultCycle>=0 && faultCycle<games));
-const label = (tunnel ? 'tunnel' : 'local') + '-' + transport + '-' + count + '-' + Date.now();
-await mkdir('work/load', { recursive: true });
+const label = runTag+'-'+instrumentation+'-'+(tunnel ? 'tunnel' : 'local') + '-' + transport + '-' + count + '-' + Date.now();
+await mkdir(outDir, { recursive: true });
+let gitCommit=null,dirty=false,treeSha256=null;
+try {gitCommit=execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim();dirty=Boolean(execFileSync('git',['status','--porcelain'],{encoding:'utf8'}).trim());const paths=execFileSync('git',['ls-files','-co','--exclude-standard','-z'],{encoding:'utf8'}).split('\0').filter(Boolean).sort();const entries=[];for(const path of [...new Set(paths)]){try{entries.push([path,hash(await readFile(path))]);}catch{entries.push([path,'MISSING']);}}treeSha256=hash(JSON.stringify(entries));}catch{}
+const parentStarted=process.cpuUsage();let parentPeakRss=process.memoryUsage().rss;const parentSampler=setInterval(()=>{parentPeakRss=Math.max(parentPeakRss,process.memoryUsage().rss)},100);parentSampler.unref();
+const buildManifest=JSON.parse(await readFile('build/manifest.json'));
+
 const loadStarted = performance.now();
-const report = { label, started: new Date().toISOString(), config: { tunnel, fault, faultCycle, coldAfter, transport, count, games, rounds, idleSeconds, creationBatch: tunnel ? 5 : 10, joinBatch: 10, reconnectBatch: count, submitBatch: count }, machine: { uplink, cpu: cpus()[0].model, cores: cpus().length, memoryBytes: totalmem(), kernel: release(), node: process.version }, checks: [], checkpoints: [], timings: [], cycles: [], failures: [], recoveries: [], retries: [], transportErrors: [], disconnects: {}, http: { requests: 0, maxInFlight: 0, bodyBytes: 0, statusCounts: {} }, measuredServerSha256: createHash('sha256').update(await readFile('apps/server/dist/game/application.js')).digest('hex'), sourceManifestSha256: createHash('sha256').update(await readFile('build/manifest.json')).digest('hex') };
-const child = fork(new URL('./server.mjs', import.meta.url), tunnel ? ['--tunnel'] : [], { execArgv: ['--expose-gc'], stdio: ['ignore', 'pipe', 'pipe', 'ipc'] });
+const report = { label, started: new Date().toISOString(), identity:{gitCommit,dirty,treeSha256,lockSha256:hash(await readFile('package-lock.json')),buildSourceSha256:buildManifest.sourceSha256,connector:buildManifest.connector}, config: { instrumentation, skipPressure, tunnel, fault, faultCycle, coldAfter, transport, count, games, rounds, idleSeconds, creationBatch: tunnel ? 5 : 10, joinBatch: 10, reconnectBatch: count, submitBatch: count }, machine: { uplink, cpu: cpus()[0].model, cores: cpus().length, memoryBytes: totalmem(), kernel: release(), node: process.version }, checks: [], checkpoints: [], timings: [], cycles: [], failures: [], recoveries: [], retries: [], transportErrors: [], disconnects: {}, http: { requests: 0, maxInFlight: 0, bodyBytes: 0, statusCounts: {} }, measuredServerSha256: createHash('sha256').update(await readFile('apps/server/dist/game/application.js')).digest('hex'), sourceManifestSha256: createHash('sha256').update(await readFile('build/manifest.json')).digest('hex') };
+const {instrumentation:diagnosticSetting,...workload}=report.config;report.workloadSha256=hash(JSON.stringify(workload));
+const child = fork(new URL('./server.mjs', import.meta.url), [...(tunnel ? ['--tunnel'] : []),'--diagnostics='+instrumentation], { execArgv: ['--expose-gc'], stdio: ['ignore', 'pipe', 'pipe', 'ipc'] });
 const logs = [];
 child.stderr.on('data', b => logs.push(b.toString()));
 child.stdout.on('data', () => { });
 const localAgent = new HttpAgent({ lookup: (hostname, options, callback) => callback(null, options.all ? [{ address: '127.0.0.1', family: 4 }] : '127.0.0.1', 4) });
 const exited = new Promise(resolve => child.once('exit', resolve));
+let stageName='startup';const allSockets=new Set();
+const scrub=sanitizeDiagnostic;
+function failureDetail(error,category){const status=error.context?.status??error.description;const cause=error.context?.statusText?.code??error.cause?.code??error.code;return {category:status===429?'provider-429':cause==='ENOTFOUND'?'dns':category,message:scrub(error.message),status:typeof status==='number'?status:undefined,cause:typeof cause==='string'?scrub(cause):undefined,atMs:performance.now()-loadStarted,stage:stageName};}
 let messageId = 0, clients = [], base, origin, host, gameId = null, httpFlight = 0;
-const ipc = (kind) => new Promise((resolve, reject) => { const id = ++messageId; const timer = setTimeout(() => reject(new Error('IPC timeout ' + kind)), 15000); const fn = m => { if (m.id === id) {
+const ipc = (kind, extra={}) => new Promise((resolve, reject) => { if(!child.connected)return reject(new Error('IPC channel closed: '+kind)); const id = ++messageId; const timer = setTimeout(() => {child.off('message',fn);reject(new Error('IPC timeout '+kind));}, 15000); const fn = m => { if (m.id === id) {
     clearTimeout(timer);
     child.off('message', fn);
     resolve(m.metrics ?? m);
-} }; child.on('message', fn); child.send({ kind, id }); });
+} }; child.on('message', fn); child.send({ kind, id,...extra },error=>{if(error){clearTimeout(timer);child.off('message',fn);reject(error)}}); });
+const stage=async(name)=>{stageName=name;report.checkpoints.push({stage:name,elapsedMs:performance.now()-loadStarted});await ipc('stage',{name});};
 const mark = s => { report.checks.push(s); report.checkpoints.push({ check:s, elapsedMs:performance.now()-loadStarted }); console.log('PASS', s); };
 async function http(path, body, cookie = '') {
     report.http.requests++;
@@ -61,8 +81,16 @@ async function http(path, body, cookie = '') {
         httpFlight--;
     }
 }
-async function connect(c) { const s = c.socket = io(tunnel ? base : origin.replace('https:', 'http:'), { ...(!tunnel ? { agent: localAgent } : {}), autoConnect: false, forceNew: true, reconnection: false, transports: [c.transport], extraHeaders: { Host: new URL(origin).host, Origin: origin, Cookie: c.cookie }, auth: { protocolVersion: 1, serverInstanceId: c.discovery.serverInstanceId, tabId: c.discovery.tabId }, timeout: 20000 }); s.io.on('error', error => report.transportErrors.push({ message: error.message, description: typeof error.description === 'number' ? error.description : undefined, status: error.context?.status, cause: error.context?.statusText?.code ?? String(error.context?.statusText ?? '').slice(0,160) })); s.on('disconnect', reason => report.disconnects[reason] = (report.disconnects[reason] ?? 0) + 1); s.on('state.changed', v => c.view = v); s.on('state.snapshot', v => c.view = v); s.connect(); await new Promise((resolve, reject) => { s.once('connect', resolve); s.once('connect_error', reject); }); }
-async function browser(index, ownerToken) { const r = await http(ownerToken ? '/api/owner/exchange' : '/api/session', ownerToken ? { protocolVersion: 1, token: ownerToken } : { protocolVersion: 1, page: { kind: 'fresh' } }); assert.equal(r.status, 200, JSON.stringify(r.body)); const c = { cookie: r.cookie, discovery: r.body, seq: 0, transport: transport === 'polling' ? 'polling' : transport === 'mixed' && index >= 0 && index % 5 === 0 ? 'polling' : 'websocket', gameId: null, control: 0 }; await connect(c); clients.push(c); return c; }
+async function connect(c) {
+    if(c.socket){c.socket.removeAllListeners();c.socket.io.removeAllListeners();c.socket.disconnect();c.socket.io.disconnect();}
+    const s=c.socket=io(tunnel?base:origin.replace('https:','http:'),{...(!tunnel?{agent:localAgent}:{}),autoConnect:false,forceNew:true,reconnection:false,transports:[c.transport],extraHeaders:{Host:new URL(origin).host,Origin:origin,Cookie:c.cookie},auth:{protocolVersion:1,serverInstanceId:c.discovery.serverInstanceId,tabId:c.discovery.tabId},timeout:10000});
+    allSockets.add(s);
+    s.io.on('error',error=>report.transportErrors.push(failureDetail(error,'opening')));
+    s.on('disconnect',reason=>{report.disconnects[reason]=(report.disconnects[reason]??0)+1;report.connectionTimeline??=[];report.connectionTimeline.push({event:'disconnect',reason,stage:stageName,atMs:performance.now()-loadStarted});});
+    s.on('state.changed',v=>c.view=v);s.on('state.snapshot',v=>c.view=v);
+    await new Promise((resolve,reject)=>{const done=()=>{s.off('connect',success);s.off('connect_error',failed)};const success=()=>{done();report.negotiatedTransports??={};const actual=s.io.engine.transport.name;report.negotiatedTransports[actual]=(report.negotiatedTransports[actual]??0)+1;resolve();};const failed=error=>{done();s.disconnect();s.io.disconnect();reject(error)};s.once('connect',success);s.once('connect_error',failed);s.connect();});
+}
+async function browser(index, ownerToken) { const r = await http(ownerToken ? '/api/owner/exchange' : '/api/session', ownerToken ? { protocolVersion: 1, token: ownerToken } : { protocolVersion: 1, page: { kind: 'fresh' } }); assert.equal(r.status, 200, JSON.stringify(r.body)); const c = { cookie: r.cookie, discovery: r.body, seq: 0, transport: transport === 'polling' ? 'polling' : transport === 'mixed' && index >= 0 && index % 5 === 0 ? 'polling' : 'websocket', gameId: null, control: 0 }; clients.push(c); await connect(c); return c; }
 function envelope(c, payload = {}, extra = {}) { return { protocolVersion: 1, serverInstanceId: c.discovery.serverInstanceId, tabId: c.discovery.tabId, requestId: c.discovery.requestPrefix + '.' + (++c.seq), gameId: c.gameId, payload, ...extra }; }
 // Retry the identical request, never a newly generated mutation. Resume uses the
 // same browser/page identity and must preserve the controlling generation.
@@ -95,20 +123,23 @@ function emitOnce(c,name,input){
 }
 async function send(c,name,payload={},extra={},fixed){
     const start=performance.now();
+    try {
     if(!c.socket.connected)await recover(c);
     const input=fixed??envelope(c,payload,extra);
     for(let attempt=0;attempt<3;attempt++){
         try{
             if(!c.socket.connected)await recover(c);
             const value=await emitOnce(c,name,input);
-            report.timings.push({name,outcome:value.code??value.outcome,durationMs:performance.now()-start});
+            report.timings.push({name,outcome:value.code??value.outcome,durationMs:performance.now()-start,stage:stageName,atMs:performance.now()-loadStarted});
             return value;
         }catch(error){
-            report.retries.push({name,attempt:attempt+1,message:error.message,transport:c.transport});
+            report.retries.push({name,attempt:attempt+1,transport:c.transport,...failureDetail(error,'acknowledgement')});
             if(attempt===2)throw error;
         }
     }
+    } catch(error){report.failedActions??=[];report.failedActions.push({name,durationMs:performance.now()-start,...failureDetail(error,'action')});throw error;}
 }
+let aborting=false;for(const signal of ['SIGTERM','SIGINT'])process.once(signal,async()=>{if(aborting)return;aborting=true;report.status='ABORTED';report.failures.push({category:'harness-abort',message:signal});report.ended=new Date().toISOString();for(const socket of allSockets){socket.disconnect();socket.io.disconnect();}localAgent.destroy();clearInterval(parentSampler);if(child.connected)child.send({kind:'close'});const timer=setTimeout(()=>child.kill('SIGKILL'),10000);await Promise.race([exited,delay(11000)]);clearTimeout(timer);await writeFile(join(outDir,label+'.json'),JSON.stringify(report,null,2)+'\n');process.exit(signal==='SIGINT'?130:143);});
 const state = async (c) => { const r = await send(c, 'state.get'); assert.equal(r.outcome, 'STATE', JSON.stringify(r)); return r.view; };
 async function until(fn,ms=35000){
     const end=Date.now()+ms;
@@ -124,10 +155,11 @@ async function batch(items, fn, width = 10) { for (let i = 0; i < items.length; 
 async function createGame() { const pack = { schemaVersion: 1, title: 'Bounded load fixture', settings: { readingSeconds: 0.2, answerSeconds: 30, resultsSeconds: 0.2 }, tiers: [{ id: 'rare', name: 'Rare', points: 100 }, { id: 'common', name: 'Common', points: 10 }], prompts: Array.from({ length: rounds }, (_, i) => ({ id: 'round' + (i + 1), text: 'Choose an accepted fixture answer.', answers: [{ text: 'Amber', aliases: ['Gold'], tierId: 'rare' }, { text: 'Blue', tierId: 'common' }] })) }; report.fixture = {sha256:createHash('sha256').update(JSON.stringify(pack)).digest('hex'),bytes:Buffer.byteLength(JSON.stringify(pack)),pack}; const imported = await http('/api/host/import', pack, host.cookie); assert.equal(imported.status, 200, JSON.stringify(imported.body)); const { payload, gameId: unused, ...context } = envelope(host); const input = { ...context, candidateId: imported.body.candidateId, expectedGameId: imported.body.expectedGameId, expectedSetupGeneration: imported.body.expectedSetupGeneration }; const result = await http('/api/host/games', input, host.cookie); assert.equal(result.status, 200, JSON.stringify(result.body)); gameId = host.gameId = result.body.gameId; const repeated = await http('/api/host/games', input, host.cookie); assert.equal(repeated.body.gameId, gameId); const v = await state(host); return { code: v.invitation.code, commit: input }; }
 let players = [];
 try {
-    const ready = await new Promise((resolve, reject) => { const timer = setTimeout(() => reject(new Error('Startup timeout ' + logs.join(''))), 210000); child.once('message', m => { clearTimeout(timer); resolve(m); }); child.once('exit', () => reject(new Error('Server early exit ' + logs.join('')))); });
+    const ready = await new Promise((resolve, reject) => { const timer = setTimeout(() => reject(new Error('Startup timeout ' + logs.join(''))), 210000); child.once('message', m => { clearTimeout(timer); resolve(m); }); child.once('exit', () => {clearTimeout(timer);reject(new Error('Server early exit '+logs.join('')));}); });
     origin = ready.origin;
     base = tunnel ? origin : 'http://127.0.0.1:' + ready.port;
     report.endpointReadyMs=performance.now()-loadStarted;
+    await stage('assets');
     host = await browser(-1, ready.ownerLink.split('#')[1]);
     const shell = await http('/join');
     assert.equal(shell.status, 200);
@@ -147,6 +179,7 @@ try {
     mark(count + ' simulated players connected; each fetched production JS/CSS assets');
     let priorGame = null, oldAnswer;
     for (let cycle = 0; cycle < games; cycle++) {
+        await stage('game-'+cycle+'-admission');
         const g = await createGame();
         for (const p of players)
             p.gameId = null;
@@ -163,6 +196,7 @@ try {
             mark('101st admission rejected while admitted identities retained');
         }
         if (cycle === 0 || cycle === games - 1) {
+            await stage('game-'+cycle+'-reconnect');
             for (const p of players)
                 p.socket.disconnect();
             await delay(200);
@@ -171,14 +205,18 @@ try {
             report.cycles.push({ cycle, reconnectMs: performance.now() - began });
             mark(count + '-player reconnect ' + cycle + ' preserved identity/control' + (count === 100 ? ' while full' : ''));
         }
+        await stage('game-'+cycle+'-start');
         const start = await send(host, 'game.start');
         assert.equal(start.outcome, 'STARTED');
         for (let round = 0; round < rounds; round++) {
+            await stage('game-'+cycle+'-round-'+round+'-waiting');
             await until(() => players.every(p => p.view?.phase === 'Answering' && p.view.roundIndex === round));
             if (round === 0) {
+                await stage('game-'+cycle+'-round-'+round+'-invalid-submit');
                 const rejected = await Promise.all(players.map(p => send(p, 'answer.submit', { text: 'Invalid fixture answer' }, { roundId: p.view.roundId, controlGeneration: p.control })));
                 assert(rejected.every(x => x.outcome === 'REJECTED'));
             }
+            await stage('game-'+cycle+'-round-'+round+'-accepted-submit');
             const commands = players.map((p, i) => envelope(p, { text: i % 2 ? 'Blue' : 'Gold' }, { roundId: p.view.roundId, controlGeneration: p.control }));
             oldAnswer = commands[0];
             let accepted;
@@ -221,6 +259,7 @@ try {
             assert.equal(dup.outcome, 'ACCEPTED');
         }
         await until(() => host.view?.phase === 'Finished');
+        await stage('game-'+cycle+'-final-reads');
         const final = await state(host);
         assert.equal(final.standings.length, count);
         for (const row of final.standings) {
@@ -236,11 +275,12 @@ try {
             if(count>1){assert.equal(blue.count,Math.floor(count/2));assert.equal(blue.points,10);}
         }
         const metrics = await ipc('snapshot');
-        report.cycles.push({ cycle, elapsedMs:metrics.elapsedMs, heapAfterGc: metrics.memory.heapUsed, rss: metrics.memory.rss, diagnostics: metrics.diagnostics });
+        report.cycles.push({ cycle, elapsedMs:metrics.elapsedMs, liveHeapBytes: metrics.memory.heapUsed, rss: metrics.memory.rss, diagnostics: metrics.diagnostics });
         priorGame = gameId;
     }
     mark(games + ' complete ' + rounds + '-round games: correct scores, duplicate replay idempotent' + (games > 1 ? ', stale old-game answers rejected' : ''));
-    if (!tunnel) {
+    if (!tunnel && !skipPressure) {
+        await stage('waiting-pressure');
         const outcomes = [];
         for (let i = 0; i < 300; i++) {
             outcomes.push((await http('/api/session', { protocolVersion: 1, page: { kind: 'fresh' } })).body.code ?? 'CREATED');
@@ -250,23 +290,26 @@ try {
         assert.equal((await state(host)).standings.length, count);
         mark('local-only 300 waiting-session admission pressure bounded, current players preserved');
         report.waitingPressure = outcomes.reduce((a, x) => (a[x] = (a[x] ?? 0) + 1, a), {});
+        await stage('read-pressure');
         const limited = await Promise.all(Array.from({ length: 100 }, () => send(players[0], 'clock.sample', { sampleId: 'stress' })));
         assert(limited.some(x => x.code === 'RATE_LIMITED'));
         report.ratePressure = limited.reduce((a, x) => (a[x.code ?? x.outcome] = (a[x.code ?? x.outcome] ?? 0) + 1, a), {});
         mark('local-only read burst rate-limited without evicting active player');
     }
     if (idleSeconds) {
+        await stage('idle');
         const end = Date.now() + idleSeconds * 1000;
         while (Date.now() < end) {
             await delay(Math.min(10000, end - Date.now()));
             assert.equal((await state(host)).standings.length, count);
             const m = await ipc('snapshot');
             assert.equal(m.diagnostics.connectedSockets, count + 1);
-            report.cycles.push({ idleElapsedSeconds: idleSeconds - (end - Date.now()) / 1000, heapAfterGc: m.memory.heapUsed, rss: m.memory.rss, diagnostics: m.diagnostics });
+            report.cycles.push({ idleElapsedSeconds: idleSeconds - (end - Date.now()) / 1000, liveHeapBytes: m.memory.heapUsed, rss: m.memory.rss, diagnostics: m.diagnostics });
         }
         mark(idleSeconds + ' seconds idle heartbeat retention kept every admitted connection and final score');
     }
     if(coldAfter){
+        await stage('cold-load');
         for(const p of players)p.socket.disconnect();
         await delay(11000); // Let old polling GETs/close requests drain before the same 100 users reload.
         assert.equal((await ipc('snapshot')).diagnostics.connectedSockets,1);
@@ -285,23 +328,23 @@ try {
         mark(count+' simultaneous cold reloads served HTML + JS/CSS in parallel + font; existing sockets closed first');
     }
     report.server = await ipc('snapshot');
-    report.retainedAfterDroppingMeasurementSamples = (await ipc('clear-diagnostic-samples')).memory;
+    const cleared=await ipc('clear-diagnostic-samples');report.retainedAfterDroppingMeasurementSamples=cleared.memory;report.explicitGc={durationMs:cleared.gcDurationMs,boundary:'after measured workload stages'};
     report.status = 'PASS';
 }
 catch (error) {
     report.status = 'FAIL';
-    report.failures.push({ message: error.message, stack: error.stack, description: typeof error.description === 'number' ? error.description : undefined, status: error.context?.status, cause: error.context?.statusText?.code ?? String(error.context?.statusText ?? '').slice(0,160) });
+    report.failures.push(failureDetail(error,'run'));
     try {
         report.server = await ipc('snapshot');
     }
     catch { }
     ;
-    console.error('FAIL', error.message);
+    console.error('FAIL', scrub(error.message));
     process.exitCode = 1;
 }
 finally {
-    for (const c of clients)
-        c.socket?.disconnect();
+    clearInterval(parentSampler);report.generator={cpu:process.cpuUsage(parentStarted),memory:process.memoryUsage(),peakRssBytes:parentPeakRss,scope:'Node load generator; excludes server and connector'};
+    for(const s of allSockets){s.removeAllListeners();s.io.removeAllListeners();s.disconnect();s.io.disconnect();}localAgent.destroy();
     if (child.connected)
         child.send({ kind: 'close' });
     await Promise.race([exited, delay(10000)]);
@@ -326,7 +369,9 @@ finally {
     const exceeded = Object.entries(report.summary.serverByOutcome).filter(([key,value])=>eligible.has(key.split(':')[1])&&value.p95Ms>=100);
     report.processingTarget={boundary:'handler entry to ack enqueue, excluding network and event-loop queue',targetP95Ms:100,passed:Object.keys(report.summary.serverByOutcome).length ? exceeded.length===0 : null,exceeded:exceeded.map(([key])=>key)};
     if(exceeded.length){report.status='FAIL';report.failures.push({message:'Server processing p95 target failed'});process.exitCode=1;}
-    const path = 'work/load/' + label + '.json';
+    report.elapsedMs=performance.now()-loadStarted;
+    report.timingsByStage={};for(const row of report.timings)(report.timingsByStage[row.stage]??=[]).push(row);for(const [key,rows]of Object.entries(report.timingsByStage))report.timingsByStage[key]=summarize(rows);
+    const path = join(outDir,label+'.json');
     await writeFile(path, JSON.stringify(report, null, 2) + '\n');
     console.log(JSON.stringify({ status: report.status, path, summary: report.summary, checks: report.checks }, null, 2));
 }

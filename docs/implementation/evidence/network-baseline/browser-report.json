@@ -1,0 +1,291 @@
+{
+  "status": "PASS",
+  "started": "2026-11-17T03:46:17.893Z",
+  "scope": "Fresh desktop Chrome at phone size, actual built GameClient and production server through owned Quick Tunnel. Synthetic per-browser frame loss; not a provider outage, physical phone, 100-browser benchmark, or DNS reproduction.",
+  "checks": [
+    "Real browser starts polling and opens WebSocket; production negotiation policy unchanged",
+    "Server acceptance survives deliberately lost acknowledgement and transport closure",
+    "Unsubmitted draft freezes offline, returns after reconnect, and does not auto-submit",
+    "Undelivered answer reconciles as unlocked, with no automatic fresh-ID submission",
+    "Explicit resubmission completes two rounds with exact joint 200-point totals"
+  ],
+  "timeline": [
+    {
+      "elapsedMs": 81956.817292,
+      "event": "endpoint-ready"
+    },
+    {
+      "elapsedMs": 88484.941542,
+      "event": "polling-request",
+      "label": "host",
+      "method": "GET"
+    },
+    {
+      "elapsedMs": 88713.648042,
+      "event": "polling-request",
+      "label": "host",
+      "method": "POST"
+    },
+    {
+      "elapsedMs": 88713.69391700001,
+      "event": "polling-request",
+      "label": "host",
+      "method": "GET"
+    },
+    {
+      "elapsedMs": 88874.62891700001,
+      "event": "polling-request",
+      "label": "host",
+      "method": "GET"
+    },
+    {
+      "elapsedMs": 88874.74441700001,
+      "event": "polling-request",
+      "label": "host",
+      "method": "POST"
+    },
+    {
+      "elapsedMs": 90394.84670800001,
+      "event": "polling-request",
+      "label": "tested-player",
+      "method": "GET"
+    },
+    {
+      "elapsedMs": 90541.08516700001,
+      "event": "polling-request",
+      "label": "tested-player",
+      "method": "POST"
+    },
+    {
+      "elapsedMs": 90541.635292,
+      "event": "websocket-open",
+      "label": "tested-player"
+    },
+    {
+      "elapsedMs": 90543.068583,
+      "event": "polling-request",
+      "label": "tested-player",
+      "method": "GET"
+    },
+    {
+      "elapsedMs": 90696.26208300001,
+      "event": "polling-request",
+      "label": "tested-player",
+      "method": "GET"
+    },
+    {
+      "elapsedMs": 91024.19900000001,
+      "event": "websocket-upgraded",
+      "label": "tested-player"
+    },
+    {
+      "elapsedMs": 92076.07350000001,
+      "event": "polling-request",
+      "label": "other-player",
+      "method": "GET"
+    },
+    {
+      "elapsedMs": 92263.62925000001,
+      "event": "polling-request",
+      "label": "other-player",
+      "method": "POST"
+    },
+    {
+      "elapsedMs": 92263.65166700001,
+      "event": "polling-request",
+      "label": "other-player",
+      "method": "GET"
+    },
+    {
+      "elapsedMs": 92423.204125,
+      "event": "polling-request",
+      "label": "other-player",
+      "method": "GET"
+    },
+    {
+      "elapsedMs": 93024.455625,
+      "event": "check",
+      "label": "Real browser starts polling and opens WebSocket; production negotiation policy unchanged"
+    },
+    {
+      "elapsedMs": 93392.86750000001,
+      "event": "answer-attempt",
+      "fingerprint": "6c1097ed62759a3e"
+    },
+    {
+      "elapsedMs": 93445.370708,
+      "event": "accepted-ack-dropped"
+    },
+    {
+      "elapsedMs": 95452.34375,
+      "event": "polling-request",
+      "label": "tested-player",
+      "method": "GET"
+    },
+    {
+      "elapsedMs": 95646.644958,
+      "event": "polling-request",
+      "label": "tested-player",
+      "method": "POST"
+    },
+    {
+      "elapsedMs": 95648.152917,
+      "event": "websocket-open",
+      "label": "tested-player"
+    },
+    {
+      "elapsedMs": 95648.293,
+      "event": "polling-request",
+      "label": "tested-player",
+      "method": "GET"
+    },
+    {
+      "elapsedMs": 95838.74525,
+      "event": "polling-request",
+      "label": "tested-player",
+      "method": "GET"
+    },
+    {
+      "elapsedMs": 95838.81800000001,
+      "event": "polling-request",
+      "label": "tested-player",
+      "method": "POST"
+    },
+    {
+      "elapsedMs": 96048.426,
+      "event": "websocket-upgraded",
+      "label": "tested-player"
+    },
+    {
+      "elapsedMs": 96303.181542,
+      "event": "check",
+      "label": "Server acceptance survives deliberately lost acknowledgement and transport closure"
+    },
+    {
+      "elapsedMs": 97385.473958,
+      "event": "polling-request",
+      "label": "other-player",
+      "method": "GET"
+    },
+    {
+      "elapsedMs": 97624.177333,
+      "event": "polling-request",
+      "label": "other-player",
+      "method": "POST"
+    },
+    {
+      "elapsedMs": 97624.223375,
+      "event": "polling-request",
+      "label": "other-player",
+      "method": "GET"
+    },
+    {
+      "elapsedMs": 97862.23150000001,
+      "event": "polling-request",
+      "label": "other-player",
+      "method": "GET"
+    },
+    {
+      "elapsedMs": 97862.9995,
+      "event": "polling-request",
+      "label": "other-player",
+      "method": "POST"
+    },
+    {
+      "elapsedMs": 99170.22025000001,
+      "event": "check",
+      "label": "Unsubmitted draft freezes offline, returns after reconnect, and does not auto-submit"
+    },
+    {
+      "elapsedMs": 100675.72687500001,
+      "event": "answer-attempt",
+      "fingerprint": "fe6188df0fbcf7ef"
+    },
+    {
+      "elapsedMs": 102681.56616700001,
+      "event": "polling-request",
+      "label": "tested-player",
+      "method": "GET"
+    },
+    {
+      "elapsedMs": 102893.347917,
+      "event": "polling-request",
+      "label": "tested-player",
+      "method": "POST"
+    },
+    {
+      "elapsedMs": 102893.58691700001,
+      "event": "websocket-open",
+      "label": "tested-player"
+    },
+    {
+      "elapsedMs": 102893.88941700001,
+      "event": "polling-request",
+      "label": "tested-player",
+      "method": "GET"
+    },
+    {
+      "elapsedMs": 103156.111042,
+      "event": "websocket-upgraded",
+      "label": "tested-player"
+    },
+    {
+      "elapsedMs": 104918.68495800001,
+      "event": "check",
+      "label": "Undelivered answer reconciles as unlocked, with no automatic fresh-ID submission"
+    },
+    {
+      "elapsedMs": 105007.58662500001,
+      "event": "answer-attempt",
+      "fingerprint": "504dd31636d91adf"
+    },
+    {
+      "elapsedMs": 106434.125667,
+      "event": "check",
+      "label": "Explicit resubmission completes two rounds with exact joint 200-point totals"
+    }
+  ],
+  "network": {
+    "pollingRequests": 26,
+    "statuses": {
+      "200": 26
+    },
+    "failures": []
+  },
+  "screenshots": [
+    "accepted-after-recovery.png",
+    "draft-after-recovery.png",
+    "unaccepted-after-recovery.png",
+    "finished.png"
+  ],
+  "faults": [
+    {
+      "kind": "drop-accepted-ack",
+      "elapsedMs": 93445.363417,
+      "serverAccepted": true
+    },
+    {
+      "kind": "drop-before-delivery",
+      "elapsedMs": 100675.74095800001
+    }
+  ],
+  "answerAttempts": [
+    {
+      "elapsedMs": 93392.852375,
+      "fingerprint": "6c1097ed62759a3e"
+    },
+    {
+      "elapsedMs": 100675.71175,
+      "fingerprint": "fe6188df0fbcf7ef"
+    },
+    {
+      "elapsedMs": 105007.580208,
+      "fingerprint": "504dd31636d91adf"
+    }
+  ],
+  "compiledServerSha256": "5375ccb88cdeb87a78f4334fe4be7bb3513e38a7ba885d6e79ae880881cd0105",
+  "browser": "157.0.8103.79",
+  "fixtureSha256": "4973ee1d20fad2f02fcb922e94a2faf7d4787a0a63e38fba7b4e69af3ed02fc8",
+  "ended": "2026-11-17T03:48:04.874Z",
+  "elapsedMs": 106980.43591700001
+}

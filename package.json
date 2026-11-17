@@ -46,6 +46,8 @@
     "test:package:assembly": "node scripts/test-package-assembly.mjs",
     "test:load": "node scripts/load/run.mjs",
     "test:load:tunnel": "node scripts/load/run.mjs --tunnel",
+    "test:network:baseline": "node scripts/load/baseline.mjs",
+    "test:network:browser": "node scripts/load/browser-baseline.mjs",
     "test:import:capacity": "node scripts/test-import-capacity.mjs",
     "test:accessibility": "node scripts/test-accessibility.mjs",
     "test:release": "node --test tests/release/release.check.mjs",

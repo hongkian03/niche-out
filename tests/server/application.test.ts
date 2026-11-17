@@ -1,14 +1,14 @@
 import { afterEach, describe, expect, it } from 'vitest';
 import { request, createServer } from 'node:http';
 import { io, type Socket } from 'socket.io-client';
-import { createGameApplication } from '../../apps/server/src/game/application.js';
+import { createGameApplication, type GameApplicationOptions } from '../../apps/server/src/game/application.js';
 import { completeView, resolution } from '../../packages/contracts/src/index.js';
 import { twoPromptPack } from '../fixtures/game.js';
 
 const origin = 'https://production.example.com';
 const cleanups: (() => Promise<unknown> | void)[] = [];
 afterEach(async () => { for (const close of cleanups.splice(0).reverse()) await close(); });
-async function setup(options: { now?: () => number } = {}) {
+async function setup(options: GameApplicationOptions = {}) {
   const app = await createGameApplication('instance', 'health-nonce', { port: 0, ...options }); cleanups.push(() => app.close());
   app.configureOrigin(origin); app.setHostingStatus({ status: 'ready', publicOrigin: origin });
   const http = (path: string, body?: unknown, cookie = '', extra: Record<string, string> = {}, method?: string) => new Promise<{ status: number; body: any; headers: any }>((resolve, reject) => {
@@ -51,6 +51,25 @@ async function setup(options: { now?: () => number } = {}) {
 }
 
 describe('production application protocol', () => {
+  it('keeps diagnostics private and safe when observers throw, and counts polling HTTP once', async () => {
+    const h = await setup({ diagnosticMode: 'detailed', onDiagnostic: () => { throw Error('observer failure'); } });
+    const a = await h.browser();
+    const before = h.app.diagnosticSnapshot().upstreamTransport.httpRequests;
+    const response = await h.http('/socket.io/?EIO=4&transport=polling', undefined, a.cookie);
+    expect(response.status).toBe(200);
+    expect(h.app.diagnosticSnapshot().upstreamTransport.httpRequests - before).toBe(1);
+    expect((await h.http('/api/diagnostics')).status).toBe(404);
+    const host = await h.browser(true), g = await h.game(host);
+    expect(g.gameId).toBeTruthy();
+  });
+  it('light diagnostics report commands without duplicate JSON byte/profile work', async () => {
+    const samples: any[] = [];
+    const h = await setup({ diagnosticMode: 'light', onDiagnostic: sample => samples.push(sample) });
+    const host = await h.browser(true); await host.state(null);
+    expect(samples.some(sample => sample.kind === 'command')).toBe(true);
+    expect(samples.some(sample => sample.kind === 'egress' || sample.kind === 'profile')).toBe(false);
+    expect(JSON.stringify(samples)).not.toContain('continuationToken');
+  });
   it('serves exact public assets/health and rejects wrong ingress, private files and unauthorized routes', async () => {
     const h = await setup();
     expect((await h.http('/health')).body).toEqual({ protocolVersion: 1, appVersion: '0.1.0', live: true });

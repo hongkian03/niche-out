@@ -301,6 +301,12 @@ Entry: G5. Direct story prerequisites are listed below; this entry gate applies 
 | [E6-S12](implementation/epic-06-validation-release.md#e6-s12-publish-the-authorized-release) | Publish the authorized release — conditional publication | 1 | E6-S11 | TODO |
 | [E6-S13](implementation/epic-06-validation-release.md#e6-s13-optional-static-information-website) | Optional static information website — optional | 2 | E6-S11 | TODO |
 
+## Networking baseline investigation — November 16
+
+The owner authorized the baseline chunk with parallel agents. [Baseline measurements](implementation/evidence/NETWORK-BASELINE.md) now include nine serial jobs, one light public-polling follow-up and a five-check actual-browser recovery probe. All 433 application regressions passed. Detailed diagnostics added about 30% local application CPU in a two-repetition comparison, so their costs are explicitly qualified. Mixed public gameplay passed with 162 polling ACK retries; both detailed and light polling-only runs exhausted ACK budgets without completing. The light run recovered one reconnect 429 before its later failure. The same 100-player target remains open.
+
+The baseline confirms thousands of reconnect-triggered views and identifies repeated accumulated-history snapshot construction as a strong source candidate. It adds diagnostic/harness tooling only. Jitter, WebSocket-first fallback, snapshot/broadcast optimizations and a provider change are **not implemented**. The next development chunk is to choose the first bounded fix using this evidence; keep DNS/provider accounting, server queueing and browser recovery distinct.
+
 ## Epic 6 outstanding qualification and follow-ups
 
 The owner authorized parallel execution on the available Mac and later requested provider/transport alternatives. The [alternatives report](implementation/evidence/EPIC-6-ALTERNATIVES.md) proposes small follow-up chunks; none changes the baseline until selected. No mandatory requirement was silently relaxed.

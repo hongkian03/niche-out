@@ -23,3 +23,40 @@ The second/third commands need internet access and the repository's pinned `clou
 Results are written to `work/load/*.json`, including failures. Private owner URLs/cookies, player credentials and public tunnel hostnames are not included. Metrics distinguish server entry→ack enqueue latency, client end-to-end time, logical application payload bytes and app↔connector TCP bytes. The latter are **not** internet wire/TLS/QUIC bytes or authoritative provider-edge request counts. Peak RSS is sampled at 20 ms; GC snapshots include the measurement collector until the final explicit collector-clear measurement. CPU covers the application process, excluding the load generator and connector.
 
 The detailed interpretation and remaining limits are in [Epic 6 load evidence](../../docs/implementation/evidence/EPIC-6-LOAD.md). A passing script does not certify 100 physical devices, a different laptop, venue uplink, or unlimited free-tunnel capacity.
+
+## Networking baseline investigation
+
+The baseline suite runs jobs **serially** and compares instrumentation overhead before any networking optimization. It preserves failed runs. Use the pinned runtime and build first; close unrelated browser automation and avoid compiling/compressing files during measurements.
+
+```sh
+node scripts/load/baseline.mjs --plan --uplink=eduroam
+node scripts/load/baseline.mjs --local-only --out-dir=work/network-baseline/local --uplink=eduroam
+node scripts/load/baseline.mjs --public-only --out-dir=work/network-baseline/public --uplink=eduroam
+```
+
+Replace `eduroam` with the connection actually used. Each output directory should be new for the campaign. Local jobs are counterbalanced `off → light → detailed → detailed → light → off` (100 WebSocket players, two games × five rounds), followed by a 100-player polling run. Public jobs are one 20-round game each for mixed and all-polling, with a fresh application-owned endpoint per job. These are baseline investigations, not the full release qualification workload. A suite returns exit status 1 if any job fails and still writes its results.
+
+Direct run options added for investigation:
+
+- `--diagnostics=off|light|detailed` (alias accepted by the child: `--instrumentation`): off omits all app diagnostic callbacks and upstream instrumentation; light measures commands/transports without extra payload serialization; detailed also profiles projections, publications, emit enqueue, and diagnostic byte serialization. Missing off-mode handler/byte measurements are unavailable, not zero.
+- `--out-dir=path` and `--label=short-label` retain named raw results.
+- `--skip-pressure` omits local metadata/rate-limit pressure when comparing identical instrumentation workloads.
+
+Each report captures Git revision, dirty-tree content hash, lockfile/build identity, fixture/workload digest, actual successful transport openings, stage checkpoints, failed-action elapsed times, retries and transport error categories. Successful-action percentiles do not include failures; inspect both. The fixture/workload hash excludes diagnostic mode so matching shapes can be compared across overhead runs. The opening timeout now matches the browser client's 10 seconds, but forced Node transports still do not test browser negotiation.
+
+Snapshots no longer force garbage collection. Stage `liveHeapBytes` values are live observations; only the explicit end-of-workload collector clear/GC is a post-GC measurement. Event-loop histograms are per stage; do not average their percentiles into a supposed global p95. Detailed profile groups can nest (for example publication contains projection/emit); do not sum inclusive timings.
+
+A suite directory contains:
+
+- `suite.json`: planned/executed commands and exit statuses.
+- `*.log` and per-run `*.json`: retained outcomes and raw diagnostic evidence.
+- `REPORT.md`: readable comparison and stage tables.
+- `rollup.json`: compact machine-readable comparison.
+
+Regenerate the report without running traffic:
+
+```sh
+node scripts/load/summarize-baseline.mjs --dir=work/network-baseline/local
+```
+
+The application process's CPU/RSS excludes the generator and connector. Generator metrics are recorded separately; connector `ps` sampling is labelled with its interval and freshness and excludes the native guard. No arbitrary external target can be supplied. Request/transport errors are recorded without publishing cookies, owner links or tunnel hostnames. Cancelling a direct run writes an ABORTED report and requests shutdown of its owned child; the suite also enforces a bounded deadline.
