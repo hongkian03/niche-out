@@ -17,7 +17,7 @@ Niche Out is under active development. Testing has covered 100 simulated players
 
 ## Why I made this
 
-Normally for Boston University Singapore Student Association's annual Great Singapore Social event, we play jeopardy or kahoot. However, during a meeting someone suggested a multiplayer Krillion since (at the time of development) it's a fairly new online game.
+Normally for Boston University Singapore Student Association's annual Great Singapore Social event, we play Jeopardy or Kahoot. However, during a meeting someone suggested a multiplayer Krillion since (at the time of development) it's a fairly new online game that has gone viral and is very popular. Hence, I embarked on this project, but also decided to make it open source and general use, so that others may also use it as a locally-hosted party game.
 
 ## How to download
 
