@@ -16,9 +16,9 @@ it('a fresh production application at the same origin loses the old game and cre
   });
   try {
     app.configureOrigin(origin); app.setHostingStatus({ status: 'ready', publicOrigin: origin });
-    const owner = await call('/api/owner/exchange', { protocolVersion: 1, token: app.mintOwnerLink().split('#')[1] });
+    const owner = await call('/api/owner/exchange', { protocolVersion: 2, token: app.mintOwnerLink().split('#')[1] });
     const upload = await call('/api/host/import', twoPromptPack(), owner.cookie);
-    const created = await call('/api/host/games', { protocolVersion: 1, serverInstanceId: 'first-instance', tabId: owner.body.tabId,
+    const created = await call('/api/host/games', { protocolVersion: 2, serverInstanceId: 'first-instance', tabId: owner.body.tabId,
       requestId: owner.body.requestPrefix + '.1', candidateId: upload.body.candidateId,
       expectedGameId: null, expectedSetupGeneration: upload.body.expectedSetupGeneration }, owner.cookie);
     expect(created.body.outcome).toBe('COMMITTED');
@@ -27,9 +27,9 @@ it('a fresh production application at the same origin loses the old game and cre
     app = await createGameApplication('second-instance', 'second-health', { port });
     app.configureOrigin(origin); app.setHostingStatus({ status: 'ready', publicOrigin: origin });
     expect((await call('/api/host/import', twoPromptPack(), owner.cookie)).status).toBe(401);
-    const discovery = await call('/api/session', { protocolVersion: 1, page: { kind: 'fresh' } }, owner.cookie);
+    const discovery = await call('/api/session', { protocolVersion: 2, page: { kind: 'fresh' } }, owner.cookie);
     expect(discovery.body).toMatchObject({ serverInstanceId: 'second-instance', role: 'guest', membership: null, hostGameId: null, lastGameCommit: null });
-    const nextOwner = await call('/api/owner/exchange', { protocolVersion: 1, token: app.mintOwnerLink().split('#')[1] });
+    const nextOwner = await call('/api/owner/exchange', { protocolVersion: 2, token: app.mintOwnerLink().split('#')[1] });
     const snapshot = await call('/api/snapshot?serverInstanceId=second-instance&tabId=' + nextOwner.body.tabId, undefined, nextOwner.cookie);
     expect(snapshot.body).toMatchObject({ phase: 'Setup', gameId: null, promptCount: 0 });
   } finally { await app.close(); }

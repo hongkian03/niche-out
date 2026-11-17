@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "package": "/Users/kianhong/Projects/niche_out/work/network-improvements/extracted/Niche-Out-0.1.0-private-darwin-arm64",
+  "checks": [
+    "bundled runtime, native adapter, assets, real tunnel and public readiness",
+    "real browser join, worker import, two-round play and 200-point final",
+    "browser-close survival and private owner recovery with final results",
+    "explicit quit stops packaged launcher"
+  ],
+  "archiveSha256": "265cf5d1418b0085d95a4216b320d6882be3cd1ee3c171cc4924820b9991473b",
+  "buildSourceSha256": "0216c4a67e76e14de87a46761a69f7e66484080e9d752aba0add46325b57048c",
+  "scope": "Private unsigned darwin-arm64 archive extracted before test; actual bundled runtime and owned tunnel. Other platforms deferred."
+}

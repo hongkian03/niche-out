@@ -24,7 +24,7 @@ export function makeMembership(sessionToken) {
       const classification = input.kind === "fresh" ? "fresh" :
         matches(input.record) ? "continuation" : "confirmation-required";
       pages.set(tabId, { input, requestPrefix, used: false });
-      return { protocolVersion: 1, serverInstanceId, role: "player", tabId, requestPrefix,
+      return { protocolVersion: 2, serverInstanceId, role: "player", tabId, requestPrefix,
         hostGameId: null, lastGameCommit: null, resume: classification,
         membership: { gameId, playerId: "probe-member", nickname: "Probe", status: "admitted" } };
     },

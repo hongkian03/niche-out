@@ -67,7 +67,7 @@ const liveHost = z.strictObject({
 });
 const livePlayer = z.strictObject({
   ...timed, phase: livePhase, viewRole: player, readiness, ownPlayer, ownAnswer: locked,
-  controlGeneration: nonnegative, publishedTotal: nonnegative, publishedStandings,
+  controlGeneration: nonnegative, publishedTotal: nonnegative,
 });
 const resultsHost = z.strictObject({
   ...timed, phase: z.literal("Results"), viewRole: host, hosting: hostingStatusSchema, roster, results: publicResults, standings: roundStandings,

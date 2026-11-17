@@ -23,7 +23,7 @@ export function makeMembership(sessionToken: string, serverInstanceId: string) {
       const tabId = randomUUID(); const requestPrefix = randomUUID();
       const classification = input.kind === 'fresh' ? 'fresh' : matches(input) ? 'continuation' : 'confirmation-required';
       pages.set(tabId, {input, requestPrefix, used:false});
-      return {protocolVersion:1,serverInstanceId,role:'player',tabId,requestPrefix,hostGameId:null,lastGameCommit:null,resume:classification,
+      return {protocolVersion:2,serverInstanceId,role:'player',tabId,requestPrefix,hostGameId:null,lastGameCommit:null,resume:classification,
         membership:{gameId,playerId:'connection-member',nickname:'Connection check',status:'admitted'}};
     },
     command({tabId,requestId,gameId:requestedGame,serverInstanceId:instance,payload}: Command, kind: string): Result {

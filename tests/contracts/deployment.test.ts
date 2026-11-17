@@ -104,7 +104,7 @@ describe("public invitations and host-only readiness", () => {
     expect(requiresFreshGame(origin, origin)).toBe(false);
     expect(requiresFreshGame(origin, "https://other.example.com")).toBe(true);
     expect(requiresFreshGame(origin, origin + ":8443")).toBe(true);
-    expect(serverEvents["game.closed"].safeParse({ protocolVersion: 1, serverInstanceId: "s", gameId: "g",
+    expect(serverEvents["game.closed"].safeParse({ protocolVersion: 2, serverInstanceId: "s", gameId: "g",
       revision: 3, reason: "public-origin-changed" }).success).toBe(true);
   });
 });

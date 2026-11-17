@@ -1,5 +1,18 @@
 # Compiled game capacity checks
 
+## Simulate an authored game
+
+```sh
+npm run build
+node scripts/load/run.mjs --tunnel --pack=examples/game.singapore.json --players=100 --games=1 --transport=mixed --no-reconnect-burst --answer-delay-ms=2000 --answer-spread-ms=18000 --diagnostics=light --label=singapore-capacity --out-dir=work/singapore-capacity/my-run --uplink=eduroam
+```
+
+`--pack` loads the file's prompts, aliases, tiers and timers; it controls round count and defaults to one game. The uploaded JSON is whitespace-compacted without changing its authored content. Players cycle through each prompt's valid answers; alternating players use an explicit alias when present. Expected totals/ranks and canonical counts are checked independently against the JSON. `--rounds` and synthetic fault injection are unavailable with a pack file.
+
+`--answer-delay-ms` and `--answer-spread-ms` pace valid submissions after all players observe Answering; their sum must precede the pack's answer deadline. `--no-reconnect-burst` omits the synthetic mass reconnect. The first round still includes invalid-answer/retry checks and each round replays one accepted request. The original synthetic workload remains the default when no pack is supplied. Use a fresh output directory and your actual uplink label.
+
+The [recorded Singapore capacity run](../../docs/implementation/evidence/SINGAPORE-CAPACITY.md) includes per-transport latency, server/connector resources, traffic and final score verification. These Node clients do not emulate rendering or periodic browser clock samples.
+
 Run from the repository root with the pinned Node version. Build first. The harness forks the **compiled production application** into a separate process; simulated Socket.IO clients run in the parent. This separates application CPU/heap from the load generator. The public variant creates and closes its own managed temporary tunnel. It does not accept an arbitrary target URL.
 
 ```sh

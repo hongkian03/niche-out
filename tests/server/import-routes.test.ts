@@ -47,12 +47,12 @@ async function harness(options: GameApplicationOptions = {}) {
     const call = raw(path, credential, bytes?.length, method); call.req.end(bytes); return call.result;
   }
   async function owner() {
-    const response = await http('/api/owner/exchange', { protocolVersion: 1, token: app.mintOwnerLink().split('#')[1] });
+    const response = await http('/api/owner/exchange', { protocolVersion: 2, token: app.mintOwnerLink().split('#')[1] });
     expect(response.status).toBe(200);
     return { cookie: response.cookie!, page: response.body, sequence: 0 };
   }
   const envelope = (actor: { page: any; sequence: number }, payload = {}, gameId: string | null = null) => ({
-    protocolVersion: 1, serverInstanceId: 'import-route-instance', tabId: actor.page.tabId,
+    protocolVersion: 2, serverInstanceId: 'import-route-instance', tabId: actor.page.tabId,
     requestId: actor.page.requestPrefix + '.' + (++actor.sequence), gameId, payload,
   });
   function commitInput(actor: { page: any; sequence: number }, imported: any) {
@@ -71,7 +71,7 @@ async function harness(options: GameApplicationOptions = {}) {
   async function socket(actor: { cookie: string; page: any }) {
     const socket = io('http://127.0.0.1:' + app.port, { autoConnect: false, forceNew: true, reconnection: false,
       transports: ['websocket'], extraHeaders: { Host: new URL(origin).host, Origin: origin, Cookie: actor.cookie },
-      auth: { protocolVersion: 1, serverInstanceId: 'import-route-instance', tabId: actor.page.tabId } });
+      auth: { protocolVersion: 2, serverInstanceId: 'import-route-instance', tabId: actor.page.tabId } });
     cleanup.push(() => { socket.disconnect(); });
     await new Promise<void>((resolve, reject) => { socket.once('connect', resolve); socket.once('connect_error', reject); socket.connect(); });
     return (kind: string, input: any) => new Promise<any>((resolve, reject) => socket.timeout(2000).emit(kind, input, (error: unknown, value: any) => error ? reject(error) : resolve(value)));
@@ -122,7 +122,7 @@ describe('production import route boundaries', () => {
   });
   it('blocks Start and commit while upload is reserved; Start later invalidates an uncommitted summary', async () => {
     const h = await harness(), owner = await h.owner(), gameId = await h.game(owner);
-    const discovery = await h.http('/api/session', { protocolVersion: 1, page: { kind: 'fresh' } });
+    const discovery = await h.http('/api/session', { protocolVersion: 2, page: { kind: 'fresh' } });
     const player = { cookie: discovery.cookie!, page: discovery.body, sequence: 0 };
     const playerSend = await h.socket(player), hostSend = await h.socket(owner);
     const lobby = (await h.snapshot(owner, gameId)).body;

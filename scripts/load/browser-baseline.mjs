@@ -51,6 +51,7 @@ try{
      if(closing)return;
      if(message==='5')mark('websocket-upgraded',{label:'tested-player'});
      const event=packet(message,'2');
+     if(event?.data[0]==='clock.sample')mark('clock-sample',{label:'tested-player'});
      if(event?.data[0]==='answer.submit'){
        const fingerprint=createHash('sha256').update(event.data[1].requestId).digest('hex').slice(0,16);
        report.answerAttempts.push({elapsedMs:performance.now()-started,fingerprint});mark('answer-attempt',{fingerprint});
@@ -78,7 +79,7 @@ try{
  await player.goto(url);await player.getByLabel('Nickname',{exact:true}).fill('Baseline A');await player.getByRole('button',{name:'Join game',exact:true}).click();await player.getByText('Waiting for the host to start',{exact:false}).waitFor();
  const otherContext=await browser.newContext({viewport:{width:390,height:844}}),other=await otherContext.newPage();observe(other,'other-player');
  await other.goto(url);await other.getByLabel('Nickname',{exact:true}).fill('Baseline B');await other.getByRole('button',{name:'Join game',exact:true}).click();await other.getByText('Waiting for the host to start',{exact:false}).waitFor();
- await until(()=>report.timeline.some(x=>x.event==='websocket-upgraded'));check('Real browser starts polling and opens WebSocket; production negotiation policy unchanged');
+ await until(()=>report.timeline.some(x=>x.event==='websocket-open'));assert.equal(report.network.pollingRequests,0);check('Real browser opens WebSocket directly without initial polling');
  await host.getByRole('button',{name:'Start game',exact:true}).click();await answering(player);await answering(other);
  fault={kind:'drop-accepted-ack'};await answer(player,'Gold');
  await until(()=>report.faults.some(x=>x.kind==='drop-accepted-ack'));
@@ -91,7 +92,7 @@ try{
  await delay(1000);assert.equal(await other.getByText('Answer accepted. Waiting for the round to finish.',{exact:true}).count(),0);
  check('Unsubmitted draft freezes offline, returns after reconnect, and does not auto-submit');await shot(other,'draft-after-recovery');
  await other.getByRole('button',{name:'Submit',exact:true}).click();await player.getByRole('heading',{name:'Round complete',exact:true}).waitFor();
- await answering(player);await answering(other);await until(()=>report.timeline.filter(x=>x.event==='websocket-upgraded').length>=2);
+ await answering(player);await answering(other);await until(()=>report.timeline.filter(x=>x.event==='websocket-open').length>=2);
  const before=report.answerAttempts.length;fault={kind:'drop-before-delivery'};await answer(player,'Gold');
  await until(()=>report.faults.some(x=>x.kind==='drop-before-delivery'));
  await until(async()=>{const field=player.getByLabel('Your answer',{exact:true});return await field.count()&&await field.isEnabled()&&await player.getByText('No answer is locked. You can submit again while time remains.',{exact:true}).count()>0;});
@@ -103,7 +104,23 @@ try{
  await answer(other,'Gold');await player.getByRole('heading',{name:'Final results',exact:true}).waitFor();
  await host.getByRole('heading',{name:'Joint winners',exact:true}).waitFor();assert.deepEqual(await host.locator('table .total-points').allTextContents(),['200','200']);
  check('Explicit resubmission completes two rounds with exact joint 200-point totals');await shot(player,'finished');
- assert(report.network.pollingRequests>0);assert(report.faults.length===2);assert(!report.timeline.some(row=>row.event==='page-error'),'Unexpected page script error');report.status='PASS';
+ const clockStart=report.timeline.filter(row=>row.event==='clock-sample').length;
+ await delay(40000);
+ assert(report.timeline.filter(row=>row.event==='clock-sample').length>=clockStart+3);
+ check('Production browser continues periodic clock batches after Finished');
+ for (const mode of ['rejected','silent']) {
+   const fallbackContext=await browser.newContext({viewport:{width:390,height:844}});
+   let pollingConnected=false, websocketAttempts=0;
+   await fallbackContext.routeWebSocket('**/socket.io/**',route=>{websocketAttempts++;if(mode==='rejected')void route.close();});
+   const fallback=await fallbackContext.newPage();observe(fallback,'fallback-'+mode);
+   fallback.on('response',async response=>{try{const u=new URL(response.url());if(u.pathname==='/socket.io/'&&u.searchParams.get('transport')==='polling'&&(await response.text()).split('\x1e').some(packet=>packet.startsWith('40')))pollingConnected=true;}catch{}});
+   const began=performance.now();await fallback.goto(url);
+   await until(()=>pollingConnected,45000);
+   assert(websocketAttempts>0);report.timeline.push({event:'fallback-connected',mode,elapsedMs:performance.now()-began});
+   check('Real browser reaches authenticated polling after '+mode+' WebSocket opening');
+   await fallbackContext.close();
+ }
+ assert(report.faults.length===2);assert(!report.timeline.some(row=>row.event==='page-error'),'Unexpected page script error');report.status='PASS';
 }catch(error){report.status='FAIL';report.error=safe(error.message);process.exitCode=1;mark('failure',{message:report.error});console.error('FAIL '+report.error);if(browser)for(const [i,context]of browser.contexts().entries()){if(i===0)continue;for(const [j,page]of context.pages().entries())try{await shot(page,'failure-player-'+i+'-'+j);}catch{}}}
 finally{
  try{await cleanup();}catch(error){report.status='FAIL';report.cleanupError=safe(error.message);process.exitCode=1;}report.ended=new Date().toISOString();report.elapsedMs=performance.now()-started;

@@ -4,9 +4,9 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { App } from '../../apps/web/src/App.js';
 import type { ClientSnapshot, GameClient } from '../../apps/web/src/client.js';
 
-const guest = { protocolVersion: 1, serverInstanceId: 'instance', tabId: 'tab', requestPrefix: 'prefix',
+const guest = { protocolVersion: 2, serverInstanceId: 'instance', tabId: 'tab', requestPrefix: 'prefix',
   role: 'guest', membership: null, hostGameId: null, lastGameCommit: null, resume: 'none' } as const;
-const setup = { protocolVersion: 1, serverInstanceId: 'instance', revision: 1, phaseId: 'setup-phase', serverNowMs: 1000,
+const setup = { protocolVersion: 2, serverInstanceId: 'instance', revision: 1, phaseId: 'setup-phase', serverNowMs: 1000,
   viewRole: 'host', phase: 'Setup', hosting: { status: 'ready', publicOrigin: 'https://niche.example.com' },
   gameId: null, promptCount: 0, roundId: null, roundIndex: null, phaseDeadlineMs: null, setupGeneration: 0 } as const;
 function render(patch: Partial<ClientSnapshot>, pathname = '/host') {

@@ -51,8 +51,8 @@ it('protects owner exchange, refuses player promotion without consuming the toke
   expect((host.headers['set-cookie'] as string[])[0]).toContain('Secure; HttpOnly; SameSite=Strict');
   const hostCookie=getCookie(host);
   expect((await call('/api/owner/status',{cookie:hostCookie})).status).toBe(200);
-  expect((await call('/session',{method:'POST',cookie:hostCookie,body:{protocolVersion:1,page:{kind:'fresh'}}})).status).toBe(409);
-  const participant=await call('/session',{method:'POST',body:{protocolVersion:1,page:{kind:'fresh'}}});
+  expect((await call('/session',{method:'POST',cookie:hostCookie,body:{protocolVersion:2,page:{kind:'fresh'}}})).status).toBe(409);
+  const participant=await call('/session',{method:'POST',body:{protocolVersion:2,page:{kind:'fresh'}}});
   const participantCookie=getCookie(participant);const token=server.mintOwnerLink().split('#')[1];
   expect((await call('/api/owner/exchange',{method:'POST',cookie:participantCookie,body:{token}})).status).toBe(409);
   expect((await call('/api/owner/status',{cookie:hostCookie})).status).toBe(200);
@@ -64,8 +64,8 @@ it('protects owner exchange, refuses player promotion without consuming the toke
 });
 it('keeps synthetic member control and bounded uploads separate from owner access',async()=>{
   await start();
-  const boot=await call('/session',{method:'POST',body:{protocolVersion:1,page:{kind:'fresh'}}});const cookie=getCookie(boot);
-  const state=JSON.parse(boot.body);const command={protocolVersion:1,serverInstanceId:state.serverInstanceId,gameId:state.membership.gameId,tabId:state.tabId,requestId:state.requestPrefix+'.1',payload:{mode:'bootstrap'}};
+  const boot=await call('/session',{method:'POST',body:{protocolVersion:2,page:{kind:'fresh'}}});const cookie=getCookie(boot);
+  const state=JSON.parse(boot.body);const command={protocolVersion:2,serverInstanceId:state.serverInstanceId,gameId:state.membership.gameId,tabId:state.tabId,requestId:state.requestPrefix+'.1',payload:{mode:'bootstrap'}};
   const first=await call('/game.resume',{method:'POST',cookie,body:command});expect(JSON.parse(first.body).controlGeneration).toBe(1);
   expect((await call('/game.resume',{method:'POST',cookie,body:command})).body).toBe(first.body);
   expect((await call('/api/owner/status',{cookie})).status).toBe(401);
@@ -76,8 +76,8 @@ it('keeps synthetic member control and bounded uploads separate from owner acces
 });
 it('binds an Engine.IO transport to its authenticated browser session',async()=>{
   await start();
-  const a=await call('/session',{method:'POST',body:{protocolVersion:1,page:{kind:'fresh'}}});
-  const b=await call('/session',{method:'POST',body:{protocolVersion:1,page:{kind:'fresh'}}});
+  const a=await call('/session',{method:'POST',body:{protocolVersion:2,page:{kind:'fresh'}}});
+  const b=await call('/session',{method:'POST',body:{protocolVersion:2,page:{kind:'fresh'}}});
   const initial=await call('/socket.io/?EIO=4&transport=polling',{cookie:getCookie(a),origin:null});
   expect(initial.status).toBe(200);
   const sid=JSON.parse(initial.body.slice(1)).sid;

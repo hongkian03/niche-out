@@ -10,6 +10,7 @@ import { io } from 'socket.io-client';
 import {execFileSync} from 'node:child_process';
 import {join} from 'node:path';
 import {sanitizeDiagnostic} from './sanitize.mjs';
+import {packScenario} from './pack-scenario.mjs';
 import { setTimeout as delay } from 'node:timers/promises';
 import { request as httpRequest, Agent as HttpAgent } from 'node:http';
 import { request as httpsRequest } from 'node:https';
@@ -24,9 +25,19 @@ assert(/^[a-zA-Z0-9_-]{1,80}$/.test(runTag));
 const skipPressure=process.argv.includes('--skip-pressure');
 const hash=bytes=>createHash('sha256').update(bytes).digest('hex');
 const coldAfter=process.argv.includes('--cold-after');
+const packPath=process.argv.find(x=>x.startsWith('--pack='))?.slice(7);
+const packBytes=packPath?await readFile(packPath):null;
+const reconnectBurst=!process.argv.includes('--no-reconnect-burst');
+const answerDelayMs=Number(process.argv.find(x=>x.startsWith('--answer-delay-ms='))?.split('=')[1]??0);
+const answerSpreadMs=Number(process.argv.find(x=>x.startsWith('--answer-spread-ms='))?.split('=')[1]??0);
+assert(Number.isFinite(answerDelayMs)&&answerDelayMs>=0&&Number.isFinite(answerSpreadMs)&&answerSpreadMs>=0);
 const count = Number(process.argv.find(x => x.startsWith('--players='))?.split('=')[1] ?? 100);
-const games = Number(process.argv.find(x => x.startsWith('--games='))?.split('=')[1] ?? (tunnel ? 3 : 10));
-const rounds = Number(process.argv.find(x => x.startsWith('--rounds='))?.split('=')[1] ?? 2);
+const games = Number(process.argv.find(x => x.startsWith('--games='))?.split('=')[1] ?? (packPath ? 1 : tunnel ? 3 : 10));
+const scenario=packBytes?packScenario(packBytes,count):null;
+assert(!scenario||!fault, 'Pack-file simulations do not support synthetic connector fault injection');
+assert(!scenario||answerDelayMs+answerSpreadMs < scenario.pack.settings.answerSeconds*1000, 'Scheduled answers must precede the pack deadline');
+assert(!scenario||!process.argv.some(x=>x.startsWith('--rounds=')), 'Pack controls its round count');
+const rounds = scenario?.pack.prompts.length ?? Number(process.argv.find(x => x.startsWith('--rounds='))?.split('=')[1] ?? 2);
 assert(Number.isInteger(rounds));
 assert(['mixed', 'polling', 'websocket'].includes(transport));
 assert(!fault || tunnel, '--fault requires the owned real tunnel');
@@ -46,7 +57,7 @@ const parentStarted=process.cpuUsage();let parentPeakRss=process.memoryUsage().r
 const buildManifest=JSON.parse(await readFile('build/manifest.json'));
 
 const loadStarted = performance.now();
-const report = { label, started: new Date().toISOString(), identity:{gitCommit,dirty,treeSha256,lockSha256:hash(await readFile('package-lock.json')),buildSourceSha256:buildManifest.sourceSha256,connector:buildManifest.connector}, config: { instrumentation, skipPressure, tunnel, fault, faultCycle, coldAfter, transport, count, games, rounds, idleSeconds, creationBatch: tunnel ? 5 : 10, joinBatch: 10, reconnectBatch: count, submitBatch: count }, machine: { uplink, cpu: cpus()[0].model, cores: cpus().length, memoryBytes: totalmem(), kernel: release(), node: process.version }, checks: [], checkpoints: [], timings: [], cycles: [], failures: [], recoveries: [], retries: [], transportErrors: [], disconnects: {}, http: { requests: 0, maxInFlight: 0, bodyBytes: 0, statusCounts: {} }, measuredServerSha256: createHash('sha256').update(await readFile('apps/server/dist/game/application.js')).digest('hex'), sourceManifestSha256: createHash('sha256').update(await readFile('build/manifest.json')).digest('hex') };
+const report = { label, started: new Date().toISOString(), identity:{gitCommit,dirty,treeSha256,lockSha256:hash(await readFile('package-lock.json')),buildSourceSha256:buildManifest.sourceSha256,connector:buildManifest.connector}, config: { instrumentation, packPath:packPath??null, packSha256:packBytes?hash(packBytes):null, reconnectBurst, answerDelayMs, answerSpreadMs, skipPressure, tunnel, fault, faultCycle, coldAfter, transport, count, games, rounds, idleSeconds, creationBatch: tunnel ? 5 : 10, joinBatch: 10, reconnectBatch: count, submitBatch: count }, machine: { uplink, cpu: cpus()[0].model, cores: cpus().length, memoryBytes: totalmem(), kernel: release(), node: process.version }, checks: [], checkpoints: [], timings: [], cycles: [], failures: [], recoveries: [], retries: [], transportErrors: [], disconnects: {}, http: { requests: 0, maxInFlight: 0, bodyBytes: 0, statusCounts: {} }, measuredServerSha256: createHash('sha256').update(await readFile('apps/server/dist/game/application.js')).digest('hex'), sourceManifestSha256: createHash('sha256').update(await readFile('build/manifest.json')).digest('hex') };
 const {instrumentation:diagnosticSetting,...workload}=report.config;report.workloadSha256=hash(JSON.stringify(workload));
 const child = fork(new URL('./server.mjs', import.meta.url), [...(tunnel ? ['--tunnel'] : []),'--diagnostics='+instrumentation], { execArgv: ['--expose-gc'], stdio: ['ignore', 'pipe', 'pipe', 'ipc'] });
 const logs = [];
@@ -83,15 +94,15 @@ async function http(path, body, cookie = '') {
 }
 async function connect(c) {
     if(c.socket){c.socket.removeAllListeners();c.socket.io.removeAllListeners();c.socket.disconnect();c.socket.io.disconnect();}
-    const s=c.socket=io(tunnel?base:origin.replace('https:','http:'),{...(!tunnel?{agent:localAgent}:{}),autoConnect:false,forceNew:true,reconnection:false,transports:[c.transport],extraHeaders:{Host:new URL(origin).host,Origin:origin,Cookie:c.cookie},auth:{protocolVersion:1,serverInstanceId:c.discovery.serverInstanceId,tabId:c.discovery.tabId},timeout:10000});
+    const s=c.socket=io(tunnel?base:origin.replace('https:','http:'),{...(!tunnel?{agent:localAgent}:{}),autoConnect:false,forceNew:true,reconnection:false,transports:[c.transport],extraHeaders:{Host:new URL(origin).host,Origin:origin,Cookie:c.cookie},auth:{protocolVersion:2,serverInstanceId:c.discovery.serverInstanceId,tabId:c.discovery.tabId},timeout:10000});
     allSockets.add(s);
     s.io.on('error',error=>report.transportErrors.push(failureDetail(error,'opening')));
     s.on('disconnect',reason=>{report.disconnects[reason]=(report.disconnects[reason]??0)+1;report.connectionTimeline??=[];report.connectionTimeline.push({event:'disconnect',reason,stage:stageName,atMs:performance.now()-loadStarted});});
     s.on('state.changed',v=>c.view=v);s.on('state.snapshot',v=>c.view=v);
     await new Promise((resolve,reject)=>{const done=()=>{s.off('connect',success);s.off('connect_error',failed)};const success=()=>{done();report.negotiatedTransports??={};const actual=s.io.engine.transport.name;report.negotiatedTransports[actual]=(report.negotiatedTransports[actual]??0)+1;resolve();};const failed=error=>{done();s.disconnect();s.io.disconnect();reject(error)};s.once('connect',success);s.once('connect_error',failed);s.connect();});
 }
-async function browser(index, ownerToken) { const r = await http(ownerToken ? '/api/owner/exchange' : '/api/session', ownerToken ? { protocolVersion: 1, token: ownerToken } : { protocolVersion: 1, page: { kind: 'fresh' } }); assert.equal(r.status, 200, JSON.stringify(r.body)); const c = { cookie: r.cookie, discovery: r.body, seq: 0, transport: transport === 'polling' ? 'polling' : transport === 'mixed' && index >= 0 && index % 5 === 0 ? 'polling' : 'websocket', gameId: null, control: 0 }; clients.push(c); await connect(c); return c; }
-function envelope(c, payload = {}, extra = {}) { return { protocolVersion: 1, serverInstanceId: c.discovery.serverInstanceId, tabId: c.discovery.tabId, requestId: c.discovery.requestPrefix + '.' + (++c.seq), gameId: c.gameId, payload, ...extra }; }
+async function browser(index, ownerToken) { const r = await http(ownerToken ? '/api/owner/exchange' : '/api/session', ownerToken ? { protocolVersion: 2, token: ownerToken } : { protocolVersion: 2, page: { kind: 'fresh' } }); assert.equal(r.status, 200, JSON.stringify(r.body)); const c = { cookie: r.cookie, discovery: r.body, seq: 0, transport: transport === 'polling' ? 'polling' : transport === 'mixed' && index >= 0 && index % 5 === 0 ? 'polling' : 'websocket', gameId: null, control: 0 }; clients.push(c); await connect(c); return c; }
+function envelope(c, payload = {}, extra = {}) { return { protocolVersion: 2, serverInstanceId: c.discovery.serverInstanceId, tabId: c.discovery.tabId, requestId: c.discovery.requestPrefix + '.' + (++c.seq), gameId: c.gameId, payload, ...extra }; }
 // Retry the identical request, never a newly generated mutation. Resume uses the
 // same browser/page identity and must preserve the controlling generation.
 async function recover(c) {
@@ -130,7 +141,7 @@ async function send(c,name,payload={},extra={},fixed){
         try{
             if(!c.socket.connected)await recover(c);
             const value=await emitOnce(c,name,input);
-            report.timings.push({name,outcome:value.code??value.outcome,durationMs:performance.now()-start,stage:stageName,atMs:performance.now()-loadStarted});
+            report.timings.push({name,outcome:value.code??value.outcome,durationMs:performance.now()-start,transport:c.socket.io.engine?.transport.name??c.transport,stage:stageName,atMs:performance.now()-loadStarted});
             return value;
         }catch(error){
             report.retries.push({name,attempt:attempt+1,transport:c.transport,...failureDetail(error,'acknowledgement')});
@@ -152,7 +163,7 @@ async function until(fn,ms=35000){
 }
 async function batch(items, fn, width = 10) { for (let i = 0; i < items.length; i += width)
     await Promise.all(items.slice(i, i + width).map(fn)); }
-async function createGame() { const pack = { schemaVersion: 1, title: 'Bounded load fixture', settings: { readingSeconds: 0.2, answerSeconds: 30, resultsSeconds: 0.2 }, tiers: [{ id: 'rare', name: 'Rare', points: 100 }, { id: 'common', name: 'Common', points: 10 }], prompts: Array.from({ length: rounds }, (_, i) => ({ id: 'round' + (i + 1), text: 'Choose an accepted fixture answer.', answers: [{ text: 'Amber', aliases: ['Gold'], tierId: 'rare' }, { text: 'Blue', tierId: 'common' }] })) }; report.fixture = {sha256:createHash('sha256').update(JSON.stringify(pack)).digest('hex'),bytes:Buffer.byteLength(JSON.stringify(pack)),pack}; const imported = await http('/api/host/import', pack, host.cookie); assert.equal(imported.status, 200, JSON.stringify(imported.body)); const { payload, gameId: unused, ...context } = envelope(host); const input = { ...context, candidateId: imported.body.candidateId, expectedGameId: imported.body.expectedGameId, expectedSetupGeneration: imported.body.expectedSetupGeneration }; const result = await http('/api/host/games', input, host.cookie); assert.equal(result.status, 200, JSON.stringify(result.body)); gameId = host.gameId = result.body.gameId; const repeated = await http('/api/host/games', input, host.cookie); assert.equal(repeated.body.gameId, gameId); const v = await state(host); return { code: v.invitation.code, commit: input }; }
+async function createGame() { const pack = scenario?.pack ?? { schemaVersion: 1, title: 'Bounded load fixture', settings: { readingSeconds: 0.2, answerSeconds: 30, resultsSeconds: 0.2 }, tiers: [{ id: 'rare', name: 'Rare', points: 100 }, { id: 'common', name: 'Common', points: 10 }], prompts: Array.from({ length: rounds }, (_, i) => ({ id: 'round' + (i + 1), text: 'Choose an accepted fixture answer.', answers: [{ text: 'Amber', aliases: ['Gold'], tierId: 'rare' }, { text: 'Blue', tierId: 'common' }] })) }; report.fixture = {sha256:createHash('sha256').update(JSON.stringify(pack)).digest('hex'),bytes:Buffer.byteLength(JSON.stringify(pack)),pack}; const imported = await http('/api/host/import', pack, host.cookie); assert.equal(imported.status, 200, JSON.stringify(imported.body)); const { payload, gameId: unused, ...context } = envelope(host); const input = { ...context, candidateId: imported.body.candidateId, expectedGameId: imported.body.expectedGameId, expectedSetupGeneration: imported.body.expectedSetupGeneration }; const result = await http('/api/host/games', input, host.cookie); assert.equal(result.status, 200, JSON.stringify(result.body)); gameId = host.gameId = result.body.gameId; const repeated = await http('/api/host/games', input, host.cookie); assert.equal(repeated.body.gameId, gameId); const v = await state(host); return { code: v.invitation.code, commit: input }; }
 let players = [];
 try {
     const ready = await new Promise((resolve, reject) => { const timer = setTimeout(() => reject(new Error('Startup timeout ' + logs.join(''))), 210000); child.once('message', m => { clearTimeout(timer); resolve(m); }); child.once('exit', () => {clearTimeout(timer);reject(new Error('Server early exit '+logs.join('')));}); });
@@ -195,7 +206,7 @@ try {
             extra.socket.disconnect();
             mark('101st admission rejected while admitted identities retained');
         }
-        if (cycle === 0 || cycle === games - 1) {
+        if (reconnectBurst && (cycle === 0 || cycle === games - 1)) {
             await stage('game-'+cycle+'-reconnect');
             for (const p of players)
                 p.socket.disconnect();
@@ -213,11 +224,11 @@ try {
             await until(() => players.every(p => p.view?.phase === 'Answering' && p.view.roundIndex === round));
             if (round === 0) {
                 await stage('game-'+cycle+'-round-'+round+'-invalid-submit');
-                const rejected = await Promise.all(players.map(p => send(p, 'answer.submit', { text: 'Invalid fixture answer' }, { roundId: p.view.roundId, controlGeneration: p.control })));
+                const rejected = await Promise.all(players.map(p => send(p, 'answer.submit', { text: scenario?.invalid ?? 'Invalid fixture answer' }, { roundId: p.view.roundId, controlGeneration: p.control })));
                 assert(rejected.every(x => x.outcome === 'REJECTED'));
             }
             await stage('game-'+cycle+'-round-'+round+'-accepted-submit');
-            const commands = players.map((p, i) => envelope(p, { text: i % 2 ? 'Blue' : 'Gold' }, { roundId: p.view.roundId, controlGeneration: p.control }));
+            const commands = players.map((p, i) => envelope(p, { text: scenario ? scenario.selections[round][i].text : i % 2 ? 'Blue' : 'Gold' }, { roundId: p.view.roundId, controlGeneration: p.control }));
             oldAnswer = commands[0];
             let accepted;
             if (tunnel && fault && cycle === faultCycle && round === 0) {
@@ -252,16 +263,30 @@ try {
                 accepted = [...first, ...last];
                 mark('3-second live connector suspension: locks, identities and progressing timer verified after recovery');
             }
+            else if (answerDelayMs || answerSpreadMs)
+                accepted = await Promise.all(players.map(async (p, i) => { await delay(answerDelayMs + (count > 1 ? answerSpreadMs * i / (count - 1) : 0)); return send(p, 'answer.submit', {}, {}, commands[i]); }));
             else
                 accepted = await Promise.all(players.map((p, i) => send(p, 'answer.submit', {}, {}, commands[i])));
             assert(accepted.every(x => x.outcome === 'ACCEPTED'), JSON.stringify(accepted.filter(x => x.outcome !== 'ACCEPTED')));
             const dup = await send(players[0], 'answer.submit', {}, {}, commands[0]);
             assert.equal(dup.outcome, 'ACCEPTED');
+            report.roundsCompleted=(report.roundsCompleted??0)+1;
+            console.log('ROUND '+(round+1)+'/'+rounds+' all '+count+' answers accepted; duplicate replay safe');
         }
         await until(() => host.view?.phase === 'Finished');
         await stage('game-'+cycle+'-final-reads');
         const final = await state(host);
         assert.equal(final.standings.length, count);
+        if (scenario) {
+            scenario.verifyStandings(final.standings);
+            assert.equal(final.winnerIds.length, scenario.ranks.filter(rank=>rank===1).length);
+            for (const round of final.rounds) {
+                const detail=(await send(host,'state.get',{recapRoundId:round.roundId})).view.requestedDetail.results;
+                scenario.verifyGroups(round.roundIndex, detail.groups);
+            }
+            report.finalStandings=final.standings.map(row=>({nickname:row.nickname,rank:row.rank,total:row.publishedTotal}));
+            report.expectedTotals=scenario.totals;
+        } else {
         for (const row of final.standings) {
             const common = Number(row.nickname.slice(1)) % 2;
             assert.equal(row.publishedTotal, common ? rounds * 10 : rounds * 100);
@@ -274,6 +299,7 @@ try {
             assert.equal(amber.count,Math.ceil(count/2));assert.equal(amber.points,100);
             if(count>1){assert.equal(blue.count,Math.floor(count/2));assert.equal(blue.points,10);}
         }
+        }
         const metrics = await ipc('snapshot');
         report.cycles.push({ cycle, elapsedMs:metrics.elapsedMs, liveHeapBytes: metrics.memory.heapUsed, rss: metrics.memory.rss, diagnostics: metrics.diagnostics });
         priorGame = gameId;
@@ -283,7 +309,7 @@ try {
         await stage('waiting-pressure');
         const outcomes = [];
         for (let i = 0; i < 300; i++) {
-            outcomes.push((await http('/api/session', { protocolVersion: 1, page: { kind: 'fresh' } })).body.code ?? 'CREATED');
+            outcomes.push((await http('/api/session', { protocolVersion: 2, page: { kind: 'fresh' } })).body.code ?? 'CREATED');
             await delay(5);
         }
         assert(outcomes.includes('SESSION_CAPACITY'));
@@ -370,6 +396,7 @@ finally {
     report.processingTarget={boundary:'handler entry to ack enqueue, excluding network and event-loop queue',targetP95Ms:100,passed:Object.keys(report.summary.serverByOutcome).length ? exceeded.length===0 : null,exceeded:exceeded.map(([key])=>key)};
     if(exceeded.length){report.status='FAIL';report.failures.push({message:'Server processing p95 target failed'});process.exitCode=1;}
     report.elapsedMs=performance.now()-loadStarted;
+    report.endToEndByTransport={};for(const row of report.timings)(report.endToEndByTransport[row.transport+':'+row.name+':'+row.outcome]??=[]).push(row);for(const [key,rows]of Object.entries(report.endToEndByTransport))report.endToEndByTransport[key]=summarize(rows);
     report.timingsByStage={};for(const row of report.timings)(report.timingsByStage[row.stage]??=[]).push(row);for(const [key,rows]of Object.entries(report.timingsByStage))report.timingsByStage[key]=summarize(rows);
     const path = join(outDir,label+'.json');
     await writeFile(path, JSON.stringify(report, null, 2) + '\n');

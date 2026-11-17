@@ -72,7 +72,7 @@ try {
   assert.equal(imported.status, 200, JSON.stringify(imported.body)); httpRoutes['POST /api/host/import'].success.parse(imported.body);
   assert(!JSON.stringify(imported.body).includes('Autumn'));
   const commit = await host.evaluate(candidate => {
-    const s = window.protocolState; return { protocolVersion: 1, serverInstanceId: s.discovery.serverInstanceId, tabId: s.discovery.tabId,
+    const s = window.protocolState; return { protocolVersion: 2, serverInstanceId: s.discovery.serverInstanceId, tabId: s.discovery.tabId,
       requestId: s.nextRequestId(), candidateId: candidate.candidateId, expectedGameId: candidate.expectedGameId, expectedSetupGeneration: candidate.expectedSetupGeneration };
   }, imported.body);
   await host.route('**/api/host/games', async route => { const response = await route.fetch(); assert.equal(response.status(), 200); await route.abort('failed'); }, { times: 1 });
@@ -86,7 +86,7 @@ try {
   // Treat the original commit response as lost and retry after players have joined.
   const replay = await http(host, '/api/host/games', commit); assert.equal(replay.body.outcome, 'COMMITTED'); assert.equal(replay.body.gameId, lobby.gameId);
   assert.equal((await view(host)).roster.length, 2);
-  const resolveReply = await http(host, '/api/host/operations/resolve', { protocolVersion: 1, operation: { kind: 'game.commit', original: commit } });
+  const resolveReply = await http(host, '/api/host/operations/resolve', { protocolVersion: 2, operation: { kind: 'game.commit', original: commit } });
   assert.equal(resolveReply.body.outcome, 'APPLIED');
   if (manual) {
     console.log('MANUAL_JOIN_URL=' + origin + '/protocol-check?code=' + lobby.invitation.code);

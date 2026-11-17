@@ -1,4 +1,4 @@
-import { io } from 'socket.io-client';
+import { createPreferredSocket } from './transport.js';
 import { z } from 'zod';
 import {
   completeView, continuationRecord, failure, hostOperation, httpRoutes, protocolLimits,
@@ -35,9 +35,10 @@ export interface ClientSocket {
 }
 export interface ClientOptions {
   fetch?: typeof fetch;
-  socket?: (auth: { protocolVersion: 1; serverInstanceId: string; tabId: string }) => ClientSocket;
+  socket?: (auth: { protocolVersion: 2; serverInstanceId: string; tabId: string }) => ClientSocket;
   storage?: Pick<Storage, 'getItem' | 'setItem' | 'removeItem'> | null;
   now?: () => number;
+  random?: () => number;
   ownerToken?: () => string | null;
   clearOwnerToken?: () => void;
 }
@@ -59,6 +60,7 @@ export class GameClient {
   #socketFactory: NonNullable<ClientOptions['socket']>;
   #storage: ClientOptions['storage'];
   #now: () => number;
+  #random: () => number;
   #options: ClientOptions;
   #socket: ClientSocket | null = null;
   #sequence = 0;
@@ -69,7 +71,9 @@ export class GameClient {
   #controlFence = -1;
   #connectAttempts = 0;
   #timer: ReturnType<typeof setTimeout> | undefined;
-  #clockTimer: ReturnType<typeof setInterval> | undefined;
+  #clockTimer: ReturnType<typeof setTimeout> | undefined;
+  #clockGeneration = 0;
+  #clockBest: { rtt: number; offset: number; at: number } | null = null;
   #pendingHost: HostOperation | null = null;
   #resolving = false;
   #connectionTask: Promise<void> | null = null;
@@ -80,15 +84,15 @@ export class GameClient {
   constructor(options: ClientOptions = {}) {
     this.#options = options;
     this.#fetch = options.fetch ?? globalThis.fetch.bind(globalThis);
-    this.#socketFactory = options.socket ?? ((auth) => io({ auth, autoConnect: false, reconnection: false,
-      transports: ['polling', 'websocket'], timeout: 10000 }));
+    this.#socketFactory = options.socket ?? createPreferredSocket;
+    this.#random = options.random ?? Math.random;
     this.#now = options.now ?? Date.now;
     try { this.#storage = options.storage === undefined ? globalThis.sessionStorage : options.storage; }
     catch { this.#storage = null; }
   }
   getSnapshot = (): ClientSnapshot => this.#state;
   subscribe = (listener: () => void): (() => void) => { this.#listeners.add(listener); return () => this.#listeners.delete(listener); };
-  #set(patch: Partial<ClientSnapshot>) { this.#state = { ...this.#state, ...patch }; for (const listener of this.#listeners) listener(); }
+  #set(patch: Partial<ClientSnapshot>) { if (patch.status && patch.status !== 'connected') this.#stopClock(); this.#state = { ...this.#state, ...patch }; for (const listener of this.#listeners) listener(); }
   #begin(pending: NonNullable<ClientSnapshot['pending']>) { const action = ++this.#action; this.#set({ pending, error: null }); return action; }
   #end(action: number) { if (action === this.#action) this.#set({ pending: null }); }
   clearError = () => this.#set({ error: null });
@@ -111,7 +115,7 @@ export class GameClient {
   #context() {
     const session = this.#state.session;
     if (!session) throw transportFault();
-    return { protocolVersion: 1 as const, serverInstanceId: session.serverInstanceId, tabId: session.tabId,
+    return { protocolVersion: 2 as const, serverInstanceId: session.serverInstanceId, tabId: session.tabId,
       requestId: `${session.requestPrefix}.${++this.#sequence}` };
   }
   #body(name: CommandName, payload: unknown = {}, extra: Record<string, unknown> = {}) {
@@ -162,8 +166,8 @@ export class GameClient {
     try {
       token = this.#options.ownerToken?.() ?? (typeof location !== 'undefined' && location.pathname === '/host' ? location.hash.slice(1) || null : null);
       const discovery = token
-        ? await this.#http('/api/owner/exchange', { protocolVersion: 1, token }, httpRoutes['POST /api/owner/exchange'].success)
-        : await this.#http('/api/session', { protocolVersion: 1, page: page ?? this.#page() }, sessionResponse);
+        ? await this.#http('/api/owner/exchange', { protocolVersion: 2, token }, httpRoutes['POST /api/owner/exchange'].success)
+        : await this.#http('/api/session', { protocolVersion: 2, page: page ?? this.#page() }, sessionResponse);
       if (epoch !== this.#epoch || this.#disposed) return;
       if (token) {
         if (this.#options.clearOwnerToken) this.#options.clearOwnerToken();
@@ -199,7 +203,7 @@ export class GameClient {
   }
   #createSocket() {
     const session = this.#state.session!;
-    const socket = this.#socketFactory({ protocolVersion: 1, serverInstanceId: session.serverInstanceId, tabId: session.tabId });
+    const socket = this.#socketFactory({ protocolVersion: 2, serverInstanceId: session.serverInstanceId, tabId: session.tabId });
     this.#socket = socket;
     socket.on('connect', () => { this.#connectionTask = this.#connected(); });
     for (const event of ['state.snapshot', 'state.changed'] as const) socket.on(event, value => this.#acceptView(value));
@@ -240,7 +244,8 @@ export class GameClient {
     if (this.#connectAttempts >= 5) {
       this.#set({ status: 'error', error: { code: 'TRANSPORT', message: 'The host is unreachable. Check your internet connection and retry. If hosting ended, ask for a new invitation.' } }); return;
     }
-    const delay = Math.min(1000 * 2 ** this.#connectAttempts++, 15000);
+    const base = Math.min(1000 * 2 ** this.#connectAttempts++, 15000);
+    const delay = base * (0.5 + this.#randomUnit() / 2);
     this.#timer = setTimeout(action, delay);
   }
   async #inspectDisconnected() {
@@ -278,16 +283,16 @@ export class GameClient {
       this.#startClock();
     } catch (error) { this.#fault(error); this.#recoverTransport(); }
   }
-  async #send<N extends CommandName>(name: N, body: z.infer<(typeof socketCommands)[N]>): Promise<z.infer<(typeof socketAcknowledgements)[N]>> {
+  async #send<N extends CommandName>(name: N, body: z.infer<(typeof socketCommands)[N]>, current = () => true): Promise<z.infer<(typeof socketAcknowledgements)[N]>> {
     const epoch = this.#epoch;
     for (let attempt = 0; attempt <= protocolLimits.identicalRetries; attempt++) {
-      if (epoch !== this.#epoch || this.#disposed) throw transportFault();
+      if (epoch !== this.#epoch || this.#disposed || !current()) throw transportFault();
       try {
         const raw = await new Promise<unknown>((resolve, reject) => {
           if (!this.#socket?.connected) return reject(transportFault());
           this.#socket.timeout(protocolLimits.acknowledgementMs).emit(name, body, (error, value) => error ? reject(transportFault()) : resolve(value));
         });
-        if (epoch !== this.#epoch || this.#disposed) throw transportFault();
+        if (epoch !== this.#epoch || this.#disposed || !current()) throw transportFault();
         const parsed = socketAcknowledgements[name].safeParse(raw);
         if (!parsed.success || parsed.data.requestId !== body.requestId) throw transportFault();
         if ('code' in parsed.data) throw new ClientFault(parsed.data);
@@ -335,9 +340,11 @@ export class GameClient {
     // Server deadlines use its monotonic clock, not browser Date.now(). Anchor
     // the first authorized view before rendering it; RTT samples refine this
     // estimate later. Broadcast arrival times never replace a refined offset.
+    if (changedGame) { this.#stopClock(); this.#hasClockAnchor = false; }
     const clockOffsetMs = this.#hasClockAnchor ? this.#state.clockOffsetMs : view.serverNowMs - this.#now();
     this.#hasClockAnchor = true;
     this.#set({ view, answerFeedback, clockOffsetMs, candidate: changedGame || view.phase === 'Reading' || view.phase === 'Answering' || view.phase === 'Results' ? null : this.#state.candidate, recapCache: view.phase === 'Finished' && view.requestedDetail ? { ...recapCache, [view.requestedDetail.roundId]: view.requestedDetail.results } : recapCache });
+    if (changedGame && previous && this.#state.status === 'connected') this.#startClock();
   }
   #reconcileAnswer() {
     const view = this.#state.view, feedback = this.#state.answerFeedback;
@@ -362,22 +369,45 @@ export class GameClient {
     }
     throw transportFault();
   }
-  async #sampleClock() {
-    if (this.#state.status !== 'connected' || (!this.#gameId && this.#state.session?.role !== 'host')) return;
-    let best: { rtt: number; offset: number } | null = null;
-    for (let i = 0; i < 3; i++) {
-      try {
-        const sent = this.#now(), sampleId = `sample-${sent}-${i}`;
-        const result = await this.#send('clock.sample', this.#body('clock.sample', { sampleId }) as z.infer<(typeof socketCommands)['clock.sample']>);
-        const received = this.#now();
-        if (!('serverNowMs' in result) || result.sampleId !== sampleId) continue;
-        const rtt = received - sent, offset = result.serverNowMs - (sent + received) / 2;
-        if (rtt >= 0 && (!best || rtt < best.rtt)) best = { rtt, offset };
-      } catch { return; }
-    }
-    if (best && this.#state.status === 'connected') this.#set({ clockOffsetMs: best.offset });
+  #randomUnit() { return Math.max(0, Math.min(1, this.#random())); }
+  #stopClock() {
+    clearTimeout(this.#clockTimer);
+    ++this.#clockGeneration;
+    this.#clockBest = null;
   }
-  #startClock() { void this.#sampleClock(); clearInterval(this.#clockTimer); this.#clockTimer = setInterval(() => void this.#sampleClock(), 30000); }
+  #startClock() {
+    this.#stopClock();
+    if (this.#state.status !== 'connected' || (!this.#gameId && this.#state.session?.role !== 'host')) return;
+    const generation = this.#clockGeneration, game = this.#gameId, epoch = this.#epoch;
+    const current = () => generation === this.#clockGeneration && game === this.#gameId && epoch === this.#epoch && !this.#disposed && this.#state.status === 'connected';
+    let sampleIndex = 0;
+    const batch = async (first: boolean) => {
+      let firstCompleted = 0;
+      const followups = [250 + this.#randomUnit() * 500, 1000 + this.#randomUnit() * 1000];
+      const sample = async (index: number): Promise<void> => {
+        if (!current()) return;
+        try {
+          const sent = this.#now(), sampleId = `sample-${generation}-${++sampleIndex}`;
+          const result = await this.#send('clock.sample', this.#body('clock.sample', { sampleId }) as z.infer<(typeof socketCommands)['clock.sample']>, current);
+          if (!current()) return;
+          const received = this.#now();
+          if ('serverNowMs' in result && result.sampleId === sampleId) {
+            const rtt = received - sent, offset = result.serverNowMs - (sent + received) / 2;
+            if (Number.isFinite(rtt) && Number.isFinite(offset) && rtt >= 0 && (!this.#clockBest || received - this.#clockBest.at > 60000 || rtt < this.#clockBest.rtt)) {
+              this.#clockBest = { rtt, offset, at: received };
+              this.#set({ clockOffsetMs: offset });
+            }
+          }
+        } catch { /* A failed sample never changes game authority. */ }
+        if (!current()) return;
+        if (index === 0) firstCompleted = this.#now();
+        if (index < 2) this.#clockTimer = setTimeout(() => void sample(index + 1), Math.max(0, followups[index]! - (this.#now() - firstCompleted)));
+        else this.#clockTimer = setTimeout(() => void batch(false), first ? 30000 + this.#randomUnit() * 5000 : 27000 + this.#randomUnit() * 6000);
+      };
+      await sample(0);
+    };
+    void batch(true);
+  }
   #canMutate() { return this.#state.status === 'connected' && !this.#state.pending && !this.#pendingHost; }
   join = async (code: string, nickname: string): Promise<void> => {
     if (!this.#canMutate() || this.#state.session?.role !== 'guest') return;
@@ -494,7 +524,7 @@ export class GameClient {
     const operation = this.#pendingHost;
     this.#set({ pending: { kind: operation.kind === 'game.commit' ? 'commit' : operation.kind === 'game.start' ? 'start' : 'remove', label: 'Confirming game…' } });
     try {
-      const result = await this.#http('/api/host/operations/resolve', { protocolVersion: 1, operation }, httpRoutes['POST /api/host/operations/resolve'].success);
+      const result = await this.#http('/api/host/operations/resolve', { protocolVersion: 2, operation }, httpRoutes['POST /api/host/operations/resolve'].success);
       if (result.outcome === 'APPLIED' && result.result.requestId !== operation.original.requestId) throw transportFault();
       this.#acceptView(result.view);
       this.#finishHost();
@@ -546,6 +576,6 @@ export class GameClient {
     if (!this.#socket?.connected) { this.#set({ status: 'reconnecting' }); this.#socket?.connect(); }
     else await this.#connected();
   };
-  #stopTransport() { clearTimeout(this.#timer); clearInterval(this.#clockTimer); this.#socket?.removeAllListeners(); this.#socket?.disconnect(); this.#socket = null; }
+  #stopTransport() { clearTimeout(this.#timer); this.#stopClock(); this.#socket?.removeAllListeners(); this.#socket?.disconnect(); this.#socket = null; }
   dispose = () => { this.#disposed = true; ++this.#epoch; this.#stopTransport(); this.#listeners.clear(); };
 }

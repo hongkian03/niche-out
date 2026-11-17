@@ -42,7 +42,7 @@ async function command(name, payload = {}, extra = {}) {
   if (name === 'player.claimControl' && !socket.connected) {
     await new Promise((resolve, reject) => { socket.once('connect', resolve); socket.once('connect_error', reject); socket.connect(); });
   }
-  const envelope = { protocolVersion: 1, serverInstanceId: discovery.serverInstanceId, tabId: discovery.tabId,
+  const envelope = { protocolVersion: 2, serverInstanceId: discovery.serverInstanceId, tabId: discovery.tabId,
     requestId: state.nextRequestId(), gameId, payload, ...extra };
   return sendEnvelope(name, envelope);
 }
@@ -51,13 +51,13 @@ window.protocolReady = (async () => {
   let page;
   try { const saved = sessionStorage.getItem(storageKey); page = saved ? { kind: 'continuation', record: JSON.parse(saved) } : { kind: 'fresh' }; }
   catch { page = { kind: 'ambiguous' }; }
-  const response = await fetch('/api/session', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ protocolVersion: 1, page }) });
+  const response = await fetch('/api/session', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ protocolVersion: 2, page }) });
   discovery = await response.json(); if (!response.ok) throw new Error(discovery.code);
   state.discovery = discovery;
   gameId = discovery.membership?.gameId || discovery.hostGameId || null;
   el('join').hidden = discovery.role === 'host' || !!discovery.membership;
   el('code').value = new URL(location.href).searchParams.get('code') || '';
-  socket = io({ auth: { protocolVersion: 1, serverInstanceId: discovery.serverInstanceId, tabId: discovery.tabId }, transports: ['polling', 'websocket'] });
+  socket = io({ auth: { protocolVersion: 2, serverInstanceId: discovery.serverInstanceId, tabId: discovery.tabId }, transports: ['polling', 'websocket'] });
   state.socket = socket; state.command = command; state.sendEnvelope = sendEnvelope;
   socket.on('state.snapshot', view => { state.events.push({ kind: 'snapshot', view }); render(view); });
   socket.on('state.changed', view => { state.events.push({ kind: 'changed', view }); render(view); });

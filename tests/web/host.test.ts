@@ -8,7 +8,7 @@ import type { Candidate, ClientSnapshot, GameClient } from '../../apps/web/src/c
 
 const origin = 'https://niche.example.com';
 const hosting = { status: 'ready', publicOrigin: origin } as const;
-const base = { protocolVersion: 1, serverInstanceId: 'instance', revision: 4, phaseId: 'phase', serverNowMs: 1000, viewRole: 'host' } as const;
+const base = { protocolVersion: 2, serverInstanceId: 'instance', revision: 4, phaseId: 'phase', serverNowMs: 1000, viewRole: 'host' } as const;
 const inactive = { roundId: null, roundIndex: null, phaseDeadlineMs: null };
 const summary = { title: 'Season Picks', promptCount: 2,
   tiers: [{ name: 'Rare finds', points: 100 }, { name: 'Accepted zero', points: 0 }],

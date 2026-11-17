@@ -53,7 +53,7 @@ export class SessionService {
       if (!candidate) throw new SessionError('PAGE_CAPACITY'); record.pages.delete(candidate.tabId); this.options.onRetirePage?.(session, candidate.tabId);
     }
     const page: PageRecord = { tabId: randomUUID(), requestPrefix: randomUUID(), input: structuredClone(input), used: false, inFlight: false, transportId: null }; record.pages.set(page.tabId, page);
-    const base = { protocolVersion: 1, serverInstanceId: this.options.serverInstanceId, tabId: page.tabId, requestPrefix: page.requestPrefix };
+    const base = { protocolVersion: 2, serverInstanceId: this.options.serverInstanceId, tabId: page.tabId, requestPrefix: page.requestPrefix };
     if (session.kind === 'host') return sessionResponse.parse({ ...base, role: 'host', membership: null, resume: 'none', hostGameId: context.gameId, lastGameCommit: context.lastGameCommit });
     const membership = this.options.membership(session.id);
     if (!membership) return sessionResponse.parse({ ...base, role: 'guest', membership: null, resume: 'none', hostGameId: null, lastGameCommit: null });

@@ -3,6 +3,12 @@ import { completeView, serverEvents } from "../../packages/contracts/src/views.j
 import { allViews, lobby, setup } from "./view-fixtures.js";
 
 describe("complete role-filtered views", () => {
+  it('rejects protocol 1 views explicitly across every role and phase', () => {
+    for (const view of allViews) {
+      const result = completeView.safeParse({ ...view, protocolVersion: 1 });
+      expect(result.success).toBe(false);
+    }
+  });
   it.each(allViews.map(view => [view.phase + " " + view.viewRole, view] as const))("permits %s", (_, view) => {
     expect(serverEvents["state.snapshot"].parse(view)).toEqual(view);
     expect(serverEvents["state.changed"].parse(view)).toEqual(view);
@@ -28,7 +34,7 @@ describe("complete role-filtered views", () => {
       for (const extra of [
         { futurePrompt: "next" }, { currentRoundPoints: 100 }, { answers: [] },
         { requestedDetail: null }, { ownResult: { tierName: "Secret" } }, { packSummary: lobby.packSummary },
-        { publishedStandings: view.publishedStandings.map(s => ({ ...s, roundPoints: 100 })) },
+        { publishedStandings: (view.viewRole === 'host' ? view.publishedStandings : []).map(s => ({ ...s, roundPoints: 100 })) },
         { readiness: { accepted: 2, eligible: 1 } },
       ]) expect(completeView.safeParse({ ...view, ...extra }).success).toBe(false);
       if (view.viewRole === "player") {

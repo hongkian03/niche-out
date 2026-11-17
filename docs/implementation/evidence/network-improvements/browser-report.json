@@ -1,0 +1,266 @@
+{
+  "status": "PASS",
+  "started": "2026-11-17T06:10:16.593Z",
+  "scope": "Fresh desktop Chrome at phone size, actual built GameClient and production server through owned Quick Tunnel. Synthetic per-browser frame loss; not a provider outage, physical phone, 100-browser benchmark, or DNS reproduction.",
+  "checks": [
+    "Real browser opens WebSocket directly without initial polling",
+    "Server acceptance survives deliberately lost acknowledgement and transport closure",
+    "Unsubmitted draft freezes offline, returns after reconnect, and does not auto-submit",
+    "Undelivered answer reconciles as unlocked, with no automatic fresh-ID submission",
+    "Explicit resubmission completes two rounds with exact joint 200-point totals",
+    "Production browser continues periodic clock batches after Finished",
+    "Real browser reaches authenticated polling after rejected WebSocket opening",
+    "Real browser reaches authenticated polling after silent WebSocket opening"
+  ],
+  "timeline": [
+    {
+      "elapsedMs": 80948.86850000001,
+      "event": "endpoint-ready"
+    },
+    {
+      "elapsedMs": 84628.53454200001,
+      "event": "websocket-open",
+      "label": "tested-player"
+    },
+    {
+      "elapsedMs": 84943.103208,
+      "event": "clock-sample",
+      "label": "tested-player"
+    },
+    {
+      "elapsedMs": 85626.50787500001,
+      "event": "clock-sample",
+      "label": "tested-player"
+    },
+    {
+      "elapsedMs": 86552.15504200001,
+      "event": "clock-sample",
+      "label": "tested-player"
+    },
+    {
+      "elapsedMs": 86633.102333,
+      "event": "check",
+      "label": "Real browser opens WebSocket directly without initial polling"
+    },
+    {
+      "elapsedMs": 86988.80525,
+      "event": "answer-attempt",
+      "fingerprint": "0f62efe801f0327e"
+    },
+    {
+      "elapsedMs": 87032.203083,
+      "event": "accepted-ack-dropped"
+    },
+    {
+      "elapsedMs": 88826.93945800001,
+      "event": "websocket-open",
+      "label": "tested-player"
+    },
+    {
+      "elapsedMs": 89103.281292,
+      "event": "clock-sample",
+      "label": "tested-player"
+    },
+    {
+      "elapsedMs": 89409.22225,
+      "event": "check",
+      "label": "Server acceptance survives deliberately lost acknowledgement and transport closure"
+    },
+    {
+      "elapsedMs": 89671.718792,
+      "event": "clock-sample",
+      "label": "tested-player"
+    },
+    {
+      "elapsedMs": 90640.749458,
+      "event": "clock-sample",
+      "label": "tested-player"
+    },
+    {
+      "elapsedMs": 91557.7725,
+      "event": "check",
+      "label": "Unsubmitted draft freezes offline, returns after reconnect, and does not auto-submit"
+    },
+    {
+      "elapsedMs": 93171.809458,
+      "event": "answer-attempt",
+      "fingerprint": "6217bfa124de2cc5"
+    },
+    {
+      "elapsedMs": 95117.89925,
+      "event": "websocket-open",
+      "label": "tested-player"
+    },
+    {
+      "elapsedMs": 95378.63833300001,
+      "event": "clock-sample",
+      "label": "tested-player"
+    },
+    {
+      "elapsedMs": 95828.954708,
+      "event": "clock-sample",
+      "label": "tested-player"
+    },
+    {
+      "elapsedMs": 96781.853833,
+      "event": "clock-sample",
+      "label": "tested-player"
+    },
+    {
+      "elapsedMs": 96923.087167,
+      "event": "check",
+      "label": "Undelivered answer reconciles as unlocked, with no automatic fresh-ID submission"
+    },
+    {
+      "elapsedMs": 97004.072583,
+      "event": "answer-attempt",
+      "fingerprint": "737131ff2d203bc9"
+    },
+    {
+      "elapsedMs": 98537.54675000001,
+      "event": "check",
+      "label": "Explicit resubmission completes two rounds with exact joint 200-point totals"
+    },
+    {
+      "elapsedMs": 128169.99958300001,
+      "event": "clock-sample",
+      "label": "tested-player"
+    },
+    {
+      "elapsedMs": 128891.5525,
+      "event": "clock-sample",
+      "label": "tested-player"
+    },
+    {
+      "elapsedMs": 129344.33516700001,
+      "event": "clock-sample",
+      "label": "tested-player"
+    },
+    {
+      "elapsedMs": 138607.85254199998,
+      "event": "check",
+      "label": "Production browser continues periodic clock batches after Finished"
+    },
+    {
+      "elapsedMs": 150157.283917,
+      "event": "polling-request",
+      "label": "fallback-rejected",
+      "method": "GET"
+    },
+    {
+      "elapsedMs": 150320.047833,
+      "event": "polling-request",
+      "label": "fallback-rejected",
+      "method": "POST"
+    },
+    {
+      "elapsedMs": 150323.510542,
+      "event": "polling-request",
+      "label": "fallback-rejected",
+      "method": "GET"
+    },
+    {
+      "elapsedMs": 150485.034792,
+      "event": "polling-request",
+      "label": "fallback-rejected",
+      "method": "GET"
+    },
+    {
+      "event": "fallback-connected",
+      "mode": "rejected",
+      "elapsedMs": 11821.24879099999
+    },
+    {
+      "elapsedMs": 150532.071375,
+      "event": "check",
+      "label": "Real browser reaches authenticated polling after rejected WebSocket opening"
+    },
+    {
+      "elapsedMs": 160538.351417,
+      "event": "clock-sample",
+      "label": "tested-player"
+    },
+    {
+      "elapsedMs": 161035.919333,
+      "event": "clock-sample",
+      "label": "tested-player"
+    },
+    {
+      "elapsedMs": 161529.674792,
+      "event": "polling-request",
+      "label": "fallback-silent",
+      "method": "GET"
+    },
+    {
+      "elapsedMs": 161737.504042,
+      "event": "polling-request",
+      "label": "fallback-silent",
+      "method": "POST"
+    },
+    {
+      "elapsedMs": 161737.957292,
+      "event": "polling-request",
+      "label": "fallback-silent",
+      "method": "GET"
+    },
+    {
+      "elapsedMs": 161952.877542,
+      "event": "polling-request",
+      "label": "fallback-silent",
+      "method": "GET"
+    },
+    {
+      "event": "fallback-connected",
+      "mode": "silent",
+      "elapsedMs": 11402.931582999998
+    },
+    {
+      "elapsedMs": 162039.05895799998,
+      "event": "check",
+      "label": "Real browser reaches authenticated polling after silent WebSocket opening"
+    }
+  ],
+  "network": {
+    "pollingRequests": 8,
+    "statuses": {
+      "200": 6
+    },
+    "failures": []
+  },
+  "screenshots": [
+    "accepted-after-recovery.png",
+    "draft-after-recovery.png",
+    "unaccepted-after-recovery.png",
+    "finished.png"
+  ],
+  "faults": [
+    {
+      "kind": "drop-accepted-ack",
+      "elapsedMs": 87032.192083,
+      "serverAccepted": true
+    },
+    {
+      "kind": "drop-before-delivery",
+      "elapsedMs": 93171.819625
+    }
+  ],
+  "answerAttempts": [
+    {
+      "elapsedMs": 86988.7905,
+      "fingerprint": "0f62efe801f0327e"
+    },
+    {
+      "elapsedMs": 93171.80158300001,
+      "fingerprint": "6217bfa124de2cc5"
+    },
+    {
+      "elapsedMs": 97004.070458,
+      "fingerprint": "737131ff2d203bc9"
+    }
+  ],
+  "compiledServerSha256": "8596c01fbdf8fa441faeba3b3ef9377092f6e5ae5e13eed5af24b75aba8caa14",
+  "browser": "157.0.8103.79",
+  "fixtureSha256": "4973ee1d20fad2f02fcb922e94a2faf7d4787a0a63e38fba7b4e69af3ed02fc8",
+  "ended": "2026-11-17T06:12:59.137Z",
+  "elapsedMs": 162544.106333
+}

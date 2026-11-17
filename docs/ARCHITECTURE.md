@@ -198,7 +198,7 @@ Apply the agreed sleep/resume policy: close an expired interrupted phase once an
 
 ## Real-time protocol and reconnects
 
-Use HTTP for file import, session bootstrap, and simple setup requests. Use Socket.IO for game commands and state updates. Allow its normal connection establishment and WebSocket upgrade on the same local listener; the fallback transport is also local.
+Use HTTP for file import, session bootstrap, and simple setup requests. Use Socket.IO for game commands and state updates. The browser opens directly with WebSocket on the same local listener. A network opening error or the 10-second Manager opening timeout selects polling (with optional WebSocket upgrade) for the next application-scheduled attempt. Structured authority denials do not trigger transport fallback. One manager owns the connection; automatic Socket.IO reconnection is disabled. Successful opening restores WebSocket preference for a later recovery cycle without replacing the established transport.
 
 Define typed commands with a request ID, game ID, round ID where applicable, and validated payload. Use the namespaced commands in the implementation-contract table below, rather than introducing alternate command names. The server derives the participant role and identity from its session credential rather than trusting a playerId supplied in a payload.
 
@@ -293,7 +293,7 @@ The performance target is server-side command acknowledgement processing below 1
 
 **November 16 qualification update:** [Epic 6 measurements](implementation/evidence/EPIC-6.md) pass local 100-player churn and a real 100-player mixed-transport run on the available 18 GiB M3 Pro Mac over eduroam. All measured eligible command groups met the processing p95 target. Complete all-polling qualification remains open: simultaneous reconnects encountered provider 429s and recovered, but a later DNS/interrupted-request boundary stopped the full game test. Significant full-view traffic and latency tails are documented. Neither an 8 GB host nor 100 physical phones/venue conditions are certified by these tests.
 
-The owner requested [provider/transport alternatives](implementation/evidence/EPIC-6-ALTERNATIVES.md). WebSocket-first fallback, retry jitter, smaller/coalesced complete views and optional host-owned named Cloudflare hosting are proposed follow-ups, not adopted contract changes. The current account-free Quick Tunnel baseline, 100-player target and identity/retry rules remain in force; the capacity gap is not hidden by lowering the requirement. Public signing and deferred platform/device evidence also keep the full release gate open.
+The owner requested [provider/transport alternatives](implementation/evidence/EPIC-6-ALTERNATIVES.md) and subsequently retained account-free Quick Tunnels. The November 17 networking extension implements WebSocket-first fallback, retry jitter, smaller live player views and coalesced metadata publications; its verification is recorded separately from the earlier qualification results. Named Cloudflare hosting is excluded from this extension. The 100-player target and identity/retry rules remain in force. Public signing and deferred platform/device evidence also keep the full release gate open.
 
 ## Decision coverage and implementation gates
 
@@ -348,7 +348,7 @@ Credentials may appear in the interactive owner-only recovery link but never in 
 
 ### HTTP routes and browser sessions
 
-Use protocol version 1 and JSON responses. A common failure shape contains code, message, requestId when supplied, and optional field errors. IDs are opaque server-generated strings except command request IDs, which may use a server-issued tab prefix and a monotonically increasing client sequence. This preserves deterministic request identity across retries and does not establish authority.
+Use protocol version 2 and JSON responses. Version 2 removes unused published standings from live player views; live host and revealed standings remain. Server and bundled browser update together, and version 1 clients are rejected explicitly. A common failure shape contains code, message, requestId when supplied, and optional field errors. IDs are opaque server-generated strings except command request IDs, which may use a server-issued tab prefix and a monotonically increasing client sequence. This preserves deterministic request identity across retries and does not establish authority.
 
 | Route | Access | Behavior |
 | --- | --- | --- |
@@ -464,7 +464,7 @@ Every snapshot includes the base fields below plus a role/phase-specific view. B
 
 | Base field | Wire meaning |
 | --- | --- |
-| protocolVersion | Integer 1. Reject incompatible versions rather than guessing. |
+| protocolVersion | Integer 2. Reject incompatible versions rather than guessing. |
 | serverInstanceId | Opaque process-lifetime ID. A changed ID invalidates prior game/control/request context. |
 | gameId | Opaque current game ID, or null in Setup. Old-game views never admit a player to a new game. |
 | revision | Nonnegative safe integer increasing with authoritative observable state changes within the server instance; clock samples alone do not increment it. |
@@ -475,7 +475,7 @@ Every snapshot includes the base fields below plus a role/phase-specific view. B
 | phaseDeadlineMs | Deadline in that same clock domain for Reading/Answering/Results; null for untimed phases. |
 | viewRole | host or player, derived from server authority rather than requested by the browser. |
 
-Send acknowledgements, phase transitions, removal/control revocation, and terminal closure immediately after their authoritative mutation. Only readiness-only state emissions may be coalesced for at most 50 ms; issue the newest complete view and cancel obsolete pending emissions at a phase/game change. This batching never delays acceptance, scoring, eligibility checks, or the server deadline. Do not emit per-tick timer messages.
+Send acknowledgements, phase transitions, removal/control revocation, and terminal closure immediately after their authoritative mutation. Readiness, join and connection-status metadata may share one scheduled flush within 50 ms; joining/resuming clients receive their targeted state immediately. Issue the newest complete view and cancel obsolete pending emissions at a phase/game change. This batching never delays acceptance, scoring, eligibility checks, or the server deadline. Actual event-loop execution delay is measured separately from the scheduling window. Do not emit per-tick timer messages.
 
 For the same instance/game, clients discard lower revisions and use phase IDs to cancel obsolete timers/animations. They may skip revision numbers without requesting missing patches. Equal-revision recovery snapshots can refresh clock sampling and the current permitted view without inventing a state change. Preserve local draft/focus/tab selection according to the UI rules rather than overwriting them from a full view. A new server instance clears stale control/request state and triggers discovery. A new game requires the existing host recovery or explicit player admission flow, never silent player migration.
 
@@ -485,7 +485,7 @@ Finished views include the player's own round recap or the host aggregate round 
 | --- | --- |
 | Lobby player | Game title, own player ID and nickname, admitted count, connection status. |
 | Lobby host | Code, public HTTPS join URL and QR payload, pack summary, roster, and permitted setup actions. |
-| Reading/Answering player | Current prompt text, own submitted text/locked status, control generation, previously revealed total and standings, accepted/eligible counts. |
+| Reading/Answering player | Current prompt text, own submitted text/locked status, control generation, previously revealed personal total, accepted/eligible counts; no standings array. |
 | Reading/Answering host | Current prompt and public timing/readiness plus administrative roster; no live answers or hidden tier outcomes. |
 | Results | Completed round's canonical counts with tier labels/points, permitted own answer details, finalized totals and standings, and optional unused-answer example. |
 | Finished player | Final standings and that player's own answer recap; completed-round grouped results are available for recap expansion. |
@@ -493,13 +493,13 @@ Finished views include the player's own round recap or the host aggregate round 
 
 Grouped answer projections contain counts, tier labels, and points, ordered by assigned points descending then JSON answer order for ties, without a player-ID or nickname list linking players to answers. Readiness projections count accepted and eligible players from the same nonremoved roster, retaining disconnected players; removed submissions remain only in aggregate result statistics. Keep each player's own answer and recap private to their view; public standings still contain round points and totals. Expose earlier-round recap browsing only in Finished, rather than through a timed-play history endpoint.
 
-Do not send a full answer sheet at any phase. Include only submitted canonical answers and the selected unused example in completed-round views. Use a separate published-total field or projection computed solely from finalized rounds, so an internally precomputed current-round score cannot leak through a snapshot or refresh. Return complete standings of at most 100 players; the frontend chooses which rows to show prominently.
+Do not send a full answer sheet at any phase. Include only submitted canonical answers and the selected unused example in completed-round views. Use a separate published-total field or projection computed solely from finalized rounds, so an internally precomputed current-round score cannot leak through a snapshot or refresh. Where standings are included for host live or revealed views, return complete standings of at most 100 players; the frontend chooses which rows to show prominently.
 
 ### Timing and state ownership
 
 A submission is eligible only when its first complete application-handler receipt time is strictly less than the Answering deadline and its game, round, role, and control generation are valid. Equality with the deadline is EXPIRED. Use the monotonic clock for ordinary deadlines and a tested suspension-aware clock adapter for resume behavior.
 
-Use three clock-sampling exchanges on connect and a repeat every 30 seconds while connected; use the lowest round-trip sample for a display offset. Client clocks and offsets never decide acceptance. Associate each scheduled task with server instance, game, round, phase ID, and deadline; stale tasks do nothing. Finalization is one serialized mutation, not separate asynchronous score and leaderboard updates.
+Use one immediate clock sample, then two follow-ups scheduled 250–750 ms and 1–2 seconds after the first completes. Serialize slow replies so batches cannot overlap. Retain the lowest valid RTT sample in a 60-second freshness window. The first periodic batch starts 30–35 seconds after the initial batch completes; subsequent batches wait 27–33 seconds after completion. These are scheduler waits, not a response guarantee during outages. Cancel sampling on disconnect, supersession, terminal states, disposal and game/instance changes; discard late replies from obsolete sampling generations. Accepted new-game views restart sampling. Client recovery uses five application-owned equal-jitter waits of 0.5–1, 1–2, 2–4, 4–8 and 7.5–15 seconds; opening and ACK timeouts are separate. Reset the attempt counter only after authoritative recovery, and cancel pending retries when control or authority is lost. Client clocks and offsets never decide acceptance. Associate each scheduled task with server instance, game, round, phase ID, and deadline; stale tasks do nothing. Finalization is one serialized mutation, not separate asynchronous score and leaderboard updates.
 
 A normal phase starts its full duration when the prior phase transitions. On suspend recovery, close at most one expired phase and start the next with its full duration. Detect OS suspend where possible; the starting watchdog threshold is a gap over 5 seconds in a separate 250 ms watchdog as a stall/resume signal, subject to platform tests. Detecting a stall never reopens expired submissions. All eligible players must have accepted answers for early completion, and the eligible count must be greater than zero.
 
@@ -528,7 +528,7 @@ These adopted starting limits are subject to measurement and tuning, not a fixed
 | Total admissions per game | At most 1,000 distinct admitted memberships over that game's lifetime, including removed players; existing-member resumes/retries do not count again |
 | Unauthenticated socket handshakes | At most 128 pending server-wide; 10-second authentication timeout |
 | Rejected host-operation outcomes | At most 256 entries for the server's current owner authority; 2-minute retention |
-| Readiness-only state batching | At most 50 ms; full role-filtered views; phase/acknowledgement/revocation messages are immediate |
+| Metadata state batching | Readiness, join and connection-status updates share one scheduled flush within 50 ms; targeted join/resume snapshots and phase/acknowledgement/revocation messages remain immediate |
 
 Admission/history and metadata limits are separate from the 100 concurrent-player rule. Check valid current membership and owner authority before applying guest limits; never evict an admitted player, a retained disconnected slot, or the current host to create an anonymous slot. Guest expiry discards only that waiting session/page context; it does not grant a replacement membership. At a full guest pool, reject new guest allocation with SESSION_CAPACITY and a recoverable message.
 
@@ -613,3 +613,9 @@ The public listener serves only named build routes, hashed JS/CSS/font/SVG files
 The portable archive preserves the repository's runtime directory layout, bundles pinned Node/cloudflared and production dependencies, and verifies resources before starting the application. Build recipes and private artifact instructions live in `packaging/README.md`. Public publisher authentication and signing/notarization remain Epic 6.
 
 The user explicitly deferred Windows, Linux and Intel Mac compatibility execution on November 16. That deferral permits this implementation handoff after available-Mac verification; it does not establish compatibility or change the release support matrix. See the Epic 5 evidence report for exact executed checks and remaining manual verification.
+
+### Networking publication implementation
+
+The application reuses one immutable engine snapshot within each synchronous read-only projection/publication scope. Session membership and recipient projections read that snapshot, while live owner/page/control checks still run per recipient. Scopes are cleared in `finally` and never span asynchronous work or game mutations. Engine snapshots remain private and retain their deep-immutable ownership contract. The engine exposes constant-time phase metadata so diagnostic labels do not copy game history.
+
+Join, resume/control and disconnection metadata changes share the same bounded 50 ms scheduler as readiness. Joining/resuming clients receive their immediate targeted authoritative snapshot. Unchanged resumes do not trigger a global publication. Immediate phase/removal/replacement/hosting changes cancel pending metadata work and publish current state; phase timers remain armed independently while metadata waits. A flush always obtains fresh state rather than retaining a stale game snapshot, and shutdown clears pending timers. Actual event-loop delay is measured separately from the scheduling window.

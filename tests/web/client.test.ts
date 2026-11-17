@@ -8,13 +8,13 @@ const ownPlayer = { playerId: 'player', nickname: 'Diver' };
 const hosting = { status: 'ready' as const, publicOrigin: 'https://game.example.com' };
 const summary = { title: 'Seasons', promptCount: 1, tiers: [{ name: 'Rare', points: 100 }], settings: { readingSeconds: 3, answerSeconds: 25, resultsSeconds: 10 } };
 const candidate = { serverInstanceId: instance, candidateId: 'candidate', expectedGameId: null, expectedSetupGeneration: 0, summary };
-const base = { protocolVersion: 1, serverInstanceId: instance, revision: 1, phaseId: 'phase', serverNowMs: clock };
+const base = { protocolVersion: 2, serverInstanceId: instance, revision: 1, phaseId: 'phase', serverNowMs: clock };
 const inactive = { roundId: null, roundIndex: null, phaseDeadlineMs: null };
 const grant = (generation = 1, page = tab) => ({ controlGeneration: generation, continuation: {
   serverInstanceId: instance, gameId: game, previousTabId: page, continuationToken: secret,
 } });
 function session(role: 'guest' | 'player' | 'host', additions: Record<string, unknown> = {}): SessionResponse {
-  return sessionResponse.parse({ protocolVersion: 1, serverInstanceId: instance, tabId: tab, requestPrefix: 'request', role,
+  return sessionResponse.parse({ protocolVersion: 2, serverInstanceId: instance, tabId: tab, requestPrefix: 'request', role,
     hostGameId: null, lastGameCommit: null, membership: role === 'player' ? { ...ownPlayer, gameId: game, status: 'admitted' } : null,
     resume: role === 'player' ? 'continuation' : 'none', ...additions });
 }
@@ -22,7 +22,7 @@ function live(additions: Record<string, unknown> = {}): CompleteView {
   return completeView.parse({ ...base, gameId: game, promptCount: 1, phase: 'Answering', viewRole: 'player',
     roundId: 'round', roundIndex: 0, prompt: 'Name a season.', phaseDeadlineMs: clock + 25000,
     readiness: { accepted: 0, eligible: 2 }, ownPlayer, ownAnswer: { locked: false, submittedText: null },
-    controlGeneration: 1, publishedTotal: 0, publishedStandings: [], ...additions });
+    controlGeneration: 1, publishedTotal: 0, ...additions });
 }
 function setup(additions: Record<string, unknown> = {}): CompleteView {
   return completeView.parse({ ...base, ...inactive, gameId: null, promptCount: 0, phase: 'Setup', viewRole: 'host', hosting, setupGeneration: 0, ...additions });
@@ -65,7 +65,7 @@ const clients: GameClient[] = [];
 afterEach(() => { clients.splice(0).forEach(client => client.dispose()); vi.useRealTimers(); });
 const json = (value: unknown, status = 200) => new Response(JSON.stringify(value), { status, headers: { 'Content-Type': 'application/json' } });
 async function flush() { for (let i = 0; i < 50; i++) await Promise.resolve(); }
-function harness(role: 'host' | 'player' | 'guest' = 'player', saved = new Map<string, string>(), now = () => clock) {
+function harness(role: 'host' | 'player' | 'guest' = 'player', saved = new Map<string, string>(), now = () => clock, random = () => 0) {
   const socket = new FakeSocket();
   const h = {
     socket, saved, discovery: session(role), view: role === 'host' ? setup() : live(),
@@ -86,7 +86,7 @@ function harness(role: 'host' | 'player' | 'guest' = 'player', saved = new Map<s
     else if (name === 'game.start') ack(null, { ...reply, outcome: 'STARTED' });
     else if (name === 'player.remove') ack(null, { ...reply, outcome: 'REMOVED', targetPlayerId: body.payload.targetPlayerId });
   };
-  const client = new GameClient({ socket: () => socket, now,
+  const client = new GameClient({ socket: () => socket, now, random,
     storage: { getItem: key => saved.get(key) ?? null, setItem: (key, value) => saved.set(key, value), removeItem: key => saved.delete(key) },
     fetch: (async (input, init) => {
       const path = String(input), method = init?.method ?? 'GET';
@@ -117,7 +117,7 @@ async function connected(h: ReturnType<typeof harness>) {
 describe('browser discovery and control', () => {
   it('discovers before connecting, then resumes with the server membership and stores only continuation proof', async () => {
     const h = harness(); await connected(h);
-    expect(h.httpCalls[0].body).toEqual({ protocolVersion: 1, page: { kind: 'fresh' } });
+    expect(h.httpCalls[0].body).toEqual({ protocolVersion: 2, page: { kind: 'fresh' } });
     expect(h.socket.calls[0]).toMatchObject({ name: 'game.resume', body: { gameId: game, payload: { mode: 'bootstrap' } } });
     expect(h.client.getSnapshot().view).toEqual(live());
     expect(JSON.parse(h.saved.get('niche.continuation.v1')!)).toEqual(grant().continuation);
@@ -189,13 +189,13 @@ describe('browser discovery and control', () => {
   });
   it('does not reclaim a superseded tab automatically, and ignores a stale control grant after another takeover', async () => {
     vi.useFakeTimers(); const h = harness(); await connected(h);
-    h.socket.fire('player.superseded', { protocolVersion: 1, serverInstanceId: instance, gameId: game, tabId: tab, revision: 2, controlGeneration: 2 });
+    h.socket.fire('player.superseded', { protocolVersion: 2, serverInstanceId: instance, gameId: game, tabId: tab, revision: 2, controlGeneration: 2 });
     await vi.advanceTimersByTimeAsync(60000); expect(h.socket.connectCount).toBe(1);
     let delayed: Ack | undefined;
     h.command = (name, _body, ack) => { if (name === 'player.claimControl') { delayed = ack; return true; } return false; };
     const claim = h.client.claimControl(); await flush();
     const body = h.socket.calls.findLast(call => call.name === 'player.claimControl')!.body;
-    h.socket.fire('player.superseded', { protocolVersion: 1, serverInstanceId: instance, gameId: game, tabId: tab, revision: 4, controlGeneration: 4 });
+    h.socket.fire('player.superseded', { protocolVersion: 2, serverInstanceId: instance, gameId: game, tabId: tab, revision: 4, controlGeneration: 4 });
     delayed!(null, { requestId: body.requestId, gameId: game, revision: 3, outcome: 'CONTROL_GRANTED', control: grant(3) });
     await claim; expect(h.client.getSnapshot().status).toBe('superseded');
     expect(h.client.getSnapshot().controlGeneration).toBe(1);
@@ -212,7 +212,7 @@ describe('browser discovery and control', () => {
   it('starts clock synchronization immediately after guest admission', async () => {
     const h = harness('guest'); await connected(h); await h.client.join('001234', 'Diver'); await flush();
     expect(h.client.getSnapshot().session?.role).toBe('player');
-    expect(h.socket.calls.filter(call => call.name === 'clock.sample')).toHaveLength(3);
+    expect(h.socket.calls.filter(call => call.name === 'clock.sample')).toHaveLength(1);
   });
 });
 
@@ -263,11 +263,13 @@ describe('complete views, answers and clock', () => {
     h.command = (name, body, ack) => { if (name === 'answer.submit') { h.view = results(); ack(null, { requestId: body.requestId, code: 'NOT_ANSWERING', message: 'Round ended.' }); return true; } return false; };
     await h.client.submit('Fall'); expect(h.client.getSnapshot().view?.phase).toBe('Results'); expect(h.client.getSnapshot().answerFeedback).toBeNull();
   });
-  it('samples the clock three times at connection and again after thirty seconds', async () => {
+  it('samples immediately then spreads follow-ups and periodic batches', async () => {
     vi.useFakeTimers(); const h = harness(); await connected(h);
+    expect(h.socket.calls.filter(call => call.name === 'clock.sample')).toHaveLength(1);
+    await vi.advanceTimersByTimeAsync(1250); await flush();
     expect(h.socket.calls.filter(call => call.name === 'clock.sample')).toHaveLength(3);
     expect(h.client.getSnapshot().clockOffsetMs).toBe(250);
-    await vi.advanceTimersByTimeAsync(30000); await flush();
+    await vi.advanceTimersByTimeAsync(31250); await flush();
     expect(h.socket.calls.filter(call => call.name === 'clock.sample')).toHaveLength(6);
   });
   it('anchors monotonic server time before exposing a view, refines it once sampled, and does not drift with broadcasts', async () => {
@@ -340,7 +342,7 @@ describe('host mutation reconciliation and provider failures', () => {
     expect(h.client.getSnapshot().pending?.kind).toBe('commit');
   });
   it('reconciles the original pending operation after reload, including its retired page ID', async () => {
-    const original = { protocolVersion: 1, serverInstanceId: instance, tabId: 'old-page', requestId: 'old.7', candidateId: 'candidate', expectedGameId: null, expectedSetupGeneration: 0 };
+    const original = { protocolVersion: 2, serverInstanceId: instance, tabId: 'old-page', requestId: 'old.7', candidateId: 'candidate', expectedGameId: null, expectedSetupGeneration: 0 };
     const saved = new Map([['niche.host-operation.v1', JSON.stringify({ kind: 'game.commit', original })]]);
     const h = harness('host', saved);
     h.http = path => path === '/api/host/operations/resolve' ? json({ outcome: 'APPLIED', result: { outcome: 'COMMITTED', requestId: 'old.7', candidateId: 'candidate', gameId: game, revision: 2, setupGeneration: 1 }, view: lobby() }) : undefined;
@@ -413,4 +415,83 @@ describe('host mutation reconciliation and provider failures', () => {
     expect(h.client.getSnapshot().status).toBe('connected'); expect(h.client.getSnapshot().view?.gameId).toBe('new-game');
     expect(h.client.getSnapshot().error?.code).toBe('SUPERSEDED'); expect(h.client.getSnapshot().pending).toBeNull();
   });
+});
+
+describe('bounded jitter and staggered clock recovery', () => {
+  it.each([0, 1])('bounds every retry with random=%s and stops after five', async random => {
+    vi.useFakeTimers(); const h = harness('player', new Map(), () => clock, () => random); await connected(h);
+    h.socket.connect = () => { h.socket.connectCount++; h.socket.fire('connect_error', new Error('timeout')); };
+    h.socket.lose();
+    for (const base of [1000, 2000, 4000, 8000, 15000]) {
+      const before = h.socket.connectCount, wait = base * (0.5 + random / 2);
+      await vi.advanceTimersByTimeAsync(wait - 1); expect(h.socket.connectCount).toBe(before);
+      await vi.advanceTimersByTimeAsync(1); expect(h.socket.connectCount).toBe(before + 1);
+    }
+    expect(h.client.getSnapshot().status).toBe('error');
+    await vi.advanceTimersByTimeAsync(60000); expect(h.socket.connectCount).toBe(6);
+  });
+  it('cancels pending retry and sampling on disposal', async () => {
+    vi.useFakeTimers(); const h = harness(); await connected(h); h.socket.lose();
+    const calls = h.socket.calls.length, connections = h.socket.connectCount;
+    h.client.dispose(); await vi.advanceTimersByTimeAsync(120000);
+    expect(h.socket.calls).toHaveLength(calls); expect(h.socket.connectCount).toBe(connections);
+  });
+  it('ignores a late sample after disconnect without resampling the old context', async () => {
+    vi.useFakeTimers(); const h = harness(); let callback!: Ack, body: any;
+    h.command = (name, input, ack) => { if (name !== 'clock.sample') return false; body = input; callback = ack; return true; };
+    await connected(h); const offset = h.client.getSnapshot().clockOffsetMs;
+    h.socket.lose(); callback(null, { requestId: body.requestId, gameId: game, revision: 1, outcome: 'CLOCK', sampleId: body.payload.sampleId, serverNowMs: clock + 9000 });
+    await flush(); expect(h.client.getSnapshot().clockOffsetMs).toBe(offset);
+    await vi.advanceTimersByTimeAsync(249); expect(h.socket.calls.filter(c => c.name === 'clock.sample')).toHaveLength(1);
+  });
+  it('disperses follow-up samples and reconnects across a deterministic client cohort', async () => {
+    vi.useFakeTimers(); const cohort = Array.from({ length: 10 }, (_, i) => harness('player', new Map(), Date.now, () => i / 9));
+    await Promise.all(cohort.map(connected));
+    const counts = () => cohort.map(h => h.socket.calls.filter(c => c.name === 'clock.sample').length);
+    expect(counts()).toEqual(Array(10).fill(1));
+    await vi.advanceTimersByTimeAsync(500);
+    expect(counts().filter(n => n === 2).length).toBe(5);
+    cohort.forEach(h => h.socket.lose());
+    await vi.advanceTimersByTimeAsync(750);
+    expect(cohort.filter(h => h.socket.connectCount === 2)).toHaveLength(5);
+  });
+  it('does not overlap a slow sample or accept a worse recent RTT estimate', async () => {
+    vi.useFakeTimers(); let now = clock; const h = harness('player', new Map(), () => now); let callback!: Ack, body: any;
+    h.command = (name, input, ack) => { if (name !== 'clock.sample') return false; body = input; callback = ack; return true; };
+    await connected(h); await vi.advanceTimersByTimeAsync(5000);
+    expect(h.socket.calls.filter(c => c.name === 'clock.sample')).toHaveLength(1);
+    callback(null, { requestId: body.requestId, gameId: game, revision: 1, outcome: 'CLOCK', sampleId: body.payload.sampleId, serverNowMs: clock + 100 }); await flush();
+    expect(h.client.getSnapshot().clockOffsetMs).toBe(100);
+    await vi.advanceTimersByTimeAsync(250); now += 500;
+    callback(null, { requestId: body.requestId, gameId: game, revision: 1, outcome: 'CLOCK', sampleId: body.payload.sampleId, serverNowMs: clock + 9000 }); await flush();
+    expect(h.client.getSnapshot().clockOffsetMs).toBe(100);
+  });
+});
+
+
+it('restarts host clock synchronization after a different game replaces the current view', async () => {
+  vi.useFakeTimers(); const h = harness('host'); await connected(h);
+  const before = h.socket.calls.filter(c => c.name === 'clock.sample').length;
+  h.view = lobby(); h.socket.fire('state.changed', h.view); await flush();
+  expect(h.socket.calls.filter(c => c.name === 'clock.sample')).toHaveLength(before + 1);
+  h.view = lobby({ gameId: 'replacement', revision: 3 }); h.socket.fire('state.changed', h.view); await flush();
+  const latest = h.socket.calls.filter(c => c.name === 'clock.sample');
+  expect(latest).toHaveLength(before + 2); expect(latest.at(-1)?.body.gameId).toBe('replacement');
+  await vi.advanceTimersByTimeAsync(1250); await flush();
+  expect(h.socket.calls.filter(c => c.name === 'clock.sample').slice(-2).every(c => c.body.gameId === 'replacement')).toBe(true);
+});
+
+it('spreads periodic clock batches across clients and expires old RTT candidates', async () => {
+  vi.useFakeTimers(); const cohort = Array.from({ length: 10 }, (_, i) => harness('player', new Map(), Date.now, () => i / 9));
+  await Promise.all(cohort.map(connected));
+  await vi.advanceTimersByTimeAsync(32000);
+  const started = cohort.filter(h => h.socket.calls.filter(c => c.name === 'clock.sample').length > 3).length;
+  expect(started).toBeGreaterThan(0); expect(started).toBeLessThan(10);
+  const h = cohort[0]!;
+  h.command = (name, body, ack) => {
+    if (name !== 'clock.sample') return false;
+    ack(null, { requestId: body.requestId, gameId: game, revision: 1, outcome: 'CLOCK', sampleId: body.payload.sampleId, serverNowMs: Date.now() + 500 }); return true;
+  };
+  await vi.advanceTimersByTimeAsync(70000);
+  expect(h.client.getSnapshot().clockOffsetMs).toBe(500);
 });

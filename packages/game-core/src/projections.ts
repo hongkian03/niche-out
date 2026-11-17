@@ -35,7 +35,7 @@ export interface PlayerViewContext extends ViewContext {
 
 function base(state: EngineSnapshot, context: ViewContext) {
   return {
-    protocolVersion: 1 as const,
+    protocolVersion: 2 as const,
     serverInstanceId: state.serverInstanceId,
     revision: state.revision,
     phaseId: state.phaseId,
@@ -182,7 +182,7 @@ export function projectPlayer(state: EngineSnapshot, context: PlayerViewContext)
       ...timed(state, context), phase: state.phase, viewRole: 'player', ownPlayer,
       ownAnswer: submission ? { locked: true, submittedText: submission.submittedText } : { locked: false, submittedText: null },
       controlGeneration: context.controlGeneration, readiness: readiness(state),
-      publishedTotal: player.publishedTotal, publishedStandings: standings(state),
+      publishedTotal: player.publishedTotal,
     });
   }
   if (state.phase === 'Results') {

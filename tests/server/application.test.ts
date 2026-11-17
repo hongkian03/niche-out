@@ -1,4 +1,5 @@
-import { afterEach, describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
+import { GameEngine } from '@rarity/game-core';
 import { request, createServer } from 'node:http';
 import { io, type Socket } from 'socket.io-client';
 import { createGameApplication, type GameApplicationOptions } from '../../apps/server/src/game/application.js';
@@ -7,7 +8,7 @@ import { twoPromptPack } from '../fixtures/game.js';
 
 const origin = 'https://production.example.com';
 const cleanups: (() => Promise<unknown> | void)[] = [];
-afterEach(async () => { for (const close of cleanups.splice(0).reverse()) await close(); });
+afterEach(async () => { vi.useRealTimers(); vi.restoreAllMocks(); for (const close of cleanups.splice(0).reverse()) await close(); });
 async function setup(options: GameApplicationOptions = {}) {
   const app = await createGameApplication('instance', 'health-nonce', { port: 0, ...options }); cleanups.push(() => app.close());
   app.configureOrigin(origin); app.setHostingStatus({ status: 'ready', publicOrigin: origin });
@@ -22,13 +23,13 @@ async function setup(options: GameApplicationOptions = {}) {
     }); req.on('error', error => { if ((error as NodeJS.ErrnoException).code === 'EPIPE') setTimeout(() => reject(error), 50); else reject(error); }); req.end(bytes);
   });
   const browser = async (owner = false, previousCookie?: string, page: object = { kind: 'fresh' }) => {
-    const response = owner ? await http('/api/owner/exchange', { protocolVersion: 1, token: app.mintOwnerLink().split('#')[1] }) : await http('/api/session', { protocolVersion: 1, page }, previousCookie);
+    const response = owner ? await http('/api/owner/exchange', { protocolVersion: 2, token: app.mintOwnerLink().split('#')[1] }) : await http('/api/session', { protocolVersion: 2, page }, previousCookie);
     expect(response.status).toBe(200);
     const cookie = response.headers['set-cookie']?.[0]?.split(';')[0] ?? previousCookie!;
     const discovery = response.body; let sequence = 0;
-    const envelope = (payload = {}, gameId: string | null = discovery.membership?.gameId ?? discovery.hostGameId ?? null) => ({ protocolVersion: 1, serverInstanceId: 'instance', tabId: discovery.tabId, requestId: discovery.requestPrefix + '.' + (++sequence), gameId, payload });
+    const envelope = (payload = {}, gameId: string | null = discovery.membership?.gameId ?? discovery.hostGameId ?? null) => ({ protocolVersion: 2, serverInstanceId: 'instance', tabId: discovery.tabId, requestId: discovery.requestPrefix + '.' + (++sequence), gameId, payload });
     const socket = io('http://127.0.0.1:' + app.port, { autoConnect: false, forceNew: true, reconnection: false, transports: ['websocket'],
-      extraHeaders: { Host: new URL(origin).host, Origin: origin, Cookie: cookie }, auth: { protocolVersion: 1, serverInstanceId: 'instance', tabId: discovery.tabId } });
+      extraHeaders: { Host: new URL(origin).host, Origin: origin, Cookie: cookie }, auth: { protocolVersion: 2, serverInstanceId: 'instance', tabId: discovery.tabId } });
     cleanups.push(() => { socket.disconnect(); });
     socket.connect(); await new Promise<void>((resolve, reject) => { socket.once('connect', () => resolve()); socket.once('connect_error', reject); });
     const send = (kind: string, input: any) => new Promise<any>((resolve, reject) => socket.timeout(2000).emit(kind, input, (error: unknown, value: unknown) => error ? reject(error) : resolve(value)));
@@ -51,6 +52,76 @@ async function setup(options: GameApplicationOptions = {}) {
 }
 
 describe('production application protocol', () => {
+  it('diagnostic phase labels add no snapshot copies and publications share one snapshot', async () => {
+    const counts: number[] = [];
+    for (const mode of ['off', 'light', 'detailed'] as const) {
+      const samples: any[] = [];
+      const h = await setup(mode === 'off' ? {} : { diagnosticMode: mode, onDiagnostic: sample => samples.push(sample) });
+      const host = await h.browser(true), g = await h.game(host);
+      const players = await Promise.all(Array.from({ length: 4 }, () => h.browser()));
+      for (const [i, player] of players.entries()) await player.send('game.join', player.envelope({ code: g.code, nickname: 'P' + i }));
+      const spy = vi.spyOn(GameEngine.prototype, 'state');
+      h.app.setHostingStatus({ status: 'connecting' });
+      // One publication snapshot serves host + four personalized projections.
+      expect(spy).toHaveBeenCalledTimes(1);
+      spy.mockClear(); await host.state(g.gameId); counts.push(spy.mock.calls.length); spy.mockRestore();
+      if (mode === 'detailed') expect(samples.filter(s => s.kind === 'profile').every(s => typeof s.phase === 'string')).toBe(true);
+      await h.app.close();
+    }
+    expect(counts[1]).toBe(counts[0]); expect(counts[2]).toBe(counts[0]);
+  });
+  it('coalesces join notifications while targeted snapshots and start remain immediate', async () => {
+    const samples: any[] = [];
+    const h = await setup({ diagnosticMode: 'detailed', onDiagnostic: sample => samples.push(sample) });
+    const host = await h.browser(true), g = await h.game(host);
+    const players = await Promise.all(Array.from({ length: 8 }, () => h.browser()));
+    const waiting = await h.browser();
+    samples.length = 0;
+    vi.useFakeTimers({ toFake: ['setTimeout', 'clearTimeout'] });
+    const grants = await Promise.all(players.map((p, i) => p.send('game.join', p.envelope({ code: g.code, nickname: 'P' + i }))));
+    expect(grants.every(grant => grant.outcome === 'JOINED')).toBe(true);
+    expect(samples.filter(s => s.name === 'state.snapshot')).toHaveLength(8);
+    expect(samples.filter(s => s.name === 'publish')).toHaveLength(0);
+    vi.advanceTimersByTime(49);
+    expect(samples.filter(s => s.name === 'publish')).toHaveLength(0);
+    vi.advanceTimersByTime(1);
+    expect(samples.filter(s => s.name === 'publish')).toHaveLength(1);
+    expect(samples.find(s => s.name === 'publish').recipients).toBe(10);
+    expect((await host.state(g.gameId)).roster).toHaveLength(8);
+    samples.length = 0;
+    // An unchanged resume gets its targeted state but no new global publication.
+    await host.send('game.resume', host.envelope({ mode: 'loaded' }, g.gameId));
+    vi.advanceTimersByTime(50);
+    expect(samples.filter(s => s.name === 'publish')).toHaveLength(0);
+    await waiting.send('game.join', waiting.envelope({ code: g.code, nickname: 'Waiting' }));
+    expect(samples.filter(s => s.name === 'publish')).toHaveLength(0);
+    const started = await host.send('game.start', host.envelope({}, g.gameId));
+    expect(started.outcome).toBe('STARTED');
+    vi.advanceTimersByTime(50);
+    expect(samples.filter(s => s.name === 'publish')).toHaveLength(1);
+    expect(samples.filter(s => s.name === 'publish' && s.phase === 'Reading')).toHaveLength(1);
+    vi.useRealTimers();
+  });
+
+  it('cancels pending metadata across replacement and shutdown', async () => {
+    const samples: any[] = [];
+    const h = await setup({ diagnosticMode: 'detailed', onDiagnostic: sample => samples.push(sample) });
+    const host = await h.browser(true), player = await h.browser(), first = await h.game(host);
+    vi.useFakeTimers({ toFake: ['setTimeout', 'clearTimeout'] });
+    await player.send('game.join', player.envelope({ code: first.code, nickname: 'Ada' }));
+    const next = await h.game(host);
+    expect(next.gameId).not.toBe(first.gameId);
+    samples.length = 0;
+    vi.advanceTimersByTime(50);
+    expect(samples.filter(s => s.name === 'publish')).toHaveLength(0);
+    expect((await host.state(next.gameId)).roster).toHaveLength(0);
+    await player.send('game.join', player.envelope({ code: next.code, nickname: 'Ada' }));
+    samples.length = 0;
+    await h.app.close();
+    vi.advanceTimersByTime(50);
+    expect(samples.filter(s => s.name === 'publish')).toHaveLength(0);
+    vi.useRealTimers();
+  });
   it('keeps diagnostics private and safe when observers throw, and counts polling HTTP once', async () => {
     const h = await setup({ diagnosticMode: 'detailed', onDiagnostic: () => { throw Error('observer failure'); } });
     const a = await h.browser();
@@ -72,7 +143,7 @@ describe('production application protocol', () => {
   });
   it('serves exact public assets/health and rejects wrong ingress, private files and unauthorized routes', async () => {
     const h = await setup();
-    expect((await h.http('/health')).body).toEqual({ protocolVersion: 1, appVersion: '0.1.0', live: true });
+    expect((await h.http('/health')).body).toEqual({ protocolVersion: 2, appVersion: '0.1.0', live: true });
     expect((await h.http('/hosting-health')).body.healthToken).toBe('health-nonce');
     expect((await h.http('/host')).status).toBe(200);
     const example = await h.http('/game.example.json');
@@ -81,7 +152,7 @@ describe('production application protocol', () => {
       const asset = await h.http(path); expect(asset.status).toBe(200); expect(asset.headers['content-type']).toContain('text/plain');
     }
     expect((await h.http('/health', undefined, '', { Host: 'evil.example.com', 'X-Forwarded-Host': new URL(origin).host })).status).toBe(403);
-    expect((await h.http('/api/session', { protocolVersion: 1, page: { kind: 'fresh' } }, '', { Origin: 'https://evil.example.com' })).status).toBe(403);
+    expect((await h.http('/api/session', { protocolVersion: 2, page: { kind: 'fresh' } }, '', { Origin: 'https://evil.example.com' })).status).toBe(403);
     expect((await h.http('/api/host/import', twoPromptPack())).status).toBe(401);
     for (const path of ['/docs/game.example.json', '/src/game/application.ts', '/api/controller/start', '/.env']) expect((await h.http(path)).status).toBe(404);
   });
@@ -116,31 +187,31 @@ describe('production application protocol', () => {
     const uploaded = await h.http('/api/host/import', twoPromptPack(), host.cookie);
     const { gameId: _, payload: __, ...common } = host.envelope();
     const input = { ...common, candidateId: uploaded.body.candidateId, expectedGameId: null, expectedSetupGeneration: uploaded.body.expectedSetupGeneration };
-    const resolved = await h.http('/api/host/operations/resolve', { protocolVersion: 1, operation: { kind: 'game.commit', original: input } }, host.cookie);
+    const resolved = await h.http('/api/host/operations/resolve', { protocolVersion: 2, operation: { kind: 'game.commit', original: input } }, host.cookie);
     expect(resolved.body.outcome).toBe('NOT_APPLIED'); expect(resolution.safeParse(resolved.body).success).toBe(true);
     expect((await h.http('/api/host/games', input, host.cookie)).body.code).toBe('OPERATION_CANCELLED');
-    expect((await h.http('/api/host/operations/resolve', { protocolVersion: 1, operation: { kind: 'game.commit', original: input } }, host.cookie)).body.outcome).toBe('NOT_APPLIED');
+    expect((await h.http('/api/host/operations/resolve', { protocolVersion: 2, operation: { kind: 'game.commit', original: input } }, host.cookie)).body.outcome).toBe('NOT_APPLIED');
     const g = await h.game(host), a = await h.browser(); await a.send('game.join', a.envelope({ code: g.code, nickname: 'Ada' }));
-    expect((await h.http('/api/host/operations/resolve', { protocolVersion: 1, operation: { kind: 'game.commit', original: input } }, host.cookie)).body.outcome).toBe('SUPERSEDED');
+    expect((await h.http('/api/host/operations/resolve', { protocolVersion: 2, operation: { kind: 'game.commit', original: input } }, host.cookie)).body.outcome).toBe('SUPERSEDED');
     const start = host.envelope({}, g.gameId);
-    expect((await h.http('/api/host/operations/resolve', { protocolVersion: 1, operation: { kind: 'game.start', original: start } }, host.cookie)).body.outcome).toBe('NOT_APPLIED');
+    expect((await h.http('/api/host/operations/resolve', { protocolVersion: 2, operation: { kind: 'game.start', original: start } }, host.cookie)).body.outcome).toBe('NOT_APPLIED');
     expect((await host.send('game.start', start)).code).toBe('OPERATION_CANCELLED');
     const oldCookie = host.cookie, recovery = await h.browser(true);
     expect((await h.http('/api/host/import', twoPromptPack(), oldCookie)).status).toBe(401);
     expect((await recovery.state(g.gameId)).roster).toHaveLength(1);
-    expect((await h.http('/api/host/operations/resolve', { protocolVersion: 1, operation: { kind: 'game.commit', original: g.input } }, recovery.cookie)).body.outcome).toBe('APPLIED');
+    expect((await h.http('/api/host/operations/resolve', { protocolVersion: 2, operation: { kind: 'game.commit', original: g.input } }, recovery.cookie)).body.outcome).toBe('APPLIED');
   });
   it('preserves player on owner conflict; supports continuation, takeover, and stale generation rejection', async () => {
     const h = await setup(), host = await h.browser(true), a = await h.browser(), g = await h.game(host);
     const joined = await a.send('game.join', a.envelope({ code: g.code, nickname: 'Ada' }));
     const token = h.app.mintOwnerLink().split('#')[1];
-    expect((await h.http('/api/owner/exchange', { protocolVersion: 1, token }, a.cookie)).body.code).toBe('HOST_PLAYER_CONFLICT');
+    expect((await h.http('/api/owner/exchange', { protocolVersion: 2, token }, a.cookie)).body.code).toBe('HOST_PLAYER_CONFLICT');
     const copy = await h.browser(false, a.cookie, { kind: 'continuation', record: joined.control.continuation });
     const resumed = await copy.send('game.resume', copy.envelope({ mode: 'bootstrap' }, g.gameId)); expect(resumed.control.controlGeneration).toBe(2);
     const stale = await h.browser(false, a.cookie, { kind: 'continuation', record: joined.control.continuation });
     expect((await stale.send('game.resume', stale.envelope({ mode: 'bootstrap' }, g.gameId))).code).toBe('CONTROL_CONFIRMATION_REQUIRED');
     const claimed = await stale.send('player.claimControl', stale.envelope({ explicit: true }, g.gameId)); expect(claimed.control.controlGeneration).toBe(3);
-    expect((await h.http('/api/owner/exchange', { protocolVersion: 1, token }, host.cookie)).status).toBe(200);
+    expect((await h.http('/api/owner/exchange', { protocolVersion: 2, token }, host.cookie)).status).toBe(200);
   });
   it('reports authenticated removal after retiring pages for HTTP inspection and socket reconnection', async () => {
     const h = await setup(), host = await h.browser(true), player = await h.browser(), guest = await h.browser(), g = await h.game(host);
@@ -155,7 +226,7 @@ describe('production application protocol', () => {
     expect((await h.http(snapshotPath, undefined, 'niche-browser=invalid')).body.code).toBe('UNAUTHORIZED');
     const error = new Promise<any>(resolve => player.socket.once('connect_error', resolve));
     player.socket.connect(); expect((await error).data.code).toBe('REMOVED');
-    const discovery = await h.http('/api/session', { protocolVersion: 1, page: { kind: 'ambiguous' } }, player.cookie);
+    const discovery = await h.http('/api/session', { protocolVersion: 2, page: { kind: 'ambiguous' } }, player.cookie);
     expect(discovery.body).toMatchObject({ role: 'player', membership: { status: 'removed' }, resume: 'none' });
   });
   it('rejects malformed and over-limit uploads, leaves prior lobby and serves no staged answer bank', async () => {
@@ -181,7 +252,7 @@ describe('production transport boundaries', () => {
   });
   it('enforces raw socket size and protocol version without mutating the roster', async () => {
     const h = await setup(), host = await h.browser(true), g = await h.game(host), a = await h.browser();
-    const wrong = await a.send('game.join', { ...a.envelope({ code: g.code, nickname: 'Ada' }), protocolVersion: 2 });
+    const wrong = await a.send('game.join', { ...a.envelope({ code: g.code, nickname: 'Ada' }), protocolVersion: 1 });
     expect(wrong.code).toBe('UNSUPPORTED_VERSION');
     const malformed = await a.send('game.join', { ...a.envelope({ code: g.code, nickname: 'Ada' }), requestId: 'invalid' });
     expect(malformed.code).toBe('INVALID_PAYLOAD'); expect(malformed).not.toHaveProperty('requestId');

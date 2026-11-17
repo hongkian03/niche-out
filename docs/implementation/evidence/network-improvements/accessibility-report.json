@@ -1,0 +1,19 @@
+{
+  "status": "PASS",
+  "engine": "axe-core 4.11.0",
+  "browser": "157.0.8103.79",
+  "checkedAt": "2026-11-17T05:51:18.430Z",
+  "errors": [],
+  "screenshots": [
+    "phone-remove-dialog.png",
+    "phone-launcher-ready.png",
+    "phone-launcher-finish-confirmation.png"
+  ],
+  "scope": "Automated rendered-DOM WCAG A/AA and best-practice rules. Fixtures render actual components with contract-valid data; launcher manager is simulated. The audit-only launcher context bypasses CSP to inject axe; production CSP is unchanged.",
+  "notVerified": [
+    "Screen-reader spoken output or VoiceOver usability",
+    "Physical-device Safari or native keyboard",
+    "Complete WCAG conformance; incomplete findings need human review"
+  ],
+  "auditCount": 88
+}

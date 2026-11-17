@@ -37,6 +37,29 @@ function scenario(pack: GamePackInput = twoPromptPack()) {
 }
 
 describe('role-filtered complete views', () => {
+  it('omits unused live player standings at capacity while preserving revealed rankings', () => {
+    const s = scenario(); s.commit();
+    const players = Array.from({ length: 100 }, (_, i) => s.add('Player ' + i));
+    s.start();
+    for (const phase of ['Reading', 'Answering']) {
+      const host = s.host(); const player = s.player(players[0]!);
+      expect(player.phase).toBe(phase);
+      expect(player).not.toHaveProperty('publishedStandings');
+      expect(player).toMatchObject({ protocolVersion: 2, publishedTotal: 0 });
+      if (host.phase !== 'Reading' && host.phase !== 'Answering') throw new Error('Expected live host');
+      expect(host.publishedStandings).toHaveLength(100);
+      const previousShape = { ...player, protocolVersion: 1, publishedStandings: host.publishedStandings };
+      expect(Buffer.byteLength(JSON.stringify(player))).toBeLessThan(Buffer.byteLength(JSON.stringify(previousShape)) / 2);
+      expect(completeView.safeParse(player).success).toBe(true);
+      s.expire();
+    }
+    const result = s.player(players[0]!);
+    expect(result).toMatchObject({ phase: 'Results' });
+    if (result.phase !== 'Results') throw new Error('Expected results');
+    expect(result.standings).toHaveLength(100);
+    expect(result.standings.every(row => row.rank === 1)).toBe(true);
+  });
+
   it('projects Setup and Lobby without answer banks and gates Start on roster, readiness and import', () => {
     const s = scenario();
     expect(completeView.safeParse(s.host()).success).toBe(true);

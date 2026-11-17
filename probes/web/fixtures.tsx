@@ -26,7 +26,7 @@ type FixtureName = typeof fixtureNames[number];
 function makeState(name: FixtureName): ClientSnapshot {
   if (name === 'player-join' || name === 'player-join-full') {
     const state = makeState('player-answering');
-    return { ...state, view: null, session: sessionResponse.parse({ protocolVersion: 1, serverInstanceId: 'fixture-server', tabId: 'fixture-tab', requestPrefix: 'fixtureprefix',
+    return { ...state, view: null, session: sessionResponse.parse({ protocolVersion: 2, serverInstanceId: 'fixture-server', tabId: 'fixture-tab', requestPrefix: 'fixtureprefix',
       role: 'guest', membership: null, resume: 'none', hostGameId: null, lastGameCommit: null }),
       error: name === 'player-join-full' ? { code: 'GAME_FULL', message: 'This game is full.' } : null };
   }
@@ -38,7 +38,7 @@ function makeState(name: FixtureName): ClientSnapshot {
       error: name === 'player-connection-error' ? { code: 'TRANSPORT', message: 'Connection interrupted. Reconnecting to confirm the current game.' } : null };
   }
   const now = Date.now();
-  const base = { protocolVersion: 1, serverInstanceId: 'fixture-server', revision: 10, phaseId: `phase-${name}`, serverNowMs: now, gameId: 'fixture-game', promptCount: 1 };
+  const base = { protocolVersion: 2, serverInstanceId: 'fixture-server', revision: 10, phaseId: `phase-${name}`, serverNowMs: now, gameId: 'fixture-game', promptCount: 1 };
   const inactive = { roundId: null, roundIndex: null, phaseDeadlineMs: null };
   const round = { roundId: 'round-1', roundIndex: 0, prompt: name.includes('long-prompt') ? longPrompt : 'Name one of the four seasons.' };
   const timed = { ...base, ...round, phaseDeadlineMs: now + 600000 };
@@ -58,10 +58,10 @@ function makeState(name: FixtureName): ClientSnapshot {
     results: name === 'player-results-long' ? longResults : name === 'player-all-used' ? { ...ordinaryResults, unused: null } : name === 'player-results-miss' ? { groups: [], unused: ordinaryResults.unused } : ordinaryResults,
     standings: standings.map(row => ({ ...row, roundPoints: 0 })) };
   else view = { ...timed, phase: name === 'player-reading' ? 'Reading' : 'Answering', viewRole: 'player', ownPlayer,
-    ownAnswer: { locked: false, submittedText: null }, controlGeneration: 1, publishedTotal: max, publishedStandings: standings,
+    ownAnswer: { locked: false, submittedText: null }, controlGeneration: 1, publishedTotal: max,
     readiness: { accepted: name === 'player-reading' ? 0 : 50, eligible: 100 } };
   const valid = completeView.parse(view);
-  const session = sessionResponse.parse({ protocolVersion: 1, serverInstanceId: 'fixture-server', tabId: 'fixture-tab', requestPrefix: 'fixtureprefix', role: valid.viewRole,
+  const session = sessionResponse.parse({ protocolVersion: 2, serverInstanceId: 'fixture-server', tabId: 'fixture-tab', requestPrefix: 'fixtureprefix', role: valid.viewRole,
     membership: valid.viewRole === 'host' ? null : { ...ownPlayer, gameId: 'fixture-game', status: 'admitted' }, resume: valid.viewRole === 'host' ? 'none' : 'continuation', hostGameId: valid.viewRole === 'host' ? valid.gameId : null,
     lastGameCommit: valid.viewRole === 'host' && valid.gameId ? { requestId: 'fixtureprefix.1', candidateId: 'fixture-candidate', gameId: valid.gameId, setupGeneration: 1, revision: 1 } : null });
   return { session, view: valid, status: name === 'player-reconnecting' ? 'reconnecting' : 'connected', error: null,

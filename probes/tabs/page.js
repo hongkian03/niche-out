@@ -27,12 +27,12 @@ function input() {
   } catch { return { kind: "unavailable" }; }
 }
 async function initialize() {
-  context = await post("/session", { protocolVersion: 1, page: input() });
+  context = await post("/session", { protocolVersion: 2, page: input() });
   return context;
 }
 async function command(kind = "game.resume", mode = "bootstrap", repeat = false, discardAck = false) {
   const body = repeat ? last : {
-    protocolVersion: 1, serverInstanceId: context.serverInstanceId, tabId: context.tabId,
+    protocolVersion: 2, serverInstanceId: context.serverInstanceId, tabId: context.tabId,
     gameId: context.membership.gameId, requestId: context.requestPrefix + "." + (++sequence),
     payload: kind === "player.claimControl" ? { explicit: true } : { mode }
   };

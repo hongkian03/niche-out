@@ -1,0 +1,1333 @@
+{
+  "status": "PASS",
+  "browser": "157.0.8103.79",
+  "layoutChecks": 213,
+  "layout": [
+    {
+      "fixture": "host-setup",
+      "width": 320,
+      "variant": "normal",
+      "scroll": 320
+    },
+    {
+      "fixture": "host-lobby",
+      "width": 320,
+      "variant": "normal",
+      "scroll": 320
+    },
+    {
+      "fixture": "host-answering",
+      "width": 320,
+      "variant": "normal",
+      "scroll": 320
+    },
+    {
+      "fixture": "host-long-prompt",
+      "width": 320,
+      "variant": "normal",
+      "scroll": 320
+    },
+    {
+      "fixture": "host-results",
+      "width": 320,
+      "variant": "normal",
+      "scroll": 320
+    },
+    {
+      "fixture": "host-empty-final",
+      "width": 320,
+      "variant": "normal",
+      "scroll": 320
+    },
+    {
+      "fixture": "host-final",
+      "width": 320,
+      "variant": "normal",
+      "scroll": 320
+    },
+    {
+      "fixture": "player-reading",
+      "width": 320,
+      "variant": "normal",
+      "scroll": 320
+    },
+    {
+      "fixture": "player-answering",
+      "width": 320,
+      "variant": "normal",
+      "scroll": 320
+    },
+    {
+      "fixture": "player-long-prompt",
+      "width": 320,
+      "variant": "normal",
+      "scroll": 320
+    },
+    {
+      "fixture": "player-results-long",
+      "width": 320,
+      "variant": "normal",
+      "scroll": 320
+    },
+    {
+      "fixture": "player-results-zero",
+      "width": 320,
+      "variant": "normal",
+      "scroll": 320
+    },
+    {
+      "fixture": "player-results-miss",
+      "width": 320,
+      "variant": "normal",
+      "scroll": 320
+    },
+    {
+      "fixture": "player-all-used",
+      "width": 320,
+      "variant": "normal",
+      "scroll": 320
+    },
+    {
+      "fixture": "player-final",
+      "width": 320,
+      "variant": "normal",
+      "scroll": 320
+    },
+    {
+      "fixture": "player-pending",
+      "width": 320,
+      "variant": "normal",
+      "scroll": 320
+    },
+    {
+      "fixture": "player-reconnecting",
+      "width": 320,
+      "variant": "normal",
+      "scroll": 320
+    },
+    {
+      "fixture": "player-join",
+      "width": 320,
+      "variant": "normal",
+      "scroll": 320
+    },
+    {
+      "fixture": "player-join-full",
+      "width": 320,
+      "variant": "normal",
+      "scroll": 320
+    },
+    {
+      "fixture": "player-lobby",
+      "width": 320,
+      "variant": "normal",
+      "scroll": 320
+    },
+    {
+      "fixture": "player-removed",
+      "width": 320,
+      "variant": "normal",
+      "scroll": 320
+    },
+    {
+      "fixture": "player-closed",
+      "width": 320,
+      "variant": "normal",
+      "scroll": 320
+    },
+    {
+      "fixture": "player-superseded",
+      "width": 320,
+      "variant": "normal",
+      "scroll": 320
+    },
+    {
+      "fixture": "player-connection-error",
+      "width": 320,
+      "variant": "normal",
+      "scroll": 320
+    },
+    {
+      "fixture": "host-conflict",
+      "width": 320,
+      "variant": "normal",
+      "scroll": 320
+    },
+    {
+      "fixture": "host-import-error",
+      "width": 320,
+      "variant": "normal",
+      "scroll": 320
+    },
+    {
+      "fixture": "host-setup",
+      "width": 360,
+      "variant": "normal",
+      "scroll": 360
+    },
+    {
+      "fixture": "host-lobby",
+      "width": 360,
+      "variant": "normal",
+      "scroll": 360
+    },
+    {
+      "fixture": "host-answering",
+      "width": 360,
+      "variant": "normal",
+      "scroll": 360
+    },
+    {
+      "fixture": "host-long-prompt",
+      "width": 360,
+      "variant": "normal",
+      "scroll": 360
+    },
+    {
+      "fixture": "host-results",
+      "width": 360,
+      "variant": "normal",
+      "scroll": 360
+    },
+    {
+      "fixture": "host-empty-final",
+      "width": 360,
+      "variant": "normal",
+      "scroll": 360
+    },
+    {
+      "fixture": "host-final",
+      "width": 360,
+      "variant": "normal",
+      "scroll": 360
+    },
+    {
+      "fixture": "player-reading",
+      "width": 360,
+      "variant": "normal",
+      "scroll": 360
+    },
+    {
+      "fixture": "player-answering",
+      "width": 360,
+      "variant": "normal",
+      "scroll": 360
+    },
+    {
+      "fixture": "player-long-prompt",
+      "width": 360,
+      "variant": "normal",
+      "scroll": 360
+    },
+    {
+      "fixture": "player-results-long",
+      "width": 360,
+      "variant": "normal",
+      "scroll": 360
+    },
+    {
+      "fixture": "player-results-zero",
+      "width": 360,
+      "variant": "normal",
+      "scroll": 360
+    },
+    {
+      "fixture": "player-results-miss",
+      "width": 360,
+      "variant": "normal",
+      "scroll": 360
+    },
+    {
+      "fixture": "player-all-used",
+      "width": 360,
+      "variant": "normal",
+      "scroll": 360
+    },
+    {
+      "fixture": "player-final",
+      "width": 360,
+      "variant": "normal",
+      "scroll": 360
+    },
+    {
+      "fixture": "player-pending",
+      "width": 360,
+      "variant": "normal",
+      "scroll": 360
+    },
+    {
+      "fixture": "player-reconnecting",
+      "width": 360,
+      "variant": "normal",
+      "scroll": 360
+    },
+    {
+      "fixture": "player-join",
+      "width": 360,
+      "variant": "normal",
+      "scroll": 360
+    },
+    {
+      "fixture": "player-join-full",
+      "width": 360,
+      "variant": "normal",
+      "scroll": 360
+    },
+    {
+      "fixture": "player-lobby",
+      "width": 360,
+      "variant": "normal",
+      "scroll": 360
+    },
+    {
+      "fixture": "player-removed",
+      "width": 360,
+      "variant": "normal",
+      "scroll": 360
+    },
+    {
+      "fixture": "player-closed",
+      "width": 360,
+      "variant": "normal",
+      "scroll": 360
+    },
+    {
+      "fixture": "player-superseded",
+      "width": 360,
+      "variant": "normal",
+      "scroll": 360
+    },
+    {
+      "fixture": "player-connection-error",
+      "width": 360,
+      "variant": "normal",
+      "scroll": 360
+    },
+    {
+      "fixture": "host-conflict",
+      "width": 360,
+      "variant": "normal",
+      "scroll": 360
+    },
+    {
+      "fixture": "host-import-error",
+      "width": 360,
+      "variant": "normal",
+      "scroll": 360
+    },
+    {
+      "fixture": "host-setup",
+      "width": 390,
+      "variant": "normal",
+      "scroll": 390
+    },
+    {
+      "fixture": "host-lobby",
+      "width": 390,
+      "variant": "normal",
+      "scroll": 390
+    },
+    {
+      "fixture": "host-answering",
+      "width": 390,
+      "variant": "normal",
+      "scroll": 390
+    },
+    {
+      "fixture": "host-long-prompt",
+      "width": 390,
+      "variant": "normal",
+      "scroll": 390
+    },
+    {
+      "fixture": "host-results",
+      "width": 390,
+      "variant": "normal",
+      "scroll": 390
+    },
+    {
+      "fixture": "host-empty-final",
+      "width": 390,
+      "variant": "normal",
+      "scroll": 390
+    },
+    {
+      "fixture": "host-final",
+      "width": 390,
+      "variant": "normal",
+      "scroll": 390
+    },
+    {
+      "fixture": "player-reading",
+      "width": 390,
+      "variant": "normal",
+      "scroll": 390
+    },
+    {
+      "fixture": "player-answering",
+      "width": 390,
+      "variant": "normal",
+      "scroll": 390
+    },
+    {
+      "fixture": "player-long-prompt",
+      "width": 390,
+      "variant": "normal",
+      "scroll": 390
+    },
+    {
+      "fixture": "player-results-long",
+      "width": 390,
+      "variant": "normal",
+      "scroll": 390
+    },
+    {
+      "fixture": "player-results-zero",
+      "width": 390,
+      "variant": "normal",
+      "scroll": 390
+    },
+    {
+      "fixture": "player-results-miss",
+      "width": 390,
+      "variant": "normal",
+      "scroll": 390
+    },
+    {
+      "fixture": "player-all-used",
+      "width": 390,
+      "variant": "normal",
+      "scroll": 390
+    },
+    {
+      "fixture": "player-final",
+      "width": 390,
+      "variant": "normal",
+      "scroll": 390
+    },
+    {
+      "fixture": "player-pending",
+      "width": 390,
+      "variant": "normal",
+      "scroll": 390
+    },
+    {
+      "fixture": "player-reconnecting",
+      "width": 390,
+      "variant": "normal",
+      "scroll": 390
+    },
+    {
+      "fixture": "player-join",
+      "width": 390,
+      "variant": "normal",
+      "scroll": 390
+    },
+    {
+      "fixture": "player-join-full",
+      "width": 390,
+      "variant": "normal",
+      "scroll": 390
+    },
+    {
+      "fixture": "player-lobby",
+      "width": 390,
+      "variant": "normal",
+      "scroll": 390
+    },
+    {
+      "fixture": "player-removed",
+      "width": 390,
+      "variant": "normal",
+      "scroll": 390
+    },
+    {
+      "fixture": "player-closed",
+      "width": 390,
+      "variant": "normal",
+      "scroll": 390
+    },
+    {
+      "fixture": "player-superseded",
+      "width": 390,
+      "variant": "normal",
+      "scroll": 390
+    },
+    {
+      "fixture": "player-connection-error",
+      "width": 390,
+      "variant": "normal",
+      "scroll": 390
+    },
+    {
+      "fixture": "host-conflict",
+      "width": 390,
+      "variant": "normal",
+      "scroll": 390
+    },
+    {
+      "fixture": "host-import-error",
+      "width": 390,
+      "variant": "normal",
+      "scroll": 390
+    },
+    {
+      "fixture": "host-setup",
+      "width": 412,
+      "variant": "normal",
+      "scroll": 412
+    },
+    {
+      "fixture": "host-lobby",
+      "width": 412,
+      "variant": "normal",
+      "scroll": 412
+    },
+    {
+      "fixture": "host-answering",
+      "width": 412,
+      "variant": "normal",
+      "scroll": 412
+    },
+    {
+      "fixture": "host-long-prompt",
+      "width": 412,
+      "variant": "normal",
+      "scroll": 412
+    },
+    {
+      "fixture": "host-results",
+      "width": 412,
+      "variant": "normal",
+      "scroll": 412
+    },
+    {
+      "fixture": "host-empty-final",
+      "width": 412,
+      "variant": "normal",
+      "scroll": 412
+    },
+    {
+      "fixture": "host-final",
+      "width": 412,
+      "variant": "normal",
+      "scroll": 412
+    },
+    {
+      "fixture": "player-reading",
+      "width": 412,
+      "variant": "normal",
+      "scroll": 412
+    },
+    {
+      "fixture": "player-answering",
+      "width": 412,
+      "variant": "normal",
+      "scroll": 412
+    },
+    {
+      "fixture": "player-long-prompt",
+      "width": 412,
+      "variant": "normal",
+      "scroll": 412
+    },
+    {
+      "fixture": "player-results-long",
+      "width": 412,
+      "variant": "normal",
+      "scroll": 412
+    },
+    {
+      "fixture": "player-results-zero",
+      "width": 412,
+      "variant": "normal",
+      "scroll": 412
+    },
+    {
+      "fixture": "player-results-miss",
+      "width": 412,
+      "variant": "normal",
+      "scroll": 412
+    },
+    {
+      "fixture": "player-all-used",
+      "width": 412,
+      "variant": "normal",
+      "scroll": 412
+    },
+    {
+      "fixture": "player-final",
+      "width": 412,
+      "variant": "normal",
+      "scroll": 412
+    },
+    {
+      "fixture": "player-pending",
+      "width": 412,
+      "variant": "normal",
+      "scroll": 412
+    },
+    {
+      "fixture": "player-reconnecting",
+      "width": 412,
+      "variant": "normal",
+      "scroll": 412
+    },
+    {
+      "fixture": "player-join",
+      "width": 412,
+      "variant": "normal",
+      "scroll": 412
+    },
+    {
+      "fixture": "player-join-full",
+      "width": 412,
+      "variant": "normal",
+      "scroll": 412
+    },
+    {
+      "fixture": "player-lobby",
+      "width": 412,
+      "variant": "normal",
+      "scroll": 412
+    },
+    {
+      "fixture": "player-removed",
+      "width": 412,
+      "variant": "normal",
+      "scroll": 412
+    },
+    {
+      "fixture": "player-closed",
+      "width": 412,
+      "variant": "normal",
+      "scroll": 412
+    },
+    {
+      "fixture": "player-superseded",
+      "width": 412,
+      "variant": "normal",
+      "scroll": 412
+    },
+    {
+      "fixture": "player-connection-error",
+      "width": 412,
+      "variant": "normal",
+      "scroll": 412
+    },
+    {
+      "fixture": "host-conflict",
+      "width": 412,
+      "variant": "normal",
+      "scroll": 412
+    },
+    {
+      "fixture": "host-import-error",
+      "width": 412,
+      "variant": "normal",
+      "scroll": 412
+    },
+    {
+      "fixture": "host-setup",
+      "width": 768,
+      "variant": "normal",
+      "scroll": 768
+    },
+    {
+      "fixture": "host-lobby",
+      "width": 768,
+      "variant": "normal",
+      "scroll": 768
+    },
+    {
+      "fixture": "host-answering",
+      "width": 768,
+      "variant": "normal",
+      "scroll": 768
+    },
+    {
+      "fixture": "host-long-prompt",
+      "width": 768,
+      "variant": "normal",
+      "scroll": 768
+    },
+    {
+      "fixture": "host-results",
+      "width": 768,
+      "variant": "normal",
+      "scroll": 768
+    },
+    {
+      "fixture": "host-empty-final",
+      "width": 768,
+      "variant": "normal",
+      "scroll": 768
+    },
+    {
+      "fixture": "host-final",
+      "width": 768,
+      "variant": "normal",
+      "scroll": 768
+    },
+    {
+      "fixture": "player-reading",
+      "width": 768,
+      "variant": "normal",
+      "scroll": 768
+    },
+    {
+      "fixture": "player-answering",
+      "width": 768,
+      "variant": "normal",
+      "scroll": 768
+    },
+    {
+      "fixture": "player-long-prompt",
+      "width": 768,
+      "variant": "normal",
+      "scroll": 768
+    },
+    {
+      "fixture": "player-results-long",
+      "width": 768,
+      "variant": "normal",
+      "scroll": 768
+    },
+    {
+      "fixture": "player-results-zero",
+      "width": 768,
+      "variant": "normal",
+      "scroll": 768
+    },
+    {
+      "fixture": "player-results-miss",
+      "width": 768,
+      "variant": "normal",
+      "scroll": 768
+    },
+    {
+      "fixture": "player-all-used",
+      "width": 768,
+      "variant": "normal",
+      "scroll": 768
+    },
+    {
+      "fixture": "player-final",
+      "width": 768,
+      "variant": "normal",
+      "scroll": 768
+    },
+    {
+      "fixture": "player-pending",
+      "width": 768,
+      "variant": "normal",
+      "scroll": 768
+    },
+    {
+      "fixture": "player-reconnecting",
+      "width": 768,
+      "variant": "normal",
+      "scroll": 768
+    },
+    {
+      "fixture": "player-join",
+      "width": 768,
+      "variant": "normal",
+      "scroll": 768
+    },
+    {
+      "fixture": "player-join-full",
+      "width": 768,
+      "variant": "normal",
+      "scroll": 768
+    },
+    {
+      "fixture": "player-lobby",
+      "width": 768,
+      "variant": "normal",
+      "scroll": 768
+    },
+    {
+      "fixture": "player-removed",
+      "width": 768,
+      "variant": "normal",
+      "scroll": 768
+    },
+    {
+      "fixture": "player-closed",
+      "width": 768,
+      "variant": "normal",
+      "scroll": 768
+    },
+    {
+      "fixture": "player-superseded",
+      "width": 768,
+      "variant": "normal",
+      "scroll": 768
+    },
+    {
+      "fixture": "player-connection-error",
+      "width": 768,
+      "variant": "normal",
+      "scroll": 768
+    },
+    {
+      "fixture": "host-conflict",
+      "width": 768,
+      "variant": "normal",
+      "scroll": 768
+    },
+    {
+      "fixture": "host-import-error",
+      "width": 768,
+      "variant": "normal",
+      "scroll": 768
+    },
+    {
+      "fixture": "host-setup",
+      "width": 1280,
+      "variant": "normal",
+      "scroll": 1280
+    },
+    {
+      "fixture": "host-lobby",
+      "width": 1280,
+      "variant": "normal",
+      "scroll": 1280
+    },
+    {
+      "fixture": "host-answering",
+      "width": 1280,
+      "variant": "normal",
+      "scroll": 1280
+    },
+    {
+      "fixture": "host-long-prompt",
+      "width": 1280,
+      "variant": "normal",
+      "scroll": 1280
+    },
+    {
+      "fixture": "host-results",
+      "width": 1280,
+      "variant": "normal",
+      "scroll": 1280
+    },
+    {
+      "fixture": "host-empty-final",
+      "width": 1280,
+      "variant": "normal",
+      "scroll": 1280
+    },
+    {
+      "fixture": "host-final",
+      "width": 1280,
+      "variant": "normal",
+      "scroll": 1280
+    },
+    {
+      "fixture": "player-reading",
+      "width": 1280,
+      "variant": "normal",
+      "scroll": 1280
+    },
+    {
+      "fixture": "player-answering",
+      "width": 1280,
+      "variant": "normal",
+      "scroll": 1280
+    },
+    {
+      "fixture": "player-long-prompt",
+      "width": 1280,
+      "variant": "normal",
+      "scroll": 1280
+    },
+    {
+      "fixture": "player-results-long",
+      "width": 1280,
+      "variant": "normal",
+      "scroll": 1280
+    },
+    {
+      "fixture": "player-results-zero",
+      "width": 1280,
+      "variant": "normal",
+      "scroll": 1280
+    },
+    {
+      "fixture": "player-results-miss",
+      "width": 1280,
+      "variant": "normal",
+      "scroll": 1280
+    },
+    {
+      "fixture": "player-all-used",
+      "width": 1280,
+      "variant": "normal",
+      "scroll": 1280
+    },
+    {
+      "fixture": "player-final",
+      "width": 1280,
+      "variant": "normal",
+      "scroll": 1280
+    },
+    {
+      "fixture": "player-pending",
+      "width": 1280,
+      "variant": "normal",
+      "scroll": 1280
+    },
+    {
+      "fixture": "player-reconnecting",
+      "width": 1280,
+      "variant": "normal",
+      "scroll": 1280
+    },
+    {
+      "fixture": "player-join",
+      "width": 1280,
+      "variant": "normal",
+      "scroll": 1280
+    },
+    {
+      "fixture": "player-join-full",
+      "width": 1280,
+      "variant": "normal",
+      "scroll": 1280
+    },
+    {
+      "fixture": "player-lobby",
+      "width": 1280,
+      "variant": "normal",
+      "scroll": 1280
+    },
+    {
+      "fixture": "player-removed",
+      "width": 1280,
+      "variant": "normal",
+      "scroll": 1280
+    },
+    {
+      "fixture": "player-closed",
+      "width": 1280,
+      "variant": "normal",
+      "scroll": 1280
+    },
+    {
+      "fixture": "player-superseded",
+      "width": 1280,
+      "variant": "normal",
+      "scroll": 1280
+    },
+    {
+      "fixture": "player-connection-error",
+      "width": 1280,
+      "variant": "normal",
+      "scroll": 1280
+    },
+    {
+      "fixture": "host-conflict",
+      "width": 1280,
+      "variant": "normal",
+      "scroll": 1280
+    },
+    {
+      "fixture": "host-import-error",
+      "width": 1280,
+      "variant": "normal",
+      "scroll": 1280
+    },
+    {
+      "fixture": "host-setup",
+      "width": 1920,
+      "variant": "normal",
+      "scroll": 1920
+    },
+    {
+      "fixture": "host-lobby",
+      "width": 1920,
+      "variant": "normal",
+      "scroll": 1920
+    },
+    {
+      "fixture": "host-answering",
+      "width": 1920,
+      "variant": "normal",
+      "scroll": 1920
+    },
+    {
+      "fixture": "host-long-prompt",
+      "width": 1920,
+      "variant": "normal",
+      "scroll": 1920
+    },
+    {
+      "fixture": "host-results",
+      "width": 1920,
+      "variant": "normal",
+      "scroll": 1920
+    },
+    {
+      "fixture": "host-empty-final",
+      "width": 1920,
+      "variant": "normal",
+      "scroll": 1920
+    },
+    {
+      "fixture": "host-final",
+      "width": 1920,
+      "variant": "normal",
+      "scroll": 1920
+    },
+    {
+      "fixture": "player-reading",
+      "width": 1920,
+      "variant": "normal",
+      "scroll": 1920
+    },
+    {
+      "fixture": "player-answering",
+      "width": 1920,
+      "variant": "normal",
+      "scroll": 1920
+    },
+    {
+      "fixture": "player-long-prompt",
+      "width": 1920,
+      "variant": "normal",
+      "scroll": 1920
+    },
+    {
+      "fixture": "player-results-long",
+      "width": 1920,
+      "variant": "normal",
+      "scroll": 1920
+    },
+    {
+      "fixture": "player-results-zero",
+      "width": 1920,
+      "variant": "normal",
+      "scroll": 1920
+    },
+    {
+      "fixture": "player-results-miss",
+      "width": 1920,
+      "variant": "normal",
+      "scroll": 1920
+    },
+    {
+      "fixture": "player-all-used",
+      "width": 1920,
+      "variant": "normal",
+      "scroll": 1920
+    },
+    {
+      "fixture": "player-final",
+      "width": 1920,
+      "variant": "normal",
+      "scroll": 1920
+    },
+    {
+      "fixture": "player-pending",
+      "width": 1920,
+      "variant": "normal",
+      "scroll": 1920
+    },
+    {
+      "fixture": "player-reconnecting",
+      "width": 1920,
+      "variant": "normal",
+      "scroll": 1920
+    },
+    {
+      "fixture": "player-join",
+      "width": 1920,
+      "variant": "normal",
+      "scroll": 1920
+    },
+    {
+      "fixture": "player-join-full",
+      "width": 1920,
+      "variant": "normal",
+      "scroll": 1920
+    },
+    {
+      "fixture": "player-lobby",
+      "width": 1920,
+      "variant": "normal",
+      "scroll": 1920
+    },
+    {
+      "fixture": "player-removed",
+      "width": 1920,
+      "variant": "normal",
+      "scroll": 1920
+    },
+    {
+      "fixture": "player-closed",
+      "width": 1920,
+      "variant": "normal",
+      "scroll": 1920
+    },
+    {
+      "fixture": "player-superseded",
+      "width": 1920,
+      "variant": "normal",
+      "scroll": 1920
+    },
+    {
+      "fixture": "player-connection-error",
+      "width": 1920,
+      "variant": "normal",
+      "scroll": 1920
+    },
+    {
+      "fixture": "host-conflict",
+      "width": 1920,
+      "variant": "normal",
+      "scroll": 1920
+    },
+    {
+      "fixture": "host-import-error",
+      "width": 1920,
+      "variant": "normal",
+      "scroll": 1920
+    },
+    {
+      "fixture": "host-setup",
+      "width": 844,
+      "variant": "phone-landscape",
+      "scroll": 844
+    },
+    {
+      "fixture": "host-lobby",
+      "width": 844,
+      "variant": "phone-landscape",
+      "scroll": 844
+    },
+    {
+      "fixture": "host-answering",
+      "width": 844,
+      "variant": "phone-landscape",
+      "scroll": 844
+    },
+    {
+      "fixture": "host-long-prompt",
+      "width": 844,
+      "variant": "phone-landscape",
+      "scroll": 844
+    },
+    {
+      "fixture": "host-results",
+      "width": 844,
+      "variant": "phone-landscape",
+      "scroll": 844
+    },
+    {
+      "fixture": "host-empty-final",
+      "width": 844,
+      "variant": "phone-landscape",
+      "scroll": 844
+    },
+    {
+      "fixture": "host-final",
+      "width": 844,
+      "variant": "phone-landscape",
+      "scroll": 844
+    },
+    {
+      "fixture": "player-reading",
+      "width": 844,
+      "variant": "phone-landscape",
+      "scroll": 844
+    },
+    {
+      "fixture": "player-answering",
+      "width": 844,
+      "variant": "phone-landscape",
+      "scroll": 844
+    },
+    {
+      "fixture": "player-long-prompt",
+      "width": 844,
+      "variant": "phone-landscape",
+      "scroll": 844
+    },
+    {
+      "fixture": "player-results-long",
+      "width": 844,
+      "variant": "phone-landscape",
+      "scroll": 844
+    },
+    {
+      "fixture": "player-results-zero",
+      "width": 844,
+      "variant": "phone-landscape",
+      "scroll": 844
+    },
+    {
+      "fixture": "player-results-miss",
+      "width": 844,
+      "variant": "phone-landscape",
+      "scroll": 844
+    },
+    {
+      "fixture": "player-all-used",
+      "width": 844,
+      "variant": "phone-landscape",
+      "scroll": 844
+    },
+    {
+      "fixture": "player-final",
+      "width": 844,
+      "variant": "phone-landscape",
+      "scroll": 844
+    },
+    {
+      "fixture": "player-pending",
+      "width": 844,
+      "variant": "phone-landscape",
+      "scroll": 844
+    },
+    {
+      "fixture": "player-reconnecting",
+      "width": 844,
+      "variant": "phone-landscape",
+      "scroll": 844
+    },
+    {
+      "fixture": "player-join",
+      "width": 844,
+      "variant": "phone-landscape",
+      "scroll": 844
+    },
+    {
+      "fixture": "player-join-full",
+      "width": 844,
+      "variant": "phone-landscape",
+      "scroll": 844
+    },
+    {
+      "fixture": "player-lobby",
+      "width": 844,
+      "variant": "phone-landscape",
+      "scroll": 844
+    },
+    {
+      "fixture": "player-removed",
+      "width": 844,
+      "variant": "phone-landscape",
+      "scroll": 844
+    },
+    {
+      "fixture": "player-closed",
+      "width": 844,
+      "variant": "phone-landscape",
+      "scroll": 844
+    },
+    {
+      "fixture": "player-superseded",
+      "width": 844,
+      "variant": "phone-landscape",
+      "scroll": 844
+    },
+    {
+      "fixture": "player-connection-error",
+      "width": 844,
+      "variant": "phone-landscape",
+      "scroll": 844
+    },
+    {
+      "fixture": "host-conflict",
+      "width": 844,
+      "variant": "phone-landscape",
+      "scroll": 844
+    },
+    {
+      "fixture": "host-import-error",
+      "width": 844,
+      "variant": "phone-landscape",
+      "scroll": 844
+    },
+    {
+      "fixture": "host-setup",
+      "width": 640,
+      "variant": "200-percent-equivalent-reflow",
+      "scroll": 640
+    },
+    {
+      "fixture": "host-lobby",
+      "width": 640,
+      "variant": "200-percent-equivalent-reflow",
+      "scroll": 640
+    },
+    {
+      "fixture": "player-long-prompt",
+      "width": 640,
+      "variant": "200-percent-equivalent-reflow",
+      "scroll": 640
+    },
+    {
+      "fixture": "player-results-long",
+      "width": 640,
+      "variant": "200-percent-equivalent-reflow",
+      "scroll": 640
+    },
+    {
+      "fixture": "player-final",
+      "width": 640,
+      "variant": "200-percent-equivalent-reflow",
+      "scroll": 640
+    }
+  ],
+  "layoutFailures": [],
+  "contrastChecks": {
+    "panelText": 15.050426383872658,
+    "mutedText": 8.588963263545711,
+    "primaryButton": 15.13774261649791,
+    "focus": 10.722613088060955,
+    "border": 3.6936263380750574
+  },
+  "screenshots": [
+    "fixture-player-results-long-320.png",
+    "fixture-player-join-360.png",
+    "fixture-player-answering-390.png",
+    "fixture-player-results-zero-390.png",
+    "fixture-player-answering-412.png",
+    "fixture-host-lobby-1280.png",
+    "fixture-host-results-1920.png",
+    "fixture-phone-landscape-844.png",
+    "fixture-bounded-long-result-320.png",
+    "fixture-short-viewport-390.png",
+    "fixture-reduced-motion.png"
+  ],
+  "checks": [
+    "role fixtures",
+    "long content and safe integer scores",
+    "bounded keyboard-scrollable personal result wording preserves reveal countdown",
+    "100-player roster",
+    "local font and assets",
+    "seven portrait/desktop widths plus phone landscape",
+    "200% equivalent reflow (not browser zoom)",
+    "short viewport manual-scroll reachability",
+    "stable timer ring width when crossing one minute within a phase",
+    "desktop answer-phase focus and same-prompt scroll preservation",
+    "explicit Enter and modeled composition guard",
+    "pending duplicate prevention and rejection wording/focus preservation",
+    "accepted wording and focus dismissal",
+    "result tab keyboard navigation and phase-aware reset",
+    "nested dialog focus containment and Cancel",
+    "pending removal dismissal",
+    "phase-change focus fallback",
+    "reduced motion",
+    "touch-emulated focus requires tap",
+    "same-document disconnected draft preserved and editing/submission disabled"
+  ],
+  "notVerified": [
+    "actual mobile keyboard and operating-system IME",
+    "real device zoom and assistive technology",
+    "network/production protocol (separate test-browser-game)"
+  ]
+}

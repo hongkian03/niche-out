@@ -1,0 +1,146 @@
+{
+  "report": "work/network-improvements/measured/public-polling-detailed-tunnel-polling-100-1794895109831.json",
+  "sha256": "ce9f56d29bd5af655ceaf626fcdc625914fe61e016a68aa3482647f92f25d5d7",
+  "status": "FAIL",
+  "uplink": "eduroam",
+  "completedVerifiedRounds": 4,
+  "failedRoundHuman": 5,
+  "observation": "One answer command exhausted original plus two identical retries at approximately 2, 4 and 6 seconds. 99 accepted client timings returned in this stage; server recorded 102 accepted handler results including retransmissions and advanced through Results to next round. No per-request diagnostic identity is retained, so individual server/client events cannot be paired conclusively.",
+  "failures": [
+    {
+      "category": "run",
+      "message": "operation has timed out",
+      "atMs": 127006.04637499999,
+      "stage": "game-0-round-4-accepted-submit"
+    }
+  ],
+  "ackAttemptTimeouts": [
+    {
+      "name": "answer.submit",
+      "attempt": 1,
+      "transport": "polling",
+      "category": "acknowledgement",
+      "message": "operation has timed out",
+      "atMs": 123001.579958,
+      "stage": "game-0-round-4-accepted-submit"
+    },
+    {
+      "name": "answer.submit",
+      "attempt": 2,
+      "transport": "polling",
+      "category": "acknowledgement",
+      "message": "operation has timed out",
+      "atMs": 125003.63820799999,
+      "stage": "game-0-round-4-accepted-submit"
+    },
+    {
+      "name": "answer.submit",
+      "attempt": 3,
+      "transport": "polling",
+      "category": "acknowledgement",
+      "message": "operation has timed out",
+      "atMs": 127005.873958,
+      "stage": "game-0-round-4-accepted-submit"
+    }
+  ],
+  "clientTransportErrors": [],
+  "recoveries": [],
+  "clientDisconnects": {
+    "io client disconnect": 101
+  },
+  "cleanupNote": "101 io client disconnect events are harness cleanup; not evidence of 101 network failures.",
+  "failedStageSuccessfulAckSummary": {
+    "count": 99,
+    "p50Ms": 539.7989999999991,
+    "p95Ms": 605.9003749999974,
+    "p99Ms": 758.6009999999951,
+    "maxMs": 758.6009999999951
+  },
+  "failedStageServerAcceptedResultCount": 102,
+  "failedStageEventLoop": {
+    "sampleCount": 529,
+    "p50Ms": 11.132927,
+    "p95Ms": 12.165119,
+    "p99Ms": 16.605183,
+    "maxMs": 50.659327
+  },
+  "failedStageCpuSeconds": 0.537454,
+  "failedStageElapsedMs": 6011.452499999999,
+  "failedStageConnectedSockets": 101,
+  "failedStagePublications": [
+    {
+      "stage": "game-0-round-4-accepted-submit",
+      "name": "publish",
+      "cause": "metadata-batch",
+      "phase": "Answering",
+      "count": 2,
+      "totalMs": 24.53779200000281,
+      "maxMs": 14.591958000004524,
+      "bytes": 0,
+      "recipients": 202
+    },
+    {
+      "stage": "game-0-round-4-accepted-submit",
+      "name": "publish",
+      "cause": "answer.submit",
+      "phase": "Results",
+      "count": 1,
+      "totalMs": 26.188624999995227,
+      "maxMs": 26.188624999995227,
+      "bytes": 0,
+      "recipients": 101
+    },
+    {
+      "stage": "game-0-round-4-accepted-submit",
+      "name": "publish",
+      "cause": "phase-timer",
+      "phase": "Results",
+      "count": 1,
+      "totalMs": 25.022291999994195,
+      "maxMs": 25.022291999994195,
+      "bytes": 0,
+      "recipients": 101
+    },
+    {
+      "stage": "game-0-round-4-accepted-submit",
+      "name": "publish",
+      "cause": "phase-timer",
+      "phase": "Reading",
+      "count": 1,
+      "totalMs": 2.96112500000163,
+      "maxMs": 2.96112500000163,
+      "bytes": 0,
+      "recipients": 101
+    },
+    {
+      "stage": "game-0-round-4-accepted-submit",
+      "name": "publish",
+      "cause": "phase-timer",
+      "phase": "Answering",
+      "count": 1,
+      "totalMs": 3.404625000010128,
+      "maxMs": 3.404625000010128,
+      "bytes": 0,
+      "recipients": 101
+    }
+  ],
+  "overallAcceptedHandler": {
+    "count": 506,
+    "p50Ms": 0.608208999998169,
+    "p95Ms": 1.0302079999964917,
+    "p99Ms": 3.6802500000048894,
+    "maxMs": 28.220457999996142
+  },
+  "processingTarget": {
+    "boundary": "handler entry to ack enqueue, excluding network and event-loop queue",
+    "targetP95Ms": 100,
+    "passed": true,
+    "exceeded": []
+  },
+  "conclusion": "All-polling capacity qualification remains open. No client DNS or HTTP429 error was captured. Fast measured handlers and ~51ms maximum measured event-loop delay do not explain a six-second missing acknowledgement; evidence does not isolate outbound polling queues, connector/provider delivery, generator or unmeasured transport behavior. No timeout changes or success-only reruns are justified by this report.",
+  "networkConfirmation": {
+    "uplink": "eduroam",
+    "source": "Owner reply to campaign network question after execution",
+    "rawArtifacts": "Unmodified; retain original unconfirmed label and recorded hashes."
+  }
+}

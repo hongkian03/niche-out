@@ -11,7 +11,7 @@ const revealed = { canonicalText: "Lanternfish", tierName: "Common", points: 0 }
 const results = { groups: [{ ...revealed, count: 1 }], unused: { canonicalText: "Squid", tierName: "Rare", points: 10 } };
 const ownResult = { outcome: "accepted" as const, submittedText: ownAnswer.submittedText, ...revealed };
 
-const base = { protocolVersion: 1 as const, serverInstanceId: "server-1", phaseId: "phase-1", revision: 5, serverNowMs: 200 };
+const base = { protocolVersion: 2 as const, serverInstanceId: "server-1", phaseId: "phase-1", revision: 5, serverNowMs: 200 };
 const game = { ...base, gameId: "game-1", promptCount: 1 };
 const inactive = { phaseDeadlineMs: null, roundId: null, roundIndex: null };
 const round = { roundId: "r-1", roundIndex: 0, prompt: "Name a sea creature." };
@@ -41,7 +41,7 @@ export const allViews: CompleteView[] = [
     {
       ...timed, phase, viewRole: "player" as const, ownPlayer, ownAnswer: phase === "Reading" ?
         { locked: false as const, submittedText: null } : ownAnswer, controlGeneration: 1,
-      publishedStandings: standings, publishedTotal: 0, readiness: phase === "Reading" ? { ...readiness, accepted: 0 } : readiness,
+      publishedTotal: 0, readiness: phase === "Reading" ? { ...readiness, accepted: 0 } : readiness,
     },
   ]),
   { ...timed, phase: "Results", viewRole: "host", hosting, roster, results, standings: standings.map((s) => ({ ...s, roundPoints: 0 })) },

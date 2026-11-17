@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { codePointCount, collapseWhitespace } from "./text.js";
 
-export const protocolVersion = z.literal(1);
+export const protocolVersion = z.literal(2);
 export const id = z.string().min(1);
 export const nonnegative = z.int().nonnegative();
 export const promptCount = z.int().min(1).max(20);

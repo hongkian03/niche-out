@@ -7,12 +7,12 @@ import type { CommandName } from "../../packages/contracts/src/protocol.js";
 import { continuationRecord, sessionResponse } from "../../packages/contracts/src/session.js";
 import { lobby, setup, summary } from "./view-fixtures.js";
 
-const ctx = { protocolVersion: 1, serverInstanceId: "server-1", tabId: "page-1", requestId: "doc.1" };
+const ctx = { protocolVersion: 2, serverInstanceId: "server-1", tabId: "page-1", requestId: "doc.1" };
 const gameId = "game-1";
 const active = { ...ctx, gameId };
-const fresh = { protocolVersion: 1, page: { kind: "fresh" } };
+const fresh = { protocolVersion: 2, page: { kind: "fresh" } };
 const proof = { serverInstanceId: "server-1", gameId, previousTabId: "page-0", continuationToken: "A".repeat(43) };
-const session = { protocolVersion: 1, serverInstanceId: "server-1", tabId: "page-1", requestPrefix: "doc" };
+const session = { protocolVersion: 2, serverInstanceId: "server-1", tabId: "page-1", requestPrefix: "doc" };
 const host = { ...session, role: "host", membership: null, hostGameId: null, lastGameCommit: null, resume: "none" };
 const guest = { ...host, role: "guest" };
 const player = {
@@ -38,7 +38,7 @@ describe("versioned command and acknowledgement shapes", () => {
   it.each(Object.keys(commands) as CommandName[])("%s admits only the documented payload and context", (name) => {
     const body = commands[name];
     expect(socketCommands[name].parse(body)).toEqual(body);
-    for (const extra of [{ protocolVersion: 2 }, { requestId: "doc.0" }, { requestId: "doc.9007199254740992" },
+    for (const extra of [{ protocolVersion: 1 }, { requestId: "doc.0" }, { requestId: "doc.9007199254740992" },
       { serverInstanceId: undefined }, { playerId: "forged" }, { payload: { ...body.payload, desiredRole: "host" } }])
       expect(socketCommands[name].safeParse({ ...body, ...extra }).success).toBe(false);
   });
@@ -94,14 +94,14 @@ describe("versioned command and acknowledgement shapes", () => {
 describe("HTTP and recovery boundaries", () => {
   const operation = { kind: "game.commit", original: commit };
   const routeSamples = {
-    "GET /health": [{}, { gameId }, { live: true, protocolVersion: 1, appVersion: "0.1" }],
+    "GET /health": [{}, { gameId }, { live: true, protocolVersion: 2, appVersion: "0.1" }],
     "POST /api/session": [fresh, { ...fresh, role: "host" }, guest],
-    "POST /api/owner/exchange": [{ protocolVersion: 1, token: proof.continuationToken }, { protocolVersion: 1, token: "invalid" }, host],
+    "POST /api/owner/exchange": [{ protocolVersion: 2, token: proof.continuationToken }, { protocolVersion: 2, token: "invalid" }, host],
     "POST /api/host/import": [
       new TextEncoder().encode("{}"), "{}", { serverInstanceId: "server-1", candidateId: "candidate-1", expectedGameId: null, expectedSetupGeneration: 1, summary },
     ],
     "POST /api/host/games": [commit, { ...commit, candidateId: undefined }, { ...committed, outcome: "COMMITTED" }],
-    "POST /api/host/operations/resolve": [{ protocolVersion: 1, operation }, { protocolVersion: 1, operation: { kind: "game.commit", original: {} } }, { outcome: "NOT_APPLIED", view: setup }],
+    "POST /api/host/operations/resolve": [{ protocolVersion: 2, operation }, { protocolVersion: 2, operation: { kind: "game.commit", original: {} } }, { outcome: "NOT_APPLIED", view: setup }],
     "GET /api/snapshot": [{ serverInstanceId: "server-1", gameId, tabId: "t" }, { gameId, role: "host" }, lobby],
     "GET /host": [{}, { desiredRole: "host" }, "<!doctype html>"],
     "GET /join": [{ code: "012345" }, { code: "12345" }, "<!doctype html>"],
@@ -122,9 +122,9 @@ describe("HTTP and recovery boundaries", () => {
   it("resolves commit, Start and removal only through the original request", () => {
     const route = httpRoutes["POST /api/host/operations/resolve"];
     for (const kind of ["game.start", "player.remove"] as const) {
-      expect(route.request.safeParse({ protocolVersion: 1, operation: { kind, original: commands[kind] } }).success).toBe(true);
+      expect(route.request.safeParse({ protocolVersion: 2, operation: { kind, original: commands[kind] } }).success).toBe(true);
     }
-    expect(route.request.safeParse({ protocolVersion: 1, operation: { kind: "answer.submit", original: commands["answer.submit"] } }).success).toBe(false);
+    expect(route.request.safeParse({ protocolVersion: 2, operation: { kind: "answer.submit", original: commands["answer.submit"] } }).success).toBe(false);
     for (const result of [
       { ...committed, outcome: "COMMITTED" }, { ...ack, outcome: "STARTED" }, { ...ack, outcome: "REMOVED", targetPlayerId: "p-2" },
     ]) expect(resolution.safeParse({ outcome: "APPLIED", result, view: lobby }).success).toBe(true);
@@ -155,7 +155,7 @@ describe("credential discovery and proof shape", () => {
   it("separates unavailable/stale storage from a genuinely fresh page and rejects persisted drafts", () => {
     for (const page of [
       { kind: "fresh" }, { kind: "ambiguous" }, { kind: "unavailable" }, { kind: "continuation", record: proof },
-    ]) expect(httpRoutes["POST /api/session"].request.safeParse({ protocolVersion: 1, page }).success).toBe(true);
+    ]) expect(httpRoutes["POST /api/session"].request.safeParse({ protocolVersion: 2, page }).success).toBe(true);
     for (const edit of [{ continuationToken: "x" }, { previousTabId: undefined }, { draft: "unsent" }])
       expect(continuationRecord.safeParse({ ...proof, ...edit }).success).toBe(false);
   });

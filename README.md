@@ -13,7 +13,16 @@ The host runs the game on their own computer and manages it through a browser. P
 - Browser-based play without player accounts or installations.
 - A shared host screen and player removal controls.
 
-Niche Out is under active development. Testing has covered 100 simulated players using a mix of WebSocket and polling connections; polling-only reliability and broader platform compatibility are still being verified. See the [testing report](docs/implementation/evidence/EPIC-6.md) for current results and limitations.
+## Network limitations
+
+**Connection reliability and large-game performance are not guaranteed.** The game runs on the host's computer and relies on its internet connection and a temporary Cloudflare Quick Tunnel to reach players. Both the host and players need internet access, even though the server runs locally.
+
+- Large groups and simultaneous reconnects can cause slow updates, delayed answer confirmations, or submission timeouts. The 100-player admission limit is not a guarantee of smooth play with 100 players.
+- Some school, workplace, or public networks may block or interrupt WebSocket connections. The polling fallback uses more HTTP requests and can encounter tunnel request limits.
+- Temporary tunnel addresses can take a few minutes to become reachable. DNS issues, provider interruptions, or the host losing connectivity can disrupt a session.
+- Keep the host computer awake and the launcher running. If hosting must restart with a new public address, players need a fresh invitation and game; previous results are not saved after the server stops.
+
+Try the game with your intended devices, player count, and network before an event, and have a backup activity available. See the [operator guide](docs/release/OPERATOR-GUIDE.md) for connection troubleshooting.
 
 ## Why I made this
 

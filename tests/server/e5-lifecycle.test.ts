@@ -21,13 +21,13 @@ async function setup(options: { now?: () => number; onActiveChange?: (active: bo
     }); req.on('error', error => { if ((error as NodeJS.ErrnoException).code === 'EPIPE') setTimeout(() => reject(error), 50); else reject(error); }); req.end(bytes);
   });
   const browser = async (owner = false, previousCookie?: string, page: object = { kind: 'fresh' }) => {
-    const response = owner ? await http('/api/owner/exchange', { protocolVersion: 1, token: app.mintOwnerLink().split('#')[1] }) : await http('/api/session', { protocolVersion: 1, page }, previousCookie);
+    const response = owner ? await http('/api/owner/exchange', { protocolVersion: 2, token: app.mintOwnerLink().split('#')[1] }) : await http('/api/session', { protocolVersion: 2, page }, previousCookie);
     expect(response.status).toBe(200);
     const cookie = response.headers['set-cookie']?.[0]?.split(';')[0] ?? previousCookie!;
     const discovery = response.body; let sequence = 0;
-    const envelope = (payload = {}, gameId: string | null = discovery.membership?.gameId ?? discovery.hostGameId ?? null) => ({ protocolVersion: 1, serverInstanceId: 'instance', tabId: discovery.tabId, requestId: discovery.requestPrefix + '.' + (++sequence), gameId, payload });
+    const envelope = (payload = {}, gameId: string | null = discovery.membership?.gameId ?? discovery.hostGameId ?? null) => ({ protocolVersion: 2, serverInstanceId: 'instance', tabId: discovery.tabId, requestId: discovery.requestPrefix + '.' + (++sequence), gameId, payload });
     const socket = io('http://127.0.0.1:' + app.port, { autoConnect: false, forceNew: true, reconnection: false, transports: ['websocket'],
-      extraHeaders: { Host: new URL(origin).host, Origin: origin, Cookie: cookie }, auth: { protocolVersion: 1, serverInstanceId: 'instance', tabId: discovery.tabId } });
+      extraHeaders: { Host: new URL(origin).host, Origin: origin, Cookie: cookie }, auth: { protocolVersion: 2, serverInstanceId: 'instance', tabId: discovery.tabId } });
     cleanups.push(() => { socket.disconnect(); });
     socket.connect(); await new Promise<void>((resolve, reject) => { socket.once('connect', () => resolve()); socket.once('connect_error', reject); });
     const send = (kind: string, input: any) => new Promise<any>((resolve, reject) => socket.timeout(2000).emit(kind, input, (error: unknown, value: unknown) => error ? reject(error) : resolve(value)));

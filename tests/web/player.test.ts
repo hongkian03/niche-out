@@ -9,7 +9,7 @@ import {
 } from '../../apps/web/src/player-helpers.js';
 
 const client = { join: vi.fn(), submit: vi.fn(), claimControl: vi.fn(), recap: vi.fn(), retry: vi.fn() } as unknown as GameClient;
-const base = { protocolVersion: 1 as const, serverInstanceId: 'server', gameId: 'game', revision: 2, phaseId: 'phase', serverNowMs: Date.now(), promptCount: 2 };
+const base = { protocolVersion: 2 as const, serverInstanceId: 'server', gameId: 'game', revision: 2, phaseId: 'phase', serverNowMs: Date.now(), promptCount: 2 };
 const player = { playerId: 'p1', nickname: 'Diver' };
 const common = { ...base, viewRole: 'player' as const, ownPlayer: player };
 const standings = [
@@ -21,7 +21,7 @@ const results = { groups: [{ canonicalText: 'Autumn', tierName: 'Rare', points: 
 
 function state(view: CompleteView | null = null, patch: Partial<ClientSnapshot> = {}): ClientSnapshot {
   return {
-    session: { protocolVersion: 1, serverInstanceId: 'server', tabId: 'tab', requestPrefix: 'prefix', role: 'guest', membership: null, resume: 'none', hostGameId: null, lastGameCommit: null },
+    session: { protocolVersion: 2, serverInstanceId: 'server', tabId: 'tab', requestPrefix: 'prefix', role: 'guest', membership: null, resume: 'none', hostGameId: null, lastGameCommit: null },
     view, status: 'connected', error: null, pending: null, candidate: null, controlGeneration: 1,
     clockOffsetMs: 0, answerFeedback: null, recapCache: {}, ...patch,
   };
@@ -29,7 +29,7 @@ function state(view: CompleteView | null = null, patch: Partial<ClientSnapshot> 
 function live(patch: Record<string, unknown> = {}): CompleteView {
   return completeView.parse({ ...common, phase: 'Answering', roundId: 'round1', roundIndex: 0,
     prompt: 'Name a season.', phaseDeadlineMs: Date.now() + 60000, readiness: { accepted: 0, eligible: 2 },
-    ownAnswer: { locked: false, submittedText: null }, controlGeneration: 1, publishedTotal: 0, publishedStandings: [], ...patch });
+    ownAnswer: { locked: false, submittedText: null }, controlGeneration: 1, publishedTotal: 0, ...patch });
 }
 function markup(snapshot: ClientSnapshot) { return renderToStaticMarkup(createElement(Player, { client, state: snapshot })); }
 

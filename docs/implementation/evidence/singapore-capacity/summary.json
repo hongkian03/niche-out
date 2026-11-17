@@ -1,0 +1,1586 @@
+{
+  "dateLocal": "2026-11-17",
+  "timezone": "America/New_York",
+  "status": "PASS",
+  "rawReport": "../../../../work/singapore-capacity/measured/singapore-capacity-light-tunnel-mixed-100-1794892579496.json",
+  "rawSha256": "9ba0d22d4c2feb0f1f22a5c4ca5b8f2552bc98cc1f830a5724f134e34a287887",
+  "identity": {
+    "gitCommit": "cb7ab9bd789562c4cab0ee1cc5f2aec348520bb2",
+    "dirty": true,
+    "treeSha256": "d96affcc0d5e0d43bdf390f46c246d07d7d62140ec09bfd21e17b663859092e8",
+    "lockSha256": "442e3e5745c77bcb77ab3a6f60c51a26088f86bc5643690f1867af1e9df3c2c0",
+    "buildSourceSha256": "d96affcc0d5e0d43bdf390f46c246d07d7d62140ec09bfd21e17b663859092e8",
+    "connector": {
+      "version": "2026.11.0",
+      "manifestSha256": "f0f2dc922a6cfcf7d0f33f053a1d87d8be20dcbcef183d4d87da2f5ce84ff427"
+    }
+  },
+  "compiledServerSha256": "5375ccb88cdeb87a78f4334fe4be7bb3513e38a7ba885d6e79ae880881cd0105",
+  "config": {
+    "instrumentation": "light",
+    "packPath": "examples/game.singapore.json",
+    "packSha256": "e309f5dcecadd5b2fdba3a9bdab23a87c4ddcea85b20dc78e4426e4cdb1ad708",
+    "reconnectBurst": false,
+    "answerDelayMs": 2000,
+    "answerSpreadMs": 18000,
+    "skipPressure": false,
+    "tunnel": true,
+    "fault": false,
+    "faultCycle": 0,
+    "coldAfter": false,
+    "transport": "mixed",
+    "count": 100,
+    "games": 1,
+    "rounds": 10,
+    "idleSeconds": 0,
+    "creationBatch": 5,
+    "joinBatch": 10,
+    "reconnectBatch": 100,
+    "submitBatch": 100
+  },
+  "fixtureSha256": "b62a384f23c3420ae0fb34d8914bce935f44ccdfe0bcfb7b71bfb17bd90b8e8f",
+  "sourcePackBytes": 39600,
+  "uploadedCompactJsonBytes": 20733,
+  "settings": {
+    "readingSeconds": 3,
+    "answerSeconds": 25,
+    "resultsSeconds": 10
+  },
+  "checks": [
+    "100 simulated players connected; each fetched production JS/CSS assets",
+    "101st admission rejected while admitted identities retained",
+    "1 complete 10-round games: correct scores, duplicate replay idempotent"
+  ],
+  "roundsCompleted": 10,
+  "failures": [],
+  "clientTransportErrors": [],
+  "ackRetries": 0,
+  "recoveries": [],
+  "httpAssetApiRequests": {
+    "requests": 507,
+    "maxInFlight": 5,
+    "bodyBytes": 63268281,
+    "statusCounts": {
+      "200": 507
+    }
+  },
+  "transportOpenings": {
+    "websocket": 82,
+    "polling": 20
+  },
+  "endToEndByTransport": {
+    "websocket:state.get:STATE": {
+      "count": 12,
+      "p50Ms": 47.62745799997356,
+      "p95Ms": 315.28133399999933,
+      "p99Ms": 315.28133399999933,
+      "maxMs": 315.28133399999933
+    },
+    "websocket:game.join:JOINED": {
+      "count": 80,
+      "p50Ms": 71.78804200000013,
+      "p95Ms": 182.88445800000045,
+      "p99Ms": 302.5427079999936,
+      "maxMs": 302.5427079999936
+    },
+    "polling:game.join:JOINED": {
+      "count": 20,
+      "p50Ms": 399.83129099999496,
+      "p95Ms": 618.4205409999995,
+      "p99Ms": 618.4205409999995,
+      "maxMs": 618.4205409999995
+    },
+    "websocket:game.join:GAME_FULL": {
+      "count": 1,
+      "p50Ms": 36.57333300000755,
+      "p95Ms": 36.57333300000755,
+      "p99Ms": 36.57333300000755,
+      "maxMs": 36.57333300000755
+    },
+    "websocket:game.start:STARTED": {
+      "count": 1,
+      "p50Ms": 67.76920899999095,
+      "p95Ms": 67.76920899999095,
+      "p99Ms": 67.76920899999095,
+      "maxMs": 67.76920899999095
+    },
+    "websocket:answer.submit:REJECTED": {
+      "count": 80,
+      "p50Ms": 160.99425000000338,
+      "p95Ms": 172.63316599999962,
+      "p99Ms": 192.74387500000012,
+      "maxMs": 192.74387500000012
+    },
+    "polling:answer.submit:REJECTED": {
+      "count": 20,
+      "p50Ms": 527.387916000007,
+      "p95Ms": 562.4601250000123,
+      "p99Ms": 562.4601250000123,
+      "maxMs": 562.4601250000123
+    },
+    "polling:answer.submit:ACCEPTED": {
+      "count": 210,
+      "p50Ms": 314.2550419999752,
+      "p95Ms": 498.4048339999863,
+      "p99Ms": 623.1857500000042,
+      "maxMs": 1204.6119590000017
+    },
+    "websocket:answer.submit:ACCEPTED": {
+      "count": 800,
+      "p50Ms": 50.261667000013404,
+      "p95Ms": 199.77341700001853,
+      "p99Ms": 354.0726250000298,
+      "maxMs": 537.9075000000012
+    }
+  },
+  "handlerSummary": {
+    "state.get:STATE": {
+      "count": 12,
+      "p50Ms": 2.006833999999799,
+      "p95Ms": 8.077333000022918,
+      "p99Ms": 8.077333000022918,
+      "maxMs": 8.077333000022918
+    },
+    "game.join:JOINED": {
+      "count": 100,
+      "p50Ms": 8.015499999994063,
+      "p95Ms": 26.74279099999694,
+      "p99Ms": 41.72983299999032,
+      "maxMs": 41.72983299999032
+    },
+    "game.join:GAME_FULL": {
+      "count": 1,
+      "p50Ms": 1.797500000000582,
+      "p95Ms": 1.797500000000582,
+      "p99Ms": 1.797500000000582,
+      "maxMs": 1.797500000000582
+    },
+    "game.start:STARTED": {
+      "count": 1,
+      "p50Ms": 34.02770799999416,
+      "p95Ms": 34.02770799999416,
+      "p99Ms": 34.02770799999416,
+      "maxMs": 34.02770799999416
+    },
+    "answer.submit:REJECTED": {
+      "count": 100,
+      "p50Ms": 0.2968330000003334,
+      "p95Ms": 0.517375000010361,
+      "p99Ms": 1.8368749999935972,
+      "maxMs": 1.8368749999935972
+    },
+    "answer.submit:ACCEPTED": {
+      "count": 1010,
+      "p50Ms": 1.2091660000151023,
+      "p95Ms": 2.0940839999821037,
+      "p99Ms": 7.962166999990586,
+      "maxMs": 195.50866700004553
+    }
+  },
+  "server": {
+    "elapsedSeconds": 439.43236625000003,
+    "cpuSeconds": 127.859106,
+    "peakRssBytes": 312442880,
+    "memoryBeforeGc": {
+      "rss": 272646144,
+      "heapTotal": 178470912,
+      "heapUsed": 72620536,
+      "external": 5980240,
+      "arrayBuffers": 1810651
+    },
+    "memoryAfterGc": {
+      "rss": 272367616,
+      "heapTotal": 166805504,
+      "heapUsed": 28367712,
+      "external": 5980284,
+      "arrayBuffers": 1083697
+    },
+    "processResources": {
+      "application": {
+        "scope": "Application child; excludes generator and connector",
+        "cpu": {
+          "user": 120052020,
+          "system": 7807988
+        },
+        "peakRssBytes": 312442880
+      },
+      "connector": {
+        "scope": "cloudflared process only; excludes native guard; ps sampled every second",
+        "available": true,
+        "samples": 427,
+        "peakRssBytes": 64126976,
+        "cpuSeconds": 21.17,
+        "lastSampleElapsedMs": 438800.71354200004,
+        "lastSampleAgeMs": 632.5630409999867
+      }
+    },
+    "originTcp": {
+      "connections": 126,
+      "openConnections": 109,
+      "maxOpenConnections": 117,
+      "httpRequests": 21133,
+      "upgrades": 83,
+      "openHttpRequests": 19,
+      "maxOpenHttpRequests": 21,
+      "readBytes": 15252291,
+      "writtenBytes": 1152476103
+    },
+    "transportEvents": [
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "polling",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "polling",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "polling",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "polling",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "polling",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "polling",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "polling",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "polling",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "polling",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "polling",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "polling",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "polling",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "polling",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "polling",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "polling",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "polling",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "polling",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "polling",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "polling",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "polling",
+        "stage": "assets"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "websocket",
+        "stage": "game-0-admission"
+      },
+      {
+        "kind": "transport",
+        "name": "close",
+        "outcome": "transport close",
+        "stage": "game-0-start"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "polling",
+        "stage": "game-0-round-1-accepted-submit"
+      },
+      {
+        "kind": "transport",
+        "name": "close",
+        "outcome": "transport error",
+        "stage": "game-0-round-1-accepted-submit"
+      },
+      {
+        "kind": "transport",
+        "name": "open",
+        "outcome": "polling",
+        "stage": "game-0-round-4-accepted-submit"
+      },
+      {
+        "kind": "transport",
+        "name": "close",
+        "outcome": "transport close",
+        "stage": "game-0-round-4-accepted-submit"
+      }
+    ],
+    "playersAtSnapshot": 100,
+    "socketsAtSnapshot": 101
+  },
+  "endpointReadySeconds": 80.4404645,
+  "gameSeconds": 337.47552145800006,
+  "gameOriginEgressBytesApprox": 1085793839,
+  "gameOriginAverageMbpsApprox": 25.73920228190845,
+  "rounds": [
+    {
+      "round": 1,
+      "prompt": "Name one of Singapore's ten operational expressways as of 16 November 2026. Full names or acronyms are accepted.",
+      "answerStageElapsedSeconds": 20.274544332999998,
+      "cpuSeconds": 5.290512,
+      "completedAcceptedAckSamples": 101,
+      "clientE2EP95Ms": 439.53245799998695,
+      "maxEventLoopDelayMs": 72.024063
+    },
+    {
+      "round": 2,
+      "prompt": "Name a public holiday on Singapore's official 2026 calendar. Give the holiday name; both days of Chinese New Year count as one answer.",
+      "answerStageElapsedSeconds": 20.281314041999984,
+      "cpuSeconds": 6.752419,
+      "completedAcceptedAckSamples": 101,
+      "clientE2EP95Ms": 380.4064589999907,
+      "maxEventLoopDelayMs": 94.109695
+    },
+    {
+      "round": 3,
+      "prompt": "Name an operational MRT station on Singapore's North East Line (purple line), as of 16 November 2026. Station names or NE codes are accepted.",
+      "answerStageElapsedSeconds": 20.439049457999992,
+      "cpuSeconds": 8.146848,
+      "completedAcceptedAckSamples": 101,
+      "clientE2EP95Ms": 323.16975000000093,
+      "maxEventLoopDelayMs": 97.517567
+    },
+    {
+      "round": 4,
+      "prompt": "Name someone who has served as President of Singapore from 1965 to 16 November 2026. Acting presidents do not count.",
+      "answerStageElapsedSeconds": 20.43061462500002,
+      "cpuSeconds": 9.983283,
+      "completedAcceptedAckSamples": 101,
+      "clientE2EP95Ms": 325.3460830000113,
+      "maxEventLoopDelayMs": 111.411199
+    },
+    {
+      "round": 5,
+      "prompt": "Name one of Singapore's 55 URA planning areas. Use the planning-area name, not a smaller neighbourhood or subzone.",
+      "answerStageElapsedSeconds": 20.414377708000014,
+      "cpuSeconds": 11.779147,
+      "completedAcceptedAckSamples": 101,
+      "clientE2EP95Ms": 345.4863750000077,
+      "maxEventLoopDelayMs": 136.577023
+    },
+    {
+      "round": 6,
+      "prompt": "Name a denomination in Singapore's regular Portrait Series banknotes. Include denominations no longer issued; exclude commemorative notes. Enter a dollar amount.",
+      "answerStageElapsedSeconds": 20.48712308399996,
+      "cpuSeconds": 13.494113,
+      "completedAcceptedAckSamples": 101,
+      "clientE2EP95Ms": 372.3500420000055,
+      "maxEventLoopDelayMs": 264.503295
+    },
+    {
+      "round": 7,
+      "prompt": "Name one of Singapore's 17 PUB raw-water reservoirs (including Jurong Lake). Exclude treated-water service reservoirs.",
+      "answerStageElapsedSeconds": 20.568956707999984,
+      "cpuSeconds": 14.256168,
+      "completedAcceptedAckSamples": 101,
+      "clientE2EP95Ms": 377.9593749999767,
+      "maxEventLoopDelayMs": 300.154879
+    },
+    {
+      "round": 8,
+      "prompt": "Name one of Singapore's six autonomous universities. Full names or standard abbreviations are accepted.",
+      "answerStageElapsedSeconds": 20.571065124999965,
+      "cpuSeconds": 14.423063,
+      "completedAcceptedAckSamples": 101,
+      "clientE2EP95Ms": 379.05916699999943,
+      "maxEventLoopDelayMs": 326.893567
+    },
+    {
+      "round": 9,
+      "prompt": "Name an operational MRT station on Singapore's Downtown Line (blue line), as of 16 November 2026. Station names or DT codes are accepted.",
+      "answerStageElapsedSeconds": 20.578890083000005,
+      "cpuSeconds": 14.877602,
+      "completedAcceptedAckSamples": 101,
+      "clientE2EP95Ms": 417.25883299997076,
+      "maxEventLoopDelayMs": 366.215167
+    },
+    {
+      "round": 10,
+      "prompt": "Name one of Singapore's four gazetted nature reserves. Nature parks and marine parks do not count.",
+      "answerStageElapsedSeconds": 30.51034691600001,
+      "cpuSeconds": 16.243775,
+      "completedAcceptedAckSamples": 101,
+      "clientE2EP95Ms": 348.9434579999652,
+      "maxEventLoopDelayMs": 396.623871
+    }
+  ],
+  "standings": [
+    {
+      "nickname": "P98",
+      "rank": 1,
+      "total": 605
+    },
+    {
+      "nickname": "P9",
+      "rank": 2,
+      "total": 595
+    },
+    {
+      "nickname": "P94",
+      "rank": 3,
+      "total": 565
+    },
+    {
+      "nickname": "P39",
+      "rank": 4,
+      "total": 555
+    },
+    {
+      "nickname": "P75",
+      "rank": 4,
+      "total": 555
+    },
+    {
+      "nickname": "P92",
+      "rank": 4,
+      "total": 555
+    },
+    {
+      "nickname": "P34",
+      "rank": 7,
+      "total": 550
+    },
+    {
+      "nickname": "P57",
+      "rank": 7,
+      "total": 550
+    },
+    {
+      "nickname": "P26",
+      "rank": 9,
+      "total": 540
+    },
+    {
+      "nickname": "P28",
+      "rank": 9,
+      "total": 540
+    },
+    {
+      "nickname": "P56",
+      "rank": 9,
+      "total": 540
+    },
+    {
+      "nickname": "P7",
+      "rank": 12,
+      "total": 535
+    },
+    {
+      "nickname": "P44",
+      "rank": 12,
+      "total": 535
+    },
+    {
+      "nickname": "P74",
+      "rank": 12,
+      "total": 535
+    },
+    {
+      "nickname": "P89",
+      "rank": 12,
+      "total": 535
+    },
+    {
+      "nickname": "P25",
+      "rank": 16,
+      "total": 530
+    },
+    {
+      "nickname": "P22",
+      "rank": 17,
+      "total": 525
+    },
+    {
+      "nickname": "P62",
+      "rank": 17,
+      "total": 525
+    },
+    {
+      "nickname": "P69",
+      "rank": 19,
+      "total": 520
+    },
+    {
+      "nickname": "P6",
+      "rank": 20,
+      "total": 510
+    },
+    {
+      "nickname": "P21",
+      "rank": 20,
+      "total": 510
+    },
+    {
+      "nickname": "P16",
+      "rank": 22,
+      "total": 505
+    },
+    {
+      "nickname": "P27",
+      "rank": 22,
+      "total": 505
+    },
+    {
+      "nickname": "P77",
+      "rank": 22,
+      "total": 505
+    },
+    {
+      "nickname": "P17",
+      "rank": 25,
+      "total": 500
+    },
+    {
+      "nickname": "P38",
+      "rank": 26,
+      "total": 485
+    },
+    {
+      "nickname": "P55",
+      "rank": 26,
+      "total": 485
+    },
+    {
+      "nickname": "P63",
+      "rank": 26,
+      "total": 485
+    },
+    {
+      "nickname": "P88",
+      "rank": 26,
+      "total": 485
+    },
+    {
+      "nickname": "P33",
+      "rank": 30,
+      "total": 480
+    },
+    {
+      "nickname": "P4",
+      "rank": 31,
+      "total": 475
+    },
+    {
+      "nickname": "P14",
+      "rank": 31,
+      "total": 475
+    },
+    {
+      "nickname": "P15",
+      "rank": 31,
+      "total": 475
+    },
+    {
+      "nickname": "P35",
+      "rank": 31,
+      "total": 475
+    },
+    {
+      "nickname": "P18",
+      "rank": 35,
+      "total": 470
+    },
+    {
+      "nickname": "P49",
+      "rank": 35,
+      "total": 470
+    },
+    {
+      "nickname": "P70",
+      "rank": 35,
+      "total": 470
+    },
+    {
+      "nickname": "P91",
+      "rank": 35,
+      "total": 470
+    },
+    {
+      "nickname": "P90",
+      "rank": 35,
+      "total": 470
+    },
+    {
+      "nickname": "P43",
+      "rank": 40,
+      "total": 465
+    },
+    {
+      "nickname": "P58",
+      "rank": 40,
+      "total": 465
+    },
+    {
+      "nickname": "P54",
+      "rank": 40,
+      "total": 465
+    },
+    {
+      "nickname": "P99",
+      "rank": 40,
+      "total": 465
+    },
+    {
+      "nickname": "P45",
+      "rank": 44,
+      "total": 460
+    },
+    {
+      "nickname": "P86",
+      "rank": 44,
+      "total": 460
+    },
+    {
+      "nickname": "P95",
+      "rank": 44,
+      "total": 460
+    },
+    {
+      "nickname": "P8",
+      "rank": 47,
+      "total": 455
+    },
+    {
+      "nickname": "P52",
+      "rank": 47,
+      "total": 455
+    },
+    {
+      "nickname": "P20",
+      "rank": 49,
+      "total": 445
+    },
+    {
+      "nickname": "P40",
+      "rank": 49,
+      "total": 445
+    },
+    {
+      "nickname": "P59",
+      "rank": 49,
+      "total": 445
+    },
+    {
+      "nickname": "P61",
+      "rank": 49,
+      "total": 445
+    },
+    {
+      "nickname": "P73",
+      "rank": 49,
+      "total": 445
+    },
+    {
+      "nickname": "P93",
+      "rank": 49,
+      "total": 445
+    },
+    {
+      "nickname": "P87",
+      "rank": 55,
+      "total": 440
+    },
+    {
+      "nickname": "P84",
+      "rank": 55,
+      "total": 440
+    },
+    {
+      "nickname": "P41",
+      "rank": 57,
+      "total": 435
+    },
+    {
+      "nickname": "P72",
+      "rank": 57,
+      "total": 435
+    },
+    {
+      "nickname": "P79",
+      "rank": 59,
+      "total": 430
+    },
+    {
+      "nickname": "P76",
+      "rank": 59,
+      "total": 430
+    },
+    {
+      "nickname": "P53",
+      "rank": 61,
+      "total": 425
+    },
+    {
+      "nickname": "P24",
+      "rank": 62,
+      "total": 420
+    },
+    {
+      "nickname": "P19",
+      "rank": 63,
+      "total": 415
+    },
+    {
+      "nickname": "P48",
+      "rank": 63,
+      "total": 415
+    },
+    {
+      "nickname": "P64",
+      "rank": 63,
+      "total": 415
+    },
+    {
+      "nickname": "P32",
+      "rank": 66,
+      "total": 410
+    },
+    {
+      "nickname": "P68",
+      "rank": 66,
+      "total": 410
+    },
+    {
+      "nickname": "P83",
+      "rank": 66,
+      "total": 410
+    },
+    {
+      "nickname": "P37",
+      "rank": 69,
+      "total": 405
+    },
+    {
+      "nickname": "P82",
+      "rank": 69,
+      "total": 405
+    },
+    {
+      "nickname": "P47",
+      "rank": 71,
+      "total": 400
+    },
+    {
+      "nickname": "P97",
+      "rank": 71,
+      "total": 400
+    },
+    {
+      "nickname": "P85",
+      "rank": 73,
+      "total": 390
+    },
+    {
+      "nickname": "P42",
+      "rank": 74,
+      "total": 385
+    },
+    {
+      "nickname": "P2",
+      "rank": 75,
+      "total": 380
+    },
+    {
+      "nickname": "P23",
+      "rank": 76,
+      "total": 375
+    },
+    {
+      "nickname": "P81",
+      "rank": 76,
+      "total": 375
+    },
+    {
+      "nickname": "P13",
+      "rank": 78,
+      "total": 370
+    },
+    {
+      "nickname": "P3",
+      "rank": 79,
+      "total": 365
+    },
+    {
+      "nickname": "P5",
+      "rank": 79,
+      "total": 365
+    },
+    {
+      "nickname": "P46",
+      "rank": 81,
+      "total": 360
+    },
+    {
+      "nickname": "P96",
+      "rank": 81,
+      "total": 360
+    },
+    {
+      "nickname": "P1",
+      "rank": 83,
+      "total": 355
+    },
+    {
+      "nickname": "P10",
+      "rank": 83,
+      "total": 355
+    },
+    {
+      "nickname": "P51",
+      "rank": 83,
+      "total": 355
+    },
+    {
+      "nickname": "P67",
+      "rank": 83,
+      "total": 355
+    },
+    {
+      "nickname": "P71",
+      "rank": 83,
+      "total": 355
+    },
+    {
+      "nickname": "P50",
+      "rank": 88,
+      "total": 350
+    },
+    {
+      "nickname": "P66",
+      "rank": 88,
+      "total": 350
+    },
+    {
+      "nickname": "P78",
+      "rank": 88,
+      "total": 350
+    },
+    {
+      "nickname": "P80",
+      "rank": 88,
+      "total": 350
+    },
+    {
+      "nickname": "P36",
+      "rank": 92,
+      "total": 345
+    },
+    {
+      "nickname": "P0",
+      "rank": 93,
+      "total": 335
+    },
+    {
+      "nickname": "P60",
+      "rank": 93,
+      "total": 335
+    },
+    {
+      "nickname": "P29",
+      "rank": 95,
+      "total": 325
+    },
+    {
+      "nickname": "P12",
+      "rank": 96,
+      "total": 320
+    },
+    {
+      "nickname": "P65",
+      "rank": 97,
+      "total": 290
+    },
+    {
+      "nickname": "P11",
+      "rank": 98,
+      "total": 285
+    },
+    {
+      "nickname": "P31",
+      "rank": 99,
+      "total": 255
+    },
+    {
+      "nickname": "P30",
+      "rank": 100,
+      "total": 235
+    }
+  ],
+  "expectedTotals": [
+    335,
+    355,
+    380,
+    365,
+    475,
+    365,
+    510,
+    535,
+    455,
+    595,
+    355,
+    285,
+    320,
+    370,
+    475,
+    475,
+    505,
+    500,
+    470,
+    415,
+    445,
+    510,
+    525,
+    375,
+    420,
+    530,
+    540,
+    505,
+    540,
+    325,
+    235,
+    255,
+    410,
+    480,
+    550,
+    475,
+    345,
+    405,
+    485,
+    555,
+    445,
+    435,
+    385,
+    465,
+    535,
+    460,
+    360,
+    400,
+    415,
+    470,
+    350,
+    355,
+    455,
+    425,
+    465,
+    485,
+    540,
+    550,
+    465,
+    445,
+    335,
+    445,
+    525,
+    485,
+    415,
+    290,
+    350,
+    355,
+    410,
+    520,
+    470,
+    355,
+    435,
+    445,
+    535,
+    555,
+    430,
+    505,
+    350,
+    430,
+    350,
+    375,
+    405,
+    410,
+    440,
+    390,
+    460,
+    440,
+    485,
+    535,
+    470,
+    470,
+    555,
+    445,
+    565,
+    460,
+    360,
+    400,
+    605,
+    465
+  ],
+  "limitations": [
+    "100 forced Node Socket.IO clients, not physical phones or rendered browsers",
+    "80 WebSocket players and 20 polling players; one WebSocket host",
+    "Light diagnostics; TCP bytes exclude outer TLS/QUIC overhead and may differ from provider-wire/accounted bytes",
+    "Ten-round sourcepack unchanged; JSON whitespace compacted for upload",
+    "No synthetic reconnection/outage injection; first round includes 100 invalid attempts and retries",
+    "Each round includes one exact duplicate submission replay; first player uses polling",
+    "Paced valid sends at 2\u201320 seconds after all views reach Answering; phase ends early per game rules",
+    "No periodic browser clock-sampling workload",
+    "Last accepted-submit measurement stage includes final 10-second result phase"
+  ]
+}

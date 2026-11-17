@@ -90,6 +90,8 @@ export class GameEngine {
     this.#lastNow = time;
     return time;
   }
+  /** Constant-time phase metadata for adapter scheduling and private diagnostics. */
+  get phase(): Phase { return this.#state.phase; }
   state(): EngineSnapshot {
     return freeze({ ...this.#state, players: this.#state.players.map(player => ({ ...player })),
       rounds: this.#state.rounds.map(round => ({ ...round,

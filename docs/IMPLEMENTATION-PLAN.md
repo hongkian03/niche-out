@@ -177,8 +177,8 @@ Signing services remain release-time dependencies. The selected tunnel provider 
 
 ## Story tracker
 
-Current active epic: **Epic 6 private-candidate handoff; full G6 remains open, November 16.**
-Current work: **Available-Mac testing, bounded fixes, refreshed private archives and provider/transport investigation delivered.** See the [comprehensive Epic 6 report](implementation/evidence/EPIC-6.md). Local and mixed public 100-player runs passed; complete all-polling qualification remains open after recovered provider 429s and a later DNS/fenced-request interruption. 213 layout cases, 88 axe audits and all 431 application tests passed. Four refreshed archives passed extraction/integrity checks; the Mac shell and bundled real-tunnel game passed. Windows/Linux/Intel Mac execution remains deferred by the owner; physical sleep/wake, assistive technology and clean-machine delivery are still unverified. Signing requires both engineering and owner inputs. No public release occurred.
+Current active epic: **Epic 6 networking improvement verification; full G6 remains open, November 17.**
+Current work: **E6-N01–N07 implemented; N08 execution/report delivered, acceptance REVIEW.** See the [networking improvement report](implementation/evidence/NETWORK-IMPROVEMENTS.md). All 450 application tests, 213 layout cases, 88 accessibility audits and eight actual-browser checks passed. Eight of nine matched capacity cases passed; 100-player polling-only failed on a round-5 ACK timeout with no captured DNS/429 error. The unchanged ten-round Singapore mixed game passed with zero client retries/errors and lower CPU/traffic. A refreshed extracted Mac ARM archive passed its bundled runtime/real-tunnel game/recovery/shutdown smoke. Other platforms, physical devices/assistive technology and signing remain open. No public release occurred.
 
 E5 stories in REVIEW have implemented deliverables; their remaining original acceptance items are manual/platform evidence, not missing implementation. S01 and S05 automated integration criteria are complete. G5's original full certification is not asserted. The user authorized Epic6 on this reference build and explicitly deferred other-platform testing until afterward; the evidence gaps carry forward.
 
@@ -301,11 +301,28 @@ Entry: G5. Direct story prerequisites are listed below; this entry gate applies 
 | [E6-S12](implementation/epic-06-validation-release.md#e6-s12-publish-the-authorized-release) | Publish the authorized release — conditional publication | 1 | E6-S11 | TODO |
 | [E6-S13](implementation/epic-06-validation-release.md#e6-s13-optional-static-information-website) | Optional static information website — optional | 2 | E6-S11 | TODO |
 
+## Epic 6 networking improvement extension
+
+Implementation update, November 17, 2026. The owner authorized parallel implementation and coordinated tests. E6-N01–N07 are delivered; see the [implementation and test report](implementation/evidence/NETWORK-IMPROVEMENTS.md). N08 execution/reporting is delivered; its acceptance remains REVIEW because polling-only qualification remains open. Retain the 100-player limit and account/domain-free Quick Tunnels; the cancelled 200-player extension is excluded.
+
+| Story | Outcome | Size | Direct prerequisites | Status |
+| --- | --- | --- | --- | --- |
+| [E6-N01](implementation/epic-06-network-improvements.md#e6-n01-remove-observer-induced-snapshots) | Remove observer-induced snapshots and calibrate diagnostics | 1 | E6-S01, retained baseline | DONE |
+| [E6-N02](implementation/epic-06-network-improvements.md#e6-n02-reuse-snapshots-within-read-scopes) | Reuse immutable snapshots within synchronous read scopes | 2 | E6-N01 | DONE |
+| [E6-N03](implementation/epic-06-network-improvements.md#e6-n03-coalesce-redundant-global-publications) | Coalesce redundant roster/readiness publications | 2 | E6-N02 | DONE |
+| [E6-N04](implementation/epic-06-network-improvements.md#e6-n04-remove-unused-live-player-standings) | Reduce live player payloads with coordinated wire migration | 2 | E6-N03 | DONE |
+| [E6-N05](implementation/epic-06-network-improvements.md#e6-n05-bounded-randomized-reconnect-waits) | Randomize bounded reconnect waits | 1 | E6-N04 | DONE |
+| [E6-N06](implementation/epic-06-network-improvements.md#e6-n06-websocket-first-opening-with-bounded-fallback) | Prefer WebSocket with reliable bounded polling fallback | 2 | E6-N05 | DONE |
+| [E6-N07](implementation/epic-06-network-improvements.md#e6-n07-stagger-clock-sampling) | Spread clock samples while preserving countdown accuracy | 1 | E6-N06 | DONE |
+| [E6-N08](implementation/epic-06-network-improvements.md#e6-n08-regression-comparison-and-handoff-gate) | Matched capacity/browser regression and candidate handoff | 2 | E6-N01–N07 | REVIEW |
+
+Use one story at a time. Review its correctness and focused measurements before continuing; split a story if it becomes too broad. N08 feeds updated evidence into E6-S02/S03 and precedes a new candidate freeze for S06–S11. Original story IDs and outstanding device/signing requirements remain intact. Historical provider research is retained as evidence; a provider migration is not part of this extension. Implementation is authorized; publication remains separately authorized.
+
 ## Networking baseline investigation — November 16
 
 The owner authorized the baseline chunk with parallel agents. [Baseline measurements](implementation/evidence/NETWORK-BASELINE.md) now include nine serial jobs, one light public-polling follow-up and a five-check actual-browser recovery probe. All 433 application regressions passed. Detailed diagnostics added about 30% local application CPU in a two-repetition comparison, so their costs are explicitly qualified. Mixed public gameplay passed with 162 polling ACK retries; both detailed and light polling-only runs exhausted ACK budgets without completing. The light run recovered one reconnect 429 before its later failure. The same 100-player target remains open.
 
-The baseline confirms thousands of reconnect-triggered views and identifies repeated accumulated-history snapshot construction as a strong source candidate. It adds diagnostic/harness tooling only. Jitter, WebSocket-first fallback, snapshot/broadcast optimizations and a provider change are **not implemented**. The next development chunk is to choose the first bounded fix using this evidence; keep DNS/provider accounting, server queueing and browser recovery distinct.
+The baseline confirms thousands of reconnect-triggered views and identifies repeated accumulated-history snapshot construction as a strong source candidate. It adds diagnostic/harness tooling only. At the time of that baseline, retry/transport and snapshot/broadcast optimizations were not implemented. E6-N01–N07 now deliver those application improvements; the retained baseline remains the before measurement. No provider migration is planned. Keep DNS/provider accounting, server queueing and browser recovery distinct.
 
 ## Epic 6 outstanding qualification and follow-ups
 
@@ -314,7 +331,7 @@ The owner authorized parallel execution on the available Mac and later requested
 | ID | Scope and next action | Impact |
 | --- | --- | --- |
 | E6-F01 | Complete 100-player polling qualification; reproduce DNS/interrupted-submit behavior with the actual browser client; choose measured transport/provider follow-up | E6-S02/S03 remain REVIEW. Mixed transport passed; polling reconnect recovered quota errors but the full game did not finish. |
-| E6-F02 | Investigate full-view traffic and 2.8-second event-loop tail; consider retry jitter, tested WebSocket-first fallback, unused live standings and coalesced presence updates | Proposed optimization work; preserve full views, private state, acknowledgement rules and the 50 ms batching bound. |
+| E6-F02 | Investigate full-view traffic and 2.8-second event-loop tail; consider retry jitter, tested WebSocket-first fallback, unused live standings and coalesced presence updates | E6-N01–N07 implemented and measured; see the new report. Full permitted views, private state, acknowledgement rules and the 50 ms batching bound are preserved. |
 | E6-F03 | Complete physical device/browser/VoiceOver/zoom/venue evidence and deferred host-platform lifecycle checks | E6-S04/S05 and original G5 evidence remain REVIEW. Emulation and cross compilation are not replacements. |
 | E6-F04 | Build authenticated Mac container/launcher, Windows verifier and post-signing digest pipeline; finish notices and obtain license/publisher/signing decisions | E6-S06 REVIEW; E6-S07–S09 BLOCKED on explicit engineering/credential prerequisites. |
 | E6-F05 | Verify final signed hashes on clean targets and close every mandatory requirement | E6-S10 BLOCKED and E6-S11 REVIEW. The 89-row evidence map is delivered, but the release gate is not passed. |

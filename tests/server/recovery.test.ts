@@ -20,10 +20,10 @@ async function setup() {
     }); req.on('error', reject); req.end(bytes);
   });
   const browser = async (owner = false, oldCookie = '') => {
-    const response = owner ? await http('/api/owner/exchange', { protocolVersion: 1, token: app.mintOwnerLink().split('#')[1] }, oldCookie) : await http('/api/session', { protocolVersion: 1, page: { kind: 'fresh' } }, oldCookie);
+    const response = owner ? await http('/api/owner/exchange', { protocolVersion: 2, token: app.mintOwnerLink().split('#')[1] }, oldCookie) : await http('/api/session', { protocolVersion: 2, page: { kind: 'fresh' } }, oldCookie);
     expect(response.status).toBe(200); let sequence = 0; const discovery = response.body;
-    const envelope = (payload: object = {}, gameId: string | null = discovery.membership?.gameId ?? discovery.hostGameId ?? null) => ({ protocolVersion: 1, serverInstanceId: 'recovery-instance', tabId: discovery.tabId, requestId: discovery.requestPrefix + '.' + (++sequence), gameId, payload });
-    const socket = io('http://127.0.0.1:' + app.port, { autoConnect: false, forceNew: true, reconnection: false, transports: ['websocket'], extraHeaders: { Host: new URL(origin).host, Origin: origin, Cookie: response.cookie }, auth: { protocolVersion: 1, serverInstanceId: 'recovery-instance', tabId: discovery.tabId } });
+    const envelope = (payload: object = {}, gameId: string | null = discovery.membership?.gameId ?? discovery.hostGameId ?? null) => ({ protocolVersion: 2, serverInstanceId: 'recovery-instance', tabId: discovery.tabId, requestId: discovery.requestPrefix + '.' + (++sequence), gameId, payload });
+    const socket = io('http://127.0.0.1:' + app.port, { autoConnect: false, forceNew: true, reconnection: false, transports: ['websocket'], extraHeaders: { Host: new URL(origin).host, Origin: origin, Cookie: response.cookie }, auth: { protocolVersion: 2, serverInstanceId: 'recovery-instance', tabId: discovery.tabId } });
     cleanups.push(() => { socket.disconnect(); });
     const connect = async () => { if (socket.connected) return; await new Promise<void>((resolve, reject) => { socket.once('connect', resolve); socket.once('connect_error', reject); socket.connect(); }); };
     await connect();
@@ -40,7 +40,7 @@ async function setup() {
     const view = (await host.send('state.get', host.envelope({}, result.body.gameId))).view;
     return { input, result: result.body, gameId: result.body.gameId as string, code: view.invitation.code as string };
   };
-  const resolve = (cookie: string, kind: 'game.commit' | 'game.start' | 'player.remove', original: unknown) => http('/api/host/operations/resolve', { protocolVersion: 1, operation: { kind, original } }, cookie);
+  const resolve = (cookie: string, kind: 'game.commit' | 'game.start' | 'player.remove', original: unknown) => http('/api/host/operations/resolve', { protocolVersion: 2, operation: { kind, original } }, cookie);
   return { app, http, browser, candidate, game, resolve, setNow: (value: number) => { now = value; } };
 }
 describe('actual-route recovery and bounded identities', () => {
@@ -54,7 +54,7 @@ describe('actual-route recovery and bounded identities', () => {
   });
   it('original-first commit resolves after its owner page is retired and after credential recovery', async () => {
     const h = await setup(), host = await h.browser(true), game = await h.game(host); host.socket.disconnect();
-    for (let i = 0; i < 9; i++) expect((await h.http('/api/session', { protocolVersion: 1, page: { kind: 'fresh' } }, host.cookie)).status).toBe(200);
+    for (let i = 0; i < 9; i++) expect((await h.http('/api/session', { protocolVersion: 2, page: { kind: 'fresh' } }, host.cookie)).status).toBe(200);
     const recovered = await h.browser(true);
     const result = await h.resolve(recovered.cookie, 'game.commit', game.input);
     expect(result.status).toBe(200); expect(result.body.outcome).toBe('APPLIED'); expect(result.body.result).toEqual(game.result);
@@ -77,10 +77,13 @@ describe('actual-route recovery and bounded identities', () => {
   it('cannot recover an old successful claim acknowledgement after another tab takes control', async () => {
     const h = await setup(), host = await h.browser(true), a = await h.browser(), game = await h.game(host);
     await a.send('game.join', a.envelope({ code: game.code, nickname: 'Ada' }));
-    const b = await h.browser(false, a.cookie); await b.send('game.resume', b.envelope({ mode: 'bootstrap' }, game.gameId));
+    const b = await h.browser(false, a.cookie);
+    await Promise.all([new Promise<void>(resolve => a.socket.once('disconnect', () => resolve())), b.send('game.resume', b.envelope({ mode: 'bootstrap' }, game.gameId))]);
     await a.connect(); const firstClaim = a.envelope({ explicit: true }, game.gameId);
-    expect((await a.send('player.claimControl', firstClaim)).outcome).toBe('CONTROL_GRANTED');
-    await b.connect(); expect((await b.send('player.claimControl', b.envelope({ explicit: true }, game.gameId))).outcome).toBe('CONTROL_GRANTED');
+    const bDisconnected = new Promise<void>(resolve => b.socket.once('disconnect', () => resolve()));
+    expect((await a.send('player.claimControl', firstClaim)).outcome).toBe('CONTROL_GRANTED'); await bDisconnected;
+    await b.connect(); const aDisconnected = new Promise<void>(resolve => a.socket.once('disconnect', () => resolve()));
+    expect((await b.send('player.claimControl', b.envelope({ explicit: true }, game.gameId))).outcome).toBe('CONTROL_GRANTED'); await aDisconnected;
     await a.connect(); expect((await a.send('player.claimControl', firstClaim)).code).toBe('TAB_SUPERSEDED');
     expect((await b.send('state.get', b.envelope({}, game.gameId))).view.ownPlayer.nickname).toBe('Ada');
   });
@@ -89,13 +92,17 @@ describe('actual-route recovery and bounded identities', () => {
     const join = a.envelope({ code: game.code, nickname: 'Ada' });
     expect((await a.send('game.join', join)).control.controlGeneration).toBe(1);
     const b = await h.browser(false, a.cookie), resume = b.envelope({ mode: 'bootstrap' }, game.gameId);
-    expect((await b.send('game.resume', resume)).control.controlGeneration).toBe(2);
+    const lostA2 = new Promise<void>(resolve => a.socket.once('disconnect', () => resolve()));
+    expect((await b.send('game.resume', resume)).control.controlGeneration).toBe(2); await lostA2;
     await a.connect(); const claim = a.envelope({ explicit: true }, game.gameId);
-    expect((await a.send('player.claimControl', claim)).control.controlGeneration).toBe(3);
+    const lostB3 = new Promise<void>(resolve => b.socket.once('disconnect', () => resolve()));
+    expect((await a.send('player.claimControl', claim)).control.controlGeneration).toBe(3); await lostB3;
     expect((await a.send('game.join', join)).code).toBe('TAB_SUPERSEDED');
-    await b.connect(); expect((await b.send('player.claimControl', b.envelope({ explicit: true }, game.gameId))).control.controlGeneration).toBe(4);
+    await b.connect(); const lostA4 = new Promise<void>(resolve => a.socket.once('disconnect', () => resolve()));
+    expect((await b.send('player.claimControl', b.envelope({ explicit: true }, game.gameId))).control.controlGeneration).toBe(4); await lostA4;
     expect((await b.send('game.resume', resume)).code).toBe('TAB_SUPERSEDED');
-    await a.connect(); expect((await a.send('player.claimControl', a.envelope({ explicit: true }, game.gameId))).control.controlGeneration).toBe(5);
+    await a.connect(); const lostB5 = new Promise<void>(resolve => b.socket.once('disconnect', () => resolve()));
+    expect((await a.send('player.claimControl', a.envelope({ explicit: true }, game.gameId))).control.controlGeneration).toBe(5); await lostB5;
     expect((await a.send('player.claimControl', claim)).code).toBe('TAB_SUPERSEDED');
     const loaded = await a.send('game.resume', a.envelope({ mode: 'loaded' }, game.gameId));
     expect(loaded.control.controlGeneration).toBe(5);
@@ -133,11 +140,11 @@ describe('actual-route recovery and bounded identities', () => {
   it('bounds guests sharing one address without evicting an admitted player or owner, and reclaims idle guests', async () => {
     const h = await setup(), host = await h.browser(true), player = await h.browser(), game = await h.game(host);
     await player.send('game.join', player.envelope({ code: game.code, nickname: 'Ada' }));
-    for (let i = 1; i <= 256; i++) { h.setNow(i * 1000); const guest = await h.http('/api/session', { protocolVersion: 1, page: { kind: 'fresh' } }); expect(guest.status).toBe(200); }
-    h.setNow(257000); expect((await h.http('/api/session', { protocolVersion: 1, page: { kind: 'fresh' } })).body.code).toBe('SESSION_CAPACITY');
+    for (let i = 1; i <= 256; i++) { h.setNow(i * 1000); const guest = await h.http('/api/session', { protocolVersion: 2, page: { kind: 'fresh' } }); expect(guest.status).toBe(200); }
+    h.setNow(257000); expect((await h.http('/api/session', { protocolVersion: 2, page: { kind: 'fresh' } })).body.code).toBe('SESSION_CAPACITY');
     expect((await player.send('state.get', player.envelope({}, game.gameId))).view.ownPlayer.nickname).toBe('Ada');
     expect((await host.send('state.get', host.envelope({}, game.gameId))).view.roster).toHaveLength(1);
-    h.setNow(900000); expect((await h.http('/api/session', { protocolVersion: 1, page: { kind: 'fresh' } })).status).toBe(200);
+    h.setNow(900000); expect((await h.http('/api/session', { protocolVersion: 2, page: { kind: 'fresh' } })).status).toBe(200);
     expect((await player.send('state.get', player.envelope({}, game.gameId))).view.ownPlayer.nickname).toBe('Ada');
   });
 });

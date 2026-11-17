@@ -32,12 +32,12 @@ export async function selfTest() {
       "X-Forwarded-Host": "probe.example", "X-Forwarded-Proto": "https" }, body: "{}" })).status, 403);
     assert.equal((await call("/upload", { method: "POST", headers: { Origin: origin }, body: "data" })).status, 401);
     const session = await call("/session", { method: "POST", headers: { Origin: origin },
-      body: JSON.stringify({ protocolVersion: 1, page: { kind: "fresh" } }) });
+      body: JSON.stringify({ protocolVersion: 2, page: { kind: "fresh" } }) });
     assert.equal(session.status, 200);
     const cookie = session.headers["set-cookie"][0];
     assert(cookie.includes("Secure") && cookie.includes("HttpOnly") && cookie.includes("SameSite=Strict"));
     const sessionBody = JSON.parse(session.body);
-    const envelope = { protocolVersion: 1, serverInstanceId: sessionBody.serverInstanceId,
+    const envelope = { protocolVersion: 2, serverInstanceId: sessionBody.serverInstanceId,
       gameId: sessionBody.membership.gameId, tabId: sessionBody.tabId,
       requestId: sessionBody.requestPrefix + ".1", payload: { mode: "bootstrap" } };
     const headers = { Origin: origin, Cookie: cookie.split(";")[0] };

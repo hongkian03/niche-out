@@ -57,7 +57,7 @@ export async function createGameApplication(sessionId: string, healthToken: stri
   };
   const detailed = Boolean(options.onDiagnostic && options.diagnosticMode !== 'light');
   const profile = (name: string, started: number, extra: { cause?: string; role?: string; recipients?: number; bytes?: number } = {}) => {
-    if (detailed) diagnostic({ kind: 'profile', name, durationMs: performance.now() - started, phase: engine.state().phase, ...extra });
+    if (detailed) diagnostic({ kind: 'profile', name, durationMs: performance.now() - started, phase: engine.phase, ...extra });
   };
   let closed = false;
   let reportedActive = false;
@@ -73,15 +73,23 @@ export async function createGameApplication(sessionId: string, healthToken: stri
     let next: string; do { next = String(randomInt(1_000_000)).padStart(6, '0'); } while (next === previousCode);
     return previousCode = next;
   } });
+  // Scoped snapshots are private and synchronous; never retain one across mutations.
+  let readSnapshot: ReturnType<GameEngine['state']> | undefined;
+  const readState = () => readSnapshot ?? engine.state();
+  function withReadSnapshot<T>(read: () => T): T {
+    if (readSnapshot) return read();
+    readSnapshot = engine.state();
+    try { return read(); } finally { readSnapshot = undefined; }
+  }
   const owners = new OwnerAuthority(now);
   const ledger = new RequestLedger({ now });
   const sessions = new SessionService({ serverInstanceId: sessionId, now, onRetirePage(session, tabId) { ledger.retirePage(session.kind === 'host' ? 'owner' : session.id, tabId); }, membership(identityId: string) {
-    const state = engine.state(), player = state.players.find(candidate => candidate.identityId === identityId);
+    const state = readState(), player = state.players.find(candidate => candidate.identityId === identityId);
     return player && state.gameId ? { gameId: state.gameId, playerId: player.playerId, nickname: player.nickname, status: player.removed ? 'removed' as const : 'admitted' as const } : null;
   } });
   const imports = new ImportService(engine, { now, ...options.importsOptions });
   let lastGameCommit: { requestId: string; candidateId: string; gameId: string; setupGeneration: number; revision: number } | null = null;
-  const member = (actor: Session) => engine.state().players.find(player => player.identityId === actor.id);
+  const member = (actor: Session) => readState().players.find(player => player.identityId === actor.id);
   const actorFor = (req: IncomingMessage): Session | null => owners.authorized(cookie(req, ownerCookie)) ? sessions.host() : sessions.resolve(cookie(req, browserCookie));
   const actorRates = new WeakMap<Session, Map<string, { tokens: number; at: number }>>();
   const actorRate = (actor: Session, key: string, refill: number, burst: number) => {
@@ -99,7 +107,7 @@ export async function createGameApplication(sessionId: string, healthToken: stri
     if (input.serverInstanceId !== sessionId) fail('WRONG_INSTANCE'); return sessions.page(actor, input.tabId, input.requestId);
   };
   const currentMember = (actor: Session, gameId: string | null) => {
-    if (gameId !== engine.state().gameId) fail('WRONG_GAME');
+    if (gameId !== readState().gameId) fail('WRONG_GAME');
     const player = member(actor); if (!player) fail('UNAUTHORIZED'); if (player.removed) fail('REMOVED'); return player;
   };
   const context = (actor: Session, kind: MutationName, input: any, pinKey?: string) => {
@@ -108,20 +116,20 @@ export async function createGameApplication(sessionId: string, healthToken: stri
       fingerprint: mutationFingerprint(kind, input), gameId: kind === 'game.commit' ? input.expectedGameId : input.gameId,
       ...(pinKey ? { pinKey } : {}), ...(actor.kind !== 'host' && !member(actor) ? { rejectedLimit: 1 } : {}) };
   };
-  const hostView = (requestedRoundId?: string) => {
+  const hostView = (requestedRoundId?: string) => withReadSnapshot(() => {
     const started = detailed ? performance.now() : 0;
-    const state = engine.state();
+    const state = readState();
     const view = projectHost(state, { hosting, serverNowMs: now(), importInProgress: imports.busy,
       ...(config && state.gameCode ? { invitation: invitationForOrigin(config.publicOrigin, state.gameCode) } : {}), requestedRoundId });
     profile('host-projection', started, { cause: 'all-host-views', role: 'host' }); return view;
-  };
-  const viewFor = (actor: Session, tabId: string, requestedRoundId?: string) => {
+  });
+  const viewFor = (actor: Session, tabId: string, requestedRoundId?: string) => withReadSnapshot(() => {
     if (actor.kind === 'host') return hostView(requestedRoundId);
     const started = detailed ? performance.now() : 0;
-    const player = currentMember(actor, engine.state().gameId); sessions.assertController(actor, tabId, engine.state().gameId!);
-    const view = projectPlayer(engine.state(), { playerId: player.playerId, controlGeneration: sessions.currentControl(actor)!.generation, serverNowMs: now(), requestedRoundId });
+    const player = currentMember(actor, readState().gameId); sessions.assertController(actor, tabId, readState().gameId!);
+    const view = projectPlayer(readState(), { playerId: player.playerId, controlGeneration: sessions.currentControl(actor)!.generation, serverNowMs: now(), requestedRoundId });
     profile('player-projection', started, { cause: 'all-player-views', role: 'browser' }); return view;
-  };
+  });
   const app = Fastify({ logger: false, trustProxy: false, bodyLimit: 4096, requestTimeout: 10000, connectionTimeout: 15000 });
   const measuredTransports = new Set<NetSocket>();
   const measuredRequests = new WeakSet<IncomingMessage>();
@@ -153,7 +161,7 @@ export async function createGameApplication(sessionId: string, healthToken: stri
     if (!request.raw.url?.startsWith('/') || request.raw.url.startsWith('//')) fail('INVALID_PAYLOAD');
     if (!permit(request.raw)) fail('FORBIDDEN'); rate('http', 1000);
     if (request.method === 'POST' && request.url.split('?')[0] === '/api/host/import') {
-      requireOwner(request.raw); const ticket = imports.begin(); importTickets.set(request, ticket); publish(false, 'import-begin');
+      requireOwner(request.raw); const ticket = imports.begin(); importTickets.set(request, ticket); publish('immediate', 'import-begin');
       request.raw.once('aborted', () => { const wasBusy = imports.busy; imports.abort(ticket); if (wasBusy && !imports.busy) engine.touchRevision(); publish(); });
     }
   });
@@ -162,7 +170,7 @@ export async function createGameApplication(sessionId: string, healthToken: stri
     const value = (error as { code?: string }).code === 'FST_ERR_CTP_BODY_TOO_LARGE' ? fault(request.url.startsWith('/api/host/import') ? 'UPLOAD_TOO_LARGE' : 'INVALID_PAYLOAD') : caught(error);
     reply.code(httpStatusForError[value.code as keyof typeof httpStatusForError] ?? 400).send(value);
   });
-  const json = (request: FastifyRequest) => { const value = JSON.parse((request.body as Buffer).toString('utf8')); if (value?.protocolVersion !== 1) fail('UNSUPPORTED_VERSION'); return value; };
+  const json = (request: FastifyRequest) => { const value = JSON.parse((request.body as Buffer).toString('utf8')); if (value?.protocolVersion !== 2) fail('UNSUPPORTED_VERSION'); return value; };
   const assets = new Map<string, { bytes: Buffer; type: string }>();
   const dist = new URL('../../../web/dist/', import.meta.url), shell = readFileSync(new URL('index.html', dist));
   for (const path of ['/', '/host', '/join']) assets.set(path, { bytes: shell, type: 'text/html; charset=utf-8' });
@@ -176,7 +184,7 @@ export async function createGameApplication(sessionId: string, healthToken: stri
   });
   for (const [path, asset] of options.diagnosticAssets ?? []) assets.set(path, asset);
   for (const [path, asset] of assets) app.get(path, async (_request, reply) => reply.type(asset.type).send(asset.bytes));
-  app.get('/health', async () => ({ protocolVersion: 1, appVersion: '0.1.0', live: true }));
+  app.get('/health', async () => ({ protocolVersion: 2, appVersion: '0.1.0', live: true }));
   app.get('/hosting-health', async () => ({ kind: 'niche-hosting-v1', sessionId, healthToken, ready: true }));
   app.post('/api/session', async (request, reply) => {
     const input = sessionRequest.parse(json(request)); let actor = actorFor(request.raw);
@@ -195,7 +203,7 @@ export async function createGameApplication(sessionId: string, healthToken: stri
   });
   app.post('/api/host/import', { bodyLimit: 10 * 1024 * 1024 }, async request => {
     try { requireOwner(request.raw); return await imports.complete(importTickets.get(request)!, request.body as Buffer); }
-    finally { const ticket = importTickets.get(request); if (ticket) { imports.abort(ticket); engine.touchRevision(); } importTickets.delete(request); publish(false, 'import-complete'); }
+    finally { const ticket = importTickets.get(request); if (ticket) { imports.abort(ticket); engine.touchRevision(); } importTickets.delete(request); publish('immediate', 'import-complete'); }
   });
   app.post('/api/host/games', async (request, reply) => {
     const actor = requireOwner(request.raw), input = commitRequest.parse(json(request));
@@ -205,9 +213,9 @@ export async function createGameApplication(sessionId: string, healthToken: stri
         const definition = imports.candidateForCommit(input.candidateId, input.expectedGameId, input.expectedSetupGeneration), oldGameId = engine.state().gameId;
         const result = core(engine.commit(definition, input.expectedSetupGeneration)); if (!result.ok) throw new Error('Unexpected core rejection');
         imports.consume(input.candidateId);
-        if (oldGameId) { io.emit('game.closed', { protocolVersion: 1, serverInstanceId: sessionId, gameId: oldGameId, revision: engine.state().revision, reason: 'replaced' }); sessions.invalidateGame(oldGameId); }
+        if (oldGameId) { io.emit('game.closed', { protocolVersion: 2, serverInstanceId: sessionId, gameId: oldGameId, revision: engine.state().revision, reason: 'replaced' }); sessions.invalidateGame(oldGameId); }
         ledger.replaceGame(); lastGameCommit = { requestId: input.requestId, candidateId: input.candidateId, gameId: result.gameId, setupGeneration: engine.state().setupGeneration, revision: engine.state().revision };
-        publish(false, 'game.commit'); return { outcome: 'COMMITTED', ...lastGameCommit };
+        publish('immediate', 'game.commit'); return { outcome: 'COMMITTED', ...lastGameCommit };
       } catch (error) { return caught(error, input.requestId); }
     });
     if ('code' in output) reply.code(httpStatusForError[output.code as keyof typeof httpStatusForError] ?? 400);
@@ -236,7 +244,7 @@ export async function createGameApplication(sessionId: string, healthToken: stri
     if (ledger.isFenced(ctx)) return { outcome: 'NOT_APPLIED', view: hostView() };
     if (retired || (operation.kind === 'game.commit' && operation.original.expectedSetupGeneration !== engine.state().setupGeneration)) return { outcome: 'SUPERSEDED', view: hostView() };
     ledger.fence(ctx); if (operation.kind === 'game.commit') imports.invalidate();
-    publish(false, 'host.resolve'); return { outcome: 'NOT_APPLIED', view: hostView() };
+    publish('immediate', 'host.resolve'); return { outcome: 'NOT_APPLIED', view: hostView() };
   });
   const io = new Server(app.server, { serveClient: false, maxHttpBufferSize: 4096, connectTimeout: 10000, pingInterval: 5000, pingTimeout: 5000 });
   const pending = new Set<string>(), transports = new Map<string, string>();
@@ -263,7 +271,7 @@ export async function createGameApplication(sessionId: string, healthToken: stri
   io.use((socket, next) => {
     try {
       const actor = requireActor(socket.request), auth = socket.handshake.auth;
-      if (auth.protocolVersion !== 1) fail('UNSUPPORTED_VERSION'); if (auth.serverInstanceId !== sessionId) fail('WRONG_INSTANCE');
+      if (auth.protocolVersion !== 2) fail('UNSUPPORTED_VERSION'); if (auth.serverInstanceId !== sessionId) fail('WRONG_INSTANCE');
       if (typeof auth.tabId !== 'string' || Object.keys(auth).some(key => !['protocolVersion', 'serverInstanceId', 'tabId'].includes(key))) fail('INVALID_PAYLOAD');
       const player = member(actor); if (player?.removed) fail('REMOVED'); sessions.page(actor, auth.tabId);
       socket.data.actor = actor; socket.data.tabId = auth.tabId;
@@ -272,7 +280,7 @@ export async function createGameApplication(sessionId: string, healthToken: stri
     } catch (error) { next(Object.assign(new Error(caught(error).code), { data: caught(error) })); }
   });
   let timer: ReturnType<typeof setTimeout> | undefined, readinessTimer: ReturnType<typeof setTimeout> | undefined;
-  const sendView = (socket: Socket, event = 'state.changed', requestedRoundId?: string, cause = 'targeted') => {
+  const sendView = (socket: Socket, event = 'state.changed', requestedRoundId?: string, cause = 'targeted') => withReadSnapshot(() => {
     try {
       const actor = requireActor(socket.request); if (actor.id !== socket.data.actor.id) return;
       let started = detailed ? performance.now() : 0;
@@ -287,17 +295,27 @@ export async function createGameApplication(sessionId: string, healthToken: stri
         diagnostic({ kind: 'egress', name: event, bytes, cause, role: actor.kind });
       }
     } catch { /* Never emit a private view to an unauthorized recipient. */ }
-  };
-  function publish(readinessOnly = false, cause = 'other') {
+  });
+  function armPhaseTimer() {
+    if (timer) clearTimeout(timer);
+    timer = undefined;
+    const token = engine.timerToken();
+    if (token) timer = setTimeout(() => { timer = undefined; engine.wake(token); publish('immediate', 'phase-timer'); }, Math.max(1, token.deadlineMs - now()));
+  }
+  function publish(delivery: 'immediate' | 'coalesced' = 'immediate', cause = 'other') {
     if (closed) return;
-    if (readinessOnly) { if (!readinessTimer) readinessTimer = setTimeout(() => { readinessTimer = undefined; publish(false, 'readiness-batch'); }, 50); return; }
+    if (delivery === 'coalesced') {
+      if (!readinessTimer) readinessTimer = setTimeout(() => { readinessTimer = undefined; publish('immediate', 'metadata-batch'); }, 50);
+      return;
+    }
     const started = detailed ? performance.now() : 0;
     if (readinessTimer) { clearTimeout(readinessTimer); readinessTimer = undefined; }
-    reportActive(['Reading', 'Answering', 'Results'].includes(engine.state().phase));
+    reportActive(['Reading', 'Answering', 'Results'].includes(engine.phase));
     const recipients = io.sockets.sockets.size;
-    for (const socket of io.sockets.sockets.values()) sendView(socket, 'state.changed', undefined, cause);
-    if (timer) clearTimeout(timer); const token = engine.timerToken();
-    if (token) timer = setTimeout(() => { timer = undefined; engine.wake(token); publish(false, 'phase-timer'); }, Math.max(1, token.deadlineMs - now()));
+    withReadSnapshot(() => {
+      for (const socket of io.sockets.sockets.values()) sendView(socket, 'state.changed', undefined, cause);
+    });
+    armPhaseTimer();
     profile('publish', started, { cause, recipients });
   }
   const answerRates = new WeakMap<Session, { tokens: number; at: number }>();
@@ -306,7 +324,7 @@ export async function createGameApplication(sessionId: string, healthToken: stri
     if (bucket.tokens < 1) fail('RATE_LIMITED'); bucket.tokens--; };
   function command(socket: Socket, name: CommandName, raw: unknown, receivedAtMs: number) {
     const actor = requireActor(socket.request); if (actor.id !== socket.data.actor.id) fail('UNAUTHORIZED');
-    if ((raw as any)?.protocolVersion !== 1) fail('UNSUPPORTED_VERSION');
+    if ((raw as any)?.protocolVersion !== 2) fail('UNSUPPORTED_VERSION');
     const input: any = socketCommands[name].parse(raw);
     if (input.tabId !== socket.data.tabId) fail('FORBIDDEN'); guardContext(actor, input);
     if (name === 'game.start' || name === 'player.remove') { if (actor.kind !== 'host') fail('FORBIDDEN'); }
@@ -361,7 +379,11 @@ export async function createGameApplication(sessionId: string, healthToken: stri
           response = { outcome: result.outcome, roundId: input.roundId, locked: result.locked, ...(result.locked ? { submittedText: result.submittedText } : {}) };
         }
         const after = engine.state(); response = { requestId: input.requestId, gameId: after.gameId, revision: after.revision, ...response };
-        if (before.revision !== after.revision || ['game.join', 'game.resume', 'player.claimControl'].includes(name)) publish(name === 'answer.submit' && before.phaseId === after.phaseId && before.revision !== after.revision, name); return response;
+        if (before.revision !== after.revision) {
+          const metadataOnly = before.phaseId === after.phaseId && ['answer.submit', 'game.join', 'game.resume', 'player.claimControl'].includes(name);
+          publish(metadataOnly ? 'coalesced' : 'immediate', name);
+        }
+        return response;
       } catch (error) { if (engine.state().revision !== before.revision) publish(); return caught(error, input.requestId); }
     });
   }
@@ -373,7 +395,7 @@ export async function createGameApplication(sessionId: string, healthToken: stri
   function supersede(grant: { supersededTabId?: string; control: any }, actor: Session, gameId: string) {
     if (!grant.supersededTabId) return;
     for (const other of io.sockets.sockets.values()) if (other.data.actor.id === actor.id && other.data.tabId === grant.supersededTabId) {
-      other.emit('player.superseded', { protocolVersion: 1, serverInstanceId: sessionId, gameId, tabId: grant.supersededTabId,
+      other.emit('player.superseded', { protocolVersion: 2, serverInstanceId: sessionId, gameId, tabId: grant.supersededTabId,
         controlGeneration: grant.control.controlGeneration, revision: engine.state().revision }); other.disconnect(true);
     }
   }
@@ -398,7 +420,7 @@ export async function createGameApplication(sessionId: string, healthToken: stri
     socket.on('disconnect', () => {
       const actor: Session = socket.data.actor; sessions.detachTransport(actor, socket.data.tabId, socket.id);
       try { const player = member(actor), control = sessions.currentControl(actor);
-        if (player && !player.removed && control?.tabId === socket.data.tabId && !sessions.page(actor, socket.data.tabId).transportId) { engine.disconnect(engine.state().gameId!, player.playerId); publish(false, 'disconnect'); } } catch { /* A retired session has no current transport. */ }
+        if (player && !player.removed && control?.tabId === socket.data.tabId && !sessions.page(actor, socket.data.tabId).transportId) { engine.disconnect(engine.state().gameId!, player.playerId); publish('coalesced', 'disconnect'); } } catch { /* A retired session has no current transport. */ }
     });
   });
   await app.ready(); let port = options.port ?? 3210;
@@ -422,12 +444,12 @@ export async function createGameApplication(sessionId: string, healthToken: stri
       config = deploymentConfigSchema.parse({ mode: 'tunnel', purpose: 'event', provider: 'cloudflare', tunnelKind: 'quick', publicOrigin: origin,
         listen: { host: '127.0.0.1', port }, upstreamHost: 'public' });
     },
-    setHostingStatus(status: HostingStatus) { const next = hostingStatusSchema.parse(status); if (JSON.stringify(next) !== JSON.stringify(hosting)) { hosting = next; engine.touchRevision(); publish(false, 'hosting-status'); } },
+    setHostingStatus(status: HostingStatus) { const next = hostingStatusSchema.parse(status); if (JSON.stringify(next) !== JSON.stringify(hosting)) { hosting = next; engine.touchRevision(); publish('immediate', 'hosting-status'); } },
     mintOwnerLink() { if (!config || closed) throw new Error('Application unavailable'); return config.publicOrigin + '/host#' + owners.mint(); },
     hasDisposableState() { return engine.state().gameId !== null || imports.busy; },
     async close() {
       if (closed) return; closed = true; reportActive(false); if (timer) clearTimeout(timer); if (readinessTimer) clearTimeout(readinessTimer);
-      const state = engine.state(); if (state.gameId) io.emit('game.closed', { protocolVersion: 1, serverInstanceId: sessionId, gameId: state.gameId, revision: state.revision, reason: 'shutdown' });
+      const state = engine.state(); if (state.gameId) io.emit('game.closed', { protocolVersion: 2, serverInstanceId: sessionId, gameId: state.gameId, revision: state.revision, reason: 'shutdown' });
       owners.clear(); await imports.close(); io.disconnectSockets(true); await io.close(); await app.close(); sessions.clear();
     },
   };
