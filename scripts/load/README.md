@@ -73,3 +73,41 @@ node scripts/load/summarize-baseline.mjs --dir=work/network-baseline/local
 ```
 
 The application process's CPU/RSS excludes the generator and connector. Generator metrics are recorded separately; connector `ps` sampling is labelled with its interval and freshness and excludes the native guard. No arbitrary external target can be supplied. Request/transport errors are recorded without publishing cookies, owner links or tunnel hostnames. Cancelling a direct run writes an ABORTED report and requests shutdown of its owned child; the suite also enforces a bounded deadline.
+
+### Production runtime resource-bound checks
+
+After a production build, run `node scripts/load/bounds-runtime.mjs --out-dir=work/s02-s03/bounds`.
+This loopback-only harness opens 100 real authenticated Socket.IO clients, then checks the production 256-waiting-session, eight-page, 128-pending-handshake, 256-transient-request-cache and 1,000-total-admission bounds. It preserves active clients while testing refusals, lazy expiry, successful replay, old request fencing and repeated replacement. Handshake expiry waits on actual wall time; session/cache expiry and rate refill use an injected monotonic logical clock and are labelled accordingly. This is not a public admission flood or a long-duration soak. Its private aggregate samples contain counts, not credentials/request IDs/answer text. Run it separately from capacity measurements.
+
+For a longer existing-workload check without adding an overnight qualification requirement, use `node scripts/load/run.mjs --players=100 --transport=mixed --games=30 --rounds=2 --idle-seconds=600 --diagnostics=light --label=updated-churn --out-dir=work/s02-s03/churn --uplink=eduroam`. The workload supplies 30 games, repeated reconnects and ten minutes of idle retention, not hours of gameplay or a full venue/network certification. Keep all measurements serial; a different uplink must be labelled accurately.
+
+### Correlated S02/S03 investigations
+
+Use `--trace-commands` for a short diagnostic campaign. The parent generates a
+random per-run HMAC key, passes it privately to the owned child, and persists
+only 24-hex request tags. Neither raw request IDs nor the key are written to the
+report. Each side keeps at most 50,000 allowlisted trace rows and reports drops.
+Trace edges distinguish client emit/ACK callback/timeout, raw client ACK packet,
+server handler entry/ACK enqueue, Engine.IO packet creation/transport flush/drain,
+and local polling response finish/close. Enqueue, drain and HTTP finish are local
+boundaries and do not prove remote receipt. `atMs` is relative to each process's
+own start; correlate by tag, not by subtracting cross-process timestamps.
+
+```sh
+node scripts/load/run.mjs --tunnel --players=100 --transport=polling --games=1 --rounds=20 --diagnostics=light --trace-commands --label=polling-correlated --uplink=eduroam --out-dir=work/s02-s03/polling
+node --test scripts/load/command-trace.check.mjs
+```
+
+For the longer local run, leave command tracing disabled and use
+`--retention-every=5`. Every five completed games, command diagnostic samples are
+summarized per outcome and cleared before an explicit GC outside active game
+intervals. `retentionCheckpoints` retains interval timing/counts and post-GC
+memory. Final processing-target status includes failures from every retained
+window; the final `serverByOutcome` covers only the last sample window. Stage
+rows remain capped at 1,000 with `discardedStages` disclosed. This bounds the
+observer and makes its retained memory distinct from application state; it is
+not a full-duration allocation profiler.
+
+```sh
+node scripts/load/run.mjs --players=100 --transport=mixed --games=30 --rounds=20 --idle-seconds=600 --retention-every=5 --diagnostics=light --label=long-churn --out-dir=work/s02-s03/endurance --uplink=loopback
+```

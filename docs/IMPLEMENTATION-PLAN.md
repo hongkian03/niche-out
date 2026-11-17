@@ -178,7 +178,7 @@ Signing services remain release-time dependencies. The selected tunnel provider 
 ## Story tracker
 
 Current active epic: **Epic 6 networking improvement verification; full G6 remains open, November 17.**
-Current work: **E6-N01–N07 implemented; N08 execution/report delivered, acceptance REVIEW.** See the [networking improvement report](implementation/evidence/NETWORK-IMPROVEMENTS.md). All 450 application tests, 213 layout cases, 88 accessibility audits and eight actual-browser checks passed. Eight of nine matched capacity cases passed; 100-player polling-only failed on a round-5 ACK timeout with no captured DNS/429 error. The unchanged ten-round Singapore mixed game passed with zero client retries/errors and lower CPU/traffic. A refreshed extracted Mac ARM archive passed its bundled runtime/real-tunnel game/recovery/shutdown smoke. Other platforms, physical devices/assistive technology and signing remain open. No public release occurred.
+Current work: **S02/S03 follow-up implementation and verification delivered; acceptance remains REVIEW.** See the [follow-up report](implementation/evidence/EPIC-6-S02-S03-FOLLOWUP.md). Typecheck/build, 456 application tests and 16 harness checks passed. Final bounds/import workloads and 100-player combined recovery passed; actual owned connector death was verified. A 30-game/300-round local run plus ten minutes idle passed with stable bounded metadata. Shutdown now clears pinned ledger outcomes; private diagnostics correlate polling commands. Both public polling investigations failed after 17 verified rounds through distinct traced boundaries, so polling-only qualification remains open. An actual 8 GiB host, physical OS/venue outage coverage, deferred platforms and signing remain outstanding. No public release occurred.
 
 E5 stories in REVIEW have implemented deliverables; their remaining original acceptance items are manual/platform evidence, not missing implementation. S01 and S05 automated integration criteria are complete. G5's original full certification is not asserted. The user authorized Epic6 on this reference build and explicitly deferred other-platform testing until afterward; the evidence gaps carry forward.
 
@@ -326,11 +326,13 @@ The baseline confirms thousands of reconnect-triggered views and identifies repe
 
 ## Epic 6 outstanding qualification and follow-ups
 
+The [S02/S03 follow-up](implementation/evidence/EPIC-6-S02-S03-FOLLOWUP.md) adds actual runtime limits, connector-crash/combined recovery, refreshed import peaks, longer local endurance and correlated polling failures. S02/S03 retain REVIEW for the explicit unverified conditions; the work is not merely proposed.
+
 The owner authorized parallel execution on the available Mac and later requested provider/transport alternatives. The [alternatives report](implementation/evidence/EPIC-6-ALTERNATIVES.md) proposes small follow-up chunks; none changes the baseline until selected. No mandatory requirement was silently relaxed.
 
 | ID | Scope and next action | Impact |
 | --- | --- | --- |
-| E6-F01 | Complete 100-player polling qualification; reproduce DNS/interrupted-submit behavior with the actual browser client; choose measured transport/provider follow-up | E6-S02/S03 remain REVIEW. Mixed transport passed; polling reconnect recovered quota errors but the full game did not finish. |
+| E6-F01 | Complete polling-only qualification and available-hardware/event-outage evidence; retain traced DNS and pre-handler failures | E6-S02/S03 remain REVIEW. New bounds, combined recovery, imports and 300-round local endurance passed; both correlated public polling runs stopped after 17 verified rounds. |
 | E6-F02 | Investigate full-view traffic and 2.8-second event-loop tail; consider retry jitter, tested WebSocket-first fallback, unused live standings and coalesced presence updates | E6-N01–N07 implemented and measured; see the new report. Full permitted views, private state, acknowledgement rules and the 50 ms batching bound are preserved. |
 | E6-F03 | Complete physical device/browser/VoiceOver/zoom/venue evidence and deferred host-platform lifecycle checks | E6-S04/S05 and original G5 evidence remain REVIEW. Emulation and cross compilation are not replacements. |
 | E6-F04 | Build authenticated Mac container/launcher, Windows verifier and post-signing digest pipeline; finish notices and obtain license/publisher/signing decisions | E6-S06 REVIEW; E6-S07–S09 BLOCKED on explicit engineering/credential prerequisites. |

@@ -5,11 +5,13 @@ import assert from 'node:assert/strict';
 import { fork } from 'node:child_process';
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { cpus, totalmem, release } from 'node:os';
-import { createHash } from 'node:crypto';
+import { createHash, randomBytes } from 'node:crypto';
 import { io } from 'socket.io-client';
 import {execFileSync} from 'node:child_process';
 import {join} from 'node:path';
 import {sanitizeDiagnostic} from './sanitize.mjs';
+import {processingTarget} from './processing-target.mjs';
+import {commandTag, ackRequestId, boundedTrace} from './command-trace.mjs';
 import {packScenario} from './pack-scenario.mjs';
 import { setTimeout as delay } from 'node:timers/promises';
 import { request as httpRequest, Agent as HttpAgent } from 'node:http';
@@ -22,6 +24,9 @@ assert(['off','light','detailed'].includes(instrumentation));
 const outDir=process.argv.find(x=>x.startsWith('--out-dir='))?.slice(10)??'work/load';
 const runTag=process.argv.find(x=>x.startsWith('--label='))?.slice(8)??'baseline';
 assert(/^[a-zA-Z0-9_-]{1,80}$/.test(runTag));
+const retentionEvery=Number(process.argv.find(x=>x.startsWith('--retention-every='))?.split('=')[1]??0);
+assert(Number.isInteger(retentionEvery)&&retentionEvery>=0&&retentionEvery<=30);
+const traceEnabled=process.argv.includes('--trace-commands'), traceKey=traceEnabled?randomBytes(32).toString('hex'):null, commandTrace=boundedTrace();
 const skipPressure=process.argv.includes('--skip-pressure');
 const hash=bytes=>createHash('sha256').update(bytes).digest('hex');
 const coldAfter=process.argv.includes('--cold-after');
@@ -57,9 +62,9 @@ const parentStarted=process.cpuUsage();let parentPeakRss=process.memoryUsage().r
 const buildManifest=JSON.parse(await readFile('build/manifest.json'));
 
 const loadStarted = performance.now();
-const report = { label, started: new Date().toISOString(), identity:{gitCommit,dirty,treeSha256,lockSha256:hash(await readFile('package-lock.json')),buildSourceSha256:buildManifest.sourceSha256,connector:buildManifest.connector}, config: { instrumentation, packPath:packPath??null, packSha256:packBytes?hash(packBytes):null, reconnectBurst, answerDelayMs, answerSpreadMs, skipPressure, tunnel, fault, faultCycle, coldAfter, transport, count, games, rounds, idleSeconds, creationBatch: tunnel ? 5 : 10, joinBatch: 10, reconnectBatch: count, submitBatch: count }, machine: { uplink, cpu: cpus()[0].model, cores: cpus().length, memoryBytes: totalmem(), kernel: release(), node: process.version }, checks: [], checkpoints: [], timings: [], cycles: [], failures: [], recoveries: [], retries: [], transportErrors: [], disconnects: {}, http: { requests: 0, maxInFlight: 0, bodyBytes: 0, statusCounts: {} }, measuredServerSha256: createHash('sha256').update(await readFile('apps/server/dist/game/application.js')).digest('hex'), sourceManifestSha256: createHash('sha256').update(await readFile('build/manifest.json')).digest('hex') };
+const report = { label, started: new Date().toISOString(), identity:{gitCommit,dirty,treeSha256,lockSha256:hash(await readFile('package-lock.json')),buildSourceSha256:buildManifest.sourceSha256,connector:buildManifest.connector}, config: { instrumentation, traceEnabled, retentionEvery, packPath:packPath??null, packSha256:packBytes?hash(packBytes):null, reconnectBurst, answerDelayMs, answerSpreadMs, skipPressure, tunnel, fault, faultCycle, coldAfter, transport, count, games, rounds, idleSeconds, creationBatch: tunnel ? 5 : 10, joinBatch: 10, reconnectBatch: count, submitBatch: count }, machine: { uplink, cpu: cpus()[0].model, cores: cpus().length, memoryBytes: totalmem(), kernel: release(), node: process.version }, checks: [], checkpoints: [], timings: [], cycles: [], failures: [], recoveries: [], retries: [], transportErrors: [], disconnects: {}, http: { requests: 0, maxInFlight: 0, bodyBytes: 0, statusCounts: {} }, measuredServerSha256: createHash('sha256').update(await readFile('apps/server/dist/game/application.js')).digest('hex'), sourceManifestSha256: createHash('sha256').update(await readFile('build/manifest.json')).digest('hex') };
 const {instrumentation:diagnosticSetting,...workload}=report.config;report.workloadSha256=hash(JSON.stringify(workload));
-const child = fork(new URL('./server.mjs', import.meta.url), [...(tunnel ? ['--tunnel'] : []),'--diagnostics='+instrumentation], { execArgv: ['--expose-gc'], stdio: ['ignore', 'pipe', 'pipe', 'ipc'] });
+const child = fork(new URL('./server.mjs', import.meta.url), [...(tunnel ? ['--tunnel'] : []),'--diagnostics='+instrumentation], { env: {...process.env,...(traceKey?{NICHE_LOAD_TRACE_KEY:traceKey}:{})}, execArgv: ['--expose-gc'], stdio: ['ignore', 'pipe', 'pipe', 'ipc'] });
 const logs = [];
 child.stderr.on('data', b => logs.push(b.toString()));
 child.stdout.on('data', () => { });
@@ -96,6 +101,7 @@ async function connect(c) {
     if(c.socket){c.socket.removeAllListeners();c.socket.io.removeAllListeners();c.socket.disconnect();c.socket.io.disconnect();}
     const s=c.socket=io(tunnel?base:origin.replace('https:','http:'),{...(!tunnel?{agent:localAgent}:{}),autoConnect:false,forceNew:true,reconnection:false,transports:[c.transport],extraHeaders:{Host:new URL(origin).host,Origin:origin,Cookie:c.cookie},auth:{protocolVersion:2,serverInstanceId:c.discovery.serverInstanceId,tabId:c.discovery.tabId},timeout:10000});
     allSockets.add(s);
+    if(traceEnabled)s.io.on('open',()=>s.io.engine.on('packet',packet=>{const requestId=ackRequestId(packet.data);const tag=commandTag(traceKey,requestId);if(tag)commandTrace.record({tag,edge:'engine-ack-received',stage:stageName,atMs:performance.now()-loadStarted,transport:c.transport});}));
     s.io.on('error',error=>report.transportErrors.push(failureDetail(error,'opening')));
     s.on('disconnect',reason=>{report.disconnects[reason]=(report.disconnects[reason]??0)+1;report.connectionTimeline??=[];report.connectionTimeline.push({event:'disconnect',reason,stage:stageName,atMs:performance.now()-loadStarted});});
     s.on('state.changed',v=>c.view=v);s.on('state.snapshot',v=>c.view=v);
@@ -126,10 +132,12 @@ async function recover(c) {
     })();
     try{return await c.recovering;}finally{c.recovering=null;}
 }
-function emitOnce(c,name,input){
+function emitOnce(c,name,input,attempt=1){
     return new Promise((resolve,reject)=>{
         if(!c.socket.connected)return reject(new Error('Transport disconnected'));
-        c.socket.timeout(2000).emit(name,input,(error,value)=>error?reject(error):resolve(value));
+        const tag=commandTag(traceKey,input.requestId);
+        if(tag)commandTrace.record({tag,edge:'client-emit',name,attempt,stage:stageName,atMs:performance.now()-loadStarted,transport:c.transport,packetId:c.socket.ids});
+        c.socket.timeout(2000).emit(name,input,(error,value)=>{if(tag)commandTrace.record({tag,edge:error?'client-timeout':'client-ack',name,attempt,outcome:error?'TIMEOUT':value.code??value.outcome,stage:stageName,atMs:performance.now()-loadStarted,transport:c.transport});error?reject(error):resolve(value);});
     });
 }
 async function send(c,name,payload={},extra={},fixed){
@@ -140,11 +148,11 @@ async function send(c,name,payload={},extra={},fixed){
     for(let attempt=0;attempt<3;attempt++){
         try{
             if(!c.socket.connected)await recover(c);
-            const value=await emitOnce(c,name,input);
+            const value=await emitOnce(c,name,input,attempt+1);
             report.timings.push({name,outcome:value.code??value.outcome,durationMs:performance.now()-start,transport:c.socket.io.engine?.transport.name??c.transport,stage:stageName,atMs:performance.now()-loadStarted});
             return value;
         }catch(error){
-            report.retries.push({name,attempt:attempt+1,transport:c.transport,...failureDetail(error,'acknowledgement')});
+            report.retries.push({name,...(traceKey?{tag:commandTag(traceKey,input.requestId)}:{}),attempt:attempt+1,transport:c.transport,...failureDetail(error,'acknowledgement')});
             if(attempt===2)throw error;
         }
     }
@@ -302,6 +310,12 @@ try {
         }
         const metrics = await ipc('snapshot');
         report.cycles.push({ cycle, elapsedMs:metrics.elapsedMs, liveHeapBytes: metrics.memory.heapUsed, rss: metrics.memory.rss, diagnostics: metrics.diagnostics });
+        if(retentionEvery && (cycle+1)%retentionEvery===0){
+            const groups={};for(const sample of metrics.samples??[])(groups[sample.name+':'+sample.outcome]??=[]).push(sample.durationMs);
+            const timings={};for(const [key,values]of Object.entries(groups)){values.sort((a,b)=>a-b);timings[key]={count:values.length,p95Ms:values[Math.floor(values.length*.95)],maxMs:values.at(-1)};}
+            const checkpoint=await ipc('clear-diagnostic-samples');
+            (report.retentionCheckpoints??=[]).push({afterGames:cycle+1,memory:checkpoint.memory,gcDurationMs:checkpoint.gcDurationMs,timings,discardedSamples:metrics.instrumentation?.discardedSamples,scope:'Outside active game intervals, after dropping bounded diagnostic command samples; prior timing windows retained as aggregates only'});
+        }
         priorGame = gameId;
     }
     mark(games + ' complete ' + rounds + '-round games: correct scores, duplicate replay idempotent' + (games > 1 ? ', stale old-game answers rejected' : ''));
@@ -376,6 +390,7 @@ finally {
     await Promise.race([exited, delay(10000)]);
     if (child.exitCode === null && child.signalCode === null)
         child.kill('SIGTERM');
+    report.commandTrace=traceEnabled?commandTrace.snapshot():null;
     report.ended = new Date().toISOString();
     const summarize = rows => { const v = rows.map(x => x.durationMs).sort((a, b) => a - b); return { count: v.length, p50Ms: v[Math.floor(v.length * .5)] ?? 0, p95Ms: v[Math.floor(v.length * .95)] ?? 0, p99Ms: v[Math.floor(v.length * .99)] ?? 0, maxMs: v.at(-1) ?? 0 }; };
     report.summary = { endToEnd: summarize(report.timings), endToEndByOutcome: {}, serverByOutcome: {} };
@@ -391,10 +406,8 @@ finally {
     }
     for (const [k, v] of Object.entries(report.summary.serverByOutcome))
         report.summary.serverByOutcome[k] = summarize(v);
-    const eligible = new Set(['STATE','JOINED','RESUMED','STARTED','ACCEPTED','REJECTED','CLOCK']);
-    const exceeded = Object.entries(report.summary.serverByOutcome).filter(([key,value])=>eligible.has(key.split(':')[1])&&value.p95Ms>=100);
-    report.processingTarget={boundary:'handler entry to ack enqueue, excluding network and event-loop queue',targetP95Ms:100,passed:Object.keys(report.summary.serverByOutcome).length ? exceeded.length===0 : null,exceeded:exceeded.map(([key])=>key)};
-    if(exceeded.length){report.status='FAIL';report.failures.push({message:'Server processing p95 target failed'});process.exitCode=1;}
+    report.processingTarget={timingScope:retentionEvery?'Final command-sample window; all prior window checks retained in retentionCheckpoints':'Entire retained bounded sample window',...processingTarget(report.summary.serverByOutcome,report.retentionCheckpoints)};
+    if(report.processingTarget.passed===false){report.status='FAIL';report.failures.push({message:'Server processing p95 target failed',finalWindowFailures:report.processingTarget.exceeded,retainedWindowFailures:report.processingTarget.retainedWindowFailures});process.exitCode=1;}
     report.elapsedMs=performance.now()-loadStarted;
     report.endToEndByTransport={};for(const row of report.timings)(report.endToEndByTransport[row.transport+':'+row.name+':'+row.outcome]??=[]).push(row);for(const [key,rows]of Object.entries(report.endToEndByTransport))report.endToEndByTransport[key]=summarize(rows);
     report.timingsByStage={};for(const row of report.timings)(report.timingsByStage[row.stage]??=[]).push(row);for(const [key,rows]of Object.entries(report.timingsByStage))report.timingsByStage[key]=summarize(rows);

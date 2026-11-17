@@ -52,6 +52,26 @@ async function setup(options: GameApplicationOptions = {}) {
 }
 
 describe('production application protocol', () => {
+  it('private command tracing uses opaque tags and reports enqueue/transport boundaries without changing ACKs', async () => {
+    const trace: any[] = [];
+    const h = await setup({ commandTraceTag: () => 'a'.repeat(24), onCommandTrace: sample => trace.push(sample) });
+    const host = await h.browser(true); const input = host.envelope();
+    const reply = await host.send('state.get', input);
+    expect(reply.outcome).toBe('STATE');
+    expect(trace.map(row => row.edge)).toEqual(expect.arrayContaining(['handler-entry', 'ack-enqueued', 'engine-packet-created', 'transport-flush']));
+    expect(trace.every(row => row.tag === 'a'.repeat(24))).toBe(true);
+    expect(JSON.stringify(trace)).not.toContain(input.requestId);
+    expect(JSON.stringify(trace)).not.toContain(host.cookie);
+    const edges = trace.filter(row => row.name === 'state.get');
+    expect(edges.find(row => row.edge === 'handler-entry')).toBeTruthy();
+    expect(edges.find(row => row.edge === 'ack-enqueued')?.outcome).toBe('STATE');
+  });
+  it('throwing trace observers cannot alter command behavior', async () => {
+    const h = await setup({ commandTraceTag: () => 'b'.repeat(24), onCommandTrace: () => { throw new Error('observer failure'); } });
+    const host = await h.browser(true);
+    expect((await host.send('state.get', host.envelope())).outcome).toBe('STATE');
+  });
+
   it('diagnostic phase labels add no snapshot copies and publications share one snapshot', async () => {
     const counts: number[] = [];
     for (const mode of ['off', 'light', 'detailed'] as const) {

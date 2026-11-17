@@ -47,6 +47,9 @@ export interface GameApplicationOptions {
   diagnosticAssets?: Map<string, { bytes: Buffer; type: string }>;
   /** Optional private measurement sink. No payloads, identities or secrets are supplied. */
   diagnosticMode?: 'light' | 'detailed';
+  /** Optional private run-local tagger; no raw request IDs leave this adapter. */
+  commandTraceTag?: (requestId: string) => string | null;
+  onCommandTrace?: (sample: { tag: string; edge: 'handler-entry' | 'ack-enqueued' | 'engine-packet-created' | 'transport-flush' | 'transport-drain' | 'poll-response-finish' | 'poll-response-close'; name?: string; outcome?: string }) => void;
   onDiagnostic?: (sample: { kind: 'command' | 'egress' | 'transport' | 'profile'; name: string; durationMs?: number; outcome?: string; bytes?: number; cause?: string; phase?: string; role?: string; recipients?: number }) => void;
 }
 /** Production application behind one verified public origin. Local launcher routes are never mounted here. */
@@ -54,6 +57,10 @@ export async function createGameApplication(sessionId: string, healthToken: stri
   const now = options.now ?? (() => performance.now());
   const diagnostic = (sample: Parameters<NonNullable<GameApplicationOptions['onDiagnostic']>>[0]) => {
     try { options.onDiagnostic?.(sample); } catch { /* Measurement cannot change gameplay. */ }
+  };
+  const commandTrace = (requestId: unknown, edge: 'handler-entry' | 'ack-enqueued' | 'engine-packet-created' | 'transport-flush' | 'transport-drain' | 'poll-response-finish' | 'poll-response-close', name?: string, outcome?: string) => {
+    if (typeof requestId !== 'string' || requestId.length > 256) return;
+    try { const tag = options.commandTraceTag?.(requestId); if (tag && /^[a-f0-9]{24}$/.test(tag)) options.onCommandTrace?.({ tag, edge, ...(name ? {name} : {}), ...(outcome ? {outcome} : {}) }); } catch { /* Tracing cannot affect gameplay. */ }
   };
   const detailed = Boolean(options.onDiagnostic && options.diagnosticMode !== 'light');
   const profile = (name: string, started: number, extra: { cause?: string; role?: string; recipients?: number; bytes?: number } = {}) => {
@@ -400,11 +407,34 @@ export async function createGameApplication(sessionId: string, healthToken: stri
     }
   }
   io.on('connection', socket => {
+    if (options.onCommandTrace) socket.conn.on('packetCreate', packet => {
+      // ACK packets only, bounded parse, no payload or transport IDs retained.
+      if (packet.type !== 'message' || typeof packet.data !== 'string' || packet.data.length > 16384 || !/^3[0-9]+\[/.test(packet.data)) return;
+      try { const value = JSON.parse(packet.data.slice(packet.data.indexOf('['))); commandTrace(value[0]?.requestId, 'engine-packet-created'); } catch { /* Ignore non-ACK frames. */ }
+    });
+    if (options.onCommandTrace) socket.conn.on('flush', packets => {
+      const ids: string[] = [];
+      for (const packet of packets) {
+        if (ids.length >= 1000) break;
+        if (packet.type !== 'message' || typeof packet.data !== 'string' || packet.data.length > 16384 || !/^3[0-9]+\[/.test(packet.data)) continue;
+        try { const value = JSON.parse(packet.data.slice(packet.data.indexOf('['))); if (typeof value[0]?.requestId === 'string') ids.push(value[0].requestId); } catch { /* Ignore non-ACK packets. */ }
+      }
+      if (!ids.length) return;
+      for (const id of ids) commandTrace(id, 'transport-flush');
+      socket.conn.transport.once('drain', () => { for (const id of ids) commandTrace(id, 'transport-drain'); });
+      const response = (socket.conn.transport as any).res as ServerResponse | undefined;
+      if (socket.conn.transport.name === 'polling' && response) {
+        response.once('finish', () => { for (const id of ids) commandTrace(id, 'poll-response-finish'); });
+        response.once('close', () => { for (const id of ids) commandTrace(id, 'poll-response-close'); });
+      }
+    });
     for (const name of Object.keys(socketCommands) as CommandName[]) socket.on(name, (raw: unknown, ack: unknown) => {
       const receivedAtMs = now(); if (typeof ack !== 'function') return;
       const started = performance.now();
+      commandTrace((raw as any)?.requestId, 'handler-entry', name);
       const measuredAck = (value: any) => {
         const durationMs = performance.now() - started; ack(value);
+        commandTrace((raw as any)?.requestId, 'ack-enqueued', name, value.code ?? value.outcome ?? 'UNKNOWN');
         if (options.onDiagnostic) {
           diagnostic({ kind: 'command', name, durationMs, outcome: value.code ?? value.outcome ?? 'UNKNOWN' });
           if (detailed) {
@@ -429,10 +459,10 @@ export async function createGameApplication(sessionId: string, healthToken: stri
   port = (app.server.address() as { port: number }).port;
   return {
     port, healthPath: '/hosting-health',
-    diagnosticSnapshot() { return { connectedSockets: io.sockets.sockets.size, players: engine.state().players.length, importMetrics: imports.lastMetrics,
+    diagnosticSnapshot() { return withReadSnapshot(() => ({ metadata: { sessions: sessions.stats(), ledger: ledger.stats(), pendingHandshakes: pending.size, admissionHistory: readState().players.length }, connectedSockets: io.sockets.sockets.size, players: readState().players.length, importMetrics: imports.lastMetrics,
       upstreamTransport: { connections: transportConnections, openConnections: measuredTransports.size, maxOpenConnections: maxOpenTransports, httpRequests: transportRequests, upgrades, openHttpRequests, maxOpenHttpRequests,
         readBytes: closedReadBytes + [...measuredTransports].reduce((sum, socket) => sum + socket.bytesRead, 0),
-        writtenBytes: closedWrittenBytes + [...measuredTransports].reduce((sum, socket) => sum + socket.bytesWritten, 0) } }; },
+        writtenBytes: closedWrittenBytes + [...measuredTransports].reduce((sum, socket) => sum + socket.bytesWritten, 0) } })); },
     reconcileAfterInterruption() {
       if (closed) return;
       const token = engine.timerToken();
@@ -450,7 +480,7 @@ export async function createGameApplication(sessionId: string, healthToken: stri
     async close() {
       if (closed) return; closed = true; reportActive(false); if (timer) clearTimeout(timer); if (readinessTimer) clearTimeout(readinessTimer);
       const state = engine.state(); if (state.gameId) io.emit('game.closed', { protocolVersion: 2, serverInstanceId: sessionId, gameId: state.gameId, revision: state.revision, reason: 'shutdown' });
-      owners.clear(); await imports.close(); io.disconnectSockets(true); await io.close(); await app.close(); sessions.clear();
+      owners.clear(); await imports.close(); io.disconnectSockets(true); await io.close(); await app.close(); sessions.clear(); ledger.clear();
     },
   };
 }

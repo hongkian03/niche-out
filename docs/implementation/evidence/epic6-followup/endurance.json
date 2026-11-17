@@ -1,0 +1,587 @@
+{
+  "status": "PASS",
+  "identity": {
+    "gitCommit": "df2e24ae26dd9dcc3378e472d599b19d2d9b5a52",
+    "dirty": true,
+    "treeSha256": "1fddd0d2d8b16b72c8c23965d0b44975ce105a55f19d61546e0af7d531e342bd",
+    "lockSha256": "442e3e5745c77bcb77ab3a6f60c51a26088f86bc5643690f1867af1e9df3c2c0",
+    "buildSourceSha256": "1fddd0d2d8b16b72c8c23965d0b44975ce105a55f19d61546e0af7d531e342bd",
+    "connector": {
+      "version": "2026.11.0",
+      "manifestSha256": "f0f2dc922a6cfcf7d0f33f053a1d87d8be20dcbcef183d4d87da2f5ce84ff427"
+    }
+  },
+  "config": {
+    "instrumentation": "light",
+    "traceEnabled": false,
+    "retentionEvery": 5,
+    "packPath": null,
+    "packSha256": null,
+    "reconnectBurst": true,
+    "answerDelayMs": 0,
+    "answerSpreadMs": 0,
+    "skipPressure": false,
+    "tunnel": false,
+    "fault": false,
+    "faultCycle": 0,
+    "coldAfter": false,
+    "transport": "mixed",
+    "count": 100,
+    "games": 30,
+    "rounds": 10,
+    "idleSeconds": 600,
+    "creationBatch": 10,
+    "joinBatch": 10,
+    "reconnectBatch": 100,
+    "submitBatch": 100
+  },
+  "machine": {
+    "uplink": "eduroam",
+    "cpu": "Apple M3 Pro",
+    "cores": 11,
+    "memoryBytes": 19327352832,
+    "kernel": "25.5.0",
+    "node": "v24.22.3"
+  },
+  "processingTarget": {
+    "timingScope": "Final command-sample window; all prior window checks retained in retentionCheckpoints",
+    "retainedWindowFailures": [],
+    "boundary": "handler entry to ack enqueue, excluding network and event-loop queue",
+    "targetP95Ms": 100,
+    "passed": true,
+    "exceeded": []
+  },
+  "checks": [
+    "100 simulated players connected; each fetched production JS/CSS assets",
+    "101st admission rejected while admitted identities retained",
+    "100-player reconnect 0 preserved identity/control while full",
+    "100-player reconnect 29 preserved identity/control while full",
+    "30 complete 10-round games: correct scores, duplicate replay idempotent, stale old-game answers rejected",
+    "local-only 300 waiting-session admission pressure bounded, current players preserved",
+    "local-only read burst rate-limited without evicting active player",
+    "600 seconds idle heartbeat retention kept every admitted connection and final score"
+  ],
+  "failures": [],
+  "roundsCompleted": 300,
+  "elapsedMs": 807400.054458,
+  "retentionCheckpoints": [
+    {
+      "afterGames": 5,
+      "memory": {
+        "rss": 294191104,
+        "heapTotal": 182976512,
+        "heapUsed": 25441936,
+        "external": 4255534,
+        "arrayBuffers": 993267
+      },
+      "gcDurationMs": 3.5357920000024023,
+      "timings": {
+        "state.get:STATE": {
+          "count": 60,
+          "p95Ms": 1.6735420000004524,
+          "maxMs": 1.8430829999997513
+        },
+        "game.join:JOINED": {
+          "count": 500,
+          "p95Ms": 0.23920800000087183,
+          "maxMs": 1.1129589999999894
+        },
+        "game.join:GAME_FULL": {
+          "count": 1,
+          "p95Ms": 0.296875,
+          "maxMs": 0.296875
+        },
+        "game.resume:RESUMED": {
+          "count": 100,
+          "p95Ms": 0.55925000000002,
+          "maxMs": 1.9212909999999965
+        },
+        "game.start:STARTED": {
+          "count": 5,
+          "p95Ms": 8.08158400000002,
+          "maxMs": 8.08158400000002
+        },
+        "answer.submit:REJECTED": {
+          "count": 500,
+          "p95Ms": 0.36216699999999946,
+          "maxMs": 3.94337500000006
+        },
+        "answer.submit:ACCEPTED": {
+          "count": 5050,
+          "p95Ms": 2.161666999996669,
+          "maxMs": 32.08850000000007
+        },
+        "answer.submit:WRONG_GAME": {
+          "count": 4,
+          "p95Ms": 0.14995799999996962,
+          "maxMs": 0.14995799999996962
+        }
+      },
+      "discardedSamples": 0,
+      "scope": "Outside active game intervals, after dropping bounded diagnostic command samples; prior timing windows retained as aggregates only"
+    },
+    {
+      "afterGames": 10,
+      "memory": {
+        "rss": 277708800,
+        "heapTotal": 169607168,
+        "heapUsed": 25963648,
+        "external": 4332090,
+        "arrayBuffers": 993591
+      },
+      "gcDurationMs": 5.075375000000349,
+      "timings": {
+        "state.get:STATE": {
+          "count": 60,
+          "p95Ms": 1.7301250000018626,
+          "maxMs": 1.9479589999973541
+        },
+        "game.join:JOINED": {
+          "count": 500,
+          "p95Ms": 0.2672080000047572,
+          "maxMs": 3.471457999999984
+        },
+        "answer.submit:WRONG_GAME": {
+          "count": 5,
+          "p95Ms": 0.18395800000143936,
+          "maxMs": 0.18395800000143936
+        },
+        "game.start:STARTED": {
+          "count": 5,
+          "p95Ms": 5.093791999999667,
+          "maxMs": 5.093791999999667
+        },
+        "answer.submit:REJECTED": {
+          "count": 500,
+          "p95Ms": 0.3958330000023125,
+          "maxMs": 1.7933330000014394
+        },
+        "answer.submit:ACCEPTED": {
+          "count": 5050,
+          "p95Ms": 1.9459999999962747,
+          "maxMs": 34.87329200000386
+        }
+      },
+      "discardedSamples": 0,
+      "scope": "Outside active game intervals, after dropping bounded diagnostic command samples; prior timing windows retained as aggregates only"
+    },
+    {
+      "afterGames": 15,
+      "memory": {
+        "rss": 278347776,
+        "heapTotal": 169607168,
+        "heapUsed": 25942960,
+        "external": 4178458,
+        "arrayBuffers": 993591
+      },
+      "gcDurationMs": 4.288916999998037,
+      "timings": {
+        "state.get:STATE": {
+          "count": 60,
+          "p95Ms": 1.7527910000062548,
+          "maxMs": 1.9180420000047889
+        },
+        "game.join:JOINED": {
+          "count": 500,
+          "p95Ms": 0.2091249999939464,
+          "maxMs": 0.31787500000791624
+        },
+        "answer.submit:WRONG_GAME": {
+          "count": 5,
+          "p95Ms": 0.13141699999687262,
+          "maxMs": 0.13141699999687262
+        },
+        "game.start:STARTED": {
+          "count": 5,
+          "p95Ms": 4.7679579999967245,
+          "maxMs": 4.7679579999967245
+        },
+        "answer.submit:REJECTED": {
+          "count": 500,
+          "p95Ms": 0.3312500000029104,
+          "maxMs": 0.6231249999982538
+        },
+        "answer.submit:ACCEPTED": {
+          "count": 5050,
+          "p95Ms": 2.013250000003609,
+          "maxMs": 36.65329200000269
+        }
+      },
+      "discardedSamples": 0,
+      "scope": "Outside active game intervals, after dropping bounded diagnostic command samples; prior timing windows retained as aggregates only"
+    },
+    {
+      "afterGames": 20,
+      "memory": {
+        "rss": 278691840,
+        "heapTotal": 171180032,
+        "heapUsed": 26154120,
+        "external": 4273999,
+        "arrayBuffers": 964471
+      },
+      "gcDurationMs": 3.868624999988242,
+      "timings": {
+        "state.get:STATE": {
+          "count": 60,
+          "p95Ms": 1.6659579999977723,
+          "maxMs": 1.7293340000032913
+        },
+        "game.join:JOINED": {
+          "count": 500,
+          "p95Ms": 0.23616600000241306,
+          "maxMs": 1.3907080000062706
+        },
+        "answer.submit:WRONG_GAME": {
+          "count": 5,
+          "p95Ms": 0.1421249999984866,
+          "maxMs": 0.1421249999984866
+        },
+        "game.start:STARTED": {
+          "count": 5,
+          "p95Ms": 5.075250000008964,
+          "maxMs": 5.075250000008964
+        },
+        "answer.submit:REJECTED": {
+          "count": 500,
+          "p95Ms": 0.3034999999945285,
+          "maxMs": 0.6126249999942956
+        },
+        "answer.submit:ACCEPTED": {
+          "count": 5050,
+          "p95Ms": 1.9618329999939306,
+          "maxMs": 66.97612500000105
+        }
+      },
+      "discardedSamples": 0,
+      "scope": "Outside active game intervals, after dropping bounded diagnostic command samples; prior timing windows retained as aggregates only"
+    },
+    {
+      "afterGames": 25,
+      "memory": {
+        "rss": 259522560,
+        "heapTotal": 172228608,
+        "heapUsed": 26310368,
+        "external": 4180924,
+        "arrayBuffers": 993591
+      },
+      "gcDurationMs": 7.05283299999428,
+      "timings": {
+        "state.get:STATE": {
+          "count": 60,
+          "p95Ms": 1.6915840000147,
+          "maxMs": 5.036625000007916
+        },
+        "game.join:JOINED": {
+          "count": 500,
+          "p95Ms": 0.34100000001490116,
+          "maxMs": 1.1851660000102129
+        },
+        "answer.submit:WRONG_GAME": {
+          "count": 5,
+          "p95Ms": 0.12316600000485778,
+          "maxMs": 0.12316600000485778
+        },
+        "game.start:STARTED": {
+          "count": 5,
+          "p95Ms": 7.419750000000931,
+          "maxMs": 7.419750000000931
+        },
+        "answer.submit:REJECTED": {
+          "count": 500,
+          "p95Ms": 0.2972909999953117,
+          "maxMs": 0.5064159999892581
+        },
+        "answer.submit:ACCEPTED": {
+          "count": 5050,
+          "p95Ms": 2.005250000016531,
+          "maxMs": 45.63841700000921
+        }
+      },
+      "discardedSamples": 0,
+      "scope": "Outside active game intervals, after dropping bounded diagnostic command samples; prior timing windows retained as aggregates only"
+    },
+    {
+      "afterGames": 30,
+      "memory": {
+        "rss": 238043136,
+        "heapTotal": 174325760,
+        "heapUsed": 26621584,
+        "external": 4364993,
+        "arrayBuffers": 1023356
+      },
+      "gcDurationMs": 4.265665999992052,
+      "timings": {
+        "state.get:STATE": {
+          "count": 60,
+          "p95Ms": 1.7434580000117421,
+          "maxMs": 2.6553339999809396
+        },
+        "game.join:JOINED": {
+          "count": 500,
+          "p95Ms": 0.23920799998450093,
+          "maxMs": 0.5130000000062864
+        },
+        "answer.submit:WRONG_GAME": {
+          "count": 5,
+          "p95Ms": 0.13016699999570847,
+          "maxMs": 0.13016699999570847
+        },
+        "game.start:STARTED": {
+          "count": 5,
+          "p95Ms": 5.9672499999869615,
+          "maxMs": 5.9672499999869615
+        },
+        "answer.submit:REJECTED": {
+          "count": 500,
+          "p95Ms": 0.37383400002727285,
+          "maxMs": 0.7625420000113081
+        },
+        "answer.submit:ACCEPTED": {
+          "count": 5050,
+          "p95Ms": 2.2789169999887235,
+          "maxMs": 93.64970800001174
+        },
+        "game.resume:RESUMED": {
+          "count": 100,
+          "p95Ms": 0.3594160000211559,
+          "maxMs": 0.563125000015134
+        }
+      },
+      "discardedSamples": 0,
+      "scope": "Outside active game intervals, after dropping bounded diagnostic command samples; prior timing windows retained as aggregates only"
+    }
+  ],
+  "retainedAfterDroppingMeasurementSamples": {
+    "rss": 66797568,
+    "heapTotal": 35389440,
+    "heapUsed": 26130376,
+    "external": 4061138,
+    "arrayBuffers": 964399
+  },
+  "explicitGc": {
+    "durationMs": 5.517041000071913,
+    "boundary": "after measured workload stages"
+  },
+  "summary": {
+    "endToEnd": {
+      "count": 37081,
+      "p50Ms": 34.836834000001545,
+      "p95Ms": 208.25662500000908,
+      "p99Ms": 260.98370799999975,
+      "maxMs": 557.593458000003
+    },
+    "endToEndByOutcome": {
+      "state.get:STATE": {
+        "count": 421,
+        "p50Ms": 1.7464579999941634,
+        "p95Ms": 10.521500000031665,
+        "p99Ms": 13.941624999977648,
+        "maxMs": 41.131999999983236
+      },
+      "game.join:JOINED": {
+        "count": 3000,
+        "p50Ms": 1.1850409999969997,
+        "p95Ms": 5.003583999990951,
+        "p99Ms": 9.570583000000624,
+        "maxMs": 26.681291999993846
+      },
+      "game.join:GAME_FULL": {
+        "count": 1,
+        "p50Ms": 0.45879100000001927,
+        "p95Ms": 0.45879100000001927,
+        "p99Ms": 0.45879100000001927,
+        "maxMs": 0.45879100000001927
+      },
+      "game.resume:RESUMED": {
+        "count": 200,
+        "p50Ms": 9.800583000000188,
+        "p95Ms": 30.059875000000147,
+        "p99Ms": 32.78558399999997,
+        "maxMs": 33.01870900000017
+      },
+      "game.start:STARTED": {
+        "count": 30,
+        "p50Ms": 5.220165999999153,
+        "p95Ms": 9.065333999984432,
+        "p99Ms": 9.395957999999837,
+        "maxMs": 9.395957999999837
+      },
+      "answer.submit:REJECTED": {
+        "count": 3000,
+        "p50Ms": 11.41700000000128,
+        "p95Ms": 29.37408300000243,
+        "p99Ms": 40.42279200000007,
+        "maxMs": 45.193083999998635
+      },
+      "answer.submit:ACCEPTED": {
+        "count": 30300,
+        "p50Ms": 47.69891699999971,
+        "p95Ms": 220.44441699999152,
+        "p99Ms": 266.3650420000049,
+        "maxMs": 557.593458000003
+      },
+      "answer.submit:WRONG_GAME": {
+        "count": 29,
+        "p50Ms": 2.0169170000008307,
+        "p95Ms": 4.1866250000020955,
+        "p99Ms": 9.24870799999917,
+        "maxMs": 9.24870799999917
+      },
+      "clock.sample:CLOCK": {
+        "count": 42,
+        "p50Ms": 47.13979200000176,
+        "p95Ms": 66.9195840000175,
+        "p99Ms": 112.49029200000223,
+        "maxMs": 112.49029200000223
+      },
+      "clock.sample:RATE_LIMITED": {
+        "count": 58,
+        "p50Ms": 96.19958299997961,
+        "p95Ms": 128.84950000001118,
+        "p99Ms": 131.03141599998344,
+        "maxMs": 131.03141599998344
+      }
+    },
+    "serverByOutcome": {
+      "state.get:STATE": {
+        "count": 61,
+        "p50Ms": 6.970666000037454,
+        "p95Ms": 10.302708000061102,
+        "p99Ms": 20.266750000067987,
+        "maxMs": 20.266750000067987
+      },
+      "clock.sample:CLOCK": {
+        "count": 42,
+        "p50Ms": 1.406457999983104,
+        "p95Ms": 1.6173750000016298,
+        "p99Ms": 2.207750000001397,
+        "maxMs": 2.207750000001397
+      },
+      "clock.sample:RATE_LIMITED": {
+        "count": 58,
+        "p50Ms": 1.0027089999930467,
+        "p95Ms": 1.3150840000016615,
+        "p99Ms": 1.6327499999897555,
+        "maxMs": 1.6327499999897555
+      }
+    }
+  },
+  "generator": {
+    "cpu": {
+      "user": 17669705,
+      "system": 12965714
+    },
+    "memory": {
+      "rss": 71532544,
+      "heapTotal": 43499520,
+      "heapUsed": 29967648,
+      "external": 4276650,
+      "arrayBuffers": 318733
+    },
+    "peakRssBytes": 231178240,
+    "scope": "Node load generator; excludes server and connector"
+  },
+  "retries": [],
+  "transportErrors": [],
+  "disconnects": {
+    "io client disconnect": 201
+  },
+  "waitingPressure": {
+    "CREATED": 255,
+    "SESSION_CAPACITY": 45
+  },
+  "ratePressure": {
+    "CLOCK": 42,
+    "RATE_LIMITED": 58
+  },
+  "report": "work/epic6-followup/endurance/updated-endurance-light-local-mixed-100-1794926088478.json",
+  "sha256": "ca3c8deb98160eafa9d63b5c5ecf38d4c7cbcb7ff385c83e83ff41d2071f9ff7",
+  "scope": "Loopback production child,100mixed forced Node players plushost;30games10rounds=300rounds/30000uniqueacceptedanswers plus300exactreplays;600secondsidle. No publictunnel. ExplicitGC onlyoutsidegameintervals. Notovernight or8GiBcertification.",
+  "server": {
+    "elapsedMs": 807061.809042,
+    "cpu": {
+      "user": 96023599,
+      "system": 12059665
+    },
+    "peakRssBytes": 298188800,
+    "memory": {
+      "rss": 60440576,
+      "heapTotal": 38240256,
+      "heapUsed": 32497168,
+      "external": 4061093,
+      "arrayBuffers": 970871
+    },
+    "diagnostics": {
+      "metadata": {
+        "sessions": {
+          "records": 101,
+          "credentials": 100,
+          "waiting": 0,
+          "pages": 101,
+          "maxPagesPerIdentity": 1
+        },
+        "ledger": {
+          "scopes": 101,
+          "pages": 101,
+          "transient": 200,
+          "maxTransientPerScope": 2,
+          "pinned": 1102
+        },
+        "pendingHandshakes": 0,
+        "admissionHistory": 100
+      },
+      "connectedSockets": 101,
+      "players": 100,
+      "importMetrics": {
+        "bytes": 1812,
+        "elapsedMs": 54.9028330000001,
+        "workerStarted": true,
+        "baselineRssBytes": 268386304,
+        "peakRssBytes": 278446080,
+        "parentPeakHeapBytes": 83439280,
+        "workerPeakHeapBytes": 12608680,
+        "transferRssBytes": 278446080
+      },
+      "upstreamTransport": {
+        "connections": 47858,
+        "openConnections": 101,
+        "maxOpenConnections": 127,
+        "httpRequests": 48470,
+        "upgrades": 242,
+        "openHttpRequests": 20,
+        "maxOpenHttpRequests": 21,
+        "readBytes": 28484892,
+        "writtenBytes": 939983091
+      }
+    },
+    "discardedStages": 0,
+    "processResources": {
+      "application": {
+        "scope": "Application child; excludes generator and connector",
+        "cpu": {
+          "user": 96024552,
+          "system": 12059675
+        },
+        "peakRssBytes": 298188800
+      },
+      "connector": {
+        "scope": "cloudflared process only; excludes native guard; ps sampled every second",
+        "available": false,
+        "samples": 0,
+        "peakRssBytes": 0,
+        "cpuSeconds": null,
+        "lastSampleElapsedMs": null,
+        "lastSampleAgeMs": null
+      }
+    }
+  },
+  "maxStageEventLoopMs": 288.096255,
+  "retainedSampleDrops": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ]
+}

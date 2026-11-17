@@ -1,0 +1,586 @@
+{
+  "schemaVersion": 1,
+  "scope": "Final compiled production runtime resource bounds and fresh-process import evidence; no provider traffic. Bounds use real loopback HTTP/Socket.IO and injected logical time for session/cache expiry and rate refill. Handshake expiry alone waits the actual 10-second wall-clock timeout. Bounds process combines application and simulated clients; its sampled memory is not isolated server memory or an after-GC retained-heap measurement.",
+  "rawEvidence": {
+    "bounds": {
+      "path": "work/epic6-followup/bounds-final/report.json",
+      "sha256": "49102f70fc231792fa8a35272b66335dfb1762bf9bd215d654d4ccf33f57dfae"
+    },
+    "imports": {
+      "path": "work/epic6-followup/import-final/import-capacity.json",
+      "sha256": "c9b5bbcd99ab9366ca4c83abf35b63c6c21d1a4ce1546f88b372136013f016bc"
+    }
+  },
+  "bounds": {
+    "status": "PASS",
+    "started": "2026-11-17T14:33:08.992Z",
+    "ended": "2026-11-17T14:34:16.305Z",
+    "build": {
+      "formatVersion": 1,
+      "version": "0.1.0",
+      "gitCommit": "df2e24ae26dd9dcc3378e472d599b19d2d9b5a52",
+      "sourceSha256": "1fddd0d2d8b16b72c8c23965d0b44975ce105a55f19d61546e0af7d531e342bd",
+      "lockSha256": "442e3e5745c77bcb77ab3a6f60c51a26088f86bc5643690f1867af1e9df3c2c0",
+      "node": "24.22.3",
+      "npm": "npm@11.19.1",
+      "platform": "darwin",
+      "arch": "arm64"
+    },
+    "compiledServerSha256": "7e940e7520e45ac96b5ba6178a75a37d279613f301861316c9e4c9ae7cc100db",
+    "checks": [
+      "100 active clients admitted at production capacity",
+      "256 waiting identities cap, expire and refill without evicting active players",
+      "Eight live pages cap; inactive page eviction rejects retired prefix and protects controller",
+      "128 unauthenticated Engine.IO handshakes cap and expire in real wall time; active sockets survive",
+      "256 rejection cache bound/expiry preserves successful admission replay and fences evicted requests",
+      "1000 admission-history bound includes removals, preserves 99 active players and rejects new admission",
+      "Repeated replacements clear admission/pinned game data, bound former waiting memberships and fence obsolete commands"
+    ],
+    "assertions": {
+      "concurrentPlayers": 100,
+      "waitingLimit": 256,
+      "pageLimitPerIdentity": 8,
+      "pendingUnauthenticatedHandshakes": 128,
+      "transientReplyLimitPerScope": 256,
+      "totalAdmissionHistory": 1000,
+      "activePlayersPreservedAfterHistoryChurn": 99,
+      "replacementCount": 4,
+      "rejectionExpiryAcceleratedMs": 120001,
+      "waitingExpiryAcceleratedMs": 600001,
+      "handshakeExpiryWallTimeoutMs": 10000,
+      "evictedRequests": "STALE_REQUEST",
+      "retiredPages": "UNAUTHORIZED",
+      "historyOverflow": "ADMISSION_HISTORY_LIMIT"
+    },
+    "sampledMemoryMaxima": {
+      "rssBytes": 319602688,
+      "heapUsedBytes": 92444400,
+      "externalBytes": 6840287,
+      "scope": "Maxima over retained checkpoints, not continuous peaks; includes generator, uncollected temporary allocations and intentionally retained outcomes."
+    },
+    "metadataMaxima": {
+      "sessionRecords": 1002,
+      "waiting": 256,
+      "maxPagesPerIdentity": 8,
+      "pendingHandshakes": 128,
+      "maxTransientPerScope": 256,
+      "pinnedReplies": 1902,
+      "admissionHistory": 1000
+    },
+    "checkpoints": [
+      {
+        "label": "admitted-100",
+        "logicalMs": 60600,
+        "metadata": {
+          "sessions": {
+            "records": 101,
+            "credentials": 100,
+            "waiting": 0,
+            "pages": 101,
+            "maxPagesPerIdentity": 1
+          },
+          "ledger": {
+            "scopes": 101,
+            "pages": 101,
+            "transient": 0,
+            "maxTransientPerScope": 0,
+            "pinned": 101
+          },
+          "pendingHandshakes": 0,
+          "admissionHistory": 100
+        },
+        "connectedSockets": 101,
+        "players": 100,
+        "memory": {
+          "rss": 131137536,
+          "heapTotal": 63373312,
+          "heapUsed": 39581840,
+          "external": 5376062,
+          "arrayBuffers": 1335241
+        }
+      },
+      {
+        "label": "waiting-full",
+        "logicalMs": 137700,
+        "metadata": {
+          "sessions": {
+            "records": 357,
+            "credentials": 356,
+            "waiting": 256,
+            "pages": 357,
+            "maxPagesPerIdentity": 1
+          },
+          "ledger": {
+            "scopes": 101,
+            "pages": 101,
+            "transient": 0,
+            "maxTransientPerScope": 0,
+            "pinned": 101
+          },
+          "pendingHandshakes": 0,
+          "admissionHistory": 100
+        },
+        "connectedSockets": 101,
+        "players": 100,
+        "memory": {
+          "rss": 135921664,
+          "heapTotal": 67043328,
+          "heapUsed": 32437536,
+          "external": 5556731,
+          "arrayBuffers": 1515910
+        }
+      },
+      {
+        "label": "waiting-expired",
+        "logicalMs": 738001,
+        "metadata": {
+          "sessions": {
+            "records": 102,
+            "credentials": 101,
+            "waiting": 1,
+            "pages": 102,
+            "maxPagesPerIdentity": 1
+          },
+          "ledger": {
+            "scopes": 101,
+            "pages": 101,
+            "transient": 0,
+            "maxTransientPerScope": 0,
+            "pinned": 101
+          },
+          "pendingHandshakes": 0,
+          "admissionHistory": 100
+        },
+        "connectedSockets": 101,
+        "players": 100,
+        "memory": {
+          "rss": 136019968,
+          "heapTotal": 67043328,
+          "heapUsed": 35372504,
+          "external": 5570047,
+          "arrayBuffers": 1529226
+        }
+      },
+      {
+        "label": "pages-full",
+        "logicalMs": 740401,
+        "metadata": {
+          "sessions": {
+            "records": 102,
+            "credentials": 101,
+            "waiting": 1,
+            "pages": 109,
+            "maxPagesPerIdentity": 8
+          },
+          "ledger": {
+            "scopes": 101,
+            "pages": 101,
+            "transient": 0,
+            "maxTransientPerScope": 0,
+            "pinned": 101
+          },
+          "pendingHandshakes": 0,
+          "admissionHistory": 100
+        },
+        "connectedSockets": 108,
+        "players": 100,
+        "memory": {
+          "rss": 136085504,
+          "heapTotal": 67043328,
+          "heapUsed": 39140072,
+          "external": 5585921,
+          "arrayBuffers": 1545100
+        }
+      },
+      {
+        "label": "handshake-full",
+        "logicalMs": 740701,
+        "metadata": {
+          "sessions": {
+            "records": 102,
+            "credentials": 101,
+            "waiting": 1,
+            "pages": 109,
+            "maxPagesPerIdentity": 8
+          },
+          "ledger": {
+            "scopes": 101,
+            "pages": 101,
+            "transient": 0,
+            "maxTransientPerScope": 0,
+            "pinned": 101
+          },
+          "pendingHandshakes": 128,
+          "admissionHistory": 100
+        },
+        "connectedSockets": 107,
+        "players": 100,
+        "memory": {
+          "rss": 140181504,
+          "heapTotal": 68354048,
+          "heapUsed": 41086816,
+          "external": 5678625,
+          "arrayBuffers": 1637804
+        }
+      },
+      {
+        "label": "handshake-expired",
+        "logicalMs": 740701,
+        "metadata": {
+          "sessions": {
+            "records": 102,
+            "credentials": 101,
+            "waiting": 1,
+            "pages": 109,
+            "maxPagesPerIdentity": 8
+          },
+          "ledger": {
+            "scopes": 101,
+            "pages": 101,
+            "transient": 0,
+            "maxTransientPerScope": 0,
+            "pinned": 101
+          },
+          "pendingHandshakes": 0,
+          "admissionHistory": 100
+        },
+        "connectedSockets": 107,
+        "players": 100,
+        "memory": {
+          "rss": 141852672,
+          "heapTotal": 68616192,
+          "heapUsed": 30478192,
+          "external": 5145667,
+          "arrayBuffers": 1104846
+        }
+      },
+      {
+        "label": "rejection-cache-full",
+        "logicalMs": 830701,
+        "metadata": {
+          "sessions": {
+            "records": 102,
+            "credentials": 101,
+            "waiting": 1,
+            "pages": 109,
+            "maxPagesPerIdentity": 8
+          },
+          "ledger": {
+            "scopes": 101,
+            "pages": 101,
+            "transient": 256,
+            "maxTransientPerScope": 256,
+            "pinned": 101
+          },
+          "pendingHandshakes": 0,
+          "admissionHistory": 100
+        },
+        "connectedSockets": 107,
+        "players": 100,
+        "memory": {
+          "rss": 141869056,
+          "heapTotal": 69140480,
+          "heapUsed": 32607152,
+          "external": 5219109,
+          "arrayBuffers": 1178288
+        }
+      },
+      {
+        "label": "rejection-cache-expired",
+        "logicalMs": 950702,
+        "metadata": {
+          "sessions": {
+            "records": 102,
+            "credentials": 101,
+            "waiting": 1,
+            "pages": 109,
+            "maxPagesPerIdentity": 8
+          },
+          "ledger": {
+            "scopes": 101,
+            "pages": 101,
+            "transient": 0,
+            "maxTransientPerScope": 0,
+            "pinned": 101
+          },
+          "pendingHandshakes": 0,
+          "admissionHistory": 100
+        },
+        "connectedSockets": 107,
+        "players": 100,
+        "memory": {
+          "rss": 141901824,
+          "heapTotal": 69140480,
+          "heapUsed": 33307104,
+          "external": 5252719,
+          "arrayBuffers": 1180426
+        }
+      },
+      {
+        "label": "history-full",
+        "logicalMs": 1761602,
+        "metadata": {
+          "sessions": {
+            "records": 1002,
+            "credentials": 1001,
+            "waiting": 1,
+            "pages": 108,
+            "maxPagesPerIdentity": 8
+          },
+          "ledger": {
+            "scopes": 1002,
+            "pages": 101,
+            "transient": 1,
+            "maxTransientPerScope": 1,
+            "pinned": 1902
+          },
+          "pendingHandshakes": 0,
+          "admissionHistory": 1000
+        },
+        "connectedSockets": 107,
+        "players": 1000,
+        "memory": {
+          "rss": 290717696,
+          "heapTotal": 223019008,
+          "heapUsed": 81443680,
+          "external": 6677385,
+          "arrayBuffers": 2610693
+        }
+      },
+      {
+        "label": "replaced-four-times",
+        "logicalMs": 1762802,
+        "metadata": {
+          "sessions": {
+            "records": 257,
+            "credentials": 256,
+            "waiting": 256,
+            "pages": 2,
+            "maxPagesPerIdentity": 1
+          },
+          "ledger": {
+            "scopes": 2,
+            "pages": 2,
+            "transient": 0,
+            "maxTransientPerScope": 0,
+            "pinned": 1
+          },
+          "pendingHandshakes": 0,
+          "admissionHistory": 0
+        },
+        "connectedSockets": 107,
+        "players": 0,
+        "memory": {
+          "rss": 319602688,
+          "heapTotal": 223019008,
+          "heapUsed": 79899936,
+          "external": 6772106,
+          "arrayBuffers": 2705414
+        }
+      }
+    ],
+    "interpretation": "At admission-history capacity, removed identities and successful outcomes remain intentionally available until game replacement; 1902 pinned outcomes comprise join/removal/current commit results. Four replacements reduce admission history to 0 and pins to 1 for the current commit. Session waiting pool stays at 256 after old memberships become guests. Shutdown-zero assertions are covered by the separate teardown regression, not fabricated as a checkpoint in this report."
+  },
+  "imports": {
+    "date": "2026-11-17T14:34:25.842Z",
+    "identity": {
+      "buildManifestSha256": "f95a13349aa060e07a2ab684c73a208b5c1267b07c31381e658dd50ddeacc154",
+      "importerSha256": "dfa24d6671905082d8d4d5129114a4f87bf340d8a762b220eb03b267ec768b79",
+      "coreSha256": "232235fcdbfd1bb6e70a4125633f8afb3af3ad63068b3c99a8e0be4fa7a051a0"
+    },
+    "node": "v24.22.3",
+    "hardware": {
+      "cpu": "Apple M3 Pro",
+      "cores": 11,
+      "memoryBytes": 19327352832,
+      "platform": "darwin",
+      "kernel": "25.5.0"
+    },
+    "measurement": "Each scenario in fresh process; 5ms RSS sampling includes parent+worker. Fixtures generated by separate parent, child only reads bytes; peak sampling may miss shorter spikes. afterClose measured after explicit GC, input buffer and engine still alive. CPU is microseconds. No browser/tunnel involved.",
+    "resultCount": 6,
+    "allExpectedOutcomes": true,
+    "results": [
+      {
+        "scenario": "example",
+        "bytes": 897,
+        "inputSha256": "5a1f6f383fb35b923ed8d56dd93932c62dc0cbef3718233b4712a9e600158735",
+        "outcome": "STAGED",
+        "wallMs": 74.694208,
+        "cpu": {
+          "user": 88150,
+          "system": 9410
+        },
+        "metrics": {
+          "bytes": 897,
+          "elapsedMs": 72.48258399999999,
+          "workerStarted": true,
+          "baselineRssBytes": 74301440,
+          "peakRssBytes": 100597760,
+          "parentPeakHeapBytes": 10595440,
+          "workerPeakHeapBytes": 12838096,
+          "transferRssBytes": 100597760
+        },
+        "afterClose": {
+          "rss": 97419264,
+          "heapTotal": 28049408,
+          "heapUsed": 10156304,
+          "external": 2715051,
+          "arrayBuffers": 143827
+        },
+        "statePreserved": true
+      },
+      {
+        "scenario": "singapore",
+        "bytes": 39600,
+        "inputSha256": "e309f5dcecadd5b2fdba3a9bdab23a87c4ddcea85b20dc78e4426e4cdb1ad708",
+        "outcome": "STAGED",
+        "wallMs": 67.046042,
+        "cpu": {
+          "user": 86943,
+          "system": 7709
+        },
+        "metrics": {
+          "bytes": 39600,
+          "elapsedMs": 65.005667,
+          "workerStarted": true,
+          "baselineRssBytes": 73940992,
+          "peakRssBytes": 101187584,
+          "parentPeakHeapBytes": 11028176,
+          "workerPeakHeapBytes": 14448200,
+          "transferRssBytes": 101187584
+        },
+        "afterClose": {
+          "rss": 98304000,
+          "heapTotal": 28049408,
+          "heapUsed": 10165880,
+          "external": 2754651,
+          "arrayBuffers": 183427
+        },
+        "statePreserved": true
+      },
+      {
+        "scenario": "representative",
+        "bytes": 6796753,
+        "inputSha256": "af29290c9c2514c3f4e25b38b1dea6a67393c25169732ddb58caaf94a6acaff1",
+        "outcome": "STAGED",
+        "wallMs": 266.826792,
+        "cpu": {
+          "user": 400943,
+          "system": 32198
+        },
+        "metrics": {
+          "bytes": 6796753,
+          "elapsedMs": 261.71916699999997,
+          "workerStarted": true,
+          "baselineRssBytes": 81100800,
+          "peakRssBytes": 228425728,
+          "parentPeakHeapBytes": 46292776,
+          "workerPeakHeapBytes": 55878768,
+          "transferRssBytes": 228425728
+        },
+        "afterClose": {
+          "rss": 225558528,
+          "heapTotal": 85458944,
+          "heapUsed": 10156192,
+          "external": 9511804,
+          "arrayBuffers": 6940580
+        },
+        "statePreserved": true
+      },
+      {
+        "scenario": "ceiling-long",
+        "bytes": 10485760,
+        "inputSha256": "89bcbe625ab87d8e92be43af420773938c313372f05593eccbd822fccc3d66aa",
+        "outcome": "STAGED",
+        "wallMs": 218.981083,
+        "cpu": {
+          "user": 309838,
+          "system": 25928
+        },
+        "metrics": {
+          "bytes": 10485760,
+          "elapsedMs": 210.72924999999998,
+          "workerStarted": true,
+          "baselineRssBytes": 84426752,
+          "peakRssBytes": 207716352,
+          "parentPeakHeapBytes": 37539240,
+          "workerPeakHeapBytes": 51171000,
+          "transferRssBytes": 207437824
+        },
+        "afterClose": {
+          "rss": 206585856,
+          "heapTotal": 81526784,
+          "heapUsed": 10164456,
+          "external": 13200811,
+          "arrayBuffers": 10629587
+        },
+        "statePreserved": true
+      },
+      {
+        "scenario": "ceiling-dense",
+        "bytes": 10485760,
+        "inputSha256": "7dbaa0d1cf841d17112f07d9a3459c99acc2bc8452e59bb572501726de44685c",
+        "outcome": "STAGED",
+        "wallMs": 620.009375,
+        "cpu": {
+          "user": 821641,
+          "system": 77504
+        },
+        "metrics": {
+          "bytes": 10485760,
+          "elapsedMs": 613.1148340000001,
+          "workerStarted": true,
+          "baselineRssBytes": 84082688,
+          "peakRssBytes": 503791616,
+          "parentPeakHeapBytes": 151955224,
+          "workerPeakHeapBytes": 192932688,
+          "transferRssBytes": 503742464
+        },
+        "afterClose": {
+          "rss": 481116160,
+          "heapTotal": 147587072,
+          "heapUsed": 10156416,
+          "external": 13200811,
+          "arrayBuffers": 10629587
+        },
+        "statePreserved": true
+      },
+      {
+        "scenario": "over-limit",
+        "bytes": 10485761,
+        "inputSha256": "ceccac58c15e7f95b29aa9fb13da590dc29fe81dd6d7184473e470c719b5afc2",
+        "outcome": "UPLOAD_TOO_LARGE",
+        "wallMs": 5.833457999999993,
+        "cpu": {
+          "user": 10206,
+          "system": 310
+        },
+        "metrics": {
+          "bytes": 10485761,
+          "elapsedMs": 0.04958299999999838,
+          "workerStarted": false,
+          "baselineRssBytes": 84344832,
+          "peakRssBytes": 84344832,
+          "parentPeakHeapBytes": 9965384,
+          "workerPeakHeapBytes": 0,
+          "transferRssBytes": 0
+        },
+        "afterClose": {
+          "rss": 84688896,
+          "heapTotal": 19398656,
+          "heapUsed": 9909968,
+          "external": 13200812,
+          "arrayBuffers": 10629588
+        },
+        "statePreserved": true
+      }
+    ],
+    "maxima": {
+      "peakProcessRssBytes": 503791616,
+      "parentPeakHeapBytes": 151955224,
+      "workerPeakHeapBytes": 192932688,
+      "transferRssBytes": 503742464
+    },
+    "interpretation": "Both exactly 10 MiB valid shapes stage. One byte beyond ceiling rejects before starting a worker. Dense short-answer objects consume more memory than long-string shapes at equal file size. Sampled RSS may miss sub-5 ms peaks; after-close GC keeps input buffer/engine alive, and resident memory is not live-heap retention. This available 18 GiB Mac evidence does not certify 8 GiB hardware."
+  }
+}

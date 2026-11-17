@@ -1,0 +1,493 @@
+{
+  "schemaVersion": 1,
+  "report": "work/epic6-followup/polling/polling-correlated-light-tunnel-polling-100-1794925352179.json",
+  "sha256": "e2d899a186a98eba38b36b6396113a21344f02e4dc179c651e2065bbd15993a4",
+  "status": "FAIL",
+  "verifiedRounds": 17,
+  "plannedRounds": 20,
+  "uplink": "eduroam",
+  "processingTarget": {
+    "timingScope": "Entire retained bounded sample window",
+    "retainedWindowFailures": [],
+    "boundary": "handler entry to ack enqueue, excluding network and event-loop queue",
+    "targetP95Ms": 100,
+    "passed": true,
+    "exceeded": []
+  },
+  "serverTraceDrops": 0,
+  "clientTraceDrops": 0,
+  "transportErrors": [
+    {
+      "category": "opening",
+      "message": "xhr poll error",
+      "status": 0,
+      "cause": "ECONNRESET",
+      "atMs": 140119.15862499998,
+      "stage": "game-0-round-12-accepted-submit"
+    },
+    {
+      "category": "dns",
+      "message": "xhr post error",
+      "status": 0,
+      "cause": "ENOTFOUND",
+      "atMs": 149600.75991599998,
+      "stage": "game-0-round-17-accepted-submit"
+    }
+  ],
+  "recoveries": [
+    {
+      "transport": "polling",
+      "attempts": 1,
+      "durationMs": 1870.5933750000258
+    },
+    {
+      "transport": "polling",
+      "attempts": 1,
+      "durationMs": 1656.4679579999938
+    }
+  ],
+  "cases": [
+    {
+      "tag": "98407908858ad21e31b33cae",
+      "retry": {
+        "name": "answer.submit",
+        "tag": "98407908858ad21e31b33cae",
+        "attempt": 1,
+        "transport": "polling",
+        "category": "acknowledgement",
+        "message": "operation has timed out",
+        "atMs": 121247.721416,
+        "stage": "game-0-round-2-accepted-submit"
+      },
+      "clientTrace": [
+        {
+          "tag": "98407908858ad21e31b33cae",
+          "edge": "client-emit",
+          "name": "answer.submit",
+          "stage": "game-0-round-2-accepted-submit",
+          "atMs": 119244.438041,
+          "transport": "polling",
+          "attempt": 1,
+          "packetId": 4
+        },
+        {
+          "tag": "98407908858ad21e31b33cae",
+          "edge": "client-timeout",
+          "name": "answer.submit",
+          "outcome": "TIMEOUT",
+          "stage": "game-0-round-2-accepted-submit",
+          "atMs": 121246.153416,
+          "transport": "polling",
+          "attempt": 1
+        },
+        {
+          "tag": "98407908858ad21e31b33cae",
+          "edge": "client-emit",
+          "name": "answer.submit",
+          "stage": "game-0-round-2-accepted-submit",
+          "atMs": 121247.83600000001,
+          "transport": "polling",
+          "attempt": 2,
+          "packetId": 5
+        },
+        {
+          "tag": "98407908858ad21e31b33cae",
+          "edge": "engine-ack-received",
+          "stage": "game-0-round-2-accepted-submit",
+          "atMs": 121659.93587500001,
+          "transport": "polling"
+        },
+        {
+          "tag": "98407908858ad21e31b33cae",
+          "edge": "engine-ack-received",
+          "stage": "game-0-round-2-accepted-submit",
+          "atMs": 121660.18266600001,
+          "transport": "polling"
+        },
+        {
+          "tag": "98407908858ad21e31b33cae",
+          "edge": "client-ack",
+          "name": "answer.submit",
+          "outcome": "ACCEPTED",
+          "stage": "game-0-round-2-accepted-submit",
+          "atMs": 121660.964125,
+          "transport": "polling",
+          "attempt": 2
+        }
+      ],
+      "serverTrace": [
+        {
+          "tag": "98407908858ad21e31b33cae",
+          "edge": "handler-entry",
+          "name": "answer.submit",
+          "stage": "game-0-round-2-accepted-submit",
+          "atMs": 119272.29574999999
+        },
+        {
+          "tag": "98407908858ad21e31b33cae",
+          "edge": "engine-packet-created",
+          "stage": "game-0-round-2-accepted-submit",
+          "atMs": 119272.8945
+        },
+        {
+          "tag": "98407908858ad21e31b33cae",
+          "edge": "ack-enqueued",
+          "name": "answer.submit",
+          "outcome": "ACCEPTED",
+          "stage": "game-0-round-2-accepted-submit",
+          "atMs": 119272.897
+        },
+        {
+          "tag": "98407908858ad21e31b33cae",
+          "edge": "handler-entry",
+          "name": "answer.submit",
+          "stage": "game-0-round-2-accepted-submit",
+          "atMs": 121134.61287499999
+        },
+        {
+          "tag": "98407908858ad21e31b33cae",
+          "edge": "engine-packet-created",
+          "stage": "game-0-round-2-accepted-submit",
+          "atMs": 121136.808333
+        },
+        {
+          "tag": "98407908858ad21e31b33cae",
+          "edge": "ack-enqueued",
+          "name": "answer.submit",
+          "outcome": "ACCEPTED",
+          "stage": "game-0-round-2-accepted-submit",
+          "atMs": 121136.843125
+        },
+        {
+          "tag": "98407908858ad21e31b33cae",
+          "edge": "transport-flush",
+          "stage": "game-0-round-2-accepted-submit",
+          "atMs": 121296.467
+        },
+        {
+          "tag": "98407908858ad21e31b33cae",
+          "edge": "transport-flush",
+          "stage": "game-0-round-2-accepted-submit",
+          "atMs": 121296.489792
+        },
+        {
+          "tag": "98407908858ad21e31b33cae",
+          "edge": "poll-response-finish",
+          "stage": "game-0-round-2-accepted-submit",
+          "atMs": 121297.86725
+        },
+        {
+          "tag": "98407908858ad21e31b33cae",
+          "edge": "poll-response-finish",
+          "stage": "game-0-round-2-accepted-submit",
+          "atMs": 121297.882875
+        },
+        {
+          "tag": "98407908858ad21e31b33cae",
+          "edge": "transport-drain",
+          "stage": "game-0-round-2-accepted-submit",
+          "atMs": 121297.92137499999
+        },
+        {
+          "tag": "98407908858ad21e31b33cae",
+          "edge": "transport-drain",
+          "stage": "game-0-round-2-accepted-submit",
+          "atMs": 121297.930667
+        },
+        {
+          "tag": "98407908858ad21e31b33cae",
+          "edge": "poll-response-close",
+          "stage": "game-0-round-2-accepted-submit",
+          "atMs": 121297.980792
+        },
+        {
+          "tag": "98407908858ad21e31b33cae",
+          "edge": "poll-response-close",
+          "stage": "game-0-round-2-accepted-submit",
+          "atMs": 121298.005125
+        }
+      ],
+      "finding": "First ACK created promptly after handler entry but remained before transport-flush for approximately 2,024 ms. Original and identical-retry ACKs were flushed together; both raw ACKs reached the client and retry callback returned ACCEPTED. This isolates a substantial wait before server transport flush, but does not identify why the polling transport lacked a writable response."
+    },
+    {
+      "tag": "00bd7d94053f1a3675209cc4",
+      "retry": {
+        "name": "answer.submit",
+        "tag": "00bd7d94053f1a3675209cc4",
+        "attempt": 1,
+        "transport": "polling",
+        "category": "acknowledgement",
+        "message": "operation has timed out",
+        "atMs": 134146.522291,
+        "stage": "game-0-round-10-accepted-submit"
+      },
+      "clientTrace": [
+        {
+          "tag": "00bd7d94053f1a3675209cc4",
+          "edge": "client-emit",
+          "name": "answer.submit",
+          "stage": "game-0-round-10-accepted-submit",
+          "atMs": 132143.893541,
+          "transport": "polling",
+          "attempt": 1,
+          "packetId": 12
+        },
+        {
+          "tag": "00bd7d94053f1a3675209cc4",
+          "edge": "client-timeout",
+          "name": "answer.submit",
+          "outcome": "TIMEOUT",
+          "stage": "game-0-round-10-accepted-submit",
+          "atMs": 134145.207333,
+          "transport": "polling",
+          "attempt": 1
+        },
+        {
+          "tag": "00bd7d94053f1a3675209cc4",
+          "edge": "client-emit",
+          "name": "answer.submit",
+          "stage": "game-0-round-10-accepted-submit",
+          "atMs": 134146.606583,
+          "transport": "polling",
+          "attempt": 2,
+          "packetId": 13
+        },
+        {
+          "tag": "00bd7d94053f1a3675209cc4",
+          "edge": "engine-ack-received",
+          "stage": "game-0-round-10-accepted-submit",
+          "atMs": 135268.58166599998,
+          "transport": "polling"
+        },
+        {
+          "tag": "00bd7d94053f1a3675209cc4",
+          "edge": "engine-ack-received",
+          "stage": "game-0-round-10-accepted-submit",
+          "atMs": 135502.586083,
+          "transport": "polling"
+        },
+        {
+          "tag": "00bd7d94053f1a3675209cc4",
+          "edge": "client-ack",
+          "name": "answer.submit",
+          "outcome": "ACCEPTED",
+          "stage": "game-0-round-10-accepted-submit",
+          "atMs": 135503.054625,
+          "transport": "polling",
+          "attempt": 2
+        }
+      ],
+      "serverTrace": [
+        {
+          "tag": "00bd7d94053f1a3675209cc4",
+          "edge": "handler-entry",
+          "name": "answer.submit",
+          "stage": "game-0-round-10-accepted-submit",
+          "atMs": 132118.40000000002
+        },
+        {
+          "tag": "00bd7d94053f1a3675209cc4",
+          "edge": "engine-packet-created",
+          "stage": "game-0-round-10-accepted-submit",
+          "atMs": 132120.78654200002
+        },
+        {
+          "tag": "00bd7d94053f1a3675209cc4",
+          "edge": "ack-enqueued",
+          "name": "answer.submit",
+          "outcome": "ACCEPTED",
+          "stage": "game-0-round-10-accepted-submit",
+          "atMs": 132120.79225
+        },
+        {
+          "tag": "00bd7d94053f1a3675209cc4",
+          "edge": "transport-flush",
+          "stage": "game-0-round-10-accepted-submit",
+          "atMs": 132399.061583
+        },
+        {
+          "tag": "00bd7d94053f1a3675209cc4",
+          "edge": "poll-response-finish",
+          "stage": "game-0-round-10-accepted-submit",
+          "atMs": 132400.43670800002
+        },
+        {
+          "tag": "00bd7d94053f1a3675209cc4",
+          "edge": "transport-drain",
+          "stage": "game-0-round-10-accepted-submit",
+          "atMs": 132400.441125
+        },
+        {
+          "tag": "00bd7d94053f1a3675209cc4",
+          "edge": "poll-response-close",
+          "stage": "game-0-round-10-accepted-submit",
+          "atMs": 132400.447125
+        },
+        {
+          "tag": "00bd7d94053f1a3675209cc4",
+          "edge": "handler-entry",
+          "name": "answer.submit",
+          "stage": "game-0-round-10-accepted-submit",
+          "atMs": 133997.629458
+        },
+        {
+          "tag": "00bd7d94053f1a3675209cc4",
+          "edge": "engine-packet-created",
+          "stage": "game-0-round-10-accepted-submit",
+          "atMs": 134001.70375000002
+        },
+        {
+          "tag": "00bd7d94053f1a3675209cc4",
+          "edge": "ack-enqueued",
+          "name": "answer.submit",
+          "outcome": "ACCEPTED",
+          "stage": "game-0-round-10-accepted-submit",
+          "atMs": 134001.72604200002
+        },
+        {
+          "tag": "00bd7d94053f1a3675209cc4",
+          "edge": "transport-flush",
+          "stage": "game-0-round-10-accepted-submit",
+          "atMs": 135148.72066700002
+        },
+        {
+          "tag": "00bd7d94053f1a3675209cc4",
+          "edge": "poll-response-finish",
+          "stage": "game-0-round-10-accepted-submit",
+          "atMs": 135149.074667
+        },
+        {
+          "tag": "00bd7d94053f1a3675209cc4",
+          "edge": "transport-drain",
+          "stage": "game-0-round-10-accepted-submit",
+          "atMs": 135149.085583
+        },
+        {
+          "tag": "00bd7d94053f1a3675209cc4",
+          "edge": "poll-response-close",
+          "stage": "game-0-round-10-accepted-submit",
+          "atMs": 135149.099458
+        }
+      ],
+      "finding": "First ACK was locally flushed approximately 278 ms after creation and local HTTP finish followed ~1.4 ms later. It was eventually observed by the client after its first 2-second timeout; retry received ACCEPTED. The trace does not identify the downstream connector/provider/network/client component responsible for the rest of the end-to-end delay."
+    },
+    {
+      "tag": "ed9773596006e4d832bf6bc7",
+      "retry": {
+        "name": "answer.submit",
+        "tag": "ed9773596006e4d832bf6bc7",
+        "attempt": 1,
+        "transport": "polling",
+        "category": "acknowledgement",
+        "message": "socket has been disconnected",
+        "atMs": 149610.68520799998,
+        "stage": "game-0-round-17-accepted-submit"
+      },
+      "clientTrace": [
+        {
+          "tag": "ed9773596006e4d832bf6bc7",
+          "edge": "client-emit",
+          "name": "answer.submit",
+          "stage": "game-0-round-17-accepted-submit",
+          "atMs": 149506.692666,
+          "transport": "polling",
+          "attempt": 1,
+          "packetId": 20
+        },
+        {
+          "tag": "ed9773596006e4d832bf6bc7",
+          "edge": "client-timeout",
+          "name": "answer.submit",
+          "outcome": "TIMEOUT",
+          "stage": "game-0-round-17-accepted-submit",
+          "atMs": 149609.771458,
+          "transport": "polling",
+          "attempt": 1
+        },
+        {
+          "tag": "ed9773596006e4d832bf6bc7",
+          "edge": "client-emit",
+          "name": "answer.submit",
+          "stage": "game-0-round-17-accepted-submit",
+          "atMs": 151267.19074999998,
+          "transport": "polling",
+          "attempt": 2,
+          "packetId": 1
+        },
+        {
+          "tag": "ed9773596006e4d832bf6bc7",
+          "edge": "engine-ack-received",
+          "stage": "game-0-round-17-accepted-submit",
+          "atMs": 151586.07037499998,
+          "transport": "polling"
+        },
+        {
+          "tag": "ed9773596006e4d832bf6bc7",
+          "edge": "client-ack",
+          "name": "answer.submit",
+          "outcome": "STALE_REQUEST",
+          "stage": "game-0-round-17-accepted-submit",
+          "atMs": 151586.38195799998,
+          "transport": "polling",
+          "attempt": 2
+        }
+      ],
+      "serverTrace": [
+        {
+          "tag": "ed9773596006e4d832bf6bc7",
+          "edge": "handler-entry",
+          "name": "answer.submit",
+          "stage": "game-0-round-17-accepted-submit",
+          "atMs": 151218.794333
+        },
+        {
+          "tag": "ed9773596006e4d832bf6bc7",
+          "edge": "engine-packet-created",
+          "stage": "game-0-round-17-accepted-submit",
+          "atMs": 151221.37937500002
+        },
+        {
+          "tag": "ed9773596006e4d832bf6bc7",
+          "edge": "ack-enqueued",
+          "name": "answer.submit",
+          "outcome": "STALE_REQUEST",
+          "stage": "game-0-round-17-accepted-submit",
+          "atMs": 151221.38825000002
+        },
+        {
+          "tag": "ed9773596006e4d832bf6bc7",
+          "edge": "transport-flush",
+          "stage": "game-0-round-17-accepted-submit",
+          "atMs": 151226.88695800002
+        },
+        {
+          "tag": "ed9773596006e4d832bf6bc7",
+          "edge": "transport-drain",
+          "stage": "game-0-round-17-accepted-submit",
+          "atMs": 151226.921292
+        },
+        {
+          "tag": "ed9773596006e4d832bf6bc7",
+          "edge": "poll-response-finish",
+          "stage": "game-0-round-17-accepted-submit",
+          "atMs": 151226.93045800002
+        },
+        {
+          "tag": "ed9773596006e4d832bf6bc7",
+          "edge": "poll-response-close",
+          "stage": "game-0-round-17-accepted-submit",
+          "atMs": 151226.935208
+        }
+      ],
+      "finding": "Initial client POST hit ENOTFOUND and disconnected; no matching initial server handler entry exists. After recovery, a newer game.resume request advanced the sequence fence. The old never-accepted answer first reached the handler on retry and returned STALE_REQUEST. This matches the historical generator pending-answer boundary, not recurrence of the pure 6-second ACK exhaustion case. Real GameClient explicitly reconciles and prompts resubmission when unlocked; harness correctly stops rather than inventing a fresh answer request."
+    }
+  ],
+  "measurementLimits": [
+    "Tag is HMAC under ephemeral run key; raw request IDs and key absent.",
+    "Client/server atMs use separate process start anchors; do not subtract timestamps across sides.",
+    "Packet creation, local flush/drain and HTTP finish do not establish provider or remote receipt.",
+    "Two delayed ACKs recovered; no three-attempt ACK timeout failure reproduced in this run.",
+    "Public workload uses forced Node polling, not production browser negotiation or 100 physical devices."
+  ],
+  "conclusion": "More precise boundaries established without changing gameplay or timeout budgets. Pure all-polling ACK exhaustion remains unisolated; this run ended at a different, explicitly identified DNS/interrupted-unaccepted-request boundary."
+}

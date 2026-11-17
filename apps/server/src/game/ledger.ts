@@ -80,5 +80,13 @@ export class RequestLedger {
   }
   /** Preserve sequence fences for still-registered pages; obsolete game results cannot be replayed. */
   replaceGame(): void { for (const [id, scope] of this.#scopes) { scope.pinned.clear(); scope.pins.clear(); scope.transient.clear(); if (!scope.pages.size) this.#scopes.delete(id); } }
+  /** Private aggregate instrumentation; no request IDs, bodies or identity data. */
+  stats() {
+    const scopes = [...this.#scopes.values()];
+    return { scopes: scopes.length, pages: scopes.reduce((sum, scope) => sum + scope.pages.size, 0),
+      transient: scopes.reduce((sum, scope) => sum + scope.transient.size, 0),
+      maxTransientPerScope: scopes.reduce((max, scope) => Math.max(max, scope.transient.size), 0),
+      pinned: scopes.reduce((sum, scope) => sum + scope.pinned.size, 0) };
+  }
   clear(): void { this.#scopes.clear(); }
 }

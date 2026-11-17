@@ -1,0 +1,324 @@
+{
+  "schemaVersion": 1,
+  "report": "work/epic6-followup/polling-steady/polling-steady-light-tunnel-polling-100-1794925695861.json",
+  "sha256": "32ed78301c4ccc060bb7a33fb0b347f83d563d290c3b75a7ebe99c3046084729",
+  "status": "FAIL",
+  "verifiedRounds": 17,
+  "plannedRounds": 20,
+  "reconnectBurst": false,
+  "uplink": "eduroam",
+  "failedTag": "e8f4e04318301f5906a22d88",
+  "failedStage": "game-0-round-17-accepted-submit",
+  "clientTrace": [
+    {
+      "tag": "e8f4e04318301f5906a22d88",
+      "edge": "client-emit",
+      "name": "answer.submit",
+      "stage": "game-0-round-17-accepted-submit",
+      "atMs": 154961.73004099997,
+      "transport": "polling",
+      "attempt": 1,
+      "packetId": 19
+    },
+    {
+      "tag": "e8f4e04318301f5906a22d88",
+      "edge": "client-timeout",
+      "name": "answer.submit",
+      "outcome": "TIMEOUT",
+      "stage": "game-0-round-17-accepted-submit",
+      "atMs": 156961.961666,
+      "transport": "polling",
+      "attempt": 1
+    },
+    {
+      "tag": "e8f4e04318301f5906a22d88",
+      "edge": "client-emit",
+      "name": "answer.submit",
+      "stage": "game-0-round-17-accepted-submit",
+      "atMs": 156962.77091599998,
+      "transport": "polling",
+      "attempt": 2,
+      "packetId": 20
+    },
+    {
+      "tag": "e8f4e04318301f5906a22d88",
+      "edge": "client-timeout",
+      "name": "answer.submit",
+      "outcome": "TIMEOUT",
+      "stage": "game-0-round-17-accepted-submit",
+      "atMs": 158962.92770799997,
+      "transport": "polling",
+      "attempt": 2
+    },
+    {
+      "tag": "e8f4e04318301f5906a22d88",
+      "edge": "client-emit",
+      "name": "answer.submit",
+      "stage": "game-0-round-17-accepted-submit",
+      "atMs": 158963.092083,
+      "transport": "polling",
+      "attempt": 3,
+      "packetId": 21
+    },
+    {
+      "tag": "e8f4e04318301f5906a22d88",
+      "edge": "client-timeout",
+      "name": "answer.submit",
+      "outcome": "TIMEOUT",
+      "stage": "game-0-round-17-accepted-submit",
+      "atMs": 160964.32454099998,
+      "transport": "polling",
+      "attempt": 3
+    }
+  ],
+  "serverTrace": [],
+  "traceDrops": {
+    "client": 0,
+    "server": 0
+  },
+  "failedActions": [
+    {
+      "name": "answer.submit",
+      "durationMs": 6003.000584000023,
+      "category": "action",
+      "message": "operation has timed out",
+      "atMs": 160964.76724999998,
+      "stage": "game-0-round-17-accepted-submit"
+    }
+  ],
+  "transportErrors": [
+    {
+      "category": "dns",
+      "message": "xhr poll error",
+      "status": 0,
+      "cause": "ENOTFOUND",
+      "atMs": 131415.150875,
+      "stage": "game-0-round-10-accepted-submit"
+    }
+  ],
+  "recoveries": [
+    {
+      "transport": "polling",
+      "attempts": 1,
+      "durationMs": 1877.053917000012
+    },
+    {
+      "transport": "polling",
+      "attempts": 1,
+      "durationMs": 1733.8727499999804
+    }
+  ],
+  "failureStage": {
+    "serverCommandCounts": {
+      "answer.submit:ACCEPTED": 99
+    },
+    "successfulClientAcks": {
+      "count": 99,
+      "p50Ms": 823.8097920000146,
+      "p95Ms": 1115.4161669999885,
+      "p99Ms": 1233.2345420000202,
+      "maxMs": 1233.2345420000202
+    },
+    "eventLoop": {
+      "sampleCount": 513,
+      "p50Ms": 10.551295,
+      "p95Ms": 12.066815,
+      "p99Ms": 41.517055,
+      "maxMs": 171.048959
+    },
+    "elapsedMs": 6042.409583999979,
+    "cpuSeconds": 1.089102,
+    "connectedSockets": 101,
+    "metadata": {
+      "sessions": {
+        "records": 102,
+        "credentials": 101,
+        "waiting": 1,
+        "pages": 102,
+        "maxPagesPerIdentity": 1
+      },
+      "ledger": {
+        "scopes": 102,
+        "pages": 102,
+        "transient": 103,
+        "maxTransientPerScope": 2,
+        "pinned": 1901
+      },
+      "pendingHandshakes": 0,
+      "admissionHistory": 100
+    }
+  },
+  "earlierRecoveredAck": {
+    "tag": "2d02ffbcbbac06d256693afb",
+    "clientTrace": [
+      {
+        "tag": "2d02ffbcbbac06d256693afb",
+        "edge": "client-emit",
+        "name": "answer.submit",
+        "stage": "game-0-round-2-accepted-submit",
+        "atMs": 116114.586958,
+        "transport": "polling",
+        "attempt": 1,
+        "packetId": 4
+      },
+      {
+        "tag": "2d02ffbcbbac06d256693afb",
+        "edge": "client-timeout",
+        "name": "answer.submit",
+        "outcome": "TIMEOUT",
+        "stage": "game-0-round-2-accepted-submit",
+        "atMs": 118115.352708,
+        "transport": "polling",
+        "attempt": 1
+      },
+      {
+        "tag": "2d02ffbcbbac06d256693afb",
+        "edge": "client-emit",
+        "name": "answer.submit",
+        "stage": "game-0-round-2-accepted-submit",
+        "atMs": 118116.083875,
+        "transport": "polling",
+        "attempt": 2,
+        "packetId": 5
+      },
+      {
+        "tag": "2d02ffbcbbac06d256693afb",
+        "edge": "engine-ack-received",
+        "stage": "game-0-round-2-accepted-submit",
+        "atMs": 118443.532958,
+        "transport": "polling"
+      },
+      {
+        "tag": "2d02ffbcbbac06d256693afb",
+        "edge": "engine-ack-received",
+        "stage": "game-0-round-2-accepted-submit",
+        "atMs": 118445.329125,
+        "transport": "polling"
+      },
+      {
+        "tag": "2d02ffbcbbac06d256693afb",
+        "edge": "client-ack",
+        "name": "answer.submit",
+        "outcome": "ACCEPTED",
+        "stage": "game-0-round-2-accepted-submit",
+        "atMs": 118446.255666,
+        "transport": "polling",
+        "attempt": 2
+      }
+    ],
+    "serverTrace": [
+      {
+        "tag": "2d02ffbcbbac06d256693afb",
+        "edge": "handler-entry",
+        "name": "answer.submit",
+        "stage": "game-0-round-2-accepted-submit",
+        "atMs": 116001.11925
+      },
+      {
+        "tag": "2d02ffbcbbac06d256693afb",
+        "edge": "engine-packet-created",
+        "stage": "game-0-round-2-accepted-submit",
+        "atMs": 116001.717416
+      },
+      {
+        "tag": "2d02ffbcbbac06d256693afb",
+        "edge": "ack-enqueued",
+        "name": "answer.submit",
+        "outcome": "ACCEPTED",
+        "stage": "game-0-round-2-accepted-submit",
+        "atMs": 116001.72045800001
+      },
+      {
+        "tag": "2d02ffbcbbac06d256693afb",
+        "edge": "handler-entry",
+        "name": "answer.submit",
+        "stage": "game-0-round-2-accepted-submit",
+        "atMs": 117991.50362500001
+      },
+      {
+        "tag": "2d02ffbcbbac06d256693afb",
+        "edge": "engine-packet-created",
+        "stage": "game-0-round-2-accepted-submit",
+        "atMs": 117993.265041
+      },
+      {
+        "tag": "2d02ffbcbbac06d256693afb",
+        "edge": "ack-enqueued",
+        "name": "answer.submit",
+        "outcome": "ACCEPTED",
+        "stage": "game-0-round-2-accepted-submit",
+        "atMs": 117993.285583
+      },
+      {
+        "tag": "2d02ffbcbbac06d256693afb",
+        "edge": "transport-flush",
+        "stage": "game-0-round-2-accepted-submit",
+        "atMs": 118084.220125
+      },
+      {
+        "tag": "2d02ffbcbbac06d256693afb",
+        "edge": "transport-flush",
+        "stage": "game-0-round-2-accepted-submit",
+        "atMs": 118084.23487500001
+      },
+      {
+        "tag": "2d02ffbcbbac06d256693afb",
+        "edge": "poll-response-finish",
+        "stage": "game-0-round-2-accepted-submit",
+        "atMs": 118085.356083
+      },
+      {
+        "tag": "2d02ffbcbbac06d256693afb",
+        "edge": "poll-response-finish",
+        "stage": "game-0-round-2-accepted-submit",
+        "atMs": 118085.36716600001
+      },
+      {
+        "tag": "2d02ffbcbbac06d256693afb",
+        "edge": "transport-drain",
+        "stage": "game-0-round-2-accepted-submit",
+        "atMs": 118085.394083
+      },
+      {
+        "tag": "2d02ffbcbbac06d256693afb",
+        "edge": "transport-drain",
+        "stage": "game-0-round-2-accepted-submit",
+        "atMs": 118085.399541
+      },
+      {
+        "tag": "2d02ffbcbbac06d256693afb",
+        "edge": "poll-response-close",
+        "stage": "game-0-round-2-accepted-submit",
+        "atMs": 118085.43270800001
+      },
+      {
+        "tag": "2d02ffbcbbac06d256693afb",
+        "edge": "poll-response-close",
+        "stage": "game-0-round-2-accepted-submit",
+        "atMs": 118085.43833300001
+      }
+    ]
+  },
+  "processingTarget": {
+    "timingScope": "Entire retained bounded sample window",
+    "retainedWindowFailures": [],
+    "boundary": "handler entry to ack enqueue, excluding network and event-loop queue",
+    "targetP95Ms": 100,
+    "passed": true,
+    "exceeded": []
+  },
+  "findings": [
+    "The failed command has three client emit attempts over ~6.003 seconds, no raw client ACK observation, and no matching server handler-entry, ACK-enqueue or transport-flush observation. Both trace buffers report zero discarded rows.",
+    "Exactly 99 accepted server results and 99 client ACKs were measured in the failed stage. This isolates the missing command before the traced application handler; it does not identify whether the client transport queue, uplink, DNS, connector or provider withheld it.",
+    "This differs from the historical uncorrelated failure that recorded 102 accepted server results. Do not assume every six-second timeout has one cause.",
+    "The run earlier recorded ENOTFOUND on a polling GET and recovered; the trace does not establish that earlier DNS error caused the later missing POST.",
+    "No production scoring, timeout, retry or request-fence change is justified by this observation. The all-polling capacity qualification remains open."
+  ],
+  "measurementLimits": [
+    "Node clients force polling; no physical-phone or production-browser capacity claim.",
+    "Client/server timestamps have separate process-relative anchors; compare only within each side.",
+    "Socket.IO emits are application submissions into the transport stack, not proof that HTTP POST bytes reached the wire.",
+    "Local flush/drain/HTTP finish do not prove provider or remote receipt.",
+    "One bounded steady follow-up is retained as FAIL; no success-only replacement run."
+  ]
+}

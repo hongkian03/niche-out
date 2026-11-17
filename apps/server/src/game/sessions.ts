@@ -95,5 +95,13 @@ export class SessionService {
     }
   }
   removeMembership(sessionId: string): void { const record = this.#records.get(sessionId); if (!record) return; record.control = null; for (const page of record.pages.values()) this.options.onRetirePage?.(record.session, page.tabId); record.pages.clear(); }
+  /** Private aggregate instrumentation; never returned through a public route. */
+  stats() {
+    const records = [...this.#records.values()];
+    return { records: records.length, credentials: this.#credentials.size,
+      waiting: [...this.#credentials.values()].filter(record => !this.options.membership(record.session.id)).length,
+      pages: records.reduce((sum, record) => sum + record.pages.size, 0),
+      maxPagesPerIdentity: records.reduce((max, record) => Math.max(max, record.pages.size), 0) };
+  }
   clear(): void { for (const record of this.#records.values()) this.#drop(record); this.#credentials.clear(); }
 }

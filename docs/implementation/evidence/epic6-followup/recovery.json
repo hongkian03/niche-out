@@ -1,0 +1,149 @@
+{
+  "scope": "S03 coordinated recovery evidence. Full app transport loss is injected with an owned TCP relay; it is not a whole-OS internet outage. Forced WebSocket Node clients are not the browser retry implementation, 100 physical phones, or polling-only capacity. No gameplay timeouts/scoring rules were changed.",
+  "runs": [
+    {
+      "phase": "before-ledger-teardown-fix",
+      "rawReport": "work/epic6-followup/recovery-public/report.json",
+      "rawSha256": "cdd201bcaf037c6e9442a7fe6efc50a3adea0704b9c5214399b4f4e6a83a1d4f",
+      "status": "PASS",
+      "started": "2026-11-17T14:25:36.993Z",
+      "elapsedMs": 102955.165791,
+      "configuration": {
+        "players": 100,
+        "tunnel": true,
+        "uplink": "eduroam"
+      },
+      "build": {
+        "gitCommit": "df2e24ae26dd9dcc3378e472d599b19d2d9b5a52",
+        "sourceSha256": "49eb4296db4fb5935c529c92674492bd15df60fffe14928c0df47faa9b1402d2",
+        "lockSha256": "442e3e5745c77bcb77ab3a6f60c51a26088f86bc5643690f1867af1e9df3c2c0",
+        "node": "24.22.3",
+        "platform": "darwin",
+        "arch": "arm64"
+      },
+      "checks": [
+        "Lost create response resolves APPLIED and exact replay retains one lobby",
+        "100 admitted identities active before combined faults",
+        "Unobserved Start acknowledgement resolves APPLIED without starting twice",
+        "Every transport cut and restored: identities, locks, control and original deadline preserved",
+        "Takeover fences old control under load; explicit reclaim preserves identity and score",
+        "Unobserved removal acknowledgement resolves exactly once; other players remain",
+        "Combined-fault game finishes with exact 200-point totals for every remaining player",
+        "Replacement discards old roster and fences delayed old-game mutation",
+        "Actual owned connector SIGKILL makes hosting terminal and hides obsolete origin",
+        "Stop disposes failed Quick Tunnel application; same-URL resurrection is not claimed"
+      ],
+      "observedFinalMetadata": {
+        "sessions": {
+          "records": 0,
+          "credentials": 0,
+          "waiting": 0,
+          "pages": 0,
+          "maxPagesPerIdentity": 0
+        },
+        "ledger": {
+          "scopes": 1,
+          "pages": 0,
+          "transient": 0,
+          "maxTransientPerScope": 0,
+          "pinned": 1
+        },
+        "pendingHandshakes": 0,
+        "admissionHistory": 0
+      },
+      "afterCleanup": null,
+      "interpretation": "Actual owned connector SIGKILL and all 100-player public recovery checks passed. Terminal stop left one owner ledger scope/pinned result, exposing teardown retention; no post-fix public rerun is claimed."
+    },
+    {
+      "phase": "after-ledger-teardown-fix",
+      "rawReport": "work/epic6-followup/recovery-local-final/report.json",
+      "rawSha256": "e1856f292f0a4f158983b5599b9e0ec41b94aa84ef2a696f2a025fa78b002f6d",
+      "status": "PASS",
+      "started": "2026-11-17T14:34:16.478Z",
+      "elapsedMs": 6479.263625,
+      "configuration": {
+        "players": 100,
+        "tunnel": false,
+        "uplink": "not-recorded"
+      },
+      "build": {
+        "gitCommit": "df2e24ae26dd9dcc3378e472d599b19d2d9b5a52",
+        "sourceSha256": "1fddd0d2d8b16b72c8c23965d0b44975ce105a55f19d61546e0af7d531e342bd",
+        "lockSha256": "442e3e5745c77bcb77ab3a6f60c51a26088f86bc5643690f1867af1e9df3c2c0",
+        "node": "24.22.3",
+        "platform": "darwin",
+        "arch": "arm64"
+      },
+      "checks": [
+        "Lost create response resolves APPLIED and exact replay retains one lobby",
+        "100 admitted identities active before combined faults",
+        "Unobserved Start acknowledgement resolves APPLIED without starting twice",
+        "Every transport cut and restored: identities, locks, control and original deadline preserved",
+        "Takeover fences old control under load; explicit reclaim preserves identity and score",
+        "Unobserved removal acknowledgement resolves exactly once; other players remain",
+        "Combined-fault game finishes with exact 200-point totals for every remaining player",
+        "Replacement discards old roster and fences delayed old-game mutation"
+      ],
+      "observedFinalMetadata": {
+        "sessions": {
+          "records": 101,
+          "credentials": 100,
+          "waiting": 100,
+          "pages": 101,
+          "maxPagesPerIdentity": 2
+        },
+        "ledger": {
+          "scopes": 100,
+          "pages": 101,
+          "transient": 0,
+          "maxTransientPerScope": 0,
+          "pinned": 1
+        },
+        "pendingHandshakes": 0,
+        "admissionHistory": 0
+      },
+      "afterCleanup": {
+        "sessions": {
+          "records": 0,
+          "credentials": 0,
+          "waiting": 0,
+          "pages": 0,
+          "maxPagesPerIdentity": 0
+        },
+        "ledger": {
+          "scopes": 0,
+          "pages": 0,
+          "transient": 0,
+          "maxTransientPerScope": 0,
+          "pinned": 0
+        },
+        "pendingHandshakes": 0,
+        "admissionHistory": 0
+      },
+      "interpretation": "All 100-player combined recovery checks passed on final compiled implementation over loopback relay. Explicit afterCleanup counters prove sessions and request ledger cleared. This run did not create or kill a real connector."
+    }
+  ],
+  "fix": {
+    "file": "apps/server/src/game/application.ts",
+    "change": "Call ledger.clear() after sessions.clear() in application close. Session page retirement deliberately preserves current-game pinned owner outcomes; terminal application disposal must also clear these results.",
+    "evidence": "Public before-fix report: sessions=0 but ledger scopes=1/pinned=1; local final report after cleanup: sessions records=0/ledger scopes=0/pinned=0.",
+    "regression": "tests/server/bounds-metadata.test.ts explicit application-close metadata assertion; coordinator records final suite counts."
+  },
+  "review": {
+    "method": "Read-only inspection after runtime jobs; no new builds/tests or workloads run during endurance.",
+    "areas": [
+      "Private trace callbacks/tagger guarded and opt-in; raw IDs bounded before run-local HMAC; no public diagnostic route.",
+      "Snapshot aggregate stats reuse the private synchronous snapshot and do not cache authorization.",
+      "Engine.IO flush observations attach before transport.send; finish/drain describe origin-side processing only, not client receipt.",
+      "Transport-cut relay destroys both directions, restores same listener, and cleanup closes sockets/app/owned connector.",
+      "Replacement/takeover/removal tests preserve request identities and control generation fences.",
+      "Retained processing windows remain checked after diagnostic samples are cleared."
+    ],
+    "blockersFound": [],
+    "limits": [
+      "Public recovery report predates ledger teardown fix; only final local recovery verifies the teardown change.",
+      "No actual OS networking or third-party public flood was performed.",
+      "Request trace overhead and installed Engine.IO internals require interpretation alongside test/build versions."
+    ]
+  }
+}

@@ -6,6 +6,10 @@ Tunnel baseline updated November 14, 2026. Current story status is maintained on
 
 > **Networking planning update — November 17, 2026:** The [networking improvement extension](epic-06-network-improvements.md) defines E6-N01–N08: diagnostics calibration, scoped snapshot reuse, publication coalescing, smaller live player views, reconnect jitter, WebSocket-first fallback, clock sampling and matched regression evidence. The owner subsequently authorized implementation; E6-N01–N07 are delivered and N08 evidence is tracked in the [verification report](evidence/NETWORK-IMPROVEMENTS.md). Follow the [master extension tracker](../IMPLEMENTATION-PLAN.md#epic-6-networking-improvement-extension) in sequence, then use N08 evidence to reassess S02/S03 and freeze the next release candidate. Keep Quick Tunnels and 100 players; no provider migration or 200-player expansion is included. Existing physical-device and signing gates still apply.
 
+## S02/S03 follow-up evidence
+
+The owner authorized the targeted follow-up after the networking extension. See [implementation, fixes and retained test results](evidence/EPIC-6-S02-S03-FOLLOWUP.md) for correlated polling investigations, real-runtime bounds, combined 100-player recovery, refreshed imports and longer endurance. The master tracker retains acceptance status; diagnostic and harness delivery does not by itself qualify polling-only capacity or an unavailable 8 GiB host.
+
 ## Outcome
 
 Qualify the actual selected temporary-tunnel service under the declared workload, including joining/reconnect bursts, provider limits and the actual venue uplink. A passing E1 phone probe and an ephemeral URL do not establish 100-player capacity. Permanent domains and named-provider accounts are optional, not release prerequisites; if the selected temporary service fails the required workload/reliability checks, resolve that provider decision before claiming event readiness.

@@ -4,9 +4,13 @@ import { createGameApplication } from '../../apps/server/dist/game/application.j
 import { HostingManager } from '../../apps/server/dist/hosting/manager.js';
 import { startConnector } from '../../apps/server/dist/hosting/connector.js';
 import { gameHostingStatus } from '../../apps/server/dist/game/hosting-status.js';
+import {commandTag, boundedTrace} from './command-trace.mjs';
 import { createCollector, parseProcessTime } from './metrics.mjs';
 const mode = process.argv.find(a => /^(--instrumentation|--diagnostics)=/.test(a))?.split('=')[1] ?? 'detailed';
 const collector = createCollector(mode), stages = [];
+const traceKey=process.env.NICHE_LOAD_TRACE_KEY, commandTrace=boundedTrace();
+delete process.env.NICHE_LOAD_TRACE_KEY;
+let discardedStages=0;
 let peak = 0, connector, app, manager, stage = 'startup', stageStart = performance.now(), stageCpu = process.cpuUsage(), sampling = false;
 const loop = monitorEventLoopDelay({ resolution: 10 }); loop.enable();
 const start = performance.now(), cpu = process.cpuUsage();
@@ -28,10 +32,11 @@ const loopSnapshot = () => ({ sampleCount: Number(loop.count), p50Ms: loop.count
 function finishStage() {
   const at = performance.now();
   const row = { name: stage, startedMs: stageStart - start, elapsedMs: at - stageStart, cpu: process.cpuUsage(stageCpu), memory: process.memoryUsage(), eventLoop: loopSnapshot(), diagnostics: app?.diagnosticSnapshot() };
-  if (stages.length < 1000) stages.push(row);
+  if (stages.length < 1000) stages.push(row); else discardedStages++;
   stageStart = at; stageCpu = process.cpuUsage(); loop.reset(); return row;
 }
 const create = async (id, token) => app = await createGameApplication(id, token, { port: 0,
+  ...(traceKey ? {commandTraceTag: id=>commandTag(traceKey,id),onCommandTrace: sample=>commandTrace.record({...sample,stage,atMs:performance.now()-start})} : {}),
   ...(mode === 'off' ? {} : { diagnosticMode: mode, onDiagnostic: collector.record }) });
 if (process.argv.includes('--tunnel')) {
   manager = new HostingManager({ createApplication: create, connectorFactory: async (...args) => connector = await startConnector(...args) });
@@ -53,7 +58,7 @@ process.on('message', async m => {
     const current = finishStage();
     process.send({ kind: 'snapshot', id: m.id, metrics: { elapsedMs: performance.now() - start, cpu: process.cpuUsage(cpu), memory: process.memoryUsage(), peakRssBytes: peak,
       eventLoop: current.eventLoop, eventLoopScope: 'Most recent stage interval; all completed interval histograms retained in stages. Snapshot never forces GC.',
-      diagnostics: app.diagnosticSnapshot(), ...collector.snapshot(), stages: [...stages], processResources: { application: { scope: 'Application child; excludes generator and connector', cpu: process.cpuUsage(cpu), peakRssBytes: peak }, connector: { ...connectorMetrics, lastSampleAgeMs: connectorMetrics.lastSampleElapsedMs === null ? null : performance.now() - start - connectorMetrics.lastSampleElapsedMs } } } });
+      diagnostics: app.diagnosticSnapshot(), commandTrace: traceKey ? commandTrace.snapshot() : null, discardedStages, ...collector.snapshot(), stages: [...stages], processResources: { application: { scope: 'Application child; excludes generator and connector', cpu: process.cpuUsage(cpu), peakRssBytes: peak }, connector: { ...connectorMetrics, lastSampleAgeMs: connectorMetrics.lastSampleElapsedMs === null ? null : performance.now() - start - connectorMetrics.lastSampleElapsedMs } } } });
   }
   if (m.kind === 'clear-diagnostic-samples') {
     finishStage(); collector.clearSamples();
