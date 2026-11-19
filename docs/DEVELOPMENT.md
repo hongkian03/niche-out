@@ -1,7 +1,7 @@
 # Niche Out development and testing
 
 
-> **Distribution implementation update:** The [npm migration](implementation/epic-05-npm-distribution.md) now produces a local compiled CLI tarball; it is not published or signed for public distribution. Hosts use Node `>=24.22.3 <25` without a compiler. Contributors retain Node 24.22.3/npm 11.19.1 and native build tools. Other target execution and final qualification remain explicit; see the implementation tracker. The networking baseline below is historical and is supplemented by the [networking report](implementation/evidence/NETWORK-IMPROVEMENTS.md) and [S02/S03 follow-up](implementation/evidence/EPIC-6-S02-S03-FOLLOWUP.md).
+> **Distribution implementation update:** The [npm migration](implementation/epic-05-npm-distribution.md) now produces a local compiled CLI tarball; it is not published or signed for public distribution. Hosts use Node `>=24.22.3 <25` without a compiler. The November 19 lean release policy makes paid native signing/notarization, persistent independent signatures, trusted-publisher enrollment and registry provenance attestations optional enhancements. Retain platform-required/ad-hoc signatures, package integrity, verified connector bytes and the declared tested scope. Contributors retain Node 24.22.3/npm 11.19.1 and native build tools. Other target execution and final qualification remain explicit; see the implementation tracker. The networking baseline below is historical and is supplemented by the [networking report](implementation/evidence/NETWORK-IMPROVEMENTS.md) and [S02/S03 follow-up](implementation/evidence/EPIC-6-S02-S03-FOLLOWUP.md).
 
 ## Build and check the npm candidate
 
@@ -30,7 +30,7 @@ Help/version perform no connector download. `prepare` explicitly verifies/acquir
 npm run test:npm:install
 ```
 
-This installs the actual tarball with scripts disabled into clean local/global/npm-exec environments outside the checkout, using an isolated npm cache. It tests CLI help/version and the bundled worker; reports include the installed package path for subsequent browser/game checks. It is distinct from the full production browser/tunnel and 100-player checks, which must be bound to the final candidate hash. macOS arm64 execution does not certify Windows, Linux, Intel Mac, physical sleep/wake, or publisher signing.
+This installs the actual tarball with scripts disabled into clean local/global/npm-exec environments outside the checkout, using an isolated npm cache. It tests CLI help/version and the bundled worker; reports include the installed package path for subsequent browser/game checks. It is distinct from the full production browser/tunnel and 100-player checks, which must be bound to the final candidate hash. macOS arm64 execution does not certify Windows, Linux, Intel Mac or physical sleep/wake. Initial release qualification may be scoped to the verified Mac; included targets awaiting owner tests must be labelled unverified/experimental.
 
 Additional installed-package checks (the browser and active-wrapper variants create their own temporary public tunnel):
 
@@ -213,7 +213,7 @@ The developer `npm run host` explicitly builds the native helper with a C compil
 
 ## Epic 6 capacity, accessibility and release checks
 
-Read the [Epic 6 report](../docs/implementation/evidence/EPIC-6.md) for measured workloads, actual failures/fixes and remaining evidence. Other-platform execution is deferred to the owner; public signing and release readiness are still separate from private Mac gameplay.
+Read the [Epic 6 report](../docs/implementation/evidence/EPIC-6.md) for measured workloads, actual failures/fixes and remaining evidence. Other-platform execution is deferred to the owner; initial release readiness follows the declared verified scope, integrity and gameplay checks. Paid public signing is an optional enhancement.
 
 After `npm run build`, these checks run against compiled production modules:
 
@@ -236,7 +236,7 @@ npm run test:accessibility
 
 This uses fresh Chrome profiles and actual component fixtures. It does not certify VoiceOver/TalkBack speech, physical keyboards or every browser. Read [UI evidence](../docs/implementation/evidence/EPIC-6-UI.md) for the full viewport and keyboard scope.
 
-Release preparation and private archive checks:
+Release preparation and historical private archive checks:
 
 ```sh
 npm run test:packaging
@@ -247,8 +247,10 @@ npm run release:connector-inventory
 npm run release:plan
 ```
 
-Archive verification requires the four locally built archives; it extracts fresh copies, checks their inventories and leaves them under `work/epic6/` for native-target smoke tests. Connector inventory additionally requires Go's read-only binary metadata tool. `release:plan` intentionally exits with status 1 while printing the review-only plan and outstanding inputs; it never signs or publishes. See the [release guide](../docs/release/README.md), [owner decisions](../docs/release/OWNER-DECISIONS.md) and [individual requirement evidence](../docs/release/REQUIREMENT-EVIDENCE.md).
+Archive verification requires the four locally built archives; it extracts fresh copies, checks their inventories and leaves them under `work/epic6/` for native-target smoke tests. Connector inventory additionally requires Go's read-only binary metadata tool. `release:plan` exits 0 with `preparationReady: true` when its local audit and metadata checks pass, or exits 1 for real preparation blockers such as changed source since the frozen build. `publicReleaseReady` and `publicationAuthorized` remain false: `requiredNextChecks` still identifies S10 candidate smoke/qualification, S11 readiness review and S12 explicit publication approval. It never signs or publishes. See the [release guide](../docs/release/README.md), [owner decisions](../docs/release/OWNER-DECISIONS.md) and [individual requirement evidence](../docs/release/REQUIREMENT-EVIDENCE.md).
 
 ## Npm release preparation (E6-S06)
 
-After rebuilding the local candidate, use `npm run test:release`, `npm run release:audit` and `npm run release:plan`. The audit verifies actual tarball bytes and source/lock/native/notices; it writes `work/release/npm-audit.json` and exits 0 on integrity success even while notice review is pending. The planner writes `work/release/npm-plan.json` and intentionally exits 1 with the remaining gates. Neither signs, publishes or requires a registry account. See the [release guide](release/README.md) and [S06 report](implementation/evidence/E6-S06-NPM.md). Rebuild when source files change; generated release evidence is excluded from its own source digest.
+After rebuilding the local candidate, use `npm run test:release`, `npm run release:audit` and `npm run release:plan`. The audit verifies actual tarball bytes and source/lock/native/notices; it writes `work/release/npm-audit.json` and exits 0 on integrity success even while notice review is pending. The planner writes `work/release/npm-plan.json`. Exit 0 / `preparationReady: true` means local audit and metadata preparation passed; exit 1 reports real preparation blockers, including a stale source snapshot. `publicReleaseReady` / `publicationAuthorized` stay false and `requiredNextChecks` retains S10/S11/S12. No package is published by either tool; the local audit itself needs no registry login. See the [release guide](release/README.md) and [S06 report](implementation/evidence/E6-S06-NPM.md). Rebuild when source files change; generated release evidence is excluded from its own source digest.
+
+The [lean release reconciliation](implementation/evidence/E6-LEAN-RELEASE.md) defines the active initial-release scope. Extended OS/phone/hardware/venue and all-polling qualification stays documented follow-up rather than an exhaustive initial-release gate. Basic game correctness, private host authorization, verified downloads, package notices and usable player interaction remain required. A real supported-path defect remains a defect; historical evidence and known limitations are retained.

@@ -1,32 +1,36 @@
-# Epic 6 Validation and signed release
+# Epic 6 validation and npm release
 
 Tunnel baseline updated November 14, 2026. Current story status is maintained only in the [master backlog](../IMPLEMENTATION-PLAN.md#story-tracker); these cards define scope and evidence rather than claiming completion.
 
 > **Authorized execution update — November 16, 2026:** The owner authorized Epic 6 now using the available Mac/reference build, with Intel Mac/Windows/Linux execution deferred until after this epic's testing/preparation work. Fresh Chrome smartphone-size layout and accessibility investigation are explicitly required. Emulation is not physical-device certification. Missing publisher credentials and target evidence must remain visible in the report; no public publication is authorized by this request.
 
-> **Networking planning update — November 17, 2026:** The [networking improvement extension](epic-06-network-improvements.md) defines E6-N01–N08: diagnostics calibration, scoped snapshot reuse, publication coalescing, smaller live player views, reconnect jitter, WebSocket-first fallback, clock sampling and matched regression evidence. The owner subsequently authorized implementation; E6-N01–N07 are delivered and N08 evidence is tracked in the [verification report](evidence/NETWORK-IMPROVEMENTS.md). Follow the [master extension tracker](../IMPLEMENTATION-PLAN.md#epic-6-networking-improvement-extension) in sequence, then use N08 evidence to reassess S02/S03 and freeze the next release candidate. Keep Quick Tunnels and 100 players; no provider migration or 200-player expansion is included. Existing physical-device and signing gates still apply.
+> **Networking planning update — November 17, 2026:** The [networking improvement extension](epic-06-network-improvements.md) defines E6-N01–N08: diagnostics calibration, scoped snapshot reuse, publication coalescing, smaller live player views, reconnect jitter, WebSocket-first fallback, clock sampling and matched regression evidence. The owner subsequently authorized implementation; E6-N01–N07 are delivered and N08 evidence is tracked in the [verification report](evidence/NETWORK-IMPROVEMENTS.md). Follow the [master extension tracker](../IMPLEMENTATION-PLAN.md#epic-6-networking-improvement-extension) in sequence, then use N08 evidence to reassess S02/S03 and freeze the next release candidate. Keep Quick Tunnels and 100 players; no provider migration or 200-player expansion is included. Retain the actual physical-device findings. The November 19 lean-release policy below supersedes the former mandatory signing gates.
 
-## npm distribution implementation and release override
+## Active lean npm release policy — November 19, 2026
 
-The [Epic 5 npm migration](epic-05-npm-distribution.md) now delivers a local, unpublished candidate, four bundled native builds, explicit connector preparation/cache, installed-launcher integration and compatibility tooling. The [npm handoff](evidence/EPIC-5-NPM.md) records available-Mac execution and an installed-package 100-player mixed-transport game. Actual Intel/Windows/Linux and remaining physical lifecycle acceptance stay open; prepared CI is not an executed target pass. The host installs Node `>=24.22.3 <25`; the pinned connector is prepared in a verified user cache on explicit prepare/Start, with no install hooks or source compilation. Final release authentication/provenance tooling and qualification remain Epic 6 work. No registry publication or signed public release has occurred. Original runtime-inclusive archives/cards retain historical evidence; archive-only wording below is superseded by this section.
+The owner explicitly removed unnecessary pre-release work after reviewing the actual npm architecture. This section supersedes earlier signed-desktop/archive requirements and broad release gates. It does not claim those optional checks passed. See the [lean-release review](evidence/E6-LEAN-RELEASE.md) and the [master tracker](../IMPLEMENTATION-PLAN.md#story-tracker).
 
-E6-S01–S05 capacity, recovery, device and accessibility obligations remain. E5-N06 supplies the npm candidate entry gate before final release qualification; its remaining acceptance is visible in the master tracker. Tests of old source/runtime/artifacts do not automatically certify new package paths, native payloads or runtime ranges. The new npm evidence supplements earlier capacity evidence without closing its hardware, physical-network or polling-only qualification gaps. Deferred target execution does not fabricate a platform pass.
+One compiled npm CLI contains application/browser assets and four native helper targets. Hosts supply supported Node `>=24.22.3 <25`; explicit prepare/Start obtains the pinned connector into its verified cache. Preserve any platform-required/ad-hoc signatures already emitted by the build; optional publisher signing must not be confused with those runtime requirements. npm installation requires no host compiler, bundled Node or install hooks. No package has been published.
 
-| Story | Active npm replacement scope | Required verification |
+**Required initial-release path:** finish S06 metadata/notices/integrity preparation → S10 exact installed-candidate checks for the declared release scope → S11 readiness/known-limits review → separately authorized S12 npm publication and registry readback. S01–S05 and N08 contribute their existing evidence and unresolved findings; they do not require a fresh exhaustive test campaign merely to repeat unchanged code. New changes or owned failures require affected checks again.
+
+**Optional follow-up:** paid Apple Developer ID/notarization (S07), Windows Authenticode/reputation work (S08), persistent detached publisher signatures (S09), trusted-publishing/provenance automation, a separate candidate-to-stable promotion ceremony and the information website (S13). None blocks this npm release solely because credentials, subscriptions or implementation are absent. Do not execute these actions without a later request. Package integrity, secure account authentication and explicit publication authorization remain required.
+
+The owner deferred Intel/Windows/Linux and broader physical-device/manual testing. An initial release may accurately declare available-Mac evidence while labelling the other bundled targets **unverified**. Do not claim four-platform compatibility, all-polling reliability, 8 GiB-host qualification, 100 physical phones or event-network suitability without their evidence. Platform/native installation failure on a platform actually claimed as validated must be fixed or the claim narrowed before release. OS controls must be respected; do not add blanket security-disable instructions.
+
+| Story | Current scope | Required verification |
 | --- | --- | --- |
-| E6-S06 | Freeze source/lock/native/connector inventory, npm identity/version, supported Node range, notices, MIT metadata and publisher identity. Migrate release planner/audit/candidate schema. | Exact `npm pack` contents/integrity and source-to-package mapping; no private workspace links, tools, secrets or private packs. E5 supplies private assembly/install tooling; E6-S06 now supplies npm metadata, actual-tarball auditing and review planning. Native authentication/publisher execution remains later work. |
-| E6-S07 | Authenticate macOS arm64/x64 native prebuilds and validate applicable signing/notarization delivery for npm-installed helpers. The former standalone `.app`/bundled Node container is no longer the deliverable. | Final signed helper hashes, project identity/notarization evidence and actual clean npm-installed native loading/launch on both CPUs. Provenance does not waive OS-native policy. |
-| E6-S08 | Authenticate Windows x64 native helper and verify npm application/package inventory. The old standalone EXE sealing bundled Node/JS is superseded by the explicit npm installation trust boundary. | Native signature/timestamp, exact tarball/helper hashes, corrupt-cache/native rejection and Windows 11 npm/PowerShell/Command Prompt startup/cleanup. Node's vendor signature does not authenticate project JS. |
-| E6-S09 | Publisher-authenticated npm release checksums/native inventory and provenance, including Linux x64; replace the separate runtime-inclusive Linux archive. | Original/changed package/inventory verification against approved publisher key and registry/provenance mechanisms; actual Ubuntu install/permissions/runtime evidence. |
-| E6-S10 | Validate final npm tarball/native payloads on four clean target installations with supported Node already installed. | Global/local/npx, ignore-scripts, native selection, cold/warm prepare cache, failed/offline acquisition, between-session updates and real tunnel gameplay. Downloads are declared setup prerequisites. |
-| E6-S11 | Reconcile product/UI/architecture evidence against npm candidate identity. | No obsolete container requirement falsely blocks readiness and no missing native authenticity/target evidence is waived. |
-| E6-S12 | Publish reviewed npm version using approved namespace/account, trusted CI/provenance and candidate-to-stable promotion. | Registry readback of exact integrity/version/attestations before separately authorized stable promotion. |
+| E6-S01–S05 | Retain capacity/recovery/device/accessibility evidence, material defects and declared limits | Review existing reports; fix blocking game/privacy/security/recovery/usability defects; repeat affected checks for changed paths. Expanded hardware/browser/venue matrices remain deferred evidence, not automatic initial-release gates |
+| E6-S06 | Metadata, notices, source/native/connector/dependency inventory and local npm audit/planner | Exact tarball contents and integrity, complete required notice material, no private workspace links, credentials or private packs; delivered S06 evidence remains factual |
+| E6-S07 | Optional Mac publisher signing/notarization | Only if later selected; preserve source/unsigned/signed output hashes and actual target results |
+| E6-S08 | Optional Windows publisher signing/timestamping | Only if later selected; actual Windows execution needed for corresponding claims |
+| E6-S09 | Optional detached publisher signatures | Only if later selected; npm hashes and pinned component integrity remain required without it |
+| E6-S10 | Actual final npm candidate installation within the declared initial-release scope | Exact bytes, ignore-scripts installation, native selection, real worker/assets, connector preparation, hosting/recovery/cleanup; absent targets are labelled unverified |
+| E6-S11 | Concise final readiness review | Review material defects, notice completion, exact candidate and known limits; optional signing/automation and owner-deferred matrix coverage cannot falsely block it |
+| E6-S12 | One explicitly authorized npm publication | Recheck name/account access, publish reviewed exact bytes and verify registry integrity/version/installation; use provenance if configured, without requiring it to exist before publication |
+| E6-S13 | Optional information site | Independently authorized; never a game or npm-release dependency |
 
-Registry signatures and npm provenance are checked after the explicitly authorized S12 candidate upload, then before stable promotion. Candidate tags are still public distribution. S06–S11 must not require an already published package to pass their local pre-publication gates; they validate exact candidate bytes and configured publisher/provenance capability.
-
-Original IDs/statuses are retained; none becomes Done by changing format. S13 remains optional. Native credentials and publisher identity remain external inputs. Node installation is a host prerequisite, not a player requirement. npm provenance, upstream connector pins, native signatures and runtime execution are distinct evidence.
-
-Pin release-CI Node/npm separately from host runtime requirements and verify publishing/dist-tag support and permissions. Publish the tested tarball without rebuilding it; promote only reviewed versions. If a future split introduces several npm packages, publication is not atomic: verify exact-version components before promoting the main package and retain partial failures. Never overwrite published versions or update an active hosting session.
+The [Epic 5 npm handoff](evidence/EPIC-5-NPM.md) and [notice follow-up](evidence/NOTICE-REVIEW.md) supply installed-Mac, 100-player mixed-transport and notice evidence. Their missing checks remain visible, not silently passed. Source/resource hashes detect corruption; same-directory manifests are not independent publisher authentication. No warning-free macOS/Windows installation claim follows from npm packaging or from tests on the development Mac.
 
 ## S02/S03 follow-up evidence
 
@@ -36,7 +40,7 @@ The owner authorized the targeted follow-up after the networking extension. See 
 
 Qualify the actual selected temporary-tunnel service under the declared workload, including joining/reconnect bursts, provider limits and the actual venue uplink. A passing E1 phone probe and an ephemeral URL do not establish 100-player capacity. Permanent domains and named-provider accounts are optional, not release prerequisites; if the selected temporary service fails the required workload/reliability checks, resolve that provider decision before claiming event readiness.
 
-Establish measured capacity and usable device behavior, then prepare and verify the promised signed public artifacts.
+Establish a usable, integrity-checked npm candidate and an honest release scope. Paid signing, universal matrix qualification and distribution polish are optional follow-up unless the owner later selects them.
 
 ## Entry and required reading
 
@@ -45,11 +49,11 @@ G5 is complete on the strict linear path. A reference build may be used for capa
 - [Capacity and verification](../ARCHITECTURE.md#verification-before-calling-the-baseline-implemented)
 - [Resource and state defaults](../ARCHITECTURE.md#import-and-resource-defaults)
 - [Design criteria](../UI-UX.md#design-acceptance-criteria)
-- [Signed distribution](../ARCHITECTURE.md#startup-and-release-defaults)
+- [Release defaults](../ARCHITECTURE.md#startup-and-release-defaults), interpreted under the active lean policy above
 
 ## Story dependencies
 
-The previous epic gate applies in the default linear path. External evidence inputs are defined in the master plan; prepare independent authorized work before treating a missing input as a blocker.
+G5 is closed by owner instruction. The initial-release critical path is S06 → S10 → S11 → S12; review existing S01–S05/N08 evidence alongside it. Optional S07–S09 and expanded manual matrices do not hold up independent preparation.
 
 | Story | Size | Direct prerequisites | External inputs |
 | --- | --- | --- | --- |
@@ -58,11 +62,11 @@ The previous epic gate applies in the default linear path. External evidence inp
 | E6-S03 | 2 | E6-S02 | None |
 | E6-S04 | 2 | E6-S03 | X-IOS, X-ANDROID, X-DESKTOP-BROWSERS, X-EVENT-NETWORK, X-CELLULAR, X-TUNNEL-PROVIDER |
 | E6-S05 | 2 | E6-S04 | X-ACCESSIBILITY-REVIEW |
-| E6-S06 | 2 | E6-S05 | X-PROJECT-DECISIONS |
-| E6-S07 | 2 | E6-S06 | X-MAC-SIGNING, X-MAC-ARM, X-MAC-INTEL |
-| E6-S08 | 2 | E6-S06 | X-WINDOWS-SIGNING, X-WINDOWS |
-| E6-S09 | 1 | E6-S06 | X-LINUX-SIGNING, X-LINUX |
-| E6-S10 | 2 | E6-S07, E6-S08, E6-S09 | X-MAC-ARM, X-MAC-INTEL, X-WINDOWS, X-LINUX |
+| E6-S06 | 2 | Review existing E6-S01–S05 evidence | X-PROJECT-DECISIONS |
+| E6-S07 — optional | 2 | E6-S06; later owner selection | X-MAC-SIGNING, actual target evidence if claimed |
+| E6-S08 — optional | 2 | E6-S06; later owner selection | X-WINDOWS-SIGNING, X-WINDOWS |
+| E6-S09 — optional | 1 | E6-S06; later owner selection | Approved persistent signing key if selected |
+| E6-S10 | 2 | E6-S06 | Actual available-Mac evidence; other targets owner-deferred unless advertised validated |
 | E6-S11 | 1 | E6-S10 | None |
 | E6-S12 | 1 | E6-S11 | X-PUBLICATION-AUTH |
 | E6-S13 | 2 | E6-S11 | X-SITE-AUTH |
@@ -115,11 +119,11 @@ The previous epic gate applies in the default linear path. External evidence inp
 
 1. The report gives actual results and failures for the declared hardware/workload.
 2. No admitted player is evicted and duplicate answers do not change manual points under load.
-3. A failed latency or memory target remains an open defect and is rerun after its fix; simulation is not advertised as 100 physical devices.
+3. Actual failures remain in the report; material game/correctness/resource defects require a fix or an explicitly narrower release claim. Simulation is not advertised as 100 physical devices. Unqualified all-polling/8 GiB/venue conditions remain known limits rather than a mandate for a new investigation before initial release.
 
 4. Provider plan/limits, measured egress and host uplink are recorded alongside hardware and pack size.
 
-**Verification:** Include polling fallback and projected event usage.  Retain reproducible workload inputs, raw metrics/summary, peak-memory observations, and exact build identity.
+**Verification:** Retain polling fallback findings, reproducible inputs, raw summaries, peak-memory observations and exact build identity. Initial release reviews the existing installed-package mixed workload and disclosed limits; expanded hardware/polling/event qualification stays follow-up unless claimed.
 
 ## E6 S03 Recovery churn and bounded-state endurance
 
@@ -159,9 +163,9 @@ The previous epic gate applies in the default linear path. External evidence inp
 
 ### Work
 
-- Freeze current/previous-major iOS Safari, current Android Chrome, and desktop smoke versions as required by the architecture.
+- Record browser/device versions actually tested and the release scope. The expanded current/previous-major phone and desktop matrix remains owner-deferred; do not invent a pass or advertise it as validated.
 - Test QR/manual join, phone keyboards, resize/rotation, refresh, Wi-Fi loss/rejoin, tabs, deadlines, and host projection.
-- Verify public-origin/connector restrictions on the actual event network with a phone on cellular, and document provider/gateway/outbound-port failures.
+- Retain existing cross-network/phone evidence and provider/gateway/outbound-port failures. Actual venue qualification is an operator/event follow-up; it is required for venue-specific assurances, not for a general limited-scope npm release.
 
 ### Acceptance
 
@@ -187,11 +191,11 @@ The previous epic gate applies in the default linear path. External evidence inp
 
 - Review keyboard-only/dialog/tab/focus behavior and screen-reader phase/error/result announcements.
 - Verify 200% text zoom, contrast over composed scenery, reduced motion, long text/large scores, and the viewport matrix.
-- Finish original assets/font notices and visual consistency; keep reference screenshots out of runtime.
+- Preserve original-asset/font notices and keep reference screenshots out of runtime. Cosmetic refinements beyond usable, readable interaction are optional follow-up.
 
 ### Acceptance
 
-1. All owned UI acceptance checks have actual evidence, including zero/miss/tie/empty/full states.
+1. Essential keyboard/input/focus/phase/status behavior and readable responsive layouts have evidence for the declared scope, including zero/miss/tie/empty/full states. Expanded assistive-technology/device certification remains an explicit follow-up; essential accessibility defects still require fixes.
 2. No decorative effect blocks input, leaks tier, hides focus, or delays a phase.
 3. Unmet checks remain defects or scoped follow-up stories; generating an audit alone does not pass them.
 
@@ -201,11 +205,11 @@ The previous epic gate applies in the default linear path. External evidence inp
 
 ## E6 S06 Release identity metadata and documentation
 
-Implementation handoff November 18: npm schema 2, exact-tarball auditing, review-only release planning, source provenance and notice assembly are delivered. The [S06 report](evidence/E6-S06-NPM.md) records tests and remaining review. The owner approved `niche-out` but deferred account/organization, publisher identity and artwork/example-rights approval. Existing MIT metadata is reused. No signing, account creation or publication occurred.
+Implementation handoff November 18: npm schema 2, exact-tarball auditing, review-only release planning, source provenance and notice assembly are delivered. The [S06 report](evidence/E6-S06-NPM.md) records tests and remaining review. Decision update November 19: the owner approved `niche-out`, personal npm account `hongkian03` and publisher display name `Kian Hong Tan`. The owner subsequently approved artwork/example MIT distribution November 19. The [notice follow-up](evidence/NOTICE-REVIEW.md) resolves the missing text and inventories exact connector module/runtime notices; S06 is complete. First publication establishes registry ownership; native identity verification remains separate. Existing MIT metadata is reused. No signing, account creation or publication occurred.
 
 **Outcome:** A concrete release candidate has complete metadata and operator instructions.
 
-**Size:** 2. **Depends on:** E6-S05.
+**Size:** 2. **Depends on:** Review existing E6-S01–S05 evidence; expanded deferred matrices are not prerequisites.
 
 **External evidence or decisions:** X-PROJECT-DECISIONS. Prepare independent work first; required evidence must exist before Done.
 
@@ -217,7 +221,7 @@ Implementation handoff November 18: npm schema 2, exact-tarball auditing, review
 
 - Prepare a reviewable set of license/publisher/product/asset decisions still requiring the project owner.
 - Finalize version/platform/source/runtime manifests, checksums, example/format guide, connector setup/public-origin/network troubleshooting, and manual-update instructions.
-- Assemble one npm candidate with four native payload targets, frozen source/dependency/connector inventories and no automatic public upload. Prepare review-only sequencing for later native signing and exact-byte publication; retain separate host/contributor/publisher runtime contracts. Keep credentials out of source/packages and verify actual tarball contents.
+- Assemble one npm candidate with four native payload targets, frozen source/dependency/connector inventories and no automatic public upload. Prepare review-only sequencing for optional native signing and required exact-byte publication checks; retain separate host/contributor/publisher runtime contracts. Keep credentials out of source/packages and verify actual tarball contents.
 
 ### Acceptance
 
@@ -231,115 +235,75 @@ Implementation handoff November 18: npm schema 2, exact-tarball auditing, review
 
 ## E6 S07 macOS signed and notarized outputs
 
-**Outcome:** The two Mac public candidates authenticate the project and support offline signature validation plus internet-dependent public hosting.
+**Scope: Optional future enhancement, outside the initial-release gate.** This stable ID retains the earlier signing work without requiring paid enrollment, a Developer ID certificate, notarization, stapling or a new app/container for the npm release. It is not marked Done merely because it is optional.
 
-**Size:** 2. **Depends on:** E6-S06.
+**Outcome if selected:** Mac native helper payloads have verified publisher signatures and a demonstrated notarization delivery method compatible with npm.
 
-**External evidence or decisions:** X-MAC-SIGNING, X-MAC-ARM, X-MAC-INTEL. Prepare independent work first; required evidence must exist before Done.
+**Size:** 2. **Depends on:** E6-S06 and a later owner request.
 
-**Planned areas:** macOS project signing/notarization/stapling for both CPU artifacts.
+### Optional work and acceptance
 
-### Work
+1. Prepare explicit staging for `niche-platform.node` and `niche-guard` on both CPU targets; sign using approved credentials without exposing secrets. User-installed Node and unchanged vendor cloudflared are separate components.
+2. Demonstrate actual notarization/Gatekeeper behavior; do not promise a stapled npm tarball or warning-free execution. Preserve any OS-required/ad-hoc signatures in the ordinary build regardless of whether this enhancement is selected.
+3. Recompute inventories after signing, retain unsigned/signed identities separately, and verify installation and controlled corruption on actual targets before making signing/compatibility claims.
 
-- Include bundled connector and helper resources in the final authenticity and notice review.
-
-- Sign the completed bundle/resources/nested helpers with the approved project identity.
-- Notarize and attach the ticket as applicable; preserve runtime notices/manifests.
-- Verify both final CPU variants and relevant altered-covered-content failure.
-
-### Acceptance
-
-1. Both arm64 and x64 final candidates have actual signature/notarization evidence.
-2. Public readiness does not rely only on the runtime vendor signature or a private unsigned artifact.
-3. Missing credentials or target verification remain blockers, not an unsigned-public fallback.
-
-4. Signed output covers the intended connector variant and contains no operator secrets.
-
-**Verification:** Inspect final archive contents.  Record final hashes and signature/notarization/ticket verification with the required clean-target follow-ups; never include private credentials in evidence.
+**Verification if selected:** Record exact signed hashes, signature/notary results and actual native loading/hosting/cleanup on each claimed target. Missing optional credentials do not block S10/S11. Ordinary unsigned-by-publisher npm installation is tested under S10 without disabling system security.
 
 ## E6 S08 Windows authenticated project artifact
 
-**Outcome:** The Windows public candidate authenticates and checks project resources.
+**Scope: Optional future enhancement, outside the initial-release gate.** Paid Authenticode certificates, timestamp services, a standalone bootstrap and reputation-polish work are not npm release prerequisites.
 
-**Size:** 2. **Depends on:** E6-S06.
+**Outcome if selected:** The Windows native helper carries a verified publisher signature/timestamp with recorded actual Windows behavior.
 
-**External evidence or decisions:** X-WINDOWS-SIGNING, X-WINDOWS. Prepare independent work first; required evidence must exist before Done.
+**Size:** 2. **Depends on:** E6-S06 and a later owner request.
 
-**Planned areas:** Publisher-signed/timestamped Windows launcher and authenticated resource manifest.
+### Optional work and acceptance
 
-### Work
+1. Apply approved native-helper signing/timestamping without placing secrets in source or packages.
+2. Generate inventory hashes after signing and test original/changed helper bytes using actual Windows installation, startup and cleanup.
+3. Record actual OS/reputation prompts without promising their absence. No old bundled-Node/JavaScript verifier or desktop installer is required by this npm design.
 
-- Include bundled connector and helper resources in the publisher-authenticated manifest.
-
-- Apply the approved project signing/timestamping process to the completed launcher.
-- Authenticate the bundled code/resource manifest and verify the launcher rejects altered covered files before execution.
-- Preserve portable format and document actual clean-machine behavior without promising absence of reputation prompts.
-
-### Acceptance
-
-1. Project JavaScript/resources are covered by the verification chain.
-2. A controlled resource modification fails verification before executing it.
-3. The final artifact works without an installer, separately installed runtime, or startup package downloads; tunnel access requires internet.
-
-4. Tampering with a covered connector/resource fails the established verification path.
-
-**Verification:** Include connector integrity checks.  Record signature/resource-verification/tamper evidence on the clean Windows target and final archive hash.
+**Verification if selected:** Actual Windows signature/timestamp/native-loading and corruption evidence. Basic tarball/resource/native/cache integrity remains required under S06/S10 even when this enhancement is skipped.
 
 ## E6 S09 Linux signed archive and verification
 
-**Outcome:** A Linux download can be verified against the project publisher.
+**Scope: Optional future enhancement, outside the initial-release gate.** The historical Linux archive title/anchor is retained for existing links; the actual optional output is a persistent publisher signature over npm/native release inventories, not another primary runtime-inclusive archive.
 
-**Size:** 1. **Depends on:** E6-S06.
+**Outcome if selected:** A reviewed publisher key/fingerprint independently authenticates the exact release inventory/tarball.
 
-**External evidence or decisions:** X-LINUX-SIGNING, X-LINUX. Prepare independent work first; required evidence must exist before Done.
+**Size:** 1. **Depends on:** E6-S06 and a later owner request.
 
-**Planned areas:** Linux archive signature, checksums, public verification key/fingerprint, and instructions.
+### Optional work and acceptance
 
-### Work
+1. Select an approved persistent key and safe signing process; no key creation/import or external service enrollment follows from this plan.
+2. Sign exact final bytes, publish verification material only when authorized, and demonstrate rejection of a modified copy.
+3. Keep npm tarball integrity, component hashes and native-mode checks in the ordinary path. Document that checksums alone are not publisher authentication.
 
-- Include the pinned connector, notices and configuration template in the signed archive.
-
-- Sign the completed Linux archive or provide its detached project signature.
-- Document verification key/fingerprint and checksum verification.
-- Verify extraction/permissions on the final archive without adding a new Linux runtime verifier.
-
-### Acceptance
-
-1. An altered archive fails the project signature check.
-2. The shipped verification material and instructions correspond to the actual final archive.
-3. The portable program reports unavailable internet/provider access accurately and starts public hosting when ready.
-
-4. Archive verification covers the actual connector payload and excludes operator credentials.
-
-**Verification:** Inspect final archive contents.  Record valid/modified archive verification and final Ubuntu extraction/launch evidence.
+**Verification if selected:** Original/altered inventory checks against the independently trusted key. Missing optional keys/signatures do not block S10/S11.
 
 ## E6 S10 Final signed artifact clean-target validation
 
-**Outcome:** Release evidence applies to the actual signed/packaged outputs.
+**Active outcome:** Evidence applies to the exact final **npm candidate** and the initial release's declared validated scope. The historical signed-artifact anchor is retained; paid publisher signing is not required.
 
-**Size:** 2. **Depends on:** E6-S07, E6-S08, E6-S09.
+**Size:** 2. **Depends on:** E6-S06. Optional S07–S09 are not dependencies.
 
-**External evidence or decisions:** X-MAC-ARM, X-MAC-INTEL, X-WINDOWS, X-LINUX. Prepare independent work first; required evidence must exist before Done.
-
-**Planned areas:** Final four-artifact evidence and regression selection.
+**External evidence:** Available supported Mac. Intel/Windows/Linux and wider manual testing remain owner-deferred; any corresponding target is labelled unverified until executed.
 
 ### Work
 
-- Verify managed temporary public access without mandatory account/domain setup, private host authorization and server/connector cleanup on every signed target.
-
-- Extract and run every final artifact independently of development tools, through the real tunnel for required public launch/play, and with internet disabled for explicit unavailable-service feedback.
-- Recheck owner recovery, networking, included assets/resources, launcher quit, and platform-appropriate signature/tamper behavior.
-- Identify code/packaging changes since capacity/device reports and rerun only affected evidence or tie unchanged code correctly to final packaging.
+- Freeze one candidate's SHA-256/npm integrity, source/lock/resource/native/connector/notice inventories and version. No mutation or rebuild after the reviewed bytes are selected for publication.
+- Install those exact bytes outside the checkout with scripts disabled and supported Node already installed. Verify CLI/help, native selection, actual worker/assets/examples, explicit connector acquisition/cache reuse, useful unavailable-service feedback, host recovery and process cleanup.
+- Preserve existing real-tunnel/browser/gameplay evidence only when relevant runtime bytes are unchanged; rerun affected cases when they change. Verify private host authorization and no secret/private-fixture leaks.
+- Test applicable normal OS controls/permissions. Do not require an installer, app container, bundled Node, blanket Gatekeeper/SmartScreen disabling, or nonexistent offline tunnel hosting. Cold prepare may download the declared verified connector.
 
 ### Acceptance
 
-1. All four final hashes have clean-target results and no hidden runtime download.
-2. Signing/packaging changes cannot inherit an unrelated older test result without review.
-3. Any target/signature/public-access failure blocks that promised public release.
+1. The exact candidate installs and its owned functional/integrity checks pass for the advertised validated platform/runtime scope.
+2. Required package/resource/native/cache corruption checks fail safely, without treating same-directory hashes as independent publisher identity.
+3. Known blocking gameplay/privacy/security/recovery/usability defects within the release claim are fixed or the release scope is explicitly narrowed before review. Absence of optional signing alone is not such a defect.
+4. Deferred targets/devices and provider/hardware limits are visible. Four prebuilds or CI configuration do not establish four-platform execution; the initial Mac-qualified release may proceed with honest unverified-target labels.
 
-4. Each target has actual cross-network evidence tied to the final artifact hash.
-
-**Verification:** Repeat only affected provider/device cases after packaging changes.  Maintain the final source-to-build-to-artifact-to-evidence chain and affected-regression results.
+**Verification:** Retain exact hashes, actual commands/results and a concise changed-versus-unchanged regression selection. Source or artifact changes invalidate the affected freeze and require relevant checks again. No new stress/device matrix is required solely to repeat unchanged code.
 
 ## E6 S11 Release readiness and requirement coverage gate
 
@@ -351,14 +315,14 @@ Implementation handoff November 18: npm schema 2, exact-tarball auditing, review
 
 ### Work
 
-- Map every PRD/UI criterion and architecture/review obligation to exact passing evidence or an explicit blocker.
+- Reconcile the existing criterion/evidence map, identifying release-blocking defects, explicit known limitations, owner-deferred tests and optional follow-ups separately. This authorized policy supersedes the former mandatory paid signing/universal matrix requirements.
 - Check outstanding defects, platform reports, resource tuning decisions, notices, and publication prerequisites.
 - Produce release notes/known limits and the concrete set of artifacts/actions proposed for publication.
 
 ### Acceptance
 
-1. All 28 PRD and 35 UI criteria and the additional architecture obligations are accounted for individually.
-2. No unresolved mandatory check is relabelled optional to pass the gate.
+1. The existing PRD/UI/architecture mapping remains accounted for with actual evidence, known limits or clearly scoped follow-up; no new certification bureaucracy or duplicate report set is required.
+2. Material game/privacy/security/recovery/usability and package-integrity failures within the declared release scope are not hidden. Optional paid signing, promotion automation, cosmetic polish and explicitly deferred matrix coverage do not block the initial release.
 3. This closes release preparation only; it does not itself upload artifacts or publish a site.
 
 **Verification:** Re-read the baseline/evidence matrix and inspect the final artifact inventory. A separate reviewer is optional; a second agent is not required.
@@ -379,11 +343,11 @@ Implementation handoff November 18: npm schema 2, exact-tarball auditing, review
 
 - Confirm the authorized destination and exact release artifacts/source revision from E6-S11.
 - Publish that concrete release using the authorized service workflow.
-- Verify public names/hashes/signature material/download links against the approved inventory.
+- Verify registry name/version/npm integrity against the approved tarball, then clean-install/run it. Use signatures/provenance if configured; do not require an optional authentication pipeline or two-stage candidate/stable ceremony for one reviewed initial publish.
 
 ### Acceptance
 
-1. Every published item matches the reviewed signed artifact and checksum.
+1. Every published item matches the reviewed exact npm tarball/version/integrity. Recheck account access and name availability before upload; do not infer ownership of an unpublished name.
 2. Only the approved artifacts are published; no shared relay account, service purchase or additional hosting service is introduced.
 3. If publication is not authorized, leave this story unstarted and report the prepared release as private/release-ready.
 
@@ -397,7 +361,7 @@ Implementation handoff November 18: npm schema 2, exact-tarball auditing, review
 
 **External evidence or decisions:** X-SITE-AUTH. Prepare independent work first; required evidence must exist before Done.
 
-**Scope:** Optional; the tunnel-hosted game and signed artifacts do not depend on this site.
+**Scope:** Optional; the tunnel-hosted game and npm release do not depend on this site.
 
 **Planned areas:** Static documentation/download information site and its approved deployment.
 
@@ -417,7 +381,8 @@ Implementation handoff November 18: npm schema 2, exact-tarball auditing, review
 
 ## Epic gate
 
-G6 release readiness requires E6-S01 through E6-S11 and all applicable evidence/prerequisites. Actual publication is the separately authorized E6-S12 checkpoint. E6-S13 is optional and does not block the local game. No signing, capacity, device, or accessibility check is passed merely by generating a script/report template.
+G6 initial-release preparation requires S06's completed metadata/notices/integrity work, S10's exact installed npm candidate evidence for the declared release scope, and S11's review of material defects and existing S01–S05/N08 findings. Optional S07–S09 and S13 are outside this gate. Paid signing, universal platform/device matrices, fresh broad stress campaigns, additional benchmark hardware, venue-specific guarantees, cosmetic polish and a bespoke promotion system are not automatic prerequisites.
 
-Record artifacts, actual checks/results, external blockers, and the next eligible story using the master handoff template. A missing target, signature, or authorization is not implied by successful work elsewhere.
+Keep the 100-player admission cap and existing network disclaimer. A limited initial release must state actual Mac evidence and label deferred targets unverified. It must not claim all-polling reliability, 8 GiB performance, 100 physical devices or event availability. A material known bug within the promised game/security/recovery behavior is still a release issue; documentation cannot silently turn a false promise into a passing test.
 
+S12 is the separately authorized publication checkpoint. No account enrollment, signing, purchase, upload or site deployment is authorized by revising this plan. Generating a script/report does not establish an executed result. Keep original historical evidence and unresolved findings dated; the owner-approved policy changes scope, not past measurements.

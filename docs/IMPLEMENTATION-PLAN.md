@@ -6,7 +6,7 @@ The original backlog contains **six epics and 77 stories**: 75 implementation, v
 
 ## What we are building
 
-Build an open-source, custom Krillion-inspired game for the owner's use and others' local hosting. A host runs an authoritative local server and administers it through a browser. The implemented local npm candidate contains a compiled CLI, bundled small native prebuilds and explicit verified connector preparation; hosts install supported Node. The package is not published, and public authentication plus remaining platform/lifecycle qualification stay open. Up to 100 players join through one verified public HTTPS origin for the hosting session using a link/QR or that instance’s address plus six-digit code. An application-managed tunnel connector forwards traffic to the laptop’s loopback listener; host and player browsers use the same origin.
+Build an open-source, custom Krillion-inspired game for the owner's use and others' local hosting. A host runs an authoritative local server and administers it through a browser. The implemented local npm candidate contains a compiled CLI, bundled small native prebuilds and explicit verified connector preparation; hosts install supported Node. The package is not published; final exact-package verification and declared-scope qualification stay open. Publisher authentication is optional follow-up. Up to 100 players join through one verified public HTTPS origin for the hosting session using a link/QR or that instance’s address plus six-digit code. An application-managed tunnel connector forwards traffic to the laptop’s loopback listener; host and player browsers use the same origin.
 
 The game author uploads 1–20 ordered prompts with accepted answers, aliases, custom tiers/points, and shared timers. The first accepted in-time answer locks. Points come from the JSON; frequencies are descriptive counts. The server advances Reading, Answering, Results, and Finished, handles tied ranks and recaps, and keeps current-round outcomes hidden until reveal.
 
@@ -29,6 +29,14 @@ On a fresh agent handoff, read this document's current tracker, the active epic 
 
 The three baselines remain authoritative for product and technical behavior. This backlog owns the detailed execution order; it refines the earlier milestone plan. If implementation evidence requires a change, update the affected contract and story/dependencies explicitly. Story text is not permission to quietly change gameplay, platform support, or local hosting.
 
+## Lean initial-release policy — November 19, 2026
+
+The owner authorized a complete Epic 6 review to remove unnecessary pre-release steps from the npm path. See [the active Epic 6 policy](implementation/epic-06-validation-release.md#active-lean-npm-release-policy--november-19-2026) and [review report](implementation/evidence/E6-LEAN-RELEASE.md). This explicit scope change supersedes prior mandatory paid signing, native publisher-authentication and four-target-before-any-release wording; it does not change recorded test outcomes.
+
+Required next path: **S06 → S10 → S11 → separately authorized S12**. Review the existing S01–S05/N08 evidence and material failures; repeat affected checks after relevant changes. S07 Apple signing/notarization, S08 Windows Authenticode, S09 detached publisher signatures and S13 information site are optional follow-ups. Trusted-publisher/provenance automation, separate candidate-to-stable promotion, cosmetic polish, extra stress/hardware campaigns and owner-deferred universal browser/device/host matrices do not hold up the initial limited-scope release solely because they are absent.
+
+Keep exact tarball/source/lock/native/connector/notice inventory, package/component corruption detection, required/ad-hoc platform signatures, secure npm authentication, actual installed Mac behavior, essential game/privacy/security/recovery/accessibility correctness, accurate installation/network limitations and explicit publication approval. Preserve any unresolved material defect within the advertised scope as a release issue. Do not disable OS security or infer four-platform compatibility from cross-builds. Intel/Windows/Linux and broader physical testing stay owner-deferred and labelled unverified; Mac-qualified initial publication can proceed with those limits stated.
+
 ## Epic sequence
 
 | Gate | Epic and detailed stories | Concrete result |
@@ -38,7 +46,7 @@ The three baselines remain authoritative for product and technical behavior. Thi
 | G3 | [E3 Local server and reliable protocol](implementation/epic-03-local-server.md) — 13 stories | Restricted production server, worker import, identity/control, idempotent operations, and protocol game. |
 | G4 | [E4 Complete browser game](implementation/epic-04-browser-game.md) — 12 stories | Working host/player browser flows, results/recaps, presentation, and recovery. |
 | G5 | [E5 Portable hosting and machine lifecycle](implementation/epic-05-portable-hosting.md) — 10 historical stories + 6 npm migration stories | One installable npm CLI across four native targets, with lifecycle evidence; original private archives remain historical. |
-| G6 | [E6 Validation and signed release](implementation/epic-06-validation-release.md) — 11 release-preparation stories | Capacity/device/accessibility evidence and an authenticated npm/native release candidate with four-target installation evidence. |
+| G6 | [E6 Validation and npm release](implementation/epic-06-validation-release.md) — 8 evidence/preparation stories + 3 optional signing enhancements | Exact integrity-checked npm candidate, installed evidence for the declared scope and honest defect/limitation review; paid signing and unexecuted wider matrices are not prerequisites. |
 
 E6-S12 publishes the separately authorized release after G6. E6-S13 optionally supplies a static information website. Neither is needed to complete private release preparation, and the website never becomes a gameplay dependency.
 
@@ -48,12 +56,12 @@ flowchart LR
     E2 --> E3[E3 Server]
     E3 --> E4[E4 Browser game]
     E4 --> E5[E5 Portable hosts]
-    E5 --> E6[E6 Validation and signed candidates]
+    E5 --> E6[E6 Validation and npm candidate]
     E6 --> P[Conditional authorized publication]
     E6 -. Optional .-> W[Static information site]
 ```
 
-The default order is the table order and increasing story number within each epic. E2 has an explicit contract-gate exception after E1-S15 while managed-hosting implementation continues; E3-S01 requires E1-S20 and G2. Direct story dependencies can be narrower than that linear order; they support a safe same-epic substitution when a story is externally blocked or an explicitly requested parallel pair. They do not create an automatic reason to open a future epic.
+The default order is the table order and increasing story number within each epic, skipping optional stories unless explicitly selected. Epic 6 now follows S06 → S10 → S11 → separately authorized S12; S07–S09/S13 do not block it. E2 has an explicit contract-gate exception after E1-S15 while managed-hosting implementation continues; E3-S01 requires E1-S20 and G2. Direct story dependencies can be narrower than that linear order; they support a safe same-epic substitution when a story is externally blocked or an explicitly requested parallel pair. They do not create an automatic reason to open a future epic.
 
 ## One agent and one story by default
 
@@ -131,7 +139,7 @@ Parallel execution is optional future scheduling, not active work authorized by 
 | E4-S01 with E4-S02 | G3 and response contracts | Visual components/assets versus connection/session client; E4-S03 integrates them. |
 | Any two of E5-S02/S03/S04 | E5-S01 adapter interface | Separate OS adapters and tests; E5-S05 integrates all results. |
 | Any two of E5-S06/S07/S08/S09 | E5-S05 and frozen common app build | Separate platform recipes/staging directories; E5-S10 consolidates evidence. |
-| Any two of E6-S07/S08/S09 | E6-S06 and frozen candidate | Separate platform signing outputs; E6-S10 validates the completed set. |
+| Any two of optional E6-S07/S08/S09 | E6-S06, frozen candidate and later owner selection | Separate optional signing outputs; changed final bytes require affected S10 revalidation. These tasks are outside the initial release path. |
 
 Do not concurrently edit a shared manifest, lockfile, contract export, common adapter, router/store, or artifact staging directory. Freeze shared inputs first and name the one integrator. If isolation is unclear, use the normal sequential order. Logical independence is not enough when two tasks write the same files.
 
@@ -146,13 +154,13 @@ Do not concurrently edit a shared manifest, lockfile, contract export, common ad
 | M4 UI/recovery | E4 implements the UX; formal device/accessibility criteria close with E6-S04/S05. |
 | M5 Portable host | E5 produces four private validated artifacts and lifecycle evidence. |
 | M6 Capacity/devices | E6-S01 through E6-S05 supply measured and actual-device evidence. |
-| M7 Public release | E6-S06 through E6-S11 prepare/verify signed candidates; E6-S12 is actual authorized publication. |
+| M7 Public release | E6-S06 → S10 → S11 prepare/review one exact npm candidate; S12 is separately authorized publication. Optional signing/site/promotion work is outside the gate. |
 
 Milestones can collect evidence from multiple epics. They are completeness labels, not extra prerequisite nodes. In particular, do not require every M0 production/platform check before beginning the independent E2 core. Use the explicit story graph and gates.
 
 ## External inputs
 
-These are implementation/validation or publication inputs, not new gameplay questions. Availability has not been assumed.
+These are implementation/validation or publication inputs, not new gameplay questions. Availability has not been assumed. Under the lean initial-release policy, unavailable wider hardware/device inputs limit the claims that can be made; they do not block an available-Mac-qualified release with those combinations labelled unverified. Optional signing inputs apply only if that enhancement is later selected.
 
 | Input | Needed for | Completion rule |
 | --- | --- | --- |
@@ -169,20 +177,20 @@ These are implementation/validation or publication inputs, not new gameplay ques
 | X-TUNNEL-PROVIDER | E1-S15/S16/S20, E5/E6 | Managed temporary Cloudflare tunnels are the default session candidate; cloudflared 2026.11.0 is pinned. No account/domain is required for this path. Provider availability, limits and actual event suitability need evidence; named setup is optional future support. |
 | X-ACCESSIBILITY-REVIEW | E6-S05 | Actual keyboard/screen-reader/zoom/motion/contrast checks, performed by the agent where possible or with user assistance. |
 | X-PROJECT-DECISIONS | E6-S06 | Recorded license, publisher/product identity, artwork/notices choices needed for publication. Prepare concrete choices before asking. |
-| X-MAC-SIGNING / X-WINDOWS-SIGNING / X-LINUX-SIGNING | E6-S07/S08/S09 | Approved signing identity/infrastructure; prepare the pipeline and verification before requesting missing access. |
+| X-MAC-SIGNING / X-WINDOWS-SIGNING / X-LINUX-SIGNING | Optional E6-S07/S08/S09 only if later selected | Approved optional signing identity/infrastructure. No enrollment, payment, key setup or initial-release dependency is implied. |
 | X-PUBLICATION-AUTH | E6-S12 | Explicit authorization for the concrete reviewed release and destination. |
 | X-SITE-AUTH | E6-S13 | Authorization for the concrete information site and deployment destination. |
 
-Signing services remain release-time dependencies. The selected tunnel provider and host/player internet connections are runtime dependencies. Missing credentials or hardware remain visible blockers only to their dependent work. The plan does not purchase services, request private keys, publish artifacts, or launch agents.
+Signing services are dependencies only of later-selected optional signing work. The selected tunnel provider and host/player internet connections are runtime dependencies. Missing credentials or hardware remain visible blockers only to their dependent work. The plan does not purchase services, request private keys, publish artifacts, or launch agents.
 
 ## Story tracker
 
-Current handoff: **E6-S06 npm release tooling, November 18.** Actual-tarball audit, review-only planner, npm schema-2 metadata, source provenance and dependency notice assembly are delivered. See the [S06 report](implementation/evidence/E6-S06-NPM.md). The owner approved `niche-out` and explicitly deferred account/organization, publisher identity and artwork/example-rights approval. S06 remains REVIEW for those deferred decisions and outstanding notice review; the implementation is usable locally without an npm account. Signing and publication remain S07–S12, not actions performed by S06.
+Current handoff: **E6-S06 npm release tooling, November 18.** Actual-tarball audit, review-only planner, npm schema-2 metadata, source provenance and dependency notice assembly are delivered. See the [S06 report](implementation/evidence/E6-S06-NPM.md). The owner approved `niche-out` and, on November 19, selected personal npm account `hongkian03` and publisher display name `Kian Hong Tan`. Read-only npm preflight on November 19 confirmed login `hongkian03` and HTTP 404 for `niche-out`; first publication establishes ownership and name availability must be rechecked then. The owner approved artwork/example MIT distribution November 19, and the notice follow-up resolved the missing permission text and collected verified connector module/runtime notices. S06 is DONE; see the [notice follow-up](implementation/evidence/NOTICE-REVIEW.md) for the closing checks. The owner subsequently adopted the lean npm policy above: S07–S09 are optional and S10 is the next required candidate-verification story. Optional signing remains S07–S09; initial-release verification/review is S10/S11 and publication is S12. None was performed by S06.
 
 Previous handoff: **Epic 5 npm distribution implementation, November 18.** The [six-story migration](implementation/epic-05-npm-distribution.md) now delivers an unpublished local tarball, lightweight runtime/OS preflight, four bundled native builds, verified per-user connector preparation, installed launcher integration and compatibility/CI tooling. N01/N03/N04 are DONE. All six npm stories are DONE by owner-directed closure; actual Intel Mac/Windows/Linux execution and physical terminal/power lifecycle checks remain owner-deferred evidence for final release qualification. Available-Mac installed-package checks and a 100-player mixed-transport game through the package-owned Quick Tunnel passed; see the [npm implementation and test report](implementation/evidence/EPIC-5-NPM.md) for exact candidate identity, checks and omissions. Prepared CI is not an executed platform pass. No package was published or publicly authenticated. The earlier [S02/S03 follow-up](implementation/evidence/EPIC-6-S02-S03-FOLLOWUP.md) retains its dated polling/hardware/physical-network acceptance gaps; this npm handoff does not close them.
 
 Previous implementation handoff: **Epic 6; full G6 remains open.**
-Previous S02/S03 work: **Implementation and verification delivered; acceptance remains REVIEW.** See the [follow-up report](implementation/evidence/EPIC-6-S02-S03-FOLLOWUP.md). Typecheck/build, 456 application tests and 16 harness checks passed. Final bounds/import workloads and 100-player combined recovery passed; actual owned connector death was verified. A 30-game/300-round local run plus ten minutes idle passed with stable bounded metadata. Shutdown now clears pinned ledger outcomes; private diagnostics correlate polling commands. Both public polling investigations failed after 17 verified rounds through distinct traced boundaries, so polling-only qualification remains open. An actual 8 GiB host, physical OS/venue outage coverage, deferred platforms and signing remain outstanding. No public release occurred.
+Previous S02/S03 work: **Implementation and verification delivered; acceptance remains REVIEW.** See the [follow-up report](implementation/evidence/EPIC-6-S02-S03-FOLLOWUP.md). Typecheck/build, 456 application tests and 16 harness checks passed. Final bounds/import workloads and 100-player combined recovery passed; actual owned connector death was verified. A 30-game/300-round local run plus ten minutes idle passed with stable bounded metadata. Shutdown now clears pinned ledger outcomes; private diagnostics correlate polling commands. Both public polling investigations failed after 17 verified rounds through distinct traced boundaries, so polling-only qualification remains open. An actual 8 GiB host, physical OS/venue outage coverage and deferred platforms remain unverified; under the current lean policy they limit corresponding claims rather than automatically blocking a Mac-qualified initial release. Optional signing has not been performed. No public release occurred.
 
 Historical E5 S stories in REVIEW have implemented deliverables; their remaining original acceptance items are manual/platform evidence, not missing implementation. S01 and S05 automated integration criteria are complete. Original archive certification is not asserted and does not determine the new npm gate. The user authorized Epic 6 on the reference build and explicitly deferred other-platform testing; the corresponding npm manual checks are deferred by the owner and remain visible for final E6 qualification.
 
@@ -291,7 +299,7 @@ Entry: G4. Direct story prerequisites are listed below; this entry gate applies 
 
 **Complete by owner instruction, November 18, 2026.** Outstanding manual/platform checks are deferred to the owner and retained in the evidence report for release qualification.
 
-The owner selected npm distribution and authorized parallel implementation. See [the detailed migration stories](implementation/epic-05-npm-distribution.md) and [delivered npm evidence](implementation/evidence/EPIC-5-NPM.md). The local candidate reuses working game/network/lifecycle code. Existing archive deliverables stay historical; applicable power/clock/process behavior is reused. Npm publication and native authentication remain Epic 6 gates.
+The owner selected npm distribution and authorized parallel implementation. See [the detailed migration stories](implementation/epic-05-npm-distribution.md) and [delivered npm evidence](implementation/evidence/EPIC-5-NPM.md). The local candidate reuses working game/network/lifecycle code. Existing archive deliverables stay historical; applicable power/clock/process behavior is reused. Exact-package verification, readiness review and separately authorized npm publication remain Epic 6 work. Publisher signing/native authentication is optional under the active lean policy.
 
 | Story | Outcome | Size | Direct prerequisites | Status |
 | --- | --- | --- | --- | --- |
@@ -302,11 +310,11 @@ The owner selected npm distribution and authorized parallel implementation. See 
 | [E5-N05](implementation/epic-05-npm-distribution.md#e5-n05-hosting-setup-lifecycle-and-version-changes) | Existing hosting lifecycle through npm plus safe version changes | 2 | E5-N04 | DONE |
 | [E5-N06](implementation/epic-05-npm-distribution.md#e5-n06-packed-install-platform-gate-and-release-handoff) | Actual tarball installation matrix and release handoff | 2 | E5-N05 | DONE |
 
-Linear default: N01 → N02 → N03 → N04 → N05 → N06. The owner-authorized parallel run delivered implementation, and the owner subsequently closed Epic 5 while deferring remaining manual checks; that is not full target certification. N02 still needs actual Intel/Windows/Linux native/runtime and physical power/process evidence. N05's available-Mac installed CLI signal/kill, active wrapper death and stopped-host version-change checks passed; physical terminal closure and corresponding other-target lifecycle cases remain. N06 has delivered the qualification tooling; the owner will run the remaining exact-target installation/gameplay matrix later. All six npm stories and Epic 5 are closed by owner instruction; G5 permits Epic 6 progression with deferred evidence recorded, without asserting full target certification. G6 consumes that package candidate plus unchanged capacity/device/accessibility obligations and the revised npm/native E6-S06–S11 criteria. S12 publication remains separately authorized.
+Linear default: N01 → N02 → N03 → N04 → N05 → N06. The owner-authorized parallel run delivered implementation, and the owner subsequently closed Epic 5 while deferring remaining manual checks; that is not full target certification. N02 still needs actual Intel/Windows/Linux native/runtime and physical power/process evidence. N05's available-Mac installed CLI signal/kill, active wrapper death and stopped-host version-change checks passed; physical terminal closure and corresponding other-target lifecycle cases remain. N06 has delivered the qualification tooling; the owner will run the remaining exact-target installation/gameplay matrix later. All six npm stories and Epic 5 are closed by owner instruction; G5 permits Epic 6 progression with deferred evidence recorded, without asserting full target certification. G6 consumes that package candidate, existing capacity/device/accessibility evidence and material failures under the declared release scope, using the lean S06/S10/S11 path; optional signing and deferred broader matrices are outside the initial gate. S12 publication remains separately authorized.
 
 ### Epic 6
 
-Entry: G5. Direct story prerequisites are listed below; this entry gate applies to every story in the epic.
+Entry: G5, closed by owner instruction. Required next sequence is S10 → S11 → separately authorized S12 after delivered S06. Optional S07–S09/S13 are skipped until selected. REVIEW rows retain actual missing evidence; no new pass is asserted.
 
 | Story | Outcome | Size | Direct story prerequisites | Status |
 | --- | --- | --- | --- | --- |
@@ -315,13 +323,13 @@ Entry: G5. Direct story prerequisites are listed below; this entry gate applies 
 | [E6-S03](implementation/epic-06-validation-release.md#e6-s03-recovery-churn-and-bounded-state-endurance) | Recovery churn and bounded-state endurance | 2 | E6-S02 | REVIEW |
 | [E6-S04](implementation/epic-06-validation-release.md#e6-s04-event-networks-and-browser-device-matrix) | Event networks and browser device matrix | 2 | E6-S03 | REVIEW |
 | [E6-S05](implementation/epic-06-validation-release.md#e6-s05-accessibility-and-visual-completion-review) | Accessibility and visual completion review | 2 | E6-S04 | REVIEW |
-| [E6-S06](implementation/epic-06-validation-release.md#e6-s06-release-identity-metadata-and-documentation) | npm release identity, metadata and documentation | 2 | E6-S05 | REVIEW |
-| [E6-S07](implementation/epic-06-validation-release.md#e6-s07-macos-signed-and-notarized-outputs) | macOS native payload authentication for npm | 2 | E6-S06 | BLOCKED |
-| [E6-S08](implementation/epic-06-validation-release.md#e6-s08-windows-authenticated-project-artifact) | Windows native authentication and npm integrity | 2 | E6-S06 | BLOCKED |
-| [E6-S09](implementation/epic-06-validation-release.md#e6-s09-linux-signed-archive-and-verification) | Linux/native inventory and npm release authentication | 1 | E6-S06 | BLOCKED |
-| [E6-S10](implementation/epic-06-validation-release.md#e6-s10-final-signed-artifact-clean-target-validation) | Final authenticated npm clean-install validation | 2 | E6-S07, E6-S08, E6-S09 | BLOCKED |
+| [E6-S06](implementation/epic-06-validation-release.md#e6-s06-release-identity-metadata-and-documentation) | npm release identity, metadata and documentation | 2 | Review existing E6-S01–S05 evidence | DONE |
+| [E6-S07](implementation/epic-06-validation-release.md#e6-s07-macos-signed-and-notarized-outputs) | Optional Mac publisher signing/notarization | 2 | E6-S06; later owner selection | TODO |
+| [E6-S08](implementation/epic-06-validation-release.md#e6-s08-windows-authenticated-project-artifact) | Optional Windows Authenticode/timestamping | 2 | E6-S06; later owner selection | TODO |
+| [E6-S09](implementation/epic-06-validation-release.md#e6-s09-linux-signed-archive-and-verification) | Optional detached publisher signatures | 1 | E6-S06; later owner selection | TODO |
+| [E6-S10](implementation/epic-06-validation-release.md#e6-s10-final-signed-artifact-clean-target-validation) | Exact npm clean-install verification for declared initial-release scope | 2 | E6-S06 | TODO |
 | [E6-S11](implementation/epic-06-validation-release.md#e6-s11-release-readiness-and-requirement-coverage-gate) | Release readiness and requirement coverage gate | 1 | E6-S10 | REVIEW |
-| [E6-S12](implementation/epic-06-validation-release.md#e6-s12-publish-the-authorized-release) | Publish the authorized npm candidate and stable release — conditional | 1 | E6-S11 | TODO |
+| [E6-S12](implementation/epic-06-validation-release.md#e6-s12-publish-the-authorized-release) | Publish one reviewed exact npm release — separately authorized | 1 | E6-S11 | TODO |
 | [E6-S13](implementation/epic-06-validation-release.md#e6-s13-optional-static-information-website) | Optional static information website — optional | 2 | E6-S11 | TODO |
 
 ## Epic 6 networking improvement extension
@@ -339,7 +347,7 @@ Implementation update, November 17, 2026. The owner authorized parallel implemen
 | [E6-N07](implementation/epic-06-network-improvements.md#e6-n07-stagger-clock-sampling) | Spread clock samples while preserving countdown accuracy | 1 | E6-N06 | DONE |
 | [E6-N08](implementation/epic-06-network-improvements.md#e6-n08-regression-comparison-and-handoff-gate) | Matched capacity/browser regression and candidate handoff | 2 | E6-N01–N07 | REVIEW |
 
-Use one story at a time. Review its correctness and focused measurements before continuing; split a story if it becomes too broad. N08 feeds updated evidence into E6-S02/S03 and precedes a new candidate freeze for S06–S11. Original story IDs and outstanding device/signing requirements remain intact. Historical provider research is retained as evidence; a provider migration is not part of this extension. Implementation is authorized; publication remains separately authorized.
+Use one story at a time. Review its correctness and focused measurements before continuing; split a story if it becomes too broad. Existing N08 evidence feeds S02/S03 and the S10/S11 review. A fresh matched capacity campaign is needed only for relevant changes or an unresolved owned failure that warrants it, not as a mandatory repeat before every candidate freeze. Original story IDs and dated test findings remain intact. The owner deferred wider device/host matrices; optional publisher signing no longer blocks the initial release. N08 review and known polling failures must inform the advertised scope, not imply an all-polling pass. Historical provider research is retained as evidence; a provider migration is not part of this extension. Implementation is authorized; publication remains separately authorized.
 
 ## Networking baseline investigation — November 16
 
@@ -351,21 +359,21 @@ The baseline confirms thousands of reconnect-triggered views and identifies repe
 
 The [S02/S03 follow-up](implementation/evidence/EPIC-6-S02-S03-FOLLOWUP.md) adds actual runtime limits, connector-crash/combined recovery, refreshed import peaks, longer local endurance and correlated polling failures. S02/S03 retain REVIEW for the explicit unverified conditions; the work is not merely proposed.
 
-The owner authorized parallel execution on the available Mac and later requested provider/transport alternatives. The [alternatives report](implementation/evidence/EPIC-6-ALTERNATIVES.md) proposes small follow-up chunks; none changes the baseline until selected. No mandatory requirement was silently relaxed.
+The owner authorized parallel execution on the available Mac and later requested provider/transport alternatives. The [alternatives report](implementation/evidence/EPIC-6-ALTERNATIVES.md) proposes small follow-up chunks; none changes the baseline until selected. The November 19 owner-directed lean policy explicitly changes signing/matrix release gates while preserving material correctness requirements and historical measurements.
 
 | ID | Scope and next action | Impact |
 | --- | --- | --- |
-| E6-F01 | Complete polling-only qualification and available-hardware/event-outage evidence; retain traced DNS and pre-handler failures | E6-S02/S03 remain REVIEW. New bounds, combined recovery, imports and 300-round local endurance passed; both correlated public polling runs stopped after 17 verified rounds. |
+| E6-F01 | Retain polling/hardware/outage findings and known limits; run expanded qualification before advertising those guarantees | S02/S03 remain REVIEW. Existing mixed gameplay, bounds, recovery and endurance evidence remains; unresolved polling-only/8 GiB/venue guarantees are not claimed by the initial release. |
 | E6-F02 | Investigate full-view traffic and 2.8-second event-loop tail; consider retry jitter, tested WebSocket-first fallback, unused live standings and coalesced presence updates | E6-N01–N07 implemented and measured; see the new report. Full permitted views, private state, acknowledgement rules and the 50 ms batching bound are preserved. |
-| E6-F03 | Complete physical device/browser/VoiceOver/zoom/venue evidence and deferred host-platform lifecycle checks | E6-S04/S05 and original G5 evidence remain REVIEW. Emulation and cross compilation are not replacements. |
-| E6-F04 | Build authenticated Mac container/launcher, Windows verifier and post-signing digest pipeline; finish notices and obtain license/publisher/signing decisions | E6-S06 REVIEW; E6-S07–S09 BLOCKED on explicit engineering/credential prerequisites. |
-| E6-F05 | Verify final signed hashes on clean targets and close every mandatory requirement | E6-S10 BLOCKED and E6-S11 REVIEW. The 89-row evidence map is delivered, but the release gate is not passed. |
+| E6-F03 | Owner-deferred expanded physical device/browser/assistive-technology/venue/host-platform checks; fix essential usability/accessibility defects in claimed scope | S04/S05 REVIEW retains missing evidence; emulation/cross-builds do not substitute for actual execution. Honest unverified labels permit a limited initial release. |
+| E6-F04 | Optional Mac/Windows publisher signing and detached signatures if later selected | S06 metadata/notices are DONE. S07–S09 are optional TODO, not blocked prerequisites. Preserve platform-required/ad-hoc signing and ordinary integrity checks. |
+| E6-F05 | Verify exact final npm bytes on available qualified target, review material defects/known limits and request authorization for that scope | S10 TODO is eligible after S06; S11 REVIEW remains. Neither the scope revision nor previous evidence automatically passes the final candidate or authorizes publication. |
 
 E6-S01 is DONE: reproducible production workloads, calibrated counters and measured boundaries are available. E6-S03 has actual 30-game churn, bounded metadata pressure, simultaneous reconnects and short connector suspension evidence; full network/process-failure and longer endurance qualification remain visible. E6-S12 publication and E6-S13 optional site remain unstarted and separately authorized.
 
 ## Requirement traceability
 
-The [coverage map](implementation/coverage.md) assigns each of the 28 PRD and 35 UI acceptance criteria to implementation and verification stories, plus additional architecture/review obligations. A story's local checks can contribute evidence; a requirement that includes real devices or final signed artifacts remains incomplete until its assigned validation story passes.
+The [coverage map](implementation/coverage.md) assigns each of the 28 PRD and 35 UI acceptance criteria to implementation and verification stories, plus additional architecture/review obligations. A story's local checks can contribute evidence; deferred real-device and optional signing claims stay unverified until actually tested. G6 uses the owner-approved declared initial-release scope and does not treat those unclaimed guarantees as universal prerequisites.
 
 ## Planning reference
 

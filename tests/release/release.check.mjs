@@ -9,6 +9,7 @@ import {createHash} from 'node:crypto';
 import {auditRelease} from '../../scripts/release-audit.mjs';
 import {readNpmTarball} from '../../scripts/release-tar.mjs';
 import {generateReleaseNotices} from '../../scripts/release-notices.mjs';
+import {verifyConnectorNoticeInventory,applyNoticeReview} from '../../scripts/release-notice-review.mjs';
 import {planRelease} from '../../scripts/release-plan.mjs';
 import {parseGoModules} from '../../scripts/release-connector-inventory.mjs';
 import {sha256,targets,parseChecksum} from '../../scripts/package-lib.mjs';
@@ -46,13 +47,13 @@ async function fixture(){
 }
 test('checked-in metadata reuses MIT and npm direction, retaining deferred owner inputs',()=>{
  assert.equal(config.schemaVersion,2);assert.equal(config.distribution,'npm');assert.equal(config.ownerDecisions.projectLicenseSpdx,'MIT');
- const p=planRelease(config);assert(p.blockers.some(b=>b.includes('npmAccountOrOrganization')));assert(!p.blockers.some(b=>b.includes('projectLicenseSpdx')));assert(!p.stages.join(' ').includes('four private candidates'));assert.equal(p.publicReleaseReady,false);
+ const p=planRelease(config);assert.equal(config.ownerDecisions.npmAccountOrOrganization,'hongkian03');assert.equal(config.ownerDecisions.publisher,'Kian Hong Tan');assert(!p.blockers.some(b=>b.includes('Owner input deferred: npmAccountOrOrganization')||b.includes('Owner input deferred: publisher')));assert.equal(config.npmAccessCheck.loggedInAccount,'hongkian03');assert.equal(config.npmAccessCheck.registryStatus,404);assert(!p.blockers.some(b=>b.includes('ownership verification')));assert(!p.blockers.some(b=>b.includes('projectLicenseSpdx')));assert(!p.stages.join(' ').includes('four private candidates'));assert.equal(p.publicReleaseReady,false);
 });
 test('populated fields cannot manufacture publisher or registry attestation evidence',()=>{
  const c=structuredClone(config);Object.assign(c.ownerDecisions,{publisher:'fixture',npmAccountOrOrganization:'fixture',packageOwnershipVerified:true,assetRightsApproved:true});for(const name of Object.keys(c.signing))c.signing[name]='fixture';c.signing.windowsTimestampUrl='http://bad.invalid';c.unimplementedPrerequisites=[];c.noticeReviewComplete=true;c.publisherToolchain.trustedPublisherConfigured=true;c.publicationAuthorized=true;
  const audit={integrityPassed:true,artifact:{name:'niche-out',version:'0.1.0',sha256:'a'.repeat(64)},noticeFindings:[{path:'dependency',kind:'missing-permission-text'}]};
- for(const target of targets)c.finalSignedTargetEvidence[target]={artifactSha256:'a'.repeat(64),report:'claimed.json'};
- const p=planRelease(c,audit);assert(p.blockers.some(b=>b.includes('Independent')));assert(p.blockers.some(b=>b.includes('Notice review required')));assert(p.blockers.some(b=>b.includes('HTTPS')));assert.equal(p.publicationAuthorized,false);assert.equal(p.publicReleaseReady,false);assert(!p.blockers.some(b=>b.includes('already published')));
+ for(const target of targets)c.optionalSignedTargetEvidence[target]={artifactSha256:'a'.repeat(64),report:'claimed.json'};
+ const p=planRelease(c,audit);assert.equal(p.preparationReady,false);assert(p.blockers.some(b=>b.includes('Notice review required')));assert(!p.blockers.some(b=>b.includes('HTTPS')));assert.equal(p.publicationAuthorized,false);assert.equal(p.publicReleaseReady,false);assert(!p.blockers.some(b=>b.includes('already published')));
 });
 test('invalid metadata and execute flag fail without signing or uploads',()=>{
  assert.throws(()=>planRelease({...config,schemaVersion:1}));assert.throws(()=>planRelease({...config,version:'../bad'}));assert.throws(()=>planRelease({...config,packageName:'../bad'}));
@@ -108,4 +109,49 @@ test('candidate metadata copied from a Windows builder resolves only adjacent ta
 });
 test('CLI executable mode must survive actual packing, not just candidate metadata',async()=>{
  const f=await fixture();try{f.files.set('bin/niche-out.cjs',{bytes:f.files.get('bin/niche-out.cjs'),mode:0o644});await f.pack();const r=await auditRelease(f.root);assert(r.problems.includes('CLI executable bit missing'))}finally{await f.close()}
+});
+
+test('new-package access record does not grant access to a different account or existing package',()=>{
+ for(const replacement of [{loggedInAccount:'other-account'},{registryStatus:200}]){
+  const c=structuredClone(config);Object.assign(c.npmAccessCheck,replacement);assert(planRelease(c).blockers.some(b=>b.includes('ownership verification')));
+ }
+ assert.equal(config.ownerDecisions.packageOwnershipVerified,false);
+ assert.equal(planRelease(config).publicReleaseReady,false);
+});
+
+function connectorReviewFixture(){
+ const original={connectorVersion:'fixture',targets:[{buildInfo:'fixture: go1.27.4',modules:[{path:'original/module',version:'v1',replacement:{path:'fork/module',version:'v2',checksum:'h1:verified'}}]}]};
+ const review={complete:true,connectorVersion:'fixture',connectorManifestSha256:'a'.repeat(64),modules:[{path:'fork/module',version:'v2',expectedSum:'h1:verified',sumVerified:true,status:'collected',files:[{path:'modules/0/LICENSE',source:'LICENSE',sha256:'b'.repeat(64)}]}],runtime:{version:'go1.27.4',files:[{path:'runtime/LICENSE',sha256:'c'.repeat(64)}]}};
+ return{original,review};
+}
+test('connector notices bind exact replacement modules, runtime and file paths',()=>{
+ const {original,review}=connectorReviewFixture();assert.equal(verifyConnectorNoticeInventory(review,original,'a'.repeat(64)).length,2);
+ for(const modify of [r=>r.modules.splice(0),r=>r.modules[0].expectedSum='wrong',r=>r.modules[0].path='original/module',r=>r.modules[0].sumVerified=false,r=>r.runtime.version='other',r=>r.modules[0].files[0].path='../escape']){const bad=structuredClone(review);modify(bad);assert.throws(()=>verifyConnectorNoticeInventory(bad,original,'a'.repeat(64)))}
+});
+test('connector notice integration rejects changed permission bytes',async()=>{
+ const f=await fixture();try{
+  const {original,review}=connectorReviewFixture();const originalBytes=JSON.stringify(original);await f.put('docs/implementation/evidence/epic6-release/cloudflared-modules.json',originalBytes);
+  review.connectorManifestSha256=sha256(await readFile(join(f.root,'scripts/cloudflared-manifest.json')));review.inputModuleInventorySha256=sha256(originalBytes);review.review={scope:'fixture'};
+  for(const file of [...review.modules[0].files,...review.runtime.files]){file.sha256=sha256('permission');await f.put('packaging/notices/cloudflared/'+file.path,'permission')}
+  await f.put('packaging/notices/cloudflared/inventory.json',JSON.stringify(review));const stage=join(f.root,'stage');await mkdir(stage,{recursive:true});
+  const result=await applyNoticeReview(f.root,stage,[]);assert.equal(result.linkedDependencyNoticeReview,'complete');
+  await f.put('packaging/notices/cloudflared/modules/0/LICENSE','changed');await assert.rejects(applyNoticeReview(f.root,stage,[]),/bytes changed/);
+ }finally{await f.close()}
+});
+test('supplemental permission text requires matching installed version/readme provenance',async()=>{
+ const f=await fixture();try{
+  await f.put('scripts/notices/abstract-logging-2.0.1-source.json',JSON.stringify({package:'abstract-logging',version:'2.0.1',rawHtmlSha256:sha256('html'),textSha256:sha256('permission'),readmeSha256:sha256('original readme')}));await f.put('scripts/notices/abstract-logging-2.0.1-LICENSE.txt','permission');await f.put('node_modules/abstract-logging/Readme.md','changed readme');const stage=join(f.root,'stage');await mkdir(stage);
+  await assert.rejects(applyNoticeReview(f.root,stage,[{name:'abstract-logging',version:'2.0.1',path:'node_modules/abstract-logging',files:[],findings:[]}]),/provenance mismatch/);
+ }finally{await f.close()}
+});
+
+test('lean preparation needs no paid certificates, hosted publisher enrollment or all-target signing evidence',()=>{
+ const c=structuredClone(config);c.signing={};c.publisherToolchain.trustedPublisherConfigured=false;c.optionalSignedTargetEvidence={};
+ const p=planRelease(c,{integrityPassed:true,artifact:{name:c.packageName,version:c.version,sha256:'a'.repeat(64)},noticeFindings:[]});
+ assert.deepEqual(p.blockers,[]);assert.equal(p.preparationReady,true);assert.equal(p.publicReleaseReady,false);assert.equal(p.publicationAuthorized,false);assert(p.requiredNextChecks.some(s=>s.startsWith('S10:')));assert(p.requiredNextChecks.some(s=>s.includes('explicit approval')));
+});
+test('lean release still blocks damaged artifacts, missing permission texts and unapproved rights',()=>{
+ const c=structuredClone(config);c.ownerDecisions.assetRightsApproved=false;
+ const p=planRelease(c,{integrityPassed:false,noticeFindings:[{path:'fixture',kind:'missing-permission-text'}]});
+ assert.equal(p.preparationReady,false);assert(p.blockers.some(b=>b.includes('integrity audit')));assert(p.blockers.some(b=>b.includes('rights approval')));assert(p.blockers.some(b=>b.includes('Notice review required')));
 });

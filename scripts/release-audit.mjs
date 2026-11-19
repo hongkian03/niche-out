@@ -4,6 +4,7 @@ import {join,dirname,resolve,win32} from 'node:path';
 import {createHash} from 'node:crypto';
 import {pathToFileURL,fileURLToPath} from 'node:url';
 import {targets,sha256,productionPaths} from './package-lib.mjs';
+import {verifyConnectorNoticeInventory} from './release-notice-review.mjs';
 import {readNpmTarball,safeResourcePath} from './release-tar.mjs';
 export async function auditRelease(root,options={}){
  const r={schemaVersion:2,distribution:'npm',generatedAt:new Date().toISOString(),scope:'Actual npm tarball contents and frozen source/native/dependency/notice inventory; integrity is not publisher authentication or legal clearance.',problems:[],noticeFindings:[],integrityPassed:false,publicReleaseReady:false};
@@ -81,7 +82,12 @@ export async function auditRelease(root,options={}){
   }
   for(const path of [...productionPaths(sourceLock),'node_modules/esbuild',...deps.map(([path])=>path)])check(noticePaths.has(path),'Missing notice dependency: '+path);
   for(const path of ['apps/web/dist/VT323-OFL.txt','apps/web/dist/asset-notices.txt','scripts/notices/cloudflared-LICENSE.txt'])required(path);
-  r.noticeFindings.push({path:'downloaded-cloudflared',kind:'linked-dependency-notice-review-pending'});
+  if(notices.connector?.linkedDependencyNoticeReview==='complete'){
+   const e=notices.connector.inventory;if(!e?.path?.startsWith('release/notices/cloudflared/')||!safeResourcePath(e.path))throw Error('Invalid connector notice inventory path');digest(e.path,e.sha256);
+   const originalBytes=await readFile(join(root,'docs/implementation/evidence/epic6-release/cloudflared-modules.json')),review=json(e.path);
+   check(review.inputModuleInventorySha256===sha256(originalBytes),'Connector notice source inventory mismatch');
+   for(const f of verifyConnectorNoticeInventory(review,JSON.parse(originalBytes),sha256(connector)))digest('release/notices/cloudflared/'+f.path,f.sha256);
+  }else r.noticeFindings.push({path:'downloaded-cloudflared',kind:'linked-dependency-notice-review-pending'});
   r.inventory={fileCount:files.size,sourceFileCount:sources.files.length,nativeTargets:targets,productionDependencyCount:deps.length,noticeDependencyCount:noticePaths.size};
   r.sourceBuild={manifestSha256:sha256(buildBytes),sourceSha256:build.sourceSha256,lockSha256:build.lockSha256,gitCommit:build.gitCommit,node:build.node,npm:build.npm};
   r.bindings={resourcesSha256:sha256(required('resources.json')),nativeManifestSha256:sha256(required('native-manifest.json')),connectorManifestSha256:sha256(connector),shrinkwrapSha256:sha256(required('npm-shrinkwrap.json')),noticesSha256:sha256(required('release/notices.json'))};

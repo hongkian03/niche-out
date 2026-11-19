@@ -1,6 +1,7 @@
 // Conservative source-runtime graph covers external server AND bundled browser code.
 import {readFile,readdir,lstat,mkdir,writeFile} from 'node:fs/promises';
 import {join,dirname} from 'node:path';
+import {applyNoticeReview} from './release-notice-review.mjs';
 import {productionPaths,sha256} from './package-lib.mjs';
 export async function generateReleaseNotices(root,stage,sourceLock,runtimeLock){
   const paths=[...new Set([...productionPaths(sourceLock),'node_modules/esbuild'])].sort(),dependencies=[];
@@ -19,10 +20,11 @@ export async function generateReleaseNotices(root,stage,sourceLock,runtimeLock){
     if(!entry.declaredLicense)entry.findings.push('Upstream metadata omits license identifier; inspect included text');
     dependencies.push(entry);
   }
+  const connectorReview=await applyNoticeReview(root,stage,dependencies);
   const result={schemaVersion:1,scope:'Conservative reviewed source production graph plus generated-helper build-tool notice. Browser graph may include conditional code omitted by bundling; this is coverage, not exact module attribution or legal clearance.',
     sourceLockSha256:sha256(await readFile(join(root,'package-lock.json'))),runtimeShrinkwrapSha256:sha256(await readFile(join(stage,'npm-shrinkwrap.json'))),dependencies,
-    assets:[{path:'apps/web/dist/VT323-OFL.txt',license:'OFL-1.1'},{path:'apps/web/dist/asset-notices.txt',license:'Project artwork; owner rights approval remains separate'}],
-    connector:{distribution:'Not bundled. Explicit preparation downloads the pinned upstream executable unchanged.',catalogue:'scripts/cloudflared-manifest.json',license:'scripts/notices/cloudflared-LICENSE.txt',linkedDependencyNoticeReview:'pending'},reviewComplete:false};
+    assets:[{path:'apps/web/dist/VT323-OFL.txt',license:'OFL-1.1'},{path:'apps/web/dist/asset-notices.txt',license:'Project original artwork; owner approved MIT distribution November 19, 2026'}],
+    connector:{distribution:'Not bundled. Explicit preparation downloads the pinned upstream executable unchanged.',catalogue:'scripts/cloudflared-manifest.json',license:'scripts/notices/cloudflared-LICENSE.txt',...connectorReview},reviewComplete:dependencies.every(d=>d.files.length>0)&&connectorReview.linkedDependencyNoticeReview==='complete'};
   await mkdir(join(stage,'release'),{recursive:true});await writeFile(join(stage,'release/notices.json'),JSON.stringify(result,null,2)+'\n');
   return result;
 }

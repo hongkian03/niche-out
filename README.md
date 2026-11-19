@@ -30,7 +30,7 @@ Normally for Boston University Singapore Student Association's annual Great Sing
 
 ## How to download
 
-The project now builds a **local npm candidate**, `dist-npm/niche-out-0.1.0.tgz`. It is not published to the npm registry yet, and it is not a signed public release. Obtain that file from the maintainer, or build it from a source checkout using the [development guide](docs/DEVELOPMENT.md#build-and-check-the-npm-candidate).
+The project now builds a **local npm candidate**, `dist-npm/niche-out-0.1.0.tgz`. It is not published to the npm registry yet. Obtain that file from the maintainer, or build it from a source checkout using the [development guide](docs/DEVELOPMENT.md#build-and-check-the-npm-candidate).
 
 Hosts need supported **Node.js `>=24.22.3 <25`** with npm. The candidate contains compiled application assets and prebuilt native helpers; installing/running it requires no compiler or application build. Players need only a browser.
 

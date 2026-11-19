@@ -7,7 +7,7 @@ const root=fileURLToPath(new URL('../',import.meta.url));
 const targets=['darwin-arm64','darwin-x64','win32-x64','linux-x64'];
 const sha256=bytes=>createHash('sha256').update(bytes).digest('hex');
 const sourceSha256=sha256(Buffer.concat(await Promise.all(['platform.c','guard.c'].map(name=>readFile(join(root,'packaging/native',name))))));
-const inventory={schemaVersion:1,napiVersion:8,sourceSha256,authentication:'private-unsigned; publisher authentication remains Epic 6',targets:{}};
+const inventory={schemaVersion:1,napiVersion:8,sourceSha256,authentication:'No project publisher authentication asserted; preserve platform/linker signatures; paid publisher signing is optional',targets:{}};
 for(const target of targets){
  const directory=join(root,'tooling/platform',target),built=JSON.parse(await readFile(join(directory,'build.json'),'utf8'));
  if(built.target!==target||built.napiVersion!==8||built.sourceSha256!==sourceSha256)throw new Error('Native prebuild is missing/current-source mismatch: '+target+'. Rebuild all native targets.');

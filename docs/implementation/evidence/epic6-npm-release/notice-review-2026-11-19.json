@@ -1,0 +1,201 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-19",
+  "story": "E6-S06",
+  "status": "DONE",
+  "ownerOriginalMaterialApproval": {
+    "date": "2026-11-19",
+    "scope": "Original project SVG/CSS artwork and authored example packs including Singapore, under existing MIT. Third-party materials retain their original licenses."
+  },
+  "abstractLogging": {
+    "package": "abstract-logging",
+    "version": "2.0.1",
+    "license": "MIT",
+    "sourceUrl": "https://jsumners.mit-license.org/",
+    "reference": "Installed 2.0.1 Readme.md License link (HTTP redirects to linked author service); installed package metadata declares MIT",
+    "retrievedDate": "2026-11-19",
+    "rawHtmlSha256": "fb4522f48eb74471392fc3b8dc06e15fa5b4e7400211fe54c660ca3cf4f4b048",
+    "textSha256": "51758f908ddc3902739653f2432baae7520f12a5b479b084c4f72b56ab52babd",
+    "readmeSha256": "e1a86711fb5055c0e66901276b7d2c843554bf5f1dab218c069c8b9d17148e81",
+    "transformation": "Article heading and paragraphs rendered to plain text; HTML entities/Cloudflare public email obfuscation decoded and whitespace wrapped. Copyright/year kept exactly as served, not inferred as the 2016 package release date."
+  },
+  "connector": {
+    "modules": 70,
+    "verifiedModuleSums": true,
+    "moduleNoticeFiles": 111,
+    "runtime": {
+      "version": "go1.27.4",
+      "source": "https://github.com/golang/go/tree/go1.27.4",
+      "files": [
+        {
+          "path": "runtime/LICENSE",
+          "sha256": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad",
+          "sourceUrl": "https://raw.githubusercontent.com/golang/go/go1.27.4/LICENSE"
+        },
+        {
+          "path": "runtime/PATENTS",
+          "sha256": "96f408bfae65bf137fc2525d3ecb030271c50c1e90799f87abf8846d8dd505cc",
+          "sourceUrl": "https://raw.githubusercontent.com/golang/go/go1.27.4/PATENTS"
+        }
+      ]
+    },
+    "inventory": "packaging/notices/cloudflared/inventory.json",
+    "inventorySha256": "7c09c1707ed5642115194a8135c20bf8d0621c16ea3f81c59ab1e6ff95bc6725"
+  },
+  "checks": {
+    "targetedTests": 33,
+    "releaseTests": 24,
+    "buildAndPack": "PASS",
+    "actualTarballAudit": "PASS",
+    "freshInstalledPackage": {
+      "status": "PASS",
+      "started": "2026-11-19T23:12:44.910Z",
+      "node": "v24.22.3",
+      "scope": "Fresh local/user-prefix-global/npm-exec installs with ignored scripts, outside checkout. Help/version and real bundled worker; hosting/browser verified separately.",
+      "checks": [
+        "local tgz install --ignore-scripts and help/version from unrelated Unicode/space path",
+        "published runtime shrinkwrap has no dev or private workspace links",
+        "actual bundled worker compiles accepted answers/aliases without a checkout",
+        "user-prefix global install executable shim from unrelated cwd",
+        "npm-exec tarball invocation with isolated cache and ignored scripts",
+        "installed package made read-only before hosting smoke; no package/CWD writes required"
+      ],
+      "readOnlyPackage": true,
+      "ended": "2026-11-19T23:12:52.346Z"
+    },
+    "native": {
+      "status": "PASS",
+      "target": "darwin-arm64",
+      "node": "v24.22.3",
+      "osRelease": "25.5.0",
+      "checks": [
+        "Installed npm preflight and exact native tuple",
+        "Native continuous clock and process ownership",
+        "Standalone installed server entry import"
+      ],
+      "scope": "Execution only on named runner; Windows Server CI is not physical Windows11 certification; no sleep/wake or native publisher authentication."
+    },
+    "localSetup": {
+      "status": "PASS",
+      "scope": "Actual read-only installed package verifies all added notice resources, serves private local setup HTTP200 and closes listener; no public endpoint or browser/phone test"
+    },
+    "unchangedFunctionalPayloads": 24,
+    "intentionalChangedAsset": "apps/web/dist/asset-notices.txt: owner-approved original-art MIT attribution"
+  },
+  "artifact": {
+    "name": "niche-out",
+    "version": "0.1.0",
+    "filename": "niche-out-0.1.0.tgz",
+    "bytes": 517678,
+    "sha256": "ed135c3eeeec2b64bda79d28ba645cb5b4ccc02344092485de3538d965773425",
+    "integrity": "sha512-QHaqZ2YCp27IGBUT13P7+f+l96881Gc3HHYMRwWCdKssxBjob5eW/6Ua4OqXvdvjZogsIXnfi4+ehZndh78REg=="
+  },
+  "audit": {
+    "schemaVersion": 2,
+    "distribution": "npm",
+    "generatedAt": "2026-11-19T23:12:44.622Z",
+    "scope": "Actual npm tarball contents and frozen source/native/dependency/notice inventory; integrity is not publisher authentication or legal clearance.",
+    "problems": [],
+    "noticeFindings": [
+      {
+        "path": "node_modules/xmlhttprequest-ssl",
+        "kind": "missing-license-metadata"
+      }
+    ],
+    "integrityPassed": true,
+    "publicReleaseReady": false,
+    "releaseConfigSha256": "af1cc6b7cd247387ad7def1db63f173ab053fbfa22d0a5e4c4b5d3f3c421d5e2",
+    "artifact": {
+      "name": "niche-out",
+      "version": "0.1.0",
+      "filename": "niche-out-0.1.0.tgz",
+      "bytes": 517678,
+      "sha256": "ed135c3eeeec2b64bda79d28ba645cb5b4ccc02344092485de3538d965773425",
+      "integrity": "sha512-QHaqZ2YCp27IGBUT13P7+f+l96881Gc3HHYMRwWCdKssxBjob5eW/6Ua4OqXvdvjZogsIXnfi4+ehZndh78REg=="
+    },
+    "inventory": {
+      "fileCount": 263,
+      "sourceFileCount": 461,
+      "nativeTargets": [
+        "darwin-arm64",
+        "darwin-x64",
+        "win32-x64",
+        "linux-x64"
+      ],
+      "productionDependencyCount": 99,
+      "noticeDependencyCount": 106
+    },
+    "sourceBuild": {
+      "manifestSha256": "fe3e7fca272b4282bdd6ec007493dcba40498c16eb44a467b86632ed4b119372",
+      "sourceSha256": "434c53e93e781cb756428b29fc359a3b032e6606015d9226ac7cfd72ea6419f9",
+      "lockSha256": "7d923786b6612ff0d83d83a3255deddab582eb51dcae807b547a203adfed12ba",
+      "gitCommit": "46d3928971999610f55e00a62a2f9905df13d9ec",
+      "node": "24.22.3",
+      "npm": "npm@11.19.1"
+    },
+    "bindings": {
+      "resourcesSha256": "7eee0a64d9e9ddf42c5452eec308b17facd37f76e98891f56ca76001adb7f737",
+      "nativeManifestSha256": "7a95197dc5fc0bbcc242adb53b7d6241cb964c2dd8e42885df8717e045ab4d9b",
+      "connectorManifestSha256": "f0f2dc922a6cfcf7d0f33f053a1d87d8be20dcbcef183d4d87da2f5ce84ff427",
+      "shrinkwrapSha256": "01a336eba87774f726e5fc722421f7871f6d7c6a71477324788e5b6d38f9f89d",
+      "noticesSha256": "0557d9ae2df4ac1e51517def43366bb5d6b38d48c1fd449d7e64d53a4b1e7c82"
+    }
+  },
+  "plan": {
+    "schemaVersion": 2,
+    "distribution": "npm",
+    "product": "Niche Out",
+    "packageName": "niche-out",
+    "version": "0.1.0",
+    "mode": "review-only",
+    "executionImplemented": false,
+    "publicReleaseReady": false,
+    "publicationAuthorized": false,
+    "localIntegrityPassed": true,
+    "artifact": {
+      "name": "niche-out",
+      "version": "0.1.0",
+      "filename": "niche-out-0.1.0.tgz",
+      "bytes": 517678,
+      "sha256": "ed135c3eeeec2b64bda79d28ba645cb5b4ccc02344092485de3538d965773425",
+      "integrity": "sha512-QHaqZ2YCp27IGBUT13P7+f+l96881Gc3HHYMRwWCdKssxBjob5eW/6Ua4OqXvdvjZogsIXnfi4+ehZndh78REg=="
+    },
+    "bindings": {
+      "resourcesSha256": "7eee0a64d9e9ddf42c5452eec308b17facd37f76e98891f56ca76001adb7f737",
+      "nativeManifestSha256": "7a95197dc5fc0bbcc242adb53b7d6241cb964c2dd8e42885df8717e045ab4d9b",
+      "connectorManifestSha256": "f0f2dc922a6cfcf7d0f33f053a1d87d8be20dcbcef183d4d87da2f5ce84ff427",
+      "shrinkwrapSha256": "01a336eba87774f726e5fc722421f7871f6d7c6a71477324788e5b6d38f9f89d",
+      "noticesSha256": "0557d9ae2df4ac1e51517def43366bb5d6b38d48c1fd449d7e64d53a4b1e7c82"
+    },
+    "blockers": [
+      "Native signing configuration required: macDeveloperId",
+      "Native signing configuration required: macTeamId",
+      "Native signing configuration required: macNotaryKeychainProfile",
+      "Native signing configuration required: windowsCertificateThumbprint",
+      "Native signing configuration required: windowsTimestampUrl",
+      "Native signing configuration required: linuxOpenPgpFingerprint",
+      "Implementation required: mac-native-payload-signing-and-tested-notarization-delivery",
+      "Implementation required: windows-native-helper-signing-and-timestamp-verification",
+      "Implementation required: persistent-native-inventory-authentication",
+      "Implementation required: final-post-sign-npm-resource-manifest-and-pack",
+      "Implementation required: trusted-npm-publisher-and-exact-tarball-promotion",
+      "Separate pinned npm publisher toolchain/trusted-publisher setup required",
+      "Final authenticated npm target evidence required: darwin-arm64",
+      "Final authenticated npm target evidence required: darwin-x64",
+      "Final authenticated npm target evidence required: win32-x64",
+      "Final authenticated npm target evidence required: linux-x64",
+      "Independent native authentication and target-report verification required (configuration is not evidence)"
+    ],
+    "stages": [
+      "S06: Build one npm candidate; audit actual tarball and source/native/connector/dependency/notices; freeze exact SHA-256 and npm integrity in this review",
+      "S06: Resolve deferred account/publisher/rights inputs; reuse MIT source license; finish notice review",
+      "S07-S09: Authenticate four native payload sets and demonstrate macOS notarization delivery, Windows signature/timestamp and persistent inventory signature",
+      "S07-S10: Generate resource hashes after signing; pack final npm bytes; repeat tarball and installed clean-target checks; host Node is separate and connector preparation is explicit",
+      "S11: Review exact authenticated candidate, deferred target/device/network evidence and pinned publisher setup; local checks require no already-published registry attestation",
+      "S12: Recheck name availability/account access; an unpublished name is not reserved and ownership is established on accepted first publication. After separate authorization, publish exact reviewed tarball with approved provenance; verify registry version/integrity/attestations and installation before separately authorized stable promotion"
+    ],
+    "note": "No signing, keychain access, credentials, account creation, upload or promotion occurs. Registry provenance is verified after authorized publication, not required to audit a local candidate."
+  },
+  "publicReleaseReady": false,
+  "published": false
+}

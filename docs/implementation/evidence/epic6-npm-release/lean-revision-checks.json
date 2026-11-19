@@ -1,0 +1,51 @@
+{
+  "date": "2026-11-19",
+  "scope": "Owner-authorized multi-agent backlog/policy review with local planner alignment",
+  "agents": 3,
+  "tests": {
+    "command": "node --test tests/release/release.check.mjs scripts/npm/*.check.mjs tests/packaging/package.check.mjs",
+    "passed": 35,
+    "failed": 0,
+    "releaseTests": 26
+  },
+  "nativePayloadsChanged": false,
+  "packageRebuilt": false,
+  "published": false,
+  "requiredPath": [
+    "E6-S06 completed",
+    "E6-S10 exact installed package",
+    "E6-S11 scoped release review",
+    "E6-S12 explicitly authorized publication and readback"
+  ],
+  "optional": [
+    "E6-S07 Developer ID/notarization",
+    "E6-S08 Windows publisher signing",
+    "E6-S09 persistent independent signatures",
+    "Hosted trusted publishing/provenance",
+    "Separate candidate/stable promotion",
+    "E6-S13 site"
+  ],
+  "deferredQualification": [
+    "Intel/Windows/Linux execution",
+    "8 GiB reference hardware",
+    "100 physical phones",
+    "Venue and all-polling guarantees",
+    "Exhaustive browser/assistive-technology matrix"
+  ],
+  "essentialRetained": [
+    "Actual tarball/source/native/connector/dependency integrity",
+    "License notices and approved rights",
+    "Scoped installed game smoke and usable player input",
+    "Resolve known material correctness/privacy/security/recovery defects",
+    "Secure authenticated account and explicit publication approval",
+    "Registry integrity and installation readback"
+  ],
+  "planner": {
+    "preparationReadyMeaning": "Local preparation audit/metadata gates passed; not final release approval",
+    "exit0": "Local preparation passed",
+    "exit1": "Actual local preparation blockers including stale source snapshot",
+    "publicReleaseReady": false,
+    "publicationAuthorized": false
+  },
+  "nextAction": "S10 refreshes source freeze and verifies final package; older candidate/evidence is historical"
+}

@@ -5,12 +5,12 @@
   "channel": "private-candidate",
   "publicationAuthorized": false,
   "ownerDecisions": {
-    "publisher": null,
+    "publisher": "Kian Hong Tan",
     "projectLicenseSpdx": "MIT",
     "copyrightNotice": "Copyright (c) 2026 Kian Hong Tan",
-    "assetRightsApproved": false,
+    "assetRightsApproved": true,
     "publicationDestination": "https://registry.npmjs.org",
-    "npmAccountOrOrganization": null,
+    "npmAccountOrOrganization": "hongkian03",
     "packageOwnershipVerified": false
   },
   "signing": {
@@ -21,20 +21,7 @@
     "windowsTimestampUrl": null,
     "linuxOpenPgpFingerprint": null
   },
-  "unimplementedPrerequisites": [
-    "mac-native-payload-signing-and-tested-notarization-delivery",
-    "windows-native-helper-signing-and-timestamp-verification",
-    "persistent-native-inventory-authentication",
-    "final-post-sign-npm-resource-manifest-and-pack",
-    "trusted-npm-publisher-and-exact-tarball-promotion"
-  ],
-  "noticeReviewComplete": false,
-  "finalSignedTargetEvidence": {
-    "darwin-arm64": null,
-    "darwin-x64": null,
-    "win32-x64": null,
-    "linux-x64": null
-  },
+  "noticeReviewComplete": true,
   "distribution": "npm",
   "packageName": "niche-out",
   "repository": "https://github.com/hongkian03/niche-out",
@@ -45,8 +32,57 @@
     "npm": "11.19.1",
     "trustedPublisherConfigured": false
   },
-  "ownerDeferrals": [
-    "npm account/organization and ownership verification",
-    "publisher identity and art/example rights approval"
-  ]
+  "ownerDeferrals": [],
+  "npmAccessCheck": {
+    "checkedAt": "2026-11-19T22:55:17.367Z",
+    "registry": "https://registry.npmjs.org",
+    "packageName": "niche-out",
+    "expectedAccount": "hongkian03",
+    "published": false,
+    "registryStatus": 404,
+    "whoamiExit": 0,
+    "loggedInAccount": "hongkian03",
+    "accountMatches": true,
+    "report": "docs/implementation/evidence/epic6-npm-release/npm-access-2026-11-19.json"
+  },
+  "assetApproval": {
+    "date": "2026-11-19",
+    "scope": "Original project SVG/CSS artwork and authored example packs including Singapore, under existing MIT. Third-party materials retain their original licenses."
+  },
+  "noticeReview": {
+    "date": "2026-11-19",
+    "scope": "Technical notice/provenance review: complete upstream permission text and exact pinned module/runtime notices retained. Final authenticated-release review remains S11.",
+    "connectorInventory": "packaging/notices/cloudflared/inventory.json",
+    "abstractLoggingSource": "scripts/notices/abstract-logging-2.0.1-source.json"
+  },
+  "releasePolicy": {
+    "name": "lean-initial-npm",
+    "qualifiedExecutionTargets": [
+      "darwin-arm64"
+    ],
+    "includedUnverifiedTargets": [
+      "darwin-x64",
+      "win32-x64",
+      "linux-x64"
+    ],
+    "nativePublisherSigning": "optional",
+    "hostedRegistryProvenance": "optional",
+    "platformRequiredSignatures": "preserve",
+    "finalInstalledPackageReview": "required-on-declared-qualified-targets",
+    "knownCorrectnessPrivacySecurityDefects": "must-resolve-before-release",
+    "publicationAuthorization": "separate-explicit-approval"
+  },
+  "optionalEnhancements": [
+    "E6-S07: macOS Developer ID/notarization",
+    "E6-S08: Windows publisher certificate/timestamp",
+    "E6-S09: independently signed release inventory",
+    "Hosted trusted publishing and registry provenance",
+    "Separate prerelease/stable promotion workflow"
+  ],
+  "optionalSignedTargetEvidence": {
+    "darwin-arm64": null,
+    "darwin-x64": null,
+    "win32-x64": null,
+    "linux-x64": null
+  }
 }

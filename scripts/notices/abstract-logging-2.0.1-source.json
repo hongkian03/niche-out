@@ -1,0 +1,12 @@
+{
+  "package": "abstract-logging",
+  "version": "2.0.1",
+  "license": "MIT",
+  "sourceUrl": "https://jsumners.mit-license.org/",
+  "reference": "Installed 2.0.1 Readme.md License link (HTTP redirects to linked author service); installed package metadata declares MIT",
+  "retrievedDate": "2026-11-19",
+  "rawHtmlSha256": "fb4522f48eb74471392fc3b8dc06e15fa5b4e7400211fe54c660ca3cf4f4b048",
+  "textSha256": "51758f908ddc3902739653f2432baae7520f12a5b479b084c4f72b56ab52babd",
+  "readmeSha256": "e1a86711fb5055c0e66901276b7d2c843554bf5f1dab218c069c8b9d17148e81",
+  "transformation": "Article heading and paragraphs rendered to plain text; HTML entities/Cloudflare public email obfuscation decoded and whitespace wrapped. Copyright/year kept exactly as served, not inferred as the 2016 package release date."
+}

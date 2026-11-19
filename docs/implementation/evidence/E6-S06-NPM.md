@@ -1,5 +1,11 @@
 # E6-S06: npm release preparation implementation
 
+> **Closure, November 19:** The owner approved original artwork/example MIT distribution. Full abstract-logging permission text and pinned cloudflared module/runtime notices were collected and integrated; see [notice follow-up](NOTICE-REVIEW.md). S06 is DONE. Earlier REVIEW/deferred wording and hashes below are the November 18 historical record. Native authentication, final target qualification and publication remain later stories.
+
+> **Account/name preflight, November 19:** Official-registry HTTP 404 for `niche-out` and successful `npm whoami` as `hongkian03` are recorded in [the check evidence](epic6-npm-release/npm-access-2026-11-19.json). Pre-publication account/name checking is complete. Ownership is not claimed before first publication; recheck availability at S12. This supersedes earlier outstanding-access wording below; historical artifact hashes remain unchanged.
+
+> **Decision update, November 19, 2026:** The owner confirmed personal npm account `hongkian03` and approved publisher display name `Kian Hong Tan`. Those decisions are resolved in current release metadata. Package ownership verification and artwork/example approval remain open. The November 18 test results and artifact hashes below are historical and unchanged; refresh the candidate source freeze before the next release audit.
+
 November 18, 2026 (America/New_York; execution timestamps may be November 19 UTC). This is local release-tool implementation, not signing or publication. Epic 5 is complete by owner direction, with manual platform testing deferred. S06 remains REVIEW because the owner explicitly deferred npm account/organization, release publisher identity and artwork/example rights, and complete third-party notice review remains open. `niche-out` is approved as the intended name; it is not reserved and registry ownership is not verified. The existing MIT license/copyright is reused.
 
 ## Delivered
