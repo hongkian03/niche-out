@@ -1,0 +1,20 @@
+{
+  "status": "PASS",
+  "started": "2026-11-19T02:29:47.401Z",
+  "node": "v24.22.3",
+  "platform": "darwin",
+  "arch": "arm64",
+  "terminationTarget": "installed-cli",
+  "signal": "SIGKILL",
+  "tarballSha256": "7f9edc95fcd53beef68bf892fdc21d1b0397fdf8f6c6c92f85c55f40f8325c1f",
+  "hosting": false,
+  "scope": "Actual npm-exec installed tarball, isolated npm cache and unrelated CWD; signal targets only the owned installed CLI. Hosting flag records whether an owned Quick Tunnel was active. No other-platform inference.",
+  "checks": [
+    "Actual npm-exec installed CLI serves its loopback dashboard from unrelated CWD",
+    "SIGKILL of installed CLI releases its listeners and owned descendants",
+    "No public hosting session or connector started"
+  ],
+  "ownedProcessCount": 2,
+  "closedListenerCount": 1,
+  "ended": "2026-11-19T02:29:51.612Z"
+}

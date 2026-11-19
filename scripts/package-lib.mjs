@@ -22,3 +22,10 @@ export function launchers(target) {
  const script='#!/bin/sh\nset -eu\ncd -- "$(dirname -- "$0")"\nunset NODE_OPTIONS NODE_PATH CLOUDFLARED_PATH\nexport NICHE_PORTABLE=1\nexec "./runtime/node" "./scripts/portable-start.mjs"\n';
  return {[target.startsWith('darwin')?'Start Niche Out.command':'start-niche-out.sh']:script};
 }
+
+// Retained for historical archive verification; npm auditing uses tarball integrity.
+export function parseChecksum(text, expectedName) {
+ const match=/^([a-f0-9]{64}) [ *]([^\r\n]+)\r?\n?$/u.exec(text);
+ if(!match||match[2]!==expectedName)throw Error('Invalid or mismatched checksum sidecar');
+ return match[1];
+}

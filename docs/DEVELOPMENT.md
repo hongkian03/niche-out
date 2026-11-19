@@ -1,10 +1,59 @@
 # Niche Out development and testing
 
-> **Distribution planning update:** The owner selected [npm distribution](implementation/epic-05-npm-distribution.md). It is not implemented yet; current repository commands still use the pinned contributor toolchain and legacy resource layout. Future npm hosts will use precompiled assets/native helpers and supported installed Node. The networking baseline section below is historical; subsequent changes/evidence are in the [networking report](implementation/evidence/NETWORK-IMPROVEMENTS.md) and [S02/S03 follow-up](implementation/evidence/EPIC-6-S02-S03-FOLLOWUP.md).
+
+> **Distribution implementation update:** The [npm migration](implementation/epic-05-npm-distribution.md) now produces a local compiled CLI tarball; it is not published or signed for public distribution. Hosts use Node `>=24.22.3 <25` without a compiler. Contributors retain Node 24.22.3/npm 11.19.1 and native build tools. Other target execution and final qualification remain explicit; see the implementation tracker. The networking baseline below is historical and is supplemented by the [networking report](implementation/evidence/NETWORK-IMPROVEMENTS.md) and [S02/S03 follow-up](implementation/evidence/EPIC-6-S02-S03-FOLLOWUP.md).
+
+## Build and check the npm candidate
+
+These are **contributor/maintainer** commands, not npm-host prerequisites. Start with the exact repository Node/npm toolchain and `npm ci`. The all-target native rebuild recipe currently runs on a macOS Apple Silicon build host and requires C/native toolchain inputs; it builds the Mac variants and cross-builds Windows/Linux using the pinned toolchain. Do not count those cross-builds as executed-platform tests.
+
+```sh
+npm ci
+# Maintainer step when complete matching native inputs are not already available:
+node scripts/npm/rebuild-native.mjs
+npm run package:npm
+```
+
+`package:npm` builds the application, captures the source-file hash inventory, validates the native inventory, bundles private workspace code into separate server/import-worker entries, generates the runtime shrinkwrap from reviewed lock versions, copies source provenance and dependency notice texts, and packs `dist-npm/niche-out-0.1.0.tgz`. It does not publish. The private root workspace remains private. Assembly fails if any required target prebuild/inventory is absent or stale; see [native packaging](../packaging/README.md) for individual-target build inputs. Target-native CI/build machines can supply the four helper inputs before assembly.
+
+Run the installed candidate without compiling it:
+
+```sh
+npm exec --yes --ignore-scripts --package=./dist-npm/niche-out-0.1.0.tgz -- niche-out --help
+npm exec --yes --ignore-scripts --package=./dist-npm/niche-out-0.1.0.tgz -- niche-out prepare
+npm exec --yes --ignore-scripts --package=./dist-npm/niche-out-0.1.0.tgz -- niche-out
+```
+
+Help/version perform no connector download. `prepare` explicitly verifies/acquires the pinned connector into a per-user cache; bare launch opens local setup and Start hosting can prepare the component. No install lifecycle hook downloads/builds it. Updating/uninstalling during a live game is unsupported: stop hosting and quit first. Cache entries are version/hash keyed and separate from package files. A warm cache avoids repeat connector downloads but does not remove the internet requirement for a Quick Tunnel.
+
+```sh
+npm run test:npm:install
+```
+
+This installs the actual tarball with scripts disabled into clean local/global/npm-exec environments outside the checkout, using an isolated npm cache. It tests CLI help/version and the bundled worker; reports include the installed package path for subsequent browser/game checks. It is distinct from the full production browser/tunnel and 100-player checks, which must be bound to the final candidate hash. macOS arm64 execution does not certify Windows, Linux, Intel Mac, physical sleep/wake, or publisher signing.
+
+Additional installed-package checks (the browser and active-wrapper variants create their own temporary public tunnel):
+
+```sh
+node scripts/npm/check-native.mjs
+node scripts/npm/smoke.mjs
+node scripts/npm/check-wrapper.mjs --hosting
+node scripts/npm/check-versions.mjs
+```
+
+The version check uses local test tarballs and a temporary user-owned prefix; nothing is published. Run capacity measurements separately from builds/browser tests, using the installed path from `work/npm-install/report.json`:
+
+```sh
+node scripts/load/run.mjs --npm-root="<installRoot>" --tunnel --players=100 --transport=mixed --games=1 --rounds=20 --diagnostics=light --uplink="<actual network>"
+```
+
+Only local development may repack changed bytes under the same provisional version. Use a fresh dedicated `--cache` directory for manual npm-exec tests of such repacks, or increment the local candidate version. Published versions must never be reused for changed bytes. The [npm handoff](implementation/evidence/EPIC-5-NPM.md) binds measurements to exact artifact hashes rather than version labels alone.
+
+The supported runtime range belongs to the installed CLI; the source `npm run host` path below remains contributor-only with exact repository pins. Registry package naming/publication is still an Epic 6 task, so `npx niche-out` without a local package path is not an installation instruction yet.
 
 ## Networking investigation baseline
 
-The [baseline report](implementation/evidence/NETWORK-BASELINE.md) records the current 100-player failures, instrumentation overhead, per-stage broadcast costs and actual-browser recovery checks. It links permanent summaries and raw working measurements. No retry, transport, broadcast or provider optimization has been applied yet.
+The [baseline report](implementation/evidence/NETWORK-BASELINE.md) records the current 100-player failures, instrumentation overhead, per-stage broadcast costs and actual-browser recovery checks. It links permanent summaries and raw working measurements. At the time of that baseline no retry, transport or broadcast optimization had been applied; subsequent networking changes and findings are linked above.
 
 After building with the pinned runtime, preview or run the serial baseline suite:
 
@@ -199,3 +248,7 @@ npm run release:plan
 ```
 
 Archive verification requires the four locally built archives; it extracts fresh copies, checks their inventories and leaves them under `work/epic6/` for native-target smoke tests. Connector inventory additionally requires Go's read-only binary metadata tool. `release:plan` intentionally exits with status 1 while printing the review-only plan and outstanding inputs; it never signs or publishes. See the [release guide](../docs/release/README.md), [owner decisions](../docs/release/OWNER-DECISIONS.md) and [individual requirement evidence](../docs/release/REQUIREMENT-EVIDENCE.md).
+
+## Npm release preparation (E6-S06)
+
+After rebuilding the local candidate, use `npm run test:release`, `npm run release:audit` and `npm run release:plan`. The audit verifies actual tarball bytes and source/lock/native/notices; it writes `work/release/npm-audit.json` and exits 0 on integrity success even while notice review is pending. The planner writes `work/release/npm-plan.json` and intentionally exits 1 with the remaining gates. Neither signs, publishes or requires a registry account. See the [release guide](release/README.md) and [S06 report](implementation/evidence/E6-S06-NPM.md). Rebuild when source files change; generated release evidence is excluded from its own source digest.

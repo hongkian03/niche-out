@@ -4,7 +4,7 @@ import { readFile } from 'node:fs/promises';
 import { once } from 'node:events';
 import QRCode from 'qrcode';
 export interface ManagedHosting {
-  snapshot(): { status: string; sessionId: string | null; publicOrigin?: string | null; reason?: unknown };
+  snapshot(): { status: string; sessionId: string | null; publicOrigin?: string | null; reason?: unknown; preparation?: {stage: string; receivedBytes?: number; totalBytes?: number} };
   start(): Promise<void>; stop(): Promise<void>;
   readonly application: { mintOwnerLink(): string; hasDisposableState(): boolean } | undefined | null;
 }
@@ -34,6 +34,7 @@ export async function createController(manager: ManagedHosting, options: { port?
     const current = manager.snapshot();
     return { state: current.status, sessionId: current.sessionId, publicOrigin: current.status === 'ready' ? current.publicOrigin : null,
       hasDisposableState: manager.application?.hasDisposableState() ?? false,
+      ...(current.preparation ? {preparation:current.preparation} : {}),
       error: typeof current.reason === 'string' && /^[a-z-]{1,64}$/.test(current.reason) ? current.reason : current.status === 'failed' ? 'HOSTING_UNAVAILABLE' : null };
   }
   const server = createServer((req, res) => { void handle(req, res).catch(() => { if (!res.headersSent) reply(res, 500, { code: 'CONTROL_UNAVAILABLE' }); else res.end(); }); });
@@ -72,7 +73,7 @@ export async function createController(manager: ManagedHosting, options: { port?
     let input: Record<string, unknown>; try { input = await body(req); } catch { return reply(res, 400, { code: 'INVALID_BODY' }); }
     const current = state();
     if (path === '/control/start') {
-      if (!['idle', 'starting', 'connecting', 'ready'].includes(current.state)) return reply(res, 409, { code: 'FINISH_SESSION_FIRST' });
+      if (!['idle', 'preparing', 'starting', 'connecting', 'ready'].includes(current.state)) return reply(res, 409, { code: 'FINISH_SESSION_FIRST' });
       void manager.start().catch(() => {}); return reply(res, 202, { ok: true });
     }
     if (['/control/finish', '/control/quit'].includes(path)) {

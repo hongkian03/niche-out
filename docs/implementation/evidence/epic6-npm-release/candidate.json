@@ -1,0 +1,812 @@
+{
+  "schemaVersion": 1,
+  "name": "niche-out",
+  "version": "0.1.0",
+  "tarball": "dist-npm/niche-out-0.1.0.tgz",
+  "sha256": "953a1deb530778f0d779aa8d78744ea66b89c59fe04034597e5a8705511fc6f8",
+  "integrity": "sha512-gmZ3dmjHOuqukaUScsPnLUWQsRKcBz+S7C8WeDj0HMVYEDAgOv/uoRRKF9UXn3kGqh4rMPsBl9sxX48YtXr5wg==",
+  "size": 467324,
+  "unpackedSize": 1621152,
+  "files": [
+    {
+      "path": "LICENSE",
+      "size": 1070,
+      "mode": 420
+    },
+    {
+      "path": "README.md",
+      "size": 789,
+      "mode": 420
+    },
+    {
+      "path": "apps/server/dist/game/import-worker.js",
+      "size": 29327,
+      "mode": 420
+    },
+    {
+      "path": "apps/server/dist/hosting/launch.js",
+      "size": 159916,
+      "mode": 420
+    },
+    {
+      "path": "apps/server/hosting-assets/local/dashboard.js",
+      "size": 8300,
+      "mode": 420
+    },
+    {
+      "path": "apps/server/hosting-assets/local/index.html",
+      "size": 2421,
+      "mode": 420
+    },
+    {
+      "path": "apps/server/hosting-assets/local/style.css",
+      "size": 1918,
+      "mode": 420
+    },
+    {
+      "path": "apps/web/dist/asset-notices.txt",
+      "size": 463,
+      "mode": 420
+    },
+    {
+      "path": "apps/web/dist/assets/index-B9eN9Lxp.js",
+      "size": 457652,
+      "mode": 420
+    },
+    {
+      "path": "apps/web/dist/assets/index-lb1N9Y27.css",
+      "size": 21676,
+      "mode": 420
+    },
+    {
+      "path": "apps/web/dist/assets/VT323-Regular-DICElq-Y.ttf",
+      "size": 153116,
+      "mode": 420
+    },
+    {
+      "path": "apps/web/dist/game-format.txt",
+      "size": 1496,
+      "mode": 420
+    },
+    {
+      "path": "apps/web/dist/game.example.json",
+      "size": 897,
+      "mode": 420
+    },
+    {
+      "path": "apps/web/dist/index.html",
+      "size": 519,
+      "mode": 420
+    },
+    {
+      "path": "apps/web/dist/VT323-OFL.txt",
+      "size": 4367,
+      "mode": 420
+    },
+    {
+      "path": "bin/niche-out.cjs",
+      "size": 2430,
+      "mode": 493
+    },
+    {
+      "path": "bin/runtime.cjs",
+      "size": 5522,
+      "mode": 420
+    },
+    {
+      "path": "docs/release/OPERATOR-GUIDE.md",
+      "size": 10548,
+      "mode": 420
+    },
+    {
+      "path": "docs/release/RELEASE-NOTES.md",
+      "size": 6156,
+      "mode": 420
+    },
+    {
+      "path": "docs/release/SIGNING.md",
+      "size": 12732,
+      "mode": 420
+    },
+    {
+      "path": "examples/FORMAT.md",
+      "size": 2521,
+      "mode": 420
+    },
+    {
+      "path": "examples/game.example.json",
+      "size": 897,
+      "mode": 420
+    },
+    {
+      "path": "examples/game.five-rounds.json",
+      "size": 4109,
+      "mode": 420
+    },
+    {
+      "path": "examples/game.singapore.json",
+      "size": 39600,
+      "mode": 420
+    },
+    {
+      "path": "examples/game.singapore.sources.md",
+      "size": 32984,
+      "mode": 420
+    },
+    {
+      "path": "native-manifest.json",
+      "size": 2139,
+      "mode": 420
+    },
+    {
+      "path": "native/darwin-arm64/niche-guard",
+      "size": 34344,
+      "mode": 493
+    },
+    {
+      "path": "native/darwin-arm64/niche-platform.node",
+      "size": 51296,
+      "mode": 493
+    },
+    {
+      "path": "native/darwin-x64/niche-guard",
+      "size": 9352,
+      "mode": 493
+    },
+    {
+      "path": "native/darwin-x64/niche-platform.node",
+      "size": 13936,
+      "mode": 493
+    },
+    {
+      "path": "native/linux-x64/niche-guard",
+      "size": 14800,
+      "mode": 493
+    },
+    {
+      "path": "native/linux-x64/niche-platform.node",
+      "size": 17088,
+      "mode": 493
+    },
+    {
+      "path": "native/win32-x64/niche-platform.node",
+      "size": 220160,
+      "mode": 493
+    },
+    {
+      "path": "npm-shrinkwrap.json",
+      "size": 43182,
+      "mode": 420
+    },
+    {
+      "path": "package.json",
+      "size": 710,
+      "mode": 420
+    },
+    {
+      "path": "release/build-manifest.json",
+      "size": 9979,
+      "mode": 420
+    },
+    {
+      "path": "release/notices.json",
+      "size": 45716,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/@fastify/ajv-compiler/LICENSE",
+      "size": 1123,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/@fastify/deepmerge/LICENSE",
+      "size": 1123,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/@fastify/error/LICENSE",
+      "size": 1123,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/@fastify/fast-json-stringify-compiler/LICENSE",
+      "size": 1123,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/@fastify/forwarded/LICENSE",
+      "size": 1174,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/@fastify/merge-json-schemas/LICENSE",
+      "size": 1123,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/@fastify/proxy-addr/LICENSE",
+      "size": 1174,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/@pinojs/redact/LICENSE",
+      "size": 1076,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/@socket.io/component-emitter/LICENSE",
+      "size": 1104,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/@types/cors/LICENSE",
+      "size": 1141,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/@types/node/LICENSE",
+      "size": 1141,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/@types/ws/LICENSE",
+      "size": 1141,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/accepts/LICENSE",
+      "size": 1167,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/ajv-formats/LICENSE",
+      "size": 1074,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/ajv/LICENSE",
+      "size": 1090,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/ajv/node_modules/fast-uri/LICENSE",
+      "size": 1813,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/ansi-regex/license",
+      "size": 1109,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/ansi-styles/license",
+      "size": 1109,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/atomic-sleep/LICENSE",
+      "size": 1087,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/avvio/LICENSE",
+      "size": 1162,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/camelcase/license",
+      "size": 1109,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/cliui/LICENSE.txt",
+      "size": 731,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/color-convert/LICENSE",
+      "size": 1087,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/color-name/LICENSE",
+      "size": 1085,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/cookie/LICENSE",
+      "size": 1175,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/cors/LICENSE",
+      "size": 1095,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/debug/LICENSE",
+      "size": 1139,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/decamelize/license",
+      "size": 1119,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/dequal/license",
+      "size": 1114,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/dijkstrajs/LICENSE.md",
+      "size": 714,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/emoji-regex/LICENSE-MIT.txt",
+      "size": 1077,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/engine.io-client/LICENSE",
+      "size": 1113,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/engine.io-parser/LICENSE",
+      "size": 1112,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/engine.io/LICENSE",
+      "size": 1123,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/engine.io/node_modules/cookie/LICENSE",
+      "size": 1175,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/esbuild/LICENSE.md",
+      "size": 1069,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/fast-decode-uri-component/LICENSE",
+      "size": 1174,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/fast-deep-equal/LICENSE",
+      "size": 1074,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/fast-json-stringify/LICENSE",
+      "size": 1165,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/fast-querystring/LICENSE",
+      "size": 1057,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/fast-uri/LICENSE",
+      "size": 1813,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/fastify/LICENSE",
+      "size": 1123,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/fastq/LICENSE",
+      "size": 765,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/find-my-way/LICENSE",
+      "size": 1080,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/find-up/license",
+      "size": 1109,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/get-caller-file/LICENSE.md",
+      "size": 745,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/ipaddr.js/LICENSE",
+      "size": 1087,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/is-fullwidth-code-point/license",
+      "size": 1109,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/json-schema-ref-resolver/LICENSE",
+      "size": 1123,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/json-schema-traverse/LICENSE",
+      "size": 1074,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/light-my-request/LICENSE",
+      "size": 1828,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/locate-path/license",
+      "size": 1109,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/mime-db/LICENSE",
+      "size": 1172,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/mime-types/LICENSE",
+      "size": 1167,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/ms/license.md",
+      "size": 1079,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/negotiator/LICENSE",
+      "size": 1177,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/object-assign/license",
+      "size": 1119,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/on-exit-leak-free/LICENSE",
+      "size": 1071,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/p-limit/license",
+      "size": 1109,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/p-locate/license",
+      "size": 1109,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/p-try/license",
+      "size": 1109,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/path-exists/license",
+      "size": 1109,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/pino-abstract-transport/LICENSE",
+      "size": 1061,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/pino-std-serializers/LICENSE",
+      "size": 1084,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/pino/LICENSE",
+      "size": 1212,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/pngjs/LICENSE",
+      "size": 1151,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/process-warning/LICENSE",
+      "size": 1123,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/qrcode/license",
+      "size": 1076,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/quick-format-unescaped/LICENSE",
+      "size": 1091,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/react-dom/LICENSE",
+      "size": 1088,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/react/LICENSE",
+      "size": 1088,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/real-require/LICENSE.md",
+      "size": 1114,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/require-directory/LICENSE",
+      "size": 1099,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/require-from-string/license",
+      "size": 1128,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/require-main-filename/LICENSE.txt",
+      "size": 731,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/ret/LICENSE",
+      "size": 1065,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/reusify/LICENSE",
+      "size": 1087,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/rfdc/LICENSE",
+      "size": 1101,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/safe-regex2/LICENSE",
+      "size": 1123,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/safe-stable-stringify/LICENSE",
+      "size": 1079,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/scheduler/LICENSE",
+      "size": 1088,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/secure-json-parse/LICENSE",
+      "size": 1768,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/semver/LICENSE",
+      "size": 765,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/set-blocking/LICENSE.txt",
+      "size": 731,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/set-cookie-parser/LICENSE",
+      "size": 1126,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/socket.io-adapter/LICENSE",
+      "size": 1113,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/socket.io-client/LICENSE",
+      "size": 1116,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/socket.io-parser/LICENSE",
+      "size": 1113,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/socket.io/LICENSE",
+      "size": 1113,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/sonic-boom/LICENSE",
+      "size": 1071,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/split2/LICENSE",
+      "size": 764,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/string-width/license",
+      "size": 1109,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/strip-ansi/license",
+      "size": 1109,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/thread-stream/LICENSE",
+      "size": 1071,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/toad-cache/LICENSE",
+      "size": 1067,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/undici-types/LICENSE",
+      "size": 1090,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/vary/LICENSE",
+      "size": 1094,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/which-module/LICENSE",
+      "size": 731,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/wrap-ansi/license",
+      "size": 1109,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/ws/LICENSE",
+      "size": 1183,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/xmlhttprequest-ssl/LICENSE",
+      "size": 1077,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/y18n/LICENSE",
+      "size": 731,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/yargs-parser/LICENSE.txt",
+      "size": 731,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/yargs/LICENSE",
+      "size": 1146,
+      "mode": 420
+    },
+    {
+      "path": "release/notices/node_modules/zod/LICENSE",
+      "size": 1072,
+      "mode": 420
+    },
+    {
+      "path": "release/source-files.json",
+      "size": 44813,
+      "mode": 420
+    },
+    {
+      "path": "resources.json",
+      "size": 23109,
+      "mode": 420
+    },
+    {
+      "path": "scripts/cloudflared-manifest.json",
+      "size": 2286,
+      "mode": 420
+    },
+    {
+      "path": "scripts/notices/cloudflared-LICENSE.txt",
+      "size": 11357,
+      "mode": 420
+    }
+  ],
+  "nativeInventory": {
+    "schemaVersion": 1,
+    "napiVersion": 8,
+    "sourceSha256": "5c557a3b50ac264c9c0bf1938ee2d5c7f7ddbec33b623164217981e756b0231e",
+    "authentication": "private-unsigned; publisher authentication remains Epic 6",
+    "targets": {
+      "darwin-arm64": {
+        "buildNode": "v24.22.3",
+        "buildHost": "darwin-arm64",
+        "compiler": "cc",
+        "executed": "requires recorded native tests",
+        "files": [
+          {
+            "path": "native/darwin-arm64/niche-platform.node",
+            "sha256": "5454b5f6c8fec63c4345f02cf4b7f8b67bb8e883f169ef86e31e6ca4d73b1d80"
+          },
+          {
+            "path": "native/darwin-arm64/niche-guard",
+            "sha256": "af52ee94d1ac4ad6aee9de205a3579ad8c76609689d8b3962b61c3eacad345c1"
+          }
+        ]
+      },
+      "darwin-x64": {
+        "buildNode": "v24.22.3",
+        "buildHost": "darwin-arm64",
+        "compiler": "cc",
+        "executed": "not executed on build host",
+        "files": [
+          {
+            "path": "native/darwin-x64/niche-platform.node",
+            "sha256": "891774b6224dd4a37261c653b526894c983b5ac8b99dd323965458331904650e"
+          },
+          {
+            "path": "native/darwin-x64/niche-guard",
+            "sha256": "33c1f9b0922ee7159229fb5c516c4a16828cdcc2026f665e114c6f11f8542ab0"
+          }
+        ]
+      },
+      "win32-x64": {
+        "buildNode": "v24.22.3",
+        "buildHost": "darwin-arm64",
+        "compiler": "zig",
+        "executed": "not executed on build host",
+        "files": [
+          {
+            "path": "native/win32-x64/niche-platform.node",
+            "sha256": "b29dba7ccd6e194aa266b1be7fefb0cab707f70c13bd82209b8f91c2b28ec995"
+          }
+        ]
+      },
+      "linux-x64": {
+        "buildNode": "v24.22.3",
+        "buildHost": "darwin-arm64",
+        "compiler": "zig",
+        "executed": "not executed on build host",
+        "files": [
+          {
+            "path": "native/linux-x64/niche-platform.node",
+            "sha256": "ced03669c2a18df7f5f5b2e55331db92bfff5e282950688b97593b87fccb401e"
+          },
+          {
+            "path": "native/linux-x64/niche-guard",
+            "sha256": "62f894c9a32da8ec9b45456abc3f0fbd7d8de85c7dd0855104c3609dae1a0ec0"
+          }
+        ]
+      }
+    }
+  },
+  "privateCandidate": true,
+  "published": false
+}

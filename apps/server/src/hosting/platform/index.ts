@@ -26,9 +26,9 @@ export async function createPlatformAdapter(options: PlatformOptions = {}): Prom
     native = options.native ?? require(options.helperPath ?? fileURLToPath(new URL('../../../../../tooling/niche-platform.node', import.meta.url))) as NativePlatform;
     if (!['now', 'setActive', 'powerHealthy', 'ownProcess'].every(key => typeof native[key as keyof NativePlatform] === 'function')) throw new Error();
   } catch {
-    throw new Error('The native platform helper is missing or incompatible. Developers: run npm run build:platform with the pinned Node runtime. Portable hosts: extract a fresh package for this operating system and CPU.');
+    throw new Error('The native platform helper is missing or incompatible. Reinstall a complete package for this operating system and CPU. Contributors: run npm run build:platform with the pinned Node runtime.');
   }
-  if (!native.ownProcess()) throw new Error('Cannot establish launcher process ownership. Hosting has not started.');
+  if (!native.ownProcess()) throw new Error('Cannot establish launcher process ownership. Use a standard foreground terminal; a restrictive parent job or container may prevent required child cleanup. Hosting has not started.');
   let active = false, closed = false;
   const origin = native.now();
   if (!Number.isFinite(origin) || origin < 0) throw new Error('The system continuous clock is unavailable.');

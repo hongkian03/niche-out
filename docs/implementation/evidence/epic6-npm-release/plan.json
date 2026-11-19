@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 2,
+  "distribution": "npm",
+  "product": "Niche Out",
+  "packageName": "niche-out",
+  "version": "0.1.0",
+  "mode": "review-only",
+  "executionImplemented": false,
+  "publicReleaseReady": false,
+  "publicationAuthorized": false,
+  "localIntegrityPassed": true,
+  "artifact": {
+    "name": "niche-out",
+    "version": "0.1.0",
+    "filename": "niche-out-0.1.0.tgz",
+    "bytes": 467324,
+    "sha256": "953a1deb530778f0d779aa8d78744ea66b89c59fe04034597e5a8705511fc6f8",
+    "integrity": "sha512-gmZ3dmjHOuqukaUScsPnLUWQsRKcBz+S7C8WeDj0HMVYEDAgOv/uoRRKF9UXn3kGqh4rMPsBl9sxX48YtXr5wg=="
+  },
+  "bindings": {
+    "resourcesSha256": "4ea2e71a94439679cef2e5c8358526f86ba4a38f9d5550a13680821d7011cc3c",
+    "nativeManifestSha256": "7a95197dc5fc0bbcc242adb53b7d6241cb964c2dd8e42885df8717e045ab4d9b",
+    "connectorManifestSha256": "f0f2dc922a6cfcf7d0f33f053a1d87d8be20dcbcef183d4d87da2f5ce84ff427",
+    "shrinkwrapSha256": "01a336eba87774f726e5fc722421f7871f6d7c6a71477324788e5b6d38f9f89d",
+    "noticesSha256": "5840060f1401351725d3df04e0ff44afd9973ca9f7f06ffadcdb69b89932a14e"
+  },
+  "blockers": [
+    "Owner input deferred: publisher",
+    "Owner input deferred: npmAccountOrOrganization",
+    "npm name/account ownership verification required",
+    "Owner artwork/example rights approval deferred",
+    "Third-party notice review incomplete",
+    "Notice review required: node_modules/abstract-logging (missing-permission-text)",
+    "Notice review required: downloaded-cloudflared (linked-dependency-notice-review-pending)",
+    "Native signing configuration required: macDeveloperId",
+    "Native signing configuration required: macTeamId",
+    "Native signing configuration required: macNotaryKeychainProfile",
+    "Native signing configuration required: windowsCertificateThumbprint",
+    "Native signing configuration required: windowsTimestampUrl",
+    "Native signing configuration required: linuxOpenPgpFingerprint",
+    "Implementation required: mac-native-payload-signing-and-tested-notarization-delivery",
+    "Implementation required: windows-native-helper-signing-and-timestamp-verification",
+    "Implementation required: persistent-native-inventory-authentication",
+    "Implementation required: final-post-sign-npm-resource-manifest-and-pack",
+    "Implementation required: trusted-npm-publisher-and-exact-tarball-promotion",
+    "Separate pinned npm publisher toolchain/trusted-publisher setup required",
+    "Final authenticated npm target evidence required: darwin-arm64",
+    "Final authenticated npm target evidence required: darwin-x64",
+    "Final authenticated npm target evidence required: win32-x64",
+    "Final authenticated npm target evidence required: linux-x64",
+    "Independent native authentication and target-report verification required (configuration is not evidence)"
+  ],
+  "stages": [
+    "S06: Build one npm candidate; audit actual tarball and source/native/connector/dependency/notices; freeze exact SHA-256 and npm integrity in this review",
+    "S06: Resolve deferred account/publisher/rights inputs; reuse MIT source license; finish notice review",
+    "S07-S09: Authenticate four native payload sets and demonstrate macOS notarization delivery, Windows signature/timestamp and persistent inventory signature",
+    "S07-S10: Generate resource hashes after signing; pack final npm bytes; repeat tarball and installed clean-target checks; host Node is separate and connector preparation is explicit",
+    "S11: Review exact authenticated candidate, deferred target/device/network evidence and pinned publisher setup; local checks require no already-published registry attestation",
+    "S12: After separate authorization, publish exact reviewed tarball with approved provenance; verify registry version/integrity/attestations and installation before separately authorized stable promotion"
+  ],
+  "note": "No signing, keychain access, credentials, account creation, upload or promotion occurs. Registry provenance is verified after authorized publication, not required to audit a local candidate."
+}

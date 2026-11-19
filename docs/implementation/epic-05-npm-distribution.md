@@ -1,10 +1,12 @@
 # Epic 5 extension: npm distribution
 
-Planning baseline, November 17, 2026. **Planning only; application, package manifests and release scripts have not been migrated.** The owner selected npm distribution and authorized this plan. The [master tracker](../IMPLEMENTATION-PLAN.md#epic-5-npm-distribution-extension) owns story status. Earlier portable archives and their evidence remain historical outputs, not npm acceptance evidence.
+> **Owner closure, November 18, 2026:** Epic 5 and its six npm migration stories are complete for project progression. The owner will perform remaining manual/platform testing on their own schedule. Earlier qualification findings below remain the factual test record; closure does not turn NOT RUN checks into passes. Final release qualification remains Epic 6.
+
+Implementation handoff, November 18, 2026, following the November 17 planning baseline. The owner authorized parallel development of all six stories. A standalone local npm candidate and installed-Mac verification are delivered; see the [npm implementation and test report](evidence/EPIC-5-NPM.md). The [master tracker](../IMPLEMENTATION-PLAN.md#epic-5-npm-distribution-extension) owns story status. Physical lifecycle acceptance and actual Intel Mac/Windows/Linux execution remain open; the prepared CI matrix is not an executed pass. No package has been published or publicly authenticated. Earlier portable archives and their evidence remain historical outputs, not npm acceptance evidence.
 
 ## Outcome and selected approach
 
-Ship **one public npm CLI package**. Hosts install a supported Node runtime and launch Niche Out from a terminal; the browser dashboard and player experience remain the existing product. Package name `niche-out` is provisional until registry ownership/availability is checked. No publication or package reservation is authorized by this planning task.
+The release target is **one public npm CLI package**. The delivered private candidate is `dist-npm/niche-out-0.1.0.tgz`, assembled through `npm run package:npm`; hosts install a supported Node runtime and launch Niche Out from a terminal. The browser dashboard and player experience remain the existing product. Package name `niche-out` is provisional until registry ownership/availability is checked. Installation tests use the local tarball, not an assumed registry publication. No publication or package reservation has occurred.
 
 The tarball contains compiled server and import-worker entries, built browser/setup assets, four small native-helper builds, the connector version/hash catalogue, examples, MIT license and dependency/asset notices. It does not contain Node, a compiler, developer dependencies or four large cloudflared executables. At explicit **Start hosting** or `prepare`, obtain the matching pinned connector into a private per-user cache and verify it before execution. Subsequent sessions reuse verified cached bytes. Runtime acquisition is a disclosed setup operation; npm installation has no build/download lifecycle hook.
 
@@ -28,7 +30,7 @@ No change to the 100-player limit, Quick Tunnel ownership, local/private/public 
 
 ## Supported runtime and platform contract
 
-Proposed first-release host range: **Node `>=24.22.3 <25`**, enforced by a lightweight CLI check before server imports/native loading. Keep the contributor/build Node `24.22.3` and npm `11.19.1` pins distinct. Host npm is the npm supplied with supported Node 24; test the floor and current supported npm 11 tuple rather than enforcing the development patch on users. Release CI may require a separately pinned newer npm for publishing features. npm is the initially supported package manager; Yarn, pnpm and Bun are not implied.
+Implemented first-release host range: **Node `>=24.22.3 <25`**, enforced by a lightweight CLI check before server imports/native loading. Keep the contributor/build Node `24.22.3` and npm `11.19.1` pins distinct. Host npm is the npm supplied with supported Node 24; test the floor and current supported npm 11 tuple rather than enforcing the development patch on users. Release CI may require a separately pinned newer npm for publishing features. npm is the initially supported package manager; Yarn, pnpm and Bun are not implied.
 
 | Host | Native tuple | Specific qualification |
 | --- | --- | --- |
@@ -39,26 +41,29 @@ Proposed first-release host range: **Node `>=24.22.3 <25`**, enforced by a light
 
 Select by the running process's `process.platform` and `process.arch`, not just machine marketing architecture. Rosetta x64 Node uses x64 components; actual Intel evidence is still required. Windows/Linux ARM64, 32-bit Node, musl/Alpine and other Linux distributions are not first-release validated targets. `os`/`cpu` manifest arrays cannot express these exact tuple combinations; preflight must enforce them. Detect unsupported libc before native loading, with a clear diagnostic rather than a loader crash. OS-floor checks need actual release/build metadata (including Windows build information and Linux distribution/release data), not just platform labels or the presence of glibc; inject supported/unsupported OS facts in preflight tests and confirm them on actual target machines. Do not label all Linux compatible because one runner passes.
 
-Build against an explicit stable Node-API level (proposed level 8), audit used APIs, and test prebuilds on minimum/current Node 24. ABI stability does not make binaries portable across OS/CPU/libc. No user Python, Visual Studio, Xcode, node-gyp or native compilation fallback. Unsupported Node releases fail with the supported range and installation guidance; do not recommend `--force`.
+The delivered native builds use explicit stable Node-API level 8. Audit used APIs and test prebuilds on minimum/current Node 24. ABI stability does not make binaries portable across OS/CPU/libc. No user Python, Visual Studio, Xcode, node-gyp or native compilation fallback. Unsupported Node releases fail with the supported range and installation guidance; do not recommend `--force`.
 
 ## Delivery layout and mutable data
 
-Proposed published layout (paths are planned, not existing files):
+Actual local-candidate layout. The implementation preserves the original server/browser asset depth instead of the initially proposed flattened `dist/server`/`assets` layout; the installed launcher explicitly injects the separately bundled worker URL:
 
 ```text
-bin/niche-out.cjs                 lightweight preflight and CLI dispatch
-dist/server/launch.js             bundled private workspace code, external runtime dependencies
-dist/server/import-worker.js      separately bundled worker entry
-assets/web/                      prebuilt Vite output and local fonts/art
-assets/hosting/                  existing loopback setup assets
-native/<target>/                 niche-platform.node and POSIX niche-guard
-resources.json                  application/helper inventory and minimum requirements
-connector-manifest.json          pinned cloudflared targets, sizes and digests
-examples/ + docs/ + LICENSE + notices/
-package.json + npm-shrinkwrap.json
+bin/niche-out.cjs                         lightweight preflight and CLI dispatch
+bin/runtime.cjs                           Node/OS/target checks and wrapper ownership
+apps/server/dist/hosting/launch.js         bundled private workspace code
+apps/server/dist/game/import-worker.js    separately bundled worker entry
+apps/server/hosting-assets/local/         loopback setup assets
+apps/web/dist/                            built browser, fonts and artwork
+native/<target>/                          niche-platform.node and POSIX niche-guard
+native-manifest.json                      four-target native hashes and provenance
+resources.json                            application/helper inventory and requirements
+scripts/cloudflared-manifest.json         pinned connector catalogue
+scripts/notices/                          dependency and component notices
+examples/ + docs/release/ + README.md + LICENSE
+package.json + npm-shrinkwrap.json        exact external runtime dependency graph
 ```
 
-Keep the root monorepo private. Assemble a dedicated publish directory with a public manifest, `bin` entry, exact runtime dependencies and a strict `files` allowlist. Bundle private `@rarity/contracts` and `@rarity/game-core` sources into the server and worker; do not publish unresolved workspace links or copy development `node_modules`. Keep third-party runtime dependencies external where bundling would break dynamic resource loading, and inventory the installed graph. Use a generated **staging npm-shrinkwrap.json** for the exact CLI dependency graph; the root package-lock is not a published dependency lock.
+The root monorepo stays private. `scripts/npm/assemble.mjs` assembles `dist-npm/package` with a separate manifest, `bin` entry, exact runtime dependencies and a strict `files` allowlist, then packs the candidate. Pinned build-time esbuild bundles private `@rarity/contracts` and `@rarity/game-core` sources into the server and worker; no unresolved workspace links or developer `node_modules` are shipped. Third-party runtime dependencies remain external. The generated **staging npm-shrinkwrap.json** locks the reviewed runtime graph; the root package-lock remains the contributor lock. Only selected release guides are shipped; their links to omitted source documents resolve to the source repository rather than broken package-relative paths.
 
 Resource roots must be explicit/injected at module boundaries. Resolve package files from the module location and canonical package root, never from CWD, a source checkout, developer caches or assumed `../../` archive layout. Preserve the import worker's URL and all server-served asset/help/example routes. Installed files are immutable, including under global install, npm cache and read-only directories. A package manager's top-level symlink is valid; canonicalize the root before checking inventory paths, rejecting traversal and unexpected symlink escapes inside covered resources.
 
@@ -77,6 +82,8 @@ Cache base: macOS `~/Library/Caches/NicheOut`, Windows `%LOCALAPPDATA%\\NicheOut
 
 ## Stories and dependency order
 
+The six implementation slices are delivered. The master tracker marks N01/N03/N04 DONE and N02/N05/N06 REVIEW, preserving the remaining exact-target and physical lifecycle acceptance. Current implementation entry points include `bin/`, `apps/server/src/hosting/{launch,resources,connector-cache}.ts`, `scripts/npm/`, `scripts/build-native-inventory.mjs`, `scripts/npm/check-native.mjs` and `.github/workflows/npm-compatibility.yml`. Consult the [handoff](evidence/EPIC-5-NPM.md) for actual files, executed commands, candidate hashes, installed-package load results and checks that remain NOT RUN. The story criteria below remain the completion contract; this summary does not replace missing platform evidence.
+
 | Story | Size | Direct prerequisites | Reviewable result |
 | --- | --- | --- | --- |
 | E5-N01 | 1 | G4, existing launcher/core; this accepted direction | Runtime, CLI and resource contracts |
@@ -90,7 +97,7 @@ Default execution is N01 → N02 → N03 → N04 → N05 → N06, one bounded st
 
 ### E5-N01: runtime, CLI and resource contract
 
-**Files:** existing `package.json`, `.npmrc`, `scripts/check-runtime.mjs`, `apps/server/src/hosting/{launch,resources,connector}.ts`, `apps/server/src/hosting/platform/index.ts`; planned npm CLI/resource configuration modules and tests. Root dev pins remain private; published manifest is separate.
+**Files:** `bin/{niche-out,runtime}.cjs`, `package.json`, `.npmrc`, `scripts/check-runtime.mjs`, `apps/server/src/hosting/{launch,resources,connector}.ts`, `apps/server/src/hosting/platform/index.ts` and runtime/resource tests. Root dev pins remain private; the staged package manifest is separate.
 
 **Work:** Define Node/OS/libc preflight, package/native/cache root inputs, normalized diagnostics and command behavior. Introduce explicit configuration seams for web/help assets, platform addon, guard, connector catalogue and worker URL. Avoid a second launcher or tunnel manager. Minimal CLI must parse on unsupported runtimes sufficiently to print the version error before dynamic imports.
 

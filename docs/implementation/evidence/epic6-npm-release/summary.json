@@ -1,0 +1,134 @@
+{
+  "schemaVersion": 1,
+  "story": "E6-S06",
+  "date": "2026-11-18",
+  "timezone": "America/New_York",
+  "implementation": "Delivered",
+  "acceptance": "REVIEW: explicit owner deferrals and outstanding notice review",
+  "artifact": {
+    "name": "niche-out",
+    "version": "0.1.0",
+    "filename": "niche-out-0.1.0.tgz",
+    "bytes": 467324,
+    "sha256": "953a1deb530778f0d779aa8d78744ea66b89c59fe04034597e5a8705511fc6f8",
+    "integrity": "sha512-gmZ3dmjHOuqukaUScsPnLUWQsRKcBz+S7C8WeDj0HMVYEDAgOv/uoRRKF9UXn3kGqh4rMPsBl9sxX48YtXr5wg=="
+  },
+  "releaseConfigSha256": "8c7fed896dc4813f679dd93c8571a38bfd5403dc886b407a16a19f9395b64def",
+  "sourceBuild": {
+    "manifestSha256": "ba37b44c0181ef999f3c2cc58671db4b833cebab8336781ece0a2cdc719ad6dc",
+    "sourceSha256": "6f6af1e7f8d06cdc1b3b4e35d86d68f6774736cadf4f2e6a04460de917d6c8f7",
+    "lockSha256": "7d923786b6612ff0d83d83a3255deddab582eb51dcae807b547a203adfed12ba",
+    "gitCommit": "93cf454ee3a0582ae472d5219aa5ab5f552d9659",
+    "node": "24.22.3",
+    "npm": "npm@11.19.1"
+  },
+  "bindings": {
+    "resourcesSha256": "4ea2e71a94439679cef2e5c8358526f86ba4a38f9d5550a13680821d7011cc3c",
+    "nativeManifestSha256": "7a95197dc5fc0bbcc242adb53b7d6241cb964c2dd8e42885df8717e045ab4d9b",
+    "connectorManifestSha256": "f0f2dc922a6cfcf7d0f33f053a1d87d8be20dcbcef183d4d87da2f5ce84ff427",
+    "shrinkwrapSha256": "01a336eba87774f726e5fc722421f7871f6d7c6a71477324788e5b6d38f9f89d",
+    "noticesSha256": "5840060f1401351725d3df04e0ff44afd9973ca9f7f06ffadcdb69b89932a14e"
+  },
+  "inventory": {
+    "fileCount": 146,
+    "sourceFileCount": 341,
+    "nativeTargets": [
+      "darwin-arm64",
+      "darwin-x64",
+      "win32-x64",
+      "linux-x64"
+    ],
+    "productionDependencyCount": 99,
+    "noticeDependencyCount": 106
+  },
+  "environment": {
+    "platform": "darwin-arm64",
+    "node": "24.22.3",
+    "npm": "11.19.1"
+  },
+  "checks": {
+    "buildAndPack": "PASS",
+    "releaseTests": {
+      "status": "PASS",
+      "tests": 20
+    },
+    "combinedReleaseNpmPackagingTests": {
+      "status": "PASS",
+      "tests": 29,
+      "command": "node --test tests/release/release.check.mjs scripts/npm/*.check.mjs tests/packaging/package.check.mjs"
+    },
+    "actualTarballAudit": {
+      "status": "PASS",
+      "exitCode": 0,
+      "report": "audit.json"
+    },
+    "reviewPlanner": {
+      "status": "EXPECTED OPEN GATES",
+      "exitCode": 1,
+      "report": "plan.json"
+    },
+    "installedPackage": {
+      "status": "PASS",
+      "checks": 6,
+      "report": "install.json"
+    },
+    "availableMacNative": {
+      "status": "PASS",
+      "checks": 3,
+      "report": "native.json"
+    },
+    "localSetupShutdown": {
+      "status": "PASS",
+      "checks": 3,
+      "report": "setup.json"
+    },
+    "actualCorruptTarball": {
+      "status": "PASS: corruption rejected",
+      "report": "tamper.json"
+    },
+    "runtimeEquivalence": {
+      "status": "PASS",
+      "files": 25,
+      "report": "runtime-equivalence.json"
+    }
+  },
+  "observedAndCorrected": [
+    "Legacy archive-only auditor/planner and stale MIT null fields replaced",
+    "Bundled browser notice coverage and source provenance added",
+    "Historical checksum-helper import relocated rather than broken",
+    "Sandbox denied global npm cache during one build; retried with project-local cache; auditor rejected the stale earlier artifact",
+    "Cross-builder filename handling verified with a real single-separator Windows-path fixture"
+  ],
+  "noticeFindings": [
+    {
+      "path": "node_modules/abstract-logging",
+      "kind": "missing-permission-text"
+    },
+    {
+      "path": "node_modules/xmlhttprequest-ssl",
+      "kind": "missing-license-metadata"
+    },
+    {
+      "path": "downloaded-cloudflared",
+      "kind": "linked-dependency-notice-review-pending"
+    }
+  ],
+  "ownerDecisions": {
+    "packageName": "niche-out approved",
+    "sourceLicense": "MIT retained",
+    "npmAccountOrOrganization": "Explicitly deferred",
+    "releasePublisher": "Explicitly deferred",
+    "artworkExampleRightsApproval": "Explicitly deferred"
+  },
+  "notPerformed": [
+    "Native signing/notarization",
+    "npm account creation or ownership reservation",
+    "Trusted-publisher enrollment",
+    "npm publication or stable promotion",
+    "Other-platform/alternate-runtime execution",
+    "New physical-phone/browser gameplay or capacity run: runtime unchanged; historical evidence retained"
+  ],
+  "publicReleaseReady": false,
+  "published": false,
+  "credentialsAccessed": false
+}

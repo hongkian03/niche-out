@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "target": "darwin-arm64",
+  "node": "v24.22.3",
+  "osRelease": "25.5.0",
+  "checks": [
+    "Installed npm preflight and exact native tuple",
+    "Native continuous clock and process ownership",
+    "Standalone installed server entry import"
+  ],
+  "scope": "Execution only on named runner; Windows Server CI is not physical Windows11 certification; no sleep/wake or native publisher authentication."
+}

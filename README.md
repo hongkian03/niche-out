@@ -30,41 +30,38 @@ Normally for Boston University Singapore Student Association's annual Great Sing
 
 ## How to download
 
-[Download the source ZIP](https://github.com/hongkian03/niche-out/archive/refs/heads/main.zip) and extract it, or clone the repository:
+The project now builds a **local npm candidate**, `dist-npm/niche-out-0.1.0.tgz`. It is not published to the npm registry yet, and it is not a signed public release. Obtain that file from the maintainer, or build it from a source checkout using the [development guide](docs/DEVELOPMENT.md#build-and-check-the-npm-candidate).
+
+Hosts need supported **Node.js `>=24.22.3 <25`** with npm. The candidate contains compiled application assets and prebuilt native helpers; installing/running it requires no compiler or application build. Players need only a browser.
+
+For contributors, [download the source ZIP](https://github.com/hongkian03/niche-out/archive/refs/heads/main.zip) or clone the repository:
 
 ```sh
 git clone https://github.com/hongkian03/niche-out.git
 cd niche-out
 ```
 
-Self-contained app downloads are being prepared. The current portable builds are private test packages, and public signing and distribution are still in progress. To run the source, follow the setup steps below.
+The intended targets are macOS 15+ Apple Silicon/Intel, Windows 11 x64 and Ubuntu 24.04+ x64/glibc. Available-Mac execution is tested separately; native cross-builds alone do not certify Intel Mac, Windows or Linux compatibility. Earlier self-contained archives are historical private test builds.
 
 ## How to use
 
 ### Set up the host
 
-The source setup requires **Node.js 24.22.3**, **npm 11.19.1**, and a C compiler with matching Node headers for the native hosting helpers. On macOS, install the Xcode Command Line Tools if needed:
+With supported Node/npm installed, run the local candidate from the repository directory:
 
 ```sh
-xcode-select --install
+npm exec --yes --ignore-scripts --package=./dist-npm/niche-out-0.1.0.tgz -- niche-out
 ```
 
-If you use nvm, select the project's pinned Node version:
+If the tarball is somewhere else, replace the package path with its quoted absolute path. This uses the local file, not a published `niche-out` registry package. npm installs the candidate's runtime dependencies; there are no install hooks or native build steps. An optional preparation command verifies/downloads the tunnel component without starting hosting:
 
 ```sh
-nvm install
-nvm use
+npm exec --yes --ignore-scripts --package=./dist-npm/niche-out-0.1.0.tgz -- niche-out prepare
 ```
 
-From the project directory, install dependencies, download the verified tunnel connector, and launch:
+The normal command opens the private local hosting dashboard. **Start hosting** verifies the user-cached cloudflared executable and downloads the pinned component if missing; progress and errors appear in setup. Cold preparation and tunneled play need internet. Keep the CLI terminal open; Ctrl-C or **Quit launcher** stops it. Stop hosting and quit before updating or uninstalling the package.
 
-```sh
-npm ci
-npm run setup:tunnel
-npm run host
-```
-
-The host command builds the app and opens the local hosting dashboard. For native build prerequisites and other platform details, see the [development guide](docs/DEVELOPMENT.md) and [packaging guide](packaging/README.md). Available-Mac testing is documented; Windows, Linux, and Intel Mac execution checks remain pending.
+Windows hosts can use Command Prompt or the npm `.cmd` launcher if PowerShell blocks its `.ps1` shim. Do not weaken machine-wide execution policy. Source-contributor commands such as `npm run host` still require the exact development toolchain and native build prerequisites described in the [development guide](docs/DEVELOPMENT.md).
 
 ### Host a game
 

@@ -4,8 +4,7 @@ import { readFile, mkdir, mkdtemp, writeFile, stat } from 'node:fs/promises';
 import { execFileSync } from 'node:child_process';
 import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { targets, inventory, sha256 } from './package-lib.mjs';
-import { parseChecksum } from './release-audit.mjs';
+import { targets, inventory, sha256, parseChecksum } from './package-lib.mjs';
 import { verifyManifestSignature } from '../packaging/manifest-signature.mjs';
 import { verifyPortableResources } from '../apps/server/dist/hosting/resources.js';
 

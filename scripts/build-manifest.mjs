@@ -5,10 +5,12 @@ import { join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = fileURLToPath(new URL("../", import.meta.url));
-const ignored = new Set([".git", ".DS_Store", "node_modules", "dist", "build", "test-results", "tooling", ".local", "dist-release", "work"]);
+const ignored = new Set([".git", ".DS_Store", "node_modules", "dist", "build", "test-results", "tooling", ".local", "dist-release", "dist-npm", "work"]);
 function sourceFiles(dir) {
   return readdirSync(dir, { withFileTypes: true })
-    .filter(entry => !ignored.has(entry.name))
+    .filter(entry => !ignored.has(entry.name) &&
+      // Generated release evidence cannot participate in its own artifact digest.
+      relative(root, join(dir, entry.name)).replaceAll("\\", "/") !== "docs/implementation/evidence/epic6-npm-release")
     .flatMap(entry => {
       const path = join(dir, entry.name);
       return entry.isDirectory() ? sourceFiles(path) : entry.isFile() ? [path] : [];
@@ -40,4 +42,5 @@ const manifest = {
     .map(([path, item]) => [path, item.version]))
 };
 mkdirSync(join(root, "build"), { recursive: true });
+writeFileSync(join(root, "build/source-files.json"), JSON.stringify({formatVersion: 1, files}, null, 2) + "\n");
 writeFileSync(join(root, "build/manifest.json"), JSON.stringify(manifest, null, 2) + "\n");

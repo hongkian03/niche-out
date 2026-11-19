@@ -1,0 +1,45 @@
+{
+  "finalTarballSha256": "032ca9267f28c46068af397b4322eeaf638360dfdce750300a7c71bc4f1790b3",
+  "scope": "Full server/worker/CLI/runtime/web/setup/native payloads, connector catalogue and external dependency shrinkwrap; documentation and source/resource metadata may differ.",
+  "files": [
+    "apps/server/dist/game/import-worker.js",
+    "apps/server/dist/hosting/launch.js",
+    "apps/server/hosting-assets/local/dashboard.js",
+    "apps/server/hosting-assets/local/index.html",
+    "apps/server/hosting-assets/local/style.css",
+    "apps/web/dist/VT323-OFL.txt",
+    "apps/web/dist/asset-notices.txt",
+    "apps/web/dist/assets/VT323-Regular-DICElq-Y.ttf",
+    "apps/web/dist/assets/index-B9eN9Lxp.js",
+    "apps/web/dist/assets/index-lb1N9Y27.css",
+    "apps/web/dist/game-format.txt",
+    "apps/web/dist/game.example.json",
+    "apps/web/dist/index.html",
+    "bin/niche-out.cjs",
+    "bin/runtime.cjs",
+    "native/darwin-arm64/niche-guard",
+    "native/darwin-arm64/niche-platform.node",
+    "native/darwin-x64/niche-guard",
+    "native/darwin-x64/niche-platform.node",
+    "native/linux-x64/niche-guard",
+    "native/linux-x64/niche-platform.node",
+    "native/win32-x64/niche-platform.node",
+    "native-manifest.json",
+    "npm-shrinkwrap.json",
+    "scripts/cloudflared-manifest.json"
+  ],
+  "comparisons": [
+    {
+      "testedCandidate": "browser-wrapper",
+      "filesCompared": 25,
+      "different": [],
+      "testedTarballSha256": "1f22260f6411bb475c3dc0e578e0205e9bdf2ab558c052c52e88c47b32608140"
+    },
+    {
+      "testedCandidate": "capacity-preparation-versions",
+      "filesCompared": 25,
+      "different": [],
+      "testedTarballSha256": "7f9edc95fcd53beef68bf892fdc21d1b0397fdf8f6c6c92f85c55f40f8325c1f"
+    }
+  ]
+}

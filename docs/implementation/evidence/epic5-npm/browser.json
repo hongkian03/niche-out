@@ -1,0 +1,22 @@
+{
+  "status": "PASS",
+  "started": "2026-11-19T02:13:48.088Z",
+  "node": "v24.22.3",
+  "scope": "Actual installed npm tarball, fresh Chrome390px player, host-installed Node and selected native helper, real owned Quick Tunnel. No physical phone or other platform certification.",
+  "checks": [
+    "Installed launcher/native helper and explicit connector preparation reach real public readiness",
+    "Actual bundled worker, two phone-size players, rejection/retry, aliases and joint200 scores",
+    "Installed production browser refresh restores admitted identity and final results",
+    "Browser closure leaves hosting alive and private owner recovery preserves final state",
+    "Explicit quit closes installed npm launcher and owned tunnel"
+  ],
+  "preparationStates": [
+    "Ready to host",
+    "Preparing your tunnel component…",
+    "Connecting your tunnel…",
+    "Your session is ready"
+  ],
+  "browser": "157.0.8103.79",
+  "importDiagnostics": [],
+  "ended": "2026-11-19T02:15:23.986Z"
+}

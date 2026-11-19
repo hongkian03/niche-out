@@ -1,0 +1,42 @@
+{
+  "status": "PASS",
+  "started": "2026-11-19T02:28:44.788Z",
+  "node": "v24.22.3",
+  "platform": "darwin",
+  "arch": "arm64",
+  "scope": "Actual local npm tarballs; isolated user-owned global prefix/cache; current→new→explicit prior. Each local launcher stops before install. Warm connector cache seeded from verified vendor bytes. No publication/public tunnel/active-update/physical-device or other-platform certification.",
+  "checks": [
+    "Actual global-prefix current→distinct new version→explicit prior installs with ignored scripts",
+    "CLI versions match installed package/resource manifests and launch a reachable local controller",
+    "Every launcher stops before install; fresh process/private access and released old listener verified",
+    "All three app versions reuse unchanged verified connector cache path/bytes",
+    "Alternate assembly preserves the original default tarball"
+  ],
+  "versions": [
+    {
+      "stage": "current",
+      "version": "0.1.0",
+      "tarballSha256": "7f9edc95fcd53beef68bf892fdc21d1b0397fdf8f6c6c92f85c55f40f8325c1f",
+      "resourcesVersion": "0.1.0",
+      "connectorSha256": "97e24268d9704a570fab276293028f3580ae2c7d5d2678621a4809e90f776a5e",
+      "stoppedBeforeNextInstall": true
+    },
+    {
+      "stage": "new",
+      "version": "0.1.1-test",
+      "tarballSha256": "d19ac469a8958420325b50d0e1ed506e2b9be5fb56d33dc8caf7464fa0f82477",
+      "resourcesVersion": "0.1.1-test",
+      "connectorSha256": "97e24268d9704a570fab276293028f3580ae2c7d5d2678621a4809e90f776a5e",
+      "stoppedBeforeNextInstall": true
+    },
+    {
+      "stage": "prior",
+      "version": "0.1.0",
+      "tarballSha256": "7f9edc95fcd53beef68bf892fdc21d1b0397fdf8f6c6c92f85c55f40f8325c1f",
+      "resourcesVersion": "0.1.0",
+      "connectorSha256": "97e24268d9704a570fab276293028f3580ae2c7d5d2678621a4809e90f776a5e",
+      "stoppedBeforeNextInstall": true
+    }
+  ],
+  "ended": "2026-11-19T02:28:52.381Z"
+}

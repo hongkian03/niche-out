@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "node": "v24.22.3",
+  "target": "darwin-arm64",
+  "checks": [
+    "Fresh cache: pinned vendor acquisition, archive/executable/version verification",
+    "Separate process warm cache: reverified without downloading through an unreachable proxy"
+  ],
+  "scope": "Actual installed immutable npm package; fresh private cache downloads from pinned vendor. Second process uses an unreachable HTTPS proxy, so a warm verified hit must not download. No public tunnel is opened.",
+  "ended": "2026-11-19T02:25:24.534Z"
+}

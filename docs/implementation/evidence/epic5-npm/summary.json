@@ -1,0 +1,174 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-18",
+  "timezone": "America/New_York",
+  "status": "Epic 5 complete by owner instruction; manual/platform testing deferred; unpublished",
+  "stories": {
+    "E5-N01": "DONE",
+    "E5-N02": "DONE",
+    "E5-N03": "DONE",
+    "E5-N04": "DONE",
+    "E5-N05": "DONE",
+    "E5-N06": "DONE"
+  },
+  "finalArtifact": {
+    "name": "niche-out",
+    "version": "0.1.0",
+    "tarball": "dist-npm/niche-out-0.1.0.tgz",
+    "sha256": "032ca9267f28c46068af397b4322eeaf638360dfdce750300a7c71bc4f1790b3",
+    "integrity": "sha512-vHrl4c+L6E2Hrffjs/IwdsvQPOMNZpnTLKMbcAFr88IFLSdXbYX+rHQWpoKTEcDdGIR8OZo5mfwXATLszOwLhw==",
+    "size": 428802,
+    "unpackedSize": 1387305,
+    "privateCandidate": true,
+    "published": false
+  },
+  "artifactBinding": {
+    "sourceManifestSha256": "7eb4604bfcd9cfe3843dde348227548f2e6bde4706e6d0869cd542015d509d99",
+    "resourceManifestSha256": "80662716e49721a57aa6b99d7e1894f01ef361cbff270d66eb3d1846973d733b",
+    "serverSha256": "7ab25a009f93005636e49ee3a676e538fee910d0c0b30283b56562826957a2e5",
+    "productionDependencyPaths": 99,
+    "runtimeEquivalence": "runtime-equivalence.json",
+    "note": "Final docs/source/resource metadata repack; 25 runtime/dependency/native resource files byte-identical to browser/wrapper and capacity/preparation/version candidates. Fresh final tarball installs/native checks executed again."
+  },
+  "environment": {
+    "platform": "darwin-arm64",
+    "osRelease": "25.5.0",
+    "cpu": "Apple M3 Pro",
+    "cores": 11,
+    "memoryGiB": 18,
+    "node": "24.22.3",
+    "npm": "11.19.1",
+    "uplink": "eduroam"
+  },
+  "tests": {
+    "typecheck": {
+      "status": "PASS",
+      "command": "npm run typecheck"
+    },
+    "build": {
+      "status": "PASS",
+      "command": "npm run package:npm"
+    },
+    "application": {
+      "status": "PASS",
+      "files": 37,
+      "tests": 485,
+      "command": "npm test -- --reporter=dot"
+    },
+    "standalone": {
+      "status": "PASS",
+      "tests": 27,
+      "command": "node --test tests/packaging/npm-runtime.check.mjs scripts/npm/*.check.mjs scripts/load/*.check.mjs tests/server/baseline-metrics.check.mjs",
+      "normalOSProcessInspection": true
+    },
+    "connectorFocused": {
+      "status": "PASS",
+      "tests": 28,
+      "scope": "Cache+connector fixtures, including three version/digest coexistence cases"
+    },
+    "install": {
+      "status": "PASS",
+      "checks": 6,
+      "report": "installed-final.json"
+    },
+    "native": {
+      "status": "PASS",
+      "checks": 3,
+      "report": "native-final.json"
+    },
+    "preparation": {
+      "status": "PASS",
+      "checks": 2,
+      "report": "prepare.json"
+    },
+    "browser": {
+      "status": "PASS",
+      "checks": 5,
+      "report": "browser.json",
+      "viewport": [
+        390,
+        844
+      ],
+      "screenshot": "player-finished-390.png",
+      "physicalPhone": false
+    },
+    "wrapperActive": {
+      "status": "PASS",
+      "checks": 3,
+      "report": "wrapper-active.json"
+    },
+    "directCLI": {
+      "status": "PASS",
+      "reports": [
+        "cli-sigint.json",
+        "cli-sighup.json",
+        "cli-sigkill.json",
+        "cli-kill-active.json"
+      ],
+      "physicalTerminalClosed": false
+    },
+    "versions": {
+      "status": "PASS",
+      "checks": 5,
+      "report": "versions.json",
+      "newVersion": "0.1.1-test",
+      "publicEndpointCreated": false
+    },
+    "capacity": {
+      "status": "PASS",
+      "players": 100,
+      "rounds": 20,
+      "report": "capacity.json",
+      "recoveredDnsErrors": 1
+    },
+    "compatibilityCI": {
+      "status": "NOT RUN",
+      "file": ".github/workflows/npm-compatibility.yml"
+    }
+  },
+  "failedAttempts": [
+    {
+      "kind": "Assembly resolver",
+      "outcome": "Prevented transitive drift using reviewed production lock and version assertions"
+    },
+    {
+      "kind": "Browser harness worker bridge",
+      "outcome": "--input-type=module inheritance removed; actual worker/browser passed"
+    },
+    {
+      "kind": "Read-only install helper",
+      "outcome": "Missing fs imports corrected; final install repeated"
+    },
+    {
+      "kind": "Sandbox-only wrapper fixture",
+      "outcome": "ps blocked in sandbox; rerun with normal process inspection passed; no bypass added"
+    },
+    {
+      "kind": "Polling DNS",
+      "outcome": "One ENOTFOUND during final round recovered in 1.89 seconds; workload passed without rerun"
+    }
+  ],
+  "notRun": [
+    "Actual Intel Mac",
+    "Actual Windows 11 x64 and cmd.exe/PowerShell behavior",
+    "Actual Ubuntu 24.04+ x64/glibc",
+    "Other supported Node24/npm11 versions",
+    "Physical terminal close",
+    "Physical sleep/wake and clock adjustment on each target",
+    "Clean-target native quarantine/reputation",
+    "Current npm installed package on physical iPhone/Android and full browser/assistive technology matrix"
+  ],
+  "epic6Remaining": [
+    "Native signing/notarization and publisher inputs",
+    "Npm registry identity and release pipeline/audit migration",
+    "Final notice and full source/native provenance review",
+    "Final authenticated exact-byte target qualifications",
+    "Separately authorized npm publication/promotion"
+  ],
+  "noPublication": true,
+  "ownerClosure": {
+    "date": "2026-11-18",
+    "manualTesting": "Deferred by owner to their own schedule",
+    "certifiesUntestedPlatforms": false
+  }
+}

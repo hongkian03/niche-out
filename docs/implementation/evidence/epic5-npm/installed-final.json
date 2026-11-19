@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "started": "2026-11-19T02:31:51.945Z",
+  "node": "v24.22.3",
+  "scope": "Fresh local/user-prefix-global/npm-exec installs with ignored scripts, outside checkout. Help/version and real bundled worker; hosting/browser verified separately.",
+  "checks": [
+    "local tgz install --ignore-scripts and help/version from unrelated Unicode/space path",
+    "published runtime shrinkwrap has no dev or private workspace links",
+    "actual bundled worker compiles accepted answers/aliases without a checkout",
+    "user-prefix global install executable shim from unrelated cwd",
+    "npm-exec tarball invocation with isolated cache and ignored scripts",
+    "installed package made read-only before hosting smoke; no package/CWD writes required"
+  ],
+  "readOnlyPackage": true,
+  "ended": "2026-11-19T02:31:57.997Z"
+}

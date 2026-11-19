@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 2,
+  "distribution": "npm",
+  "generatedAt": "2026-11-19T03:17:05.374Z",
+  "scope": "Actual npm tarball contents and frozen source/native/dependency/notice inventory; integrity is not publisher authentication or legal clearance.",
+  "problems": [],
+  "noticeFindings": [
+    {
+      "path": "node_modules/abstract-logging",
+      "kind": "missing-permission-text"
+    },
+    {
+      "path": "node_modules/xmlhttprequest-ssl",
+      "kind": "missing-license-metadata"
+    },
+    {
+      "path": "downloaded-cloudflared",
+      "kind": "linked-dependency-notice-review-pending"
+    }
+  ],
+  "integrityPassed": true,
+  "publicReleaseReady": false,
+  "releaseConfigSha256": "8c7fed896dc4813f679dd93c8571a38bfd5403dc886b407a16a19f9395b64def",
+  "artifact": {
+    "name": "niche-out",
+    "version": "0.1.0",
+    "filename": "niche-out-0.1.0.tgz",
+    "bytes": 467324,
+    "sha256": "953a1deb530778f0d779aa8d78744ea66b89c59fe04034597e5a8705511fc6f8",
+    "integrity": "sha512-gmZ3dmjHOuqukaUScsPnLUWQsRKcBz+S7C8WeDj0HMVYEDAgOv/uoRRKF9UXn3kGqh4rMPsBl9sxX48YtXr5wg=="
+  },
+  "inventory": {
+    "fileCount": 146,
+    "sourceFileCount": 341,
+    "nativeTargets": [
+      "darwin-arm64",
+      "darwin-x64",
+      "win32-x64",
+      "linux-x64"
+    ],
+    "productionDependencyCount": 99,
+    "noticeDependencyCount": 106
+  },
+  "sourceBuild": {
+    "manifestSha256": "ba37b44c0181ef999f3c2cc58671db4b833cebab8336781ece0a2cdc719ad6dc",
+    "sourceSha256": "6f6af1e7f8d06cdc1b3b4e35d86d68f6774736cadf4f2e6a04460de917d6c8f7",
+    "lockSha256": "7d923786b6612ff0d83d83a3255deddab582eb51dcae807b547a203adfed12ba",
+    "gitCommit": "93cf454ee3a0582ae472d5219aa5ab5f552d9659",
+    "node": "24.22.3",
+    "npm": "npm@11.19.1"
+  },
+  "bindings": {
+    "resourcesSha256": "4ea2e71a94439679cef2e5c8358526f86ba4a38f9d5550a13680821d7011cc3c",
+    "nativeManifestSha256": "7a95197dc5fc0bbcc242adb53b7d6241cb964c2dd8e42885df8717e045ab4d9b",
+    "connectorManifestSha256": "f0f2dc922a6cfcf7d0f33f053a1d87d8be20dcbcef183d4d87da2f5ce84ff427",
+    "shrinkwrapSha256": "01a336eba87774f726e5fc722421f7871f6d7c6a71477324788e5b6d38f9f89d",
+    "noticesSha256": "5840060f1401351725d3df04e0ff44afd9973ca9f7f06ffadcdb69b89932a14e"
+  }
+}

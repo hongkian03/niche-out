@@ -58,3 +58,41 @@ export async function verifyPortableResources(root = applicationRoot, options: {
   for (const path of required) if (!seen.has(path)) throw new PackageResourceError('The manifest omits a required resource: ' + path + '.');
   return value;
 }
+
+export interface NpmResourceManifest {
+  schemaVersion: 1; kind: 'npm'; version: string; nodeRange: string;
+  files: { path: string; sha256: string }[];
+}
+/** npm corruption checks, not independent publisher authentication. */
+export async function verifyNpmResources(root = applicationRoot, options: { required?: boolean } = {}): Promise<NpmResourceManifest | null> {
+  let value: NpmResourceManifest;
+  try { value = JSON.parse(await readFile(join(root, 'resources.json'), 'utf8')) as NpmResourceManifest; }
+  catch (error) {
+    if ((error as NodeJS.ErrnoException).code === 'ENOENT' && !options.required) return null;
+    throw new Error('Niche Out npm resources are missing or unreadable. Reinstall the selected package version.');
+  }
+  if (!value || value.schemaVersion !== 1 || value.kind !== 'npm' || typeof value.version !== 'string' || value.nodeRange !== '>=24.22.3 <25' ||
+      !Array.isArray(value.files) || value.files.length === 0 || value.files.length > 100000) throw new Error('Niche Out npm resource manifest is invalid. Reinstall the selected package version.');
+  const canonicalRoot = await realpath(root), seen = new Set<string>();
+  for (const entry of value.files) {
+    if (!entry || typeof entry.path !== 'string' || !/^[a-f0-9]{64}$/.test(entry.sha256) || /[\\:\x00]/.test(entry.path) ||
+        entry.path.split('/').some(part => !part || part === '.' || part === '..') || entry.path === 'resources.json' || seen.has(entry.path)) throw new Error('Niche Out npm resource manifest has an unsafe or duplicate path.');
+    seen.add(entry.path);
+    try {
+      let current = canonicalRoot;
+      const parts = entry.path.split('/');
+      for (const [index, part] of parts.entries()) {
+        current = join(current, part); const stat = await lstat(current);
+        if (stat.isSymbolicLink() || (index < parts.length - 1 ? !stat.isDirectory() : !stat.isFile())) throw Error('Unsafe resource');
+      }
+      if (createHash('sha256').update(await readFile(current)).digest('hex') !== entry.sha256) throw Error('Digest mismatch');
+    } catch { throw new Error('Niche Out npm resource is missing or damaged: ' + entry.path + '. Reinstall the selected package version.'); }
+  }
+  const required = ['package.json', 'npm-shrinkwrap.json', 'bin/niche-out.cjs', 'bin/runtime.cjs', 'apps/server/dist/hosting/launch.js',
+    'apps/server/dist/game/import-worker.js', 'apps/server/hosting-assets/local/index.html', 'apps/web/dist/index.html', 'scripts/cloudflared-manifest.json', 'native-manifest.json', 'LICENSE'];
+  for (const target of ['darwin-arm64', 'darwin-x64', 'win32-x64', 'linux-x64']) {
+    required.push('native/' + target + '/niche-platform.node'); if (!target.startsWith('win32')) required.push('native/' + target + '/niche-guard');
+  }
+  for (const path of required) if (!seen.has(path)) throw new Error('Niche Out npm manifest omits a required resource: ' + path + '.');
+  return value;
+}

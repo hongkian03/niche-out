@@ -2,15 +2,15 @@
 
 Tunnel baseline updated November 14, 2026. Current story status is maintained only in the [master backlog](../IMPLEMENTATION-PLAN.md#story-tracker); these cards define scope and evidence rather than claiming completion.
 
-> **Distribution supersession — npm migration planning:** The owner has selected npm as the complete host distribution route. The [npm distribution migration plan](epic-05-npm-distribution.md) is the active Epic 5 continuation. Its six E5-N stories replace the four self-contained archive deliverables and bundled-Node requirement below. Hosts install a supported Node runtime; the npm CLI includes compiled game/browser assets and prebuilt native helpers, and obtains the pinned connector through explicit setup into a per-user cache. These stories are planned only. The prior archives and their evidence remain historical results, not the release format to finish or evidence that npm installation works.
+> **Distribution supersession — npm implementation:** The owner selected npm as the complete host distribution route and authorized all six E5-N stories. The [npm distribution continuation](epic-05-npm-distribution.md) replaces the four self-contained archive deliverables and bundled-Node requirement below. A local, unpublished npm candidate now includes compiled game/browser assets and prebuilt native helpers, and obtains the pinned connector through explicit setup into a per-user cache. Hosts install supported Node. The [npm handoff](evidence/EPIC-5-NPM.md) records installed-Mac checks and the remaining exact-target/physical lifecycle acceptance. The prior archives and their evidence remain historical results, not the release format to finish or evidence that npm installation works.
 
 The existing native clock, idle-power, process-ownership, private launcher and tunnel lifecycle behavior remains reusable. E5-S01–S05 are integration inputs to the migration; their platform evidence must still be rechecked against the installed npm artifact. E5-S06–S10 retain their original cards for traceability and are superseded for future distribution by E5-N04–N06. No status is changed by this note; consult the master tracker. Native code still requires four target builds and real target verification even though users receive one npm package and do not compile it.
 
 ## Active npm continuation dependencies
 
-The detailed work, file references, compatibility cases and acceptance criteria are in the [npm migration plan](epic-05-npm-distribution.md). The following is the implementation order, not a completion claim. Names describe the planned scopes; story statuses belong in the master backlog.
+The detailed work, file references, compatibility cases and acceptance criteria are in the [npm migration stories](epic-05-npm-distribution.md). The following retains the implementation order and scopes; story statuses belong in the master backlog. Delivered implementation does not close the remaining actual Intel/Windows/Linux and physical terminal/power lifecycle acceptance, and prepared compatibility CI is not an executed platform pass.
 
-| Story | Planned outcome | Depends on |
+| Story | Outcome | Depends on |
 | --- | --- | --- |
 | E5-N01 | Supported runtime, CLI and immutable package-resource contract | Existing E5-S01–S05 implementation and accepted npm direction |
 | E5-N02 | Four-target prebuilt native helper matrix | E5-N01 |

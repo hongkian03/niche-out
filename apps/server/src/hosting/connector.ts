@@ -1,6 +1,6 @@
 import { spawn } from "node:child_process";
 import { createHash } from "node:crypto";
-import { readFile, mkdtemp, writeFile, rm } from "node:fs/promises";
+import { readFile, mkdtemp, writeFile, rm, lstat } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -25,6 +25,8 @@ export async function verifyConnectorExecutable(executable: string, target: {exe
     if (!target) throw new ConnectorFailure("unsupported-platform");
     let bytes: Buffer;
     try {
+        const info = await lstat(executable);
+        if (info.isSymbolicLink() || !info.isFile()) throw new ConnectorFailure("connector-integrity");
         bytes = await readFile(executable);
     } catch (error) {
         if ((error as NodeJS.ErrnoException).code === "ENOENT") throw new ConnectorFailure("connector-missing");
@@ -35,10 +37,13 @@ export async function verifyConnectorExecutable(executable: string, target: {exe
     }
 }
 const root = fileURLToPath(new URL("../../../../", import.meta.url));
-export const startConnector: ConnectorFactory = async (port, signal) => {
-    const manifest = JSON.parse(await readFile(join(root, "scripts/cloudflared-manifest.json"), "utf8"));
+export interface ConnectorPaths { executable: string; manifestPath: string; guardPath?: string }
+/** Trusted launcher paths; release callers do not consult executable overrides. */
+export function createConnectorFactory(paths: ConnectorPaths): ConnectorFactory {
+  return async (port, signal) => {
+    const manifest = JSON.parse(await readFile(paths.manifestPath, "utf8"));
     const target = manifest.platforms[process.platform + "-" + process.arch];
-    const executable = process.env.CLOUDFLARED_PATH ?? join(root, "tooling", process.platform === "win32" ? "cloudflared.exe" : "cloudflared");
+    const executable = paths.executable;
     await verifyConnectorExecutable(executable, target);
     signal.throwIfAborted();
     const directory = await mkdtemp(join(tmpdir(), "niche-hosting-"));
@@ -48,7 +53,7 @@ export const startConnector: ConnectorFactory = async (port, signal) => {
         signal.throwIfAborted();
         const connectorArgs = ["tunnel", "--config", config, "--no-autoupdate", "--metrics", "127.0.0.1:0", "--protocol", "http2", "--url", "http://127.0.0.1:" + port];
         const guarded = process.platform !== "win32";
-        const child = spawn(guarded ? join(root, "tooling", "niche-guard") : executable, guarded ? [executable, ...connectorArgs] : connectorArgs, { stdio: guarded ? ["pipe", "pipe", "pipe", "pipe"] : ["pipe", "pipe", "pipe"], env: Object.fromEntries(Object.entries(process.env).filter(([k]) => !k.startsWith("TUNNEL_") && !k.startsWith("CLOUDFLARED_"))) });
+        const child = spawn(guarded ? paths.guardPath ?? join(root, "tooling", "niche-guard") : executable, guarded ? [executable, ...connectorArgs] : connectorArgs, { stdio: guarded ? ["pipe", "pipe", "pipe", "pipe"] : ["pipe", "pipe", "pipe"], env: Object.fromEntries(Object.entries(process.env).filter(([k]) => !k.startsWith("TUNNEL_") && !k.startsWith("CLOUDFLARED_"))) });
         child.stdin!.on("error", () => { /* An already exited guard can close ownership during stop. */ });
         let ended = false;
         const exited = new Promise<void>(resolve => {
@@ -119,3 +124,11 @@ export const startConnector: ConnectorFactory = async (port, signal) => {
         throw error;
     }
 };
+}
+
+/** Legacy contributor/probe path; npm hosts use explicit verified paths. */
+export const startConnector: ConnectorFactory = (port, signal) => createConnectorFactory({
+    executable: process.env.CLOUDFLARED_PATH ?? join(root, "tooling", process.platform === "win32" ? "cloudflared.exe" : "cloudflared"),
+    manifestPath: join(root, "scripts/cloudflared-manifest.json"),
+    guardPath: join(root, "tooling", "niche-guard"),
+})(port, signal);

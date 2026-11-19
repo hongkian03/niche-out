@@ -1,0 +1,28 @@
+{
+  "status": "PASS",
+  "scope": "Separate copy of actual final tgz; original untouched",
+  "expectedIntegrityPassed": false,
+  "observed": {
+    "schemaVersion": 2,
+    "distribution": "npm",
+    "generatedAt": "2026-11-19T03:17:41.815Z",
+    "scope": "Actual npm tarball contents and frozen source/native/dependency/notice inventory; integrity is not publisher authentication or legal clearance.",
+    "problems": [
+      "Tarball SHA-256 mismatch",
+      "Tarball npm integrity mismatch",
+      "unexpected end of file"
+    ],
+    "noticeFindings": [],
+    "integrityPassed": false,
+    "publicReleaseReady": false,
+    "releaseConfigSha256": "8c7fed896dc4813f679dd93c8571a38bfd5403dc886b407a16a19f9395b64def",
+    "artifact": {
+      "name": "niche-out",
+      "version": "0.1.0",
+      "filename": "niche-out-0.1.0.tgz",
+      "bytes": 467324,
+      "sha256": "4477707296feb5d0bc0f2f54ad14ddebe75a47a976ae4cf67ebc230de76b1685",
+      "integrity": "sha512-GSYJxm6QdfHppRJrFBg1dDWxqyjIIPOcIyFUonldaRiNBu2a4b4KMS/xCGdow6NTAC+NDbY4kBpM48PIBVQumg=="
+    }
+  }
+}

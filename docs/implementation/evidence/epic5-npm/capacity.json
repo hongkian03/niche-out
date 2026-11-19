@@ -1,0 +1,319 @@
+{
+  "label": "npm-installed-light-tunnel-mixed-100-1795054822654",
+  "status": "PASS",
+  "started": "2026-11-19T02:20:22.776Z",
+  "ended": "2026-11-19T02:22:55.396Z",
+  "elapsedMs": 152619.988959,
+  "checks": [
+    "100 simulated players connected; each fetched production JS/CSS assets",
+    "101st admission rejected while admitted identities retained",
+    "100-player reconnect 0 preserved identity/control while full",
+    "1 complete 20-round games: correct scores, duplicate replay idempotent"
+  ],
+  "roundsCompleted": 20,
+  "endpointReadyMs": 81301.807667,
+  "summary": {
+    "endToEnd": {
+      "count": 2344,
+      "p50Ms": 144.32158300001174,
+      "p95Ms": 877.5314589999907,
+      "p99Ms": 1131.2969160000066,
+      "maxMs": 1459.010083000001
+    },
+    "endToEndByOutcome": {
+      "state.get:STATE": {
+        "count": 22,
+        "p50Ms": 56.935083999997005,
+        "p95Ms": 148.8695000000007,
+        "p99Ms": 308.8280000000086,
+        "maxMs": 308.8280000000086
+      },
+      "game.join:JOINED": {
+        "count": 100,
+        "p50Ms": 48.254165999998804,
+        "p95Ms": 286.90983300001244,
+        "p99Ms": 530.5519580000109,
+        "maxMs": 530.5519580000109
+      },
+      "game.join:GAME_FULL": {
+        "count": 1,
+        "p50Ms": 51.96820799999114,
+        "p95Ms": 51.96820799999114,
+        "p99Ms": 51.96820799999114,
+        "maxMs": 51.96820799999114
+      },
+      "game.resume:RESUMED": {
+        "count": 100,
+        "p50Ms": 83.62966700000106,
+        "p95Ms": 541.0112919999956,
+        "p99Ms": 614.5823340000061,
+        "maxMs": 614.5823340000061
+      },
+      "game.start:STARTED": {
+        "count": 1,
+        "p50Ms": 56.6461249999993,
+        "p95Ms": 56.6461249999993,
+        "p99Ms": 56.6461249999993,
+        "maxMs": 56.6461249999993
+      },
+      "answer.submit:REJECTED": {
+        "count": 100,
+        "p50Ms": 55.3634999999922,
+        "p95Ms": 348.08358400000725,
+        "p99Ms": 374.7688749999943,
+        "maxMs": 374.7688749999943
+      },
+      "answer.submit:ACCEPTED": {
+        "count": 2020,
+        "p50Ms": 163.07666700001573,
+        "p95Ms": 900.7423750000016,
+        "p99Ms": 1136.6609580000077,
+        "maxMs": 1459.010083000001
+      }
+    },
+    "serverByOutcome": {
+      "state.get:STATE": {
+        "count": 22,
+        "p50Ms": 6.416416000021854,
+        "p95Ms": 11.376625000004424,
+        "p99Ms": 12.359375,
+        "maxMs": 12.359375
+      },
+      "game.join:JOINED": {
+        "count": 100,
+        "p50Ms": 0.34754200000315905,
+        "p95Ms": 0.7049999999871943,
+        "p99Ms": 3.377374999996391,
+        "maxMs": 3.377374999996391
+      },
+      "game.join:GAME_FULL": {
+        "count": 1,
+        "p50Ms": 0.9843330000003334,
+        "p95Ms": 0.9843330000003334,
+        "p99Ms": 0.9843330000003334,
+        "maxMs": 0.9843330000003334
+      },
+      "game.resume:RESUMED": {
+        "count": 101,
+        "p50Ms": 0.22504099999787286,
+        "p95Ms": 0.427958000000217,
+        "p99Ms": 0.7354580000101123,
+        "maxMs": 9.16920800000662
+      },
+      "game.start:STARTED": {
+        "count": 1,
+        "p50Ms": 12.777207999999519,
+        "p95Ms": 12.777207999999519,
+        "p99Ms": 12.777207999999519,
+        "maxMs": 12.777207999999519
+      },
+      "answer.submit:REJECTED": {
+        "count": 100,
+        "p50Ms": 0.17270799999823794,
+        "p95Ms": 0.3174999999901047,
+        "p99Ms": 1.8376659999921685,
+        "maxMs": 1.8376659999921685
+      },
+      "answer.submit:ACCEPTED": {
+        "count": 2020,
+        "p50Ms": 1.9661250000062864,
+        "p95Ms": 3.4323749999748543,
+        "p99Ms": 7.044999999998254,
+        "maxMs": 46.67887499999779
+      }
+    }
+  },
+  "endToEndByTransport": {
+    "websocket:state.get:STATE": {
+      "count": 22,
+      "p50Ms": 56.935083999997005,
+      "p95Ms": 148.8695000000007,
+      "p99Ms": 308.8280000000086,
+      "maxMs": 308.8280000000086
+    },
+    "websocket:game.join:JOINED": {
+      "count": 80,
+      "p50Ms": 46.88404200000514,
+      "p95Ms": 53.69308300000557,
+      "p99Ms": 55.72104199999012,
+      "maxMs": 55.72104199999012
+    },
+    "polling:game.join:JOINED": {
+      "count": 20,
+      "p50Ms": 269.5557919999992,
+      "p95Ms": 530.5519580000109,
+      "p99Ms": 530.5519580000109,
+      "maxMs": 530.5519580000109
+    },
+    "websocket:game.join:GAME_FULL": {
+      "count": 1,
+      "p50Ms": 51.96820799999114,
+      "p95Ms": 51.96820799999114,
+      "p99Ms": 51.96820799999114,
+      "maxMs": 51.96820799999114
+    },
+    "websocket:game.resume:RESUMED": {
+      "count": 80,
+      "p50Ms": 72.42845799999486,
+      "p95Ms": 95.97083400000702,
+      "p99Ms": 172.54945799999405,
+      "maxMs": 172.54945799999405
+    },
+    "polling:game.resume:RESUMED": {
+      "count": 20,
+      "p50Ms": 500.6581670000014,
+      "p95Ms": 614.5823340000061,
+      "p99Ms": 614.5823340000061,
+      "maxMs": 614.5823340000061
+    },
+    "websocket:game.start:STARTED": {
+      "count": 1,
+      "p50Ms": 56.6461249999993,
+      "p95Ms": 56.6461249999993,
+      "p99Ms": 56.6461249999993,
+      "maxMs": 56.6461249999993
+    },
+    "websocket:answer.submit:REJECTED": {
+      "count": 80,
+      "p50Ms": 53.434041000000434,
+      "p95Ms": 63.475459000008414,
+      "p99Ms": 65.91866700000537,
+      "maxMs": 65.91866700000537
+    },
+    "polling:answer.submit:REJECTED": {
+      "count": 20,
+      "p50Ms": 323.13641700000153,
+      "p95Ms": 374.7688749999943,
+      "p99Ms": 374.7688749999943,
+      "maxMs": 374.7688749999943
+    },
+    "websocket:answer.submit:ACCEPTED": {
+      "count": 1600,
+      "p50Ms": 122.40637499999139,
+      "p95Ms": 262.0076659999904,
+      "p99Ms": 329.3307919999934,
+      "maxMs": 360.28695799999696
+    },
+    "polling:answer.submit:ACCEPTED": {
+      "count": 420,
+      "p50Ms": 702.7367919999961,
+      "p95Ms": 1136.6609580000077,
+      "p99Ms": 1432.0416670000122,
+      "maxMs": 1459.010083000001
+    }
+  },
+  "transportErrors": [
+    {
+      "category": "dns",
+      "message": "xhr poll error",
+      "status": 0,
+      "cause": "ENOTFOUND",
+      "atMs": 148191.901417,
+      "stage": "game-0-round-19-accepted-submit"
+    }
+  ],
+  "recoveries": [
+    {
+      "transport": "polling",
+      "attempts": 1,
+      "durationMs": 1888.4027910000004
+    }
+  ],
+  "failures": [],
+  "http": {
+    "requests": 507,
+    "maxInFlight": 5,
+    "bodyBytes": 63346435,
+    "statusCounts": {
+      "200": 507
+    }
+  },
+  "installedArtifact": {
+    "name": "niche-out",
+    "version": "0.1.0",
+    "resourcesSha256": "a4927923054454cb9365e6b7a5f49c10adbe2b0f222627352ff07161fc9b712f",
+    "sourceManifestSha256": "6bbfff058924bfaf9402d3a8da677b299a621734a60fc4a435af310ad0f29dd7",
+    "serverBoundary": "Actual installed bundled launch.js; root workspace game application is not used"
+  },
+  "measuredServerSha256": "7ab25a009f93005636e49ee3a676e538fee910d0c0b30283b56562826957a2e5",
+  "sourceManifestSha256": "6bbfff058924bfaf9402d3a8da677b299a621734a60fc4a435af310ad0f29dd7",
+  "workloadSha256": "4a96ecef7ef5c486efc3e71dff817fedefde849e9fe3ef06f9f1a851e4662f4b",
+  "processingTarget": {
+    "timingScope": "Entire retained bounded sample window",
+    "retainedWindowFailures": [],
+    "boundary": "handler entry to ack enqueue, excluding network and event-loop queue",
+    "targetP95Ms": 100,
+    "passed": true,
+    "exceeded": []
+  },
+  "tarballSha256": "7f9edc95fcd53beef68bf892fdc21d1b0397fdf8f6c6c92f85c55f40f8325c1f",
+  "machine": {
+    "uplink": "eduroam",
+    "cpu": "Apple M3 Pro",
+    "cores": 11,
+    "memoryBytes": 19327352832,
+    "kernel": "25.5.0",
+    "node": "v24.22.3",
+    "uplinkSource": "Owner confirmed in call_571a3de5bc754fe89072470832ee23f3; launch-time field was unconfirmed"
+  },
+  "workload": {
+    "count": 100,
+    "transport": "mixed",
+    "rounds": 20,
+    "games": 1,
+    "instrumentation": "light",
+    "reconnectBurst": true,
+    "creationBatch": 5,
+    "submitBatch": 100,
+    "playerSplit": {
+      "websocket": 80,
+      "polling": 20
+    }
+  },
+  "server": {
+    "peakRssBytes": 307970048,
+    "cpu": {
+      "user": 10406149,
+      "system": 1452126
+    },
+    "processResources": {
+      "application": {
+        "scope": "Application child; excludes generator and connector",
+        "cpu": {
+          "user": 10407937,
+          "system": 1452156
+        },
+        "peakRssBytes": 307970048
+      },
+      "connector": {
+        "scope": "cloudflared process only; excludes native guard; ps sampled every second",
+        "available": false,
+        "samples": 0,
+        "peakRssBytes": 0,
+        "cpuSeconds": null,
+        "lastSampleElapsedMs": null,
+        "lastSampleAgeMs": null
+      }
+    },
+    "eventLoopIntervals": {
+      "sampleCount": 13789,
+      "intervalCount": 35,
+      "maxObservedMs": 239.468543,
+      "scope": "Maximum observed across retained measured stage histograms; no merged all-run percentile inferred"
+    }
+  },
+  "limits": [
+    "100 simulated clients on available 18 GiB Mac, not 100 physical phones or 8 GiB host",
+    "80 WebSocket/20 polling, not all-polling certification",
+    "Connector CPU/RSS sampling unavailable in installed-launcher seam",
+    "HTTP asset/probe counter excludes Socket.IO transport requests",
+    "Single accelerated synthetic game, not endurance or Singapore-pack run",
+    "One ENOTFOUND polling DNS failure recovered; precise upstream root cause not established"
+  ],
+  "rawReport": {
+    "path": "work/npm-migration/capacity/npm-installed-light-tunnel-mixed-100-1795054822654.json",
+    "sha256": "d97ca3d49fb46f6f47f68296e1a9f2eab4882ec53d736e0a8e04247b8a2241a8",
+    "committed": false,
+    "reason": "Large detailed timings/samples retained in ignored working evidence; compact nonsecret summary committed"
+  }
+}

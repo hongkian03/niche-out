@@ -1,0 +1,47 @@
+name: npm candidate compatibility
+# Explicit maintainer action only; no publish, signing or automatic tunnel traffic.
+on: workflow_dispatch
+permissions:
+  contents: read
+jobs:
+  candidate:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24.22.3'
+          architecture: arm64
+      - run: npm ci
+      - run: node scripts/npm/rebuild-native.mjs
+      - run: npm run package:npm
+      - uses: actions/upload-artifact@v4
+        with:
+          name: npm-candidate
+          path: |
+            dist-npm/*.tgz
+            dist-npm/candidate.json
+  installed:
+    needs: candidate
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-15, macos-15-intel, windows-2025, ubuntu-24.04]
+        node: ['24.22.3', '24']
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - uses: actions/download-artifact@v4
+        with:
+          name: npm-candidate
+          path: dist-npm
+      - run: node scripts/npm/check-install.mjs --candidate=dist-npm/candidate.json
+      - run: node scripts/npm/check-native.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: npm-evidence-${{ matrix.os }}-${{ matrix.node }}
+          path: work/npm-install/*.json

@@ -53,13 +53,16 @@
     "test:release": "node --test tests/release/release.check.mjs",
     "release:audit": "node scripts/release-audit.mjs",
     "release:plan": "node scripts/release-plan.mjs",
-    "release:connector-inventory": "node scripts/release-connector-inventory.mjs"
+    "release:connector-inventory": "node scripts/release-connector-inventory.mjs",
+    "package:npm": "npm run build && node scripts/build-native-inventory.mjs && node scripts/npm/assemble.mjs",
+    "test:npm:install": "node scripts/npm/check-install.mjs"
   },
   "devDependencies": {
     "@types/node": "24.10.0",
     "@types/qrcode": "1.5.6",
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
+    "esbuild": "0.28.2",
     "playwright-core": "1.65.0",
     "socket.io-client": "4.8.4",
     "typescript": "5.9.3",

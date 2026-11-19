@@ -1,15 +1,17 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "productName": "Niche Out",
   "version": "0.1.0",
   "channel": "private-candidate",
   "publicationAuthorized": false,
   "ownerDecisions": {
     "publisher": null,
-    "projectLicenseSpdx": null,
-    "copyrightNotice": null,
+    "projectLicenseSpdx": "MIT",
+    "copyrightNotice": "Copyright (c) 2026 Kian Hong Tan",
     "assetRightsApproved": false,
-    "publicationDestination": null
+    "publicationDestination": "https://registry.npmjs.org",
+    "npmAccountOrOrganization": null,
+    "packageOwnershipVerified": false
   },
   "signing": {
     "macDeveloperId": null,
@@ -20,11 +22,11 @@
     "linuxOpenPgpFingerprint": null
   },
   "unimplementedPrerequisites": [
-    "mac-app-container-and-authenticated-launcher",
-    "mac-tested-hardened-runtime-entitlements",
-    "post-sign-resource-and-connector-digest-pipeline",
-    "windows-authenticode-native-resource-verifier",
-    "persistent-project-manifest-signing-chain"
+    "mac-native-payload-signing-and-tested-notarization-delivery",
+    "windows-native-helper-signing-and-timestamp-verification",
+    "persistent-native-inventory-authentication",
+    "final-post-sign-npm-resource-manifest-and-pack",
+    "trusted-npm-publisher-and-exact-tarball-promotion"
   ],
   "noticeReviewComplete": false,
   "finalSignedTargetEvidence": {
@@ -32,5 +34,19 @@
     "darwin-x64": null,
     "win32-x64": null,
     "linux-x64": null
-  }
+  },
+  "distribution": "npm",
+  "packageName": "niche-out",
+  "repository": "https://github.com/hongkian03/niche-out",
+  "artifactCandidate": "dist-npm/candidate.json",
+  "hostNodeRange": ">=24.22.3 <25",
+  "publisherToolchain": {
+    "node": "24.22.3",
+    "npm": "11.19.1",
+    "trustedPublisherConfigured": false
+  },
+  "ownerDeferrals": [
+    "npm account/organization and ownership verification",
+    "publisher identity and art/example rights approval"
+  ]
 }

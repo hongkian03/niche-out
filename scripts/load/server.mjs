@@ -1,3 +1,5 @@
+import {pathToFileURL} from 'node:url';
+import {join,resolve} from 'node:path';
 import { monitorEventLoopDelay } from 'node:perf_hooks';
 import { execFile } from 'node:child_process';
 import { createGameApplication } from '../../apps/server/dist/game/application.js';
@@ -6,6 +8,8 @@ import { startConnector } from '../../apps/server/dist/hosting/connector.js';
 import { gameHostingStatus } from '../../apps/server/dist/game/hosting-status.js';
 import {commandTag, boundedTrace} from './command-trace.mjs';
 import { createCollector, parseProcessTime } from './metrics.mjs';
+const npmRoot=process.argv.find(x=>x.startsWith('--npm-root='))?.slice(11);
+let installedHosting;
 const mode = process.argv.find(a => /^(--instrumentation|--diagnostics)=/.test(a))?.split('=')[1] ?? 'detailed';
 const collector = createCollector(mode), stages = [];
 const traceKey=process.env.NICHE_LOAD_TRACE_KEY, commandTrace=boundedTrace();
@@ -38,7 +42,14 @@ function finishStage() {
 const create = async (id, token) => app = await createGameApplication(id, token, { port: 0,
   ...(traceKey ? {commandTraceTag: id=>commandTag(traceKey,id),onCommandTrace: sample=>commandTrace.record({...sample,stage,atMs:performance.now()-start})} : {}),
   ...(mode === 'off' ? {} : { diagnosticMode: mode, onDiagnostic: collector.record }) });
-if (process.argv.includes('--tunnel')) {
+if(npmRoot){
+  if(!process.argv.includes('--tunnel'))throw Error('Installed npm workload requires its actual owned tunnel');
+  const {launchHosting}=await import(pathToFileURL(join(resolve(npmRoot),'apps/server/dist/hosting/launch.js')).href);
+  installedHosting=await launchHosting({npmPackageRoot:resolve(npmRoot),interactive:false,openBrowser:()=>{},diagnostics:{diagnosticMode:mode==='detailed'?'detailed':'light',...(mode==='off'?{}:{onDiagnostic:collector.record})}});
+  manager=installedHosting.manager;
+  await installedHosting.hosting.start();app=manager.application;
+  if(manager.snapshot().status!=='ready'||!app)throw Error('Installed npm hosting unavailable: '+JSON.stringify(installedHosting.hosting.snapshot()));
+} else if (process.argv.includes('--tunnel')) {
   manager = new HostingManager({ createApplication: create, connectorFactory: async (...args) => connector = await startConnector(...args) });
   manager.subscribe(s => manager.application?.setHostingStatus(gameHostingStatus(s)));
   await manager.start();
@@ -73,7 +84,7 @@ process.on('message', async m => {
   }
   if (m.kind === 'close') {
     if (connector) try { process.kill(connector.pid, 'SIGCONT'); } catch {}
-    await manager?.stop(); if (!manager) await app.close();
+    if(installedHosting)await installedHosting.shutdown();else{await manager?.stop(); if (!manager) await app.close();}
     clearInterval(sampler); clearInterval(processSampler); loop.disable(); process.disconnect();
   }
 });

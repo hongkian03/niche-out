@@ -1,5 +1,7 @@
 # Per-criterion release evidence
 
+> **E6-S06 npm implementation:** The [S06 report](../implementation/evidence/E6-S06-NPM.md) supplements these historical rows with actual npm tarball/source/native/notice auditing. Source MIT metadata is resolved; account/publisher/artwork/example approval is explicitly owner-deferred. Native authentication and final target evidence remain open.
+
 > **Npm replan:** Archive-specific rows below retain their November 16 evidence scope. The active npm criterion replacements are in the [coverage override](../implementation/coverage.md#npm-distribution-coverage-override) and [migration plan](../implementation/epic-05-npm-distribution.md). E5-N06 and revised E6-S10/S11 must bind evidence to the actual installed npm artifact and final native payloads; historical archive passes do not certify them.
 
 Reviewed November 16, 2026. This accounts individually for all **28 PRD**, **35 UI/UX** and **26 additional architecture** criteria in [the baseline coverage map](../implementation/coverage.md). It is a release review ledger, not a declaration that G6 passed.

@@ -9,18 +9,19 @@ async function request(path, body) {
   return result;
 }
 function failureDetail(code) {
-  if (code === 'connector-missing' || code === 'connector-integrity') return 'The tunnel connector is missing or failed verification. For this developer build, run npm run setup:tunnel in the project folder. For a packaged application, reinstall the verified package. Then start a new hosting session.';
+  if (typeof code === 'string' && (['connector-cache','connector-download','connector-version','connector-prepare-failed'].includes(code))) return 'The tunnel component could not be prepared. Check internet access, your download proxy/certificate configuration and permission to use the local cache. Retry hosting or run the installed CLI prepare command. No unverified component was started.';
+  if (code === 'connector-missing' || code === 'connector-integrity') return 'The tunnel connector is missing or failed verification. For an npm installation, retry preparation with the installed CLI. Contributors can run npm run setup:tunnel in the project folder. Then start a new hosting session.';
   if (code === 'unsupported-platform') return 'This system has no supported connector package. Use a supported macOS, Windows x64 or Linux x64 package.';
   if (code === 'startup-timeout' || code === 'endpoint-lost') return 'The public connection could not be reached. Check internet access and whether this network permits the tunnel connection. A new hosting session will create a new link and clear previous session state.';
   return 'This endpoint is unavailable. Check the launcher and network, then start a new hosting session. Previous session state will be cleared and players will need a new link.';
 }
 function render(value) {
   const prior = current; current = value;
-  setText('status', ({idle:'Ready to host',starting:'Starting your server…',connecting:'Connecting your tunnel…',ready:'Your session is ready',reconnecting:'Reconnecting…',failed:'Hosting unavailable',stopping:'Finishing hosting…'})[value.state] || value.state);
-  $('detail').textContent = value.state === 'failed' ? failureDetail(value.error) : value.state === 'connecting' ? 'Checking the public connection. A new address can take a few minutes to become reachable.' : value.state === 'ready' ? 'Share your public link below. Keep this computer and launcher running.' : value.state === 'reconnecting' ? 'The existing session is preserved while its connection recovers.' : 'Internet access is required. The address lasts for this hosting session.';
+  setText('status', ({idle:'Ready to host',preparing:'Preparing your tunnel component…',starting:'Starting your server…',connecting:'Connecting your tunnel…',ready:'Your session is ready',reconnecting:'Reconnecting…',failed:'Hosting unavailable',stopping:'Finishing hosting…'})[value.state] || value.state);
+  $('detail').textContent = value.state === 'preparing' ? ({checking:'Checking the cached tunnel component…',waiting:'Waiting for another preparation to finish…',downloading:'Downloading the verified tunnel component…',verifying:'Verifying the tunnel component…'}[value.preparation?.stage] || 'Preparing the tunnel component. You can cancel this setup.') : value.state === 'failed' ? failureDetail(value.error) : value.state === 'connecting' ? 'Checking the public connection. A new address can take a few minutes to become reachable.' : value.state === 'ready' ? 'Share your public link below. Keep this computer and launcher running.' : value.state === 'reconnecting' ? 'The existing session is preserved while its connection recovers.' : 'Internet access is required. The address lasts for this hosting session.';
   $('indicator').dataset.ready = String(value.state === 'ready');
   $('start').hidden = !['idle','failed'].includes(value.state); $('start').textContent = value.state === 'failed' ? 'Start new hosting session' : 'Start hosting'; $('start').disabled = pending;
-  $('finish').hidden = value.state === 'idle'; $('finish').textContent = ['starting','connecting'].includes(value.state) ? 'Cancel startup' : 'Finish hosting'; $('finish').disabled = pending || value.state === 'stopping';
+  $('finish').hidden = value.state === 'idle'; $('finish').textContent = ['preparing','starting','connecting'].includes(value.state) ? 'Cancel startup' : 'Finish hosting'; $('finish').disabled = pending || value.state === 'stopping';
   $('quit').disabled = pending; $('sharing').hidden = value.state !== 'ready';
   if (value.state === 'ready') {
     $('url').value = value.publicOrigin;

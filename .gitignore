@@ -17,3 +17,6 @@ work/
 *.pem
 *.p12
 *.pfx
+
+# Local npm candidate tarballs and staging
+dist-npm/

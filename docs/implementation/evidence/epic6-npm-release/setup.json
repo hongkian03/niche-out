@@ -1,0 +1,9 @@
+{
+  "status": "PASS",
+  "checks": [
+    "Actual read-only installed package verifies all resources and opens native-backed local setup",
+    "Local dashboard HTTP200; no public hosting session or component download started",
+    "Explicit shutdown closes local controller"
+  ],
+  "scope": "Trusted embed callback observes private URL without logging it; HTTP setup check, not browser/phone gameplay"
+}

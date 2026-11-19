@@ -1,0 +1,272 @@
+{
+  "schemaVersion": 1,
+  "name": "niche-out",
+  "version": "0.1.0",
+  "tarball": "dist-npm/niche-out-0.1.0.tgz",
+  "sha256": "032ca9267f28c46068af397b4322eeaf638360dfdce750300a7c71bc4f1790b3",
+  "integrity": "sha512-vHrl4c+L6E2Hrffjs/IwdsvQPOMNZpnTLKMbcAFr88IFLSdXbYX+rHQWpoKTEcDdGIR8OZo5mfwXATLszOwLhw==",
+  "size": 428802,
+  "unpackedSize": 1387305,
+  "files": [
+    {
+      "path": "LICENSE",
+      "size": 1070,
+      "mode": 420
+    },
+    {
+      "path": "README.md",
+      "size": 789,
+      "mode": 420
+    },
+    {
+      "path": "apps/server/dist/game/import-worker.js",
+      "size": 29327,
+      "mode": 420
+    },
+    {
+      "path": "apps/server/dist/hosting/launch.js",
+      "size": 159916,
+      "mode": 420
+    },
+    {
+      "path": "apps/server/hosting-assets/local/dashboard.js",
+      "size": 8300,
+      "mode": 420
+    },
+    {
+      "path": "apps/server/hosting-assets/local/index.html",
+      "size": 2421,
+      "mode": 420
+    },
+    {
+      "path": "apps/server/hosting-assets/local/style.css",
+      "size": 1918,
+      "mode": 420
+    },
+    {
+      "path": "apps/web/dist/asset-notices.txt",
+      "size": 463,
+      "mode": 420
+    },
+    {
+      "path": "apps/web/dist/assets/index-B9eN9Lxp.js",
+      "size": 457652,
+      "mode": 420
+    },
+    {
+      "path": "apps/web/dist/assets/index-lb1N9Y27.css",
+      "size": 21676,
+      "mode": 420
+    },
+    {
+      "path": "apps/web/dist/assets/VT323-Regular-DICElq-Y.ttf",
+      "size": 153116,
+      "mode": 420
+    },
+    {
+      "path": "apps/web/dist/game-format.txt",
+      "size": 1496,
+      "mode": 420
+    },
+    {
+      "path": "apps/web/dist/game.example.json",
+      "size": 897,
+      "mode": 420
+    },
+    {
+      "path": "apps/web/dist/index.html",
+      "size": 519,
+      "mode": 420
+    },
+    {
+      "path": "apps/web/dist/VT323-OFL.txt",
+      "size": 4367,
+      "mode": 420
+    },
+    {
+      "path": "bin/niche-out.cjs",
+      "size": 2430,
+      "mode": 493
+    },
+    {
+      "path": "bin/runtime.cjs",
+      "size": 5522,
+      "mode": 420
+    },
+    {
+      "path": "docs/release/OPERATOR-GUIDE.md",
+      "size": 10548,
+      "mode": 420
+    },
+    {
+      "path": "docs/release/RELEASE-NOTES.md",
+      "size": 5914,
+      "mode": 420
+    },
+    {
+      "path": "docs/release/SIGNING.md",
+      "size": 12701,
+      "mode": 420
+    },
+    {
+      "path": "examples/FORMAT.md",
+      "size": 2521,
+      "mode": 420
+    },
+    {
+      "path": "examples/game.example.json",
+      "size": 897,
+      "mode": 420
+    },
+    {
+      "path": "examples/game.five-rounds.json",
+      "size": 4109,
+      "mode": 420
+    },
+    {
+      "path": "examples/game.singapore.json",
+      "size": 39600,
+      "mode": 420
+    },
+    {
+      "path": "examples/game.singapore.sources.md",
+      "size": 32984,
+      "mode": 420
+    },
+    {
+      "path": "native-manifest.json",
+      "size": 2139,
+      "mode": 420
+    },
+    {
+      "path": "native/darwin-arm64/niche-guard",
+      "size": 34344,
+      "mode": 493
+    },
+    {
+      "path": "native/darwin-arm64/niche-platform.node",
+      "size": 51296,
+      "mode": 493
+    },
+    {
+      "path": "native/darwin-x64/niche-guard",
+      "size": 9352,
+      "mode": 493
+    },
+    {
+      "path": "native/darwin-x64/niche-platform.node",
+      "size": 13936,
+      "mode": 493
+    },
+    {
+      "path": "native/linux-x64/niche-guard",
+      "size": 14800,
+      "mode": 493
+    },
+    {
+      "path": "native/linux-x64/niche-platform.node",
+      "size": 17088,
+      "mode": 493
+    },
+    {
+      "path": "native/win32-x64/niche-platform.node",
+      "size": 220160,
+      "mode": 493
+    },
+    {
+      "path": "npm-shrinkwrap.json",
+      "size": 43182,
+      "mode": 420
+    },
+    {
+      "path": "package.json",
+      "size": 694,
+      "mode": 420
+    },
+    {
+      "path": "resources.json",
+      "size": 5518,
+      "mode": 420
+    },
+    {
+      "path": "scripts/cloudflared-manifest.json",
+      "size": 2286,
+      "mode": 420
+    },
+    {
+      "path": "scripts/notices/cloudflared-LICENSE.txt",
+      "size": 11357,
+      "mode": 420
+    }
+  ],
+  "nativeInventory": {
+    "schemaVersion": 1,
+    "napiVersion": 8,
+    "sourceSha256": "5c557a3b50ac264c9c0bf1938ee2d5c7f7ddbec33b623164217981e756b0231e",
+    "authentication": "private-unsigned; publisher authentication remains Epic 6",
+    "targets": {
+      "darwin-arm64": {
+        "buildNode": "v24.22.3",
+        "buildHost": "darwin-arm64",
+        "compiler": "cc",
+        "executed": "requires recorded native tests",
+        "files": [
+          {
+            "path": "native/darwin-arm64/niche-platform.node",
+            "sha256": "5454b5f6c8fec63c4345f02cf4b7f8b67bb8e883f169ef86e31e6ca4d73b1d80"
+          },
+          {
+            "path": "native/darwin-arm64/niche-guard",
+            "sha256": "af52ee94d1ac4ad6aee9de205a3579ad8c76609689d8b3962b61c3eacad345c1"
+          }
+        ]
+      },
+      "darwin-x64": {
+        "buildNode": "v24.22.3",
+        "buildHost": "darwin-arm64",
+        "compiler": "cc",
+        "executed": "not executed on build host",
+        "files": [
+          {
+            "path": "native/darwin-x64/niche-platform.node",
+            "sha256": "891774b6224dd4a37261c653b526894c983b5ac8b99dd323965458331904650e"
+          },
+          {
+            "path": "native/darwin-x64/niche-guard",
+            "sha256": "33c1f9b0922ee7159229fb5c516c4a16828cdcc2026f665e114c6f11f8542ab0"
+          }
+        ]
+      },
+      "win32-x64": {
+        "buildNode": "v24.22.3",
+        "buildHost": "darwin-arm64",
+        "compiler": "zig",
+        "executed": "not executed on build host",
+        "files": [
+          {
+            "path": "native/win32-x64/niche-platform.node",
+            "sha256": "b29dba7ccd6e194aa266b1be7fefb0cab707f70c13bd82209b8f91c2b28ec995"
+          }
+        ]
+      },
+      "linux-x64": {
+        "buildNode": "v24.22.3",
+        "buildHost": "darwin-arm64",
+        "compiler": "zig",
+        "executed": "not executed on build host",
+        "files": [
+          {
+            "path": "native/linux-x64/niche-platform.node",
+            "sha256": "ced03669c2a18df7f5f5b2e55331db92bfff5e282950688b97593b87fccb401e"
+          },
+          {
+            "path": "native/linux-x64/niche-guard",
+            "sha256": "62f894c9a32da8ec9b45456abc3f0fbd7d8de85c7dd0855104c3609dae1a0ec0"
+          }
+        ]
+      }
+    }
+  },
+  "privateCandidate": true,
+  "published": false
+}

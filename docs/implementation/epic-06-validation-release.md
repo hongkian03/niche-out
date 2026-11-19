@@ -6,15 +6,15 @@ Tunnel baseline updated November 14, 2026. Current story status is maintained on
 
 > **Networking planning update — November 17, 2026:** The [networking improvement extension](epic-06-network-improvements.md) defines E6-N01–N08: diagnostics calibration, scoped snapshot reuse, publication coalescing, smaller live player views, reconnect jitter, WebSocket-first fallback, clock sampling and matched regression evidence. The owner subsequently authorized implementation; E6-N01–N07 are delivered and N08 evidence is tracked in the [verification report](evidence/NETWORK-IMPROVEMENTS.md). Follow the [master extension tracker](../IMPLEMENTATION-PLAN.md#epic-6-networking-improvement-extension) in sequence, then use N08 evidence to reassess S02/S03 and freeze the next release candidate. Keep Quick Tunnels and 100 players; no provider migration or 200-player expansion is included. Existing physical-device and signing gates still apply.
 
-## npm distribution planning override
+## npm distribution implementation and release override
 
-The accepted direction is the [Epic 5 npm migration](epic-05-npm-distribution.md). This is **planning only**: no npm package or migrated release pipeline is implemented or published by this update. One public CLI ships compiled application/browser assets and four small native prebuilds. The host installs Node `>=24.22.3 <25`; the pinned connector is prepared in a verified user cache on explicit prepare/Start, with no install hooks or source compilation. Original runtime-inclusive archives/cards retain historical evidence; archive-only wording below is superseded by this section.
+The [Epic 5 npm migration](epic-05-npm-distribution.md) now delivers a local, unpublished candidate, four bundled native builds, explicit connector preparation/cache, installed-launcher integration and compatibility tooling. The [npm handoff](evidence/EPIC-5-NPM.md) records available-Mac execution and an installed-package 100-player mixed-transport game. Actual Intel/Windows/Linux and remaining physical lifecycle acceptance stay open; prepared CI is not an executed target pass. The host installs Node `>=24.22.3 <25`; the pinned connector is prepared in a verified user cache on explicit prepare/Start, with no install hooks or source compilation. Final release authentication/provenance tooling and qualification remain Epic 6 work. No registry publication or signed public release has occurred. Original runtime-inclusive archives/cards retain historical evidence; archive-only wording below is superseded by this section.
 
-E6-S01–S05 capacity, recovery, device and accessibility obligations remain. E5-N06 supplies the npm candidate entry gate before final release qualification. Tests of old source/runtime/artifacts do not automatically certify new package paths, native payloads or runtime ranges. Deferred target execution does not fabricate a platform pass.
+E6-S01–S05 capacity, recovery, device and accessibility obligations remain. E5-N06 supplies the npm candidate entry gate before final release qualification; its remaining acceptance is visible in the master tracker. Tests of old source/runtime/artifacts do not automatically certify new package paths, native payloads or runtime ranges. The new npm evidence supplements earlier capacity evidence without closing its hardware, physical-network or polling-only qualification gaps. Deferred target execution does not fabricate a platform pass.
 
 | Story | Active npm replacement scope | Required verification |
 | --- | --- | --- |
-| E6-S06 | Freeze source/lock/native/connector inventory, npm identity/version, supported Node range, notices, MIT metadata and publisher identity. Migrate release planner/audit/candidate schema. | Exact `npm pack` contents/integrity and source-to-package mapping; no private workspace links, tools, secrets or private packs. Current scripts/config remain legacy until implemented. |
+| E6-S06 | Freeze source/lock/native/connector inventory, npm identity/version, supported Node range, notices, MIT metadata and publisher identity. Migrate release planner/audit/candidate schema. | Exact `npm pack` contents/integrity and source-to-package mapping; no private workspace links, tools, secrets or private packs. E5 supplies private assembly/install tooling; E6-S06 now supplies npm metadata, actual-tarball auditing and review planning. Native authentication/publisher execution remains later work. |
 | E6-S07 | Authenticate macOS arm64/x64 native prebuilds and validate applicable signing/notarization delivery for npm-installed helpers. The former standalone `.app`/bundled Node container is no longer the deliverable. | Final signed helper hashes, project identity/notarization evidence and actual clean npm-installed native loading/launch on both CPUs. Provenance does not waive OS-native policy. |
 | E6-S08 | Authenticate Windows x64 native helper and verify npm application/package inventory. The old standalone EXE sealing bundled Node/JS is superseded by the explicit npm installation trust boundary. | Native signature/timestamp, exact tarball/helper hashes, corrupt-cache/native rejection and Windows 11 npm/PowerShell/Command Prompt startup/cleanup. Node's vendor signature does not authenticate project JS. |
 | E6-S09 | Publisher-authenticated npm release checksums/native inventory and provenance, including Linux x64; replace the separate runtime-inclusive Linux archive. | Original/changed package/inventory verification against approved publisher key and registry/provenance mechanisms; actual Ubuntu install/permissions/runtime evidence. |
@@ -201,6 +201,8 @@ The previous epic gate applies in the default linear path. External evidence inp
 
 ## E6 S06 Release identity metadata and documentation
 
+Implementation handoff November 18: npm schema 2, exact-tarball auditing, review-only release planning, source provenance and notice assembly are delivered. The [S06 report](evidence/E6-S06-NPM.md) records tests and remaining review. The owner approved `niche-out` but deferred account/organization, publisher identity and artwork/example-rights approval. Existing MIT metadata is reused. No signing, account creation or publication occurred.
+
 **Outcome:** A concrete release candidate has complete metadata and operator instructions.
 
 **Size:** 2. **Depends on:** E6-S05.
@@ -215,7 +217,7 @@ The previous epic gate applies in the default linear path. External evidence inp
 
 - Prepare a reviewable set of license/publisher/product/asset decisions still requiring the project owner.
 - Finalize version/platform/source/runtime manifests, checksums, example/format guide, connector setup/public-origin/network troubleshooting, and manual-update instructions.
-- Assemble reproducible release orchestration over the existing four build recipes and signing jobs, with one pinned source/runtime manifest and no automatic public upload. Prepare signing configuration without placing private keys in source or archives; verify project code/resource coverage.
+- Assemble one npm candidate with four native payload targets, frozen source/dependency/connector inventories and no automatic public upload. Prepare review-only sequencing for later native signing and exact-byte publication; retain separate host/contributor/publisher runtime contracts. Keep credentials out of source/packages and verify actual tarball contents.
 
 ### Acceptance
 
