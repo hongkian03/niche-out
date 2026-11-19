@@ -6,6 +6,24 @@ Each baseline criterion retains its own row even when several share a story. Imp
 
 The [PRD](../PRD.md#acceptance-criteria), [UI/UX](../UI-UX.md#design-acceptance-criteria), and [architecture](../ARCHITECTURE.md#implementation-contract) remain authoritative. If a criterion changes, update its mappings and downstream gates. New bug/split stories must preserve coverage of the original criterion.
 
+## npm distribution coverage override
+
+The owner-selected [npm migration](epic-05-npm-distribution.md) supersedes the archive-specific distribution portions of the historical rows below. Keep every existing criterion ID; no gameplay, identity, private-state or browser-access requirement is removed. The table is the active planned distribution mapping. It does not claim implementation or target qualification, and story statuses remain exclusively in the master backlog. E5-N06 checks the installed npm artifact; E6-S10 checks the final authenticated release artifact/native resources on clean targets under the revised npm release contract.
+
+| Criterion | Active npm requirement | Planned implementation | Verification |
+| --- | --- | --- | --- |
+| P15, U12 | Compiled fonts, art and browser assets ship in the npm package and are served locally through the game origin | E5-N01 resource resolution; E5-N04 strict package assembly; E5-N05 launcher integration | E5-N06 packed-install/private-asset tests; E6-S10 final package |
+| A01 | Host installs supported Node; npm launches the authoritative local process and owned connector with temporary state | E5-N01 runtime/CLI/resource contract; E5-N04 server/worker assembly; E5-N05 integration | E5-N06 clean install and worker-import/gameplay; E6-S10 final installed package |
+| A03, A15, P23 | npm CLI preserves private local setup, owner recovery and foreground process/connector lifetime | E5-N01; E5-N02 native helpers; E5-N05 lifecycle integration | E5-N06 real installed-process shutdown/recovery; E6-S03 fault evidence; E6-S10 clean targets |
+| A13 | Suspension-aware clocks, idle-power behavior and one-phase wake recovery remain platform-specific | E5-N02 prebuild matrix; E5-N05 adapter integration, reusing E5-S02–S05 | E5-N06 actual OS/CPU tests; E6-S10 final native resources; physical sleep/wake evidence remains explicit |
+| A16 | One npm CLI distribution supports macOS 15+ Intel/Apple Silicon, Windows 11 x64 and Ubuntu 24.04+ x64/glibc; no bundled Node or user compiler | E5-N01 supported runtime/target checks; E5-N02 bundled four-target native helpers; E5-N04 package | E5-N06 exact OS/CPU/Node tuple matrix, including Intel execution; E6-S10 final clean-target install |
+| A17 | npm package publishing identity/provenance and native-resource authentication/tamper expectations follow the revised release contract, rather than four standalone launcher archives | E5-N02 helper manifest; E5-N03 verified connector; E5-N04 package inventory; revised E6-S06–S09 authentication work | E5-N06 corruption and installed-package checks; E6-S10 final authentication verification; E6-S11 coverage gate |
+| A19 | Packed server, worker and browser assets exclude uploaded/private packs and render authored text safely | E5-N04 allowlist and separately bundled worker; E5-N05 installed integration | E5-N06 tgz inventory, private-fixture scan and real worker import; E6-S05/S10 |
+| A22 | Installation/update instructions, license/notices, versioned package identity and registry publication replace archive-download instructions | E5-N04 notices/shrinkwrap; E5-N05 update/operator guidance; revised E6-S06/S12 | E5-N06 isolated user-prefix/global/npm-exec cases; E6-S10/S11; E6-S12 only after publication authorization |
+| A24, A25 | Explicit hosting setup acquires a pinned connector into a per-user verified cache; no account/domain or install-time scripts are required; origin/failure policy is preserved | E5-N03 acquisition/cache; E5-N05 manager integration, reusing E1 managed-hosting and E5-S05 behavior | E5-N06 download/cache/race/error/lifecycle checks; E6-S02 provider qualification; E6-S10 final package |
+
+References to E5-S06–S10 as distribution implementers in the original matrix are historical mappings. They are replaced by the active E5-N mappings above for the npm release. The existing E6-S07–S10 IDs are retained while their artifact-specific work is revised; no publisher-authentication, clean-install or native OS check disappears merely because distribution moves to npm.
+
 ## PRD criteria
 
 | PRD ID | Requirement | Implementation stories | Verification stories |

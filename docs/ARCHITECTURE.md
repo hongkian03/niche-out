@@ -2,6 +2,12 @@
 
 Status: Managed temporary tunnel per hosting session adopted and implemented in the Epic 1 expansion on November 14, 2026. The application now has a reusable manager, separate authenticated local controller, dashboard/private owner handoff and synthetic public connection page. Event-purpose Quick Tunnels are accepted by the executable schema. The managed application has no ten-minute expiry; the old probe retains its own limit. Consult the [managed-hosting handoff](implementation/evidence/EPIC-1-MANAGED.md) and [master tracker](IMPLEMENTATION-PLAN.md) for final verification/status. The [PRD](PRD.md) and [UI/UX](UI-UX.md) retain the full product scope; gameplay, capacity, platform packaging and release remain their later gates.
 
+## npm distribution planning override
+
+The owner has selected a full shift to npm distribution. The [Epic 5 npm migration plan](implementation/epic-05-npm-distribution.md) is the current packaging target; **the migration is planned, not implemented**. One public CLI package will contain compiled application/browser assets and four small prebuilt native-helper targets. Hosts install a supported Node runtime themselves; the package does not bundle Node or require a compiler. Its pinned cloudflared executable is downloaded into a verified per-user cache only after explicit Start hosting or an explicit prepare action. Package installation and ordinary CLI launch run no install-time build/download hooks. This supersedes the former self-contained-archive, bundled-runtime and no-first-use-download requirements for future releases; earlier archives and their evidence remain historical.
+
+Gameplay, the 100-player target, owned Quick Tunnels, private local controller and existing clock/power/process-ownership guarantees remain applicable. Native publisher authentication and OS signing/notarization requirements have not been waived by selecting npm. The current source still enforces the old exact runtime and archive layout until the migration stories implement these contracts.
+
 ## Baseline architecture
 
 Run one authoritative Node application process and an owned tunnel connector on the host's computer. The application serves the compiled browser interface, accepts JSON uploads, and manages the game in memory. Host and player browsers use the same configured public HTTPS origin. The connector forwards requests to the application's loopback listener. The optional documentation/download site remains independent.
@@ -24,7 +30,7 @@ Internet access and provider availability are required for tunneled play. The la
 
 ## Host application and player access
 
-The intended host experience is an installable local application package. Starting it opens local hosting setup. Selecting Start hosting starts the local application listener and temporary tunnel, verifies the public endpoint, and enables a private Open host page action. The server process and browser interface are separate parts of the same hosting experience; a separate native game interface is not required.
+The intended host experience is a foreground CLI installed or executed through npm on the host’s own supported Node runtime. Starting it opens local hosting setup. Selecting Start hosting starts the local application listener and temporary tunnel, verifies the public endpoint, and enables a private Open host page action. The server process and browser interface are separate parts of the same hosting experience; a separate native game interface is not required.
 
 The host uses that public-origin website to upload the JSON game definition, review its effective settings, create the lobby, share joining information, start the game, and remove players. Prompts, tiers, points, and timers remain authored in the JSON for the prototype. Browser administration does not add a visual settings or prompt editor to the agreed scope.
 
@@ -35,7 +41,7 @@ The lobby supports both player access paths:
 
 Players install no application and need a browser with internet access to the configured public endpoint. They may use different Wi-Fi networks or cellular data. QR codes are generated locally and contain no admin credentials. The room code identifies the game after the player reaches that server; it does not discover the server through a public website. Both joining paths are existing PRD requirements.
 
-Terminal startup remains the first developer-prototype path. Public packaged releases are self-contained signed download-and-extract archives with the runtime bundled: macOS arm64 and Intel x64 on macOS 15+, Windows x64 on Windows 11, and Linux x64 with Ubuntu 24.04+ as the officially validated distribution family. Windows/Linux ARM64 and older or additional OS validation are deferred. Public macOS artifacts require notarization. Exact archive construction and signature verification are implementation tasks.
+The selected public distribution target is one npm CLI package for macOS arm64 and Intel x64 on macOS 15+, Windows x64 on Windows 11, and Linux x64 with Ubuntu 24.04+ as the officially validated distribution family. Hosts supply Node; players supply only a browser. Windows/Linux ARM64 and older or additional OS validation are deferred. Platform-specific native prebuilds and native publisher authentication remain required. Existing portable archives are historical artifacts, not the target for new public releases.
 
 Use a visible launcher or console while the server is running. Closing the host's browser leaves the game running; quitting or closing the launcher or console stops its server and connector and ends the current game. There is no background tray or menu-bar service in the first release. Packaging must ensure that closing the launcher does not leave an orphan game server or connector running. The existing in-memory lifecycle still applies: stopping and restarting loses the current game and results.
 
@@ -52,7 +58,7 @@ Use a visible launcher or console while the server is running. Closing the host'
 | Validation | Zod | Validate imported files and incoming commands at runtime, with inferred TypeScript types. |
 | Storage | In-memory maps and arrays | Sessions are temporary and restart recovery is outside the PRD. |
 | Public site | GitHub Pages initially | A small static information site fits an open-source project. Cloudflare Pages is an alternative. |
-| Distribution | Terminal-based developer startup; self-contained macOS, Windows, and Linux packages for the first packaged release | Hosts do not install Node separately. A visible launcher or console owns the server lifetime. |
+| Distribution | One npm CLI with compiled application assets and four bundled native prebuilds; pinned connector prepared explicitly into a user cache | Hosts install supported Node; no user compilation or install hooks. The foreground CLI owns server and connector lifetime. |
 
 Vite produces a deployable static build; its preview command is not the production game server. Serve that build through the local backend. [Vite deployment documentation](https://vite.dev/guide/static-deploy.html)
 
@@ -72,9 +78,9 @@ These recommendations do not promise unlimited public-site traffic or free bandw
 
 ## Local hosting experience
 
-1. Install the developer dependencies and build, or extract the signed self-contained package.
+1. Install a supported Node runtime and install/execute the published npm CLI. Contributors retain lockfile-based install/build commands.
 2. Launch the application and select Start hosting in local setup; no account, domain or manual connector command is required for the default temporary-tunnel path.
-3. Bind the application to loopback, start the verified connector, discover and validate its assigned public origin, and verify endpoint readiness.
+3. On explicit Start hosting, prepare and integrity-check the pinned connector in its per-user cache if absent; then bind loopback, start the verified connector, discover and validate its assigned public origin, and verify endpoint readiness.
 4. Open the locally minted private owner bootstrap link on that public origin.
 5. Upload and validate JSON, create the lobby, and share its public HTTPS link, code and locally generated QR.
 6. Players join through their browsers from any network that permits that endpoint.
@@ -271,9 +277,9 @@ Game-core should be testable without a browser, socket, real clock, or network. 
 
 The Epic 2 implementation uses a pure `GameEngine` with injected clock/ID generators and fenced timer tokens; the server adapter schedules those tokens externally. Frozen internal snapshots retain private game data, while `projectHost`/`projectPlayer` construct schema-checked permitted views. Compiler transfer helpers support trusted import-worker IPC without rerunning compilation on the parent thread. See the [core integration guide](../packages/game-core/README.md) and [recorded G2 evidence](implementation/evidence/EPIC-2.md); production protocol dispatch and scheduling remain Epic 3.
 
-For contributors, provide install, build, and host commands with a lockfile. For nondeveloper hosts, distribute four portable archives: macOS arm64, macOS x64, Windows x64, and Linux x64. Each includes a compatible runtime, compiled server, frontend build, pinned tunnel connector, and production dependencies, with a visible launcher or console. The host downloads, extracts, and launches without separately installing Node. No native installer or background service is required in the first packaged release. These are planned deliverables, not implemented software.
+For contributors, provide install, build and host commands with the existing pinned runtime and lockfile. The future public npm package contains compiled server/core/contracts, browser assets, examples/notices and all four small native-helper prebuilds. It contains no Node runtime, requires no user compiler and performs no dependency installation during hosting. Package assembly must not leave unpublished/private workspace dependency references or repository-relative symlinks in the artifact.
 
-Do not make npm installation, compilation, or an automatic update check part of starting an already-installed game package. Docker can be offered later for experienced operators, but it adds port mapping and platform-specific networking to a task that needs one local process. Native startup is the recommended first path.
+Installing the package runs no lifecycle build/download hooks. Launching the CLI opens local setup without downloading cloudflared. Explicit Start hosting or prepare may download the exact manifest-pinned connector, verify size/archive/executable hashes and install atomically into a version/hash-keyed per-user cache. Running sessions never update in place; an installed package or new connector version is adopted between hosting sessions. Docker and alternative package-manager support remain future work.
 
 ## Verification before calling the baseline implemented
 
@@ -301,7 +307,7 @@ Review rounds 1–6 have resolved the product-facing architecture choices and ad
 
 | Area | Settled specification | Implementation or release evidence |
 | --- | --- | --- |
-| Host platforms | Four portable runtime-inclusive artifacts; macOS 15+, Windows 11, Ubuntu 24.04+ validation family. | Exact runtime/dependency pins and clean-machine tests. |
+| Host platforms | One npm CLI, four native prebuild targets; macOS 15+, Windows 11, Ubuntu 24.04+ validation family. | Packed-install tests on the host Node range and actual target machines. |
 | Host lifecycle | Managed session setup, visible launcher, browser independence, local owner recovery, explicit Finish hosting, same-origin resume. | E1-S15–S20 common hosting; E5 platform power/process adapters and packaged shutdown/recovery tests. |
 | Network | Loopback listener, operator-owned tunnel, same public HTTPS origin, fresh game after public-origin changes. | E1-S11–S14 probe foundation; E1-S15–S20 managed hosting; E3 game integration; E6 venue/capacity qualification. |
 | Imports | Strict known fields, 1–20 prompts, variable answer data, adopted byte/text/time defaults, atomic replacement. | Schema implementation, peak-memory and timeout tests, representative pack fixtures. |
@@ -311,7 +317,7 @@ Review rounds 1–6 have resolved the product-facing architecture choices and ad
 | Results | Manual tier points, canonical counts, tied ranks, deterministic unused-answer example, hidden current-round scores. | Engine/projection tests and UI verification. |
 | Resources | Adopted thresholds and ordinary 8 GB laptop target; 100 players plus host. | Record reference laptop/uplink/provider, workload, egress, latency, memory and mixed-network phone results. |
 | Language and UI | English prototype, agreed visual baseline and real phone keyboard support. | English-content, accessibility, viewport, and actual device tests. |
-| Public distribution | Signed project artifacts, macOS notarization, verified archives, manual updates. | Publisher identity, signing credentials/provider, release pipeline, verification, and chosen open-source license before publication. |
+| Public distribution | Authenticated npm artifact, verified native prebuilds/connector, applicable native signing/notarization, explicit between-session updates. | Publisher identity, signing credentials/provider, release pipeline, verification, and chosen open-source license before publication. |
 
 The tunnel deployment direction is adopted. Managed temporary hosting requires no account/domain setup. Provider suitability, applicable limits and venue connectivity remain qualification gates; no payment or account purchase is implied. Product name, final artwork, publisher identity, license, and actual release credentials must be settled before public publication as applicable; the application can be built and tested locally first.
 
@@ -321,16 +327,20 @@ The following starting contract is adopted for implementation. It preserves conf
 
 ### Runtime and platform matrix
 
-Use a pinned Node 24 LTS patch for the first implementation, upgraded through explicit rebuilds and release tests rather than at startup. Record the exact runtime, dependencies, and source revision in a build manifest and one npm workspace lockfile. The Node 24 platform matrix supports the selected CPU families and documents OS and Linux library prerequisites. Our application support matrix is intentionally narrower. [Node 24 platform requirements](https://raw.githubusercontent.com/nodejs/node/v24.x/BUILDING.md)
+For npm hosts, the planned runtime range is **Node >=24.22.3 <25**. Preserve the exact contributor/build pins (currently Node 24.22.3/npm 11.19.1) and workspace lockfile. Record build dependencies/source and supported runtime range in release metadata; do not require the host runtime to equal the build patch. Validate runtime/OS/architecture before loading native code, opening listeners or preparing the connector. `engines` is useful installation metadata but the CLI also needs an explicit runtime guard. Test the floor and current supported Node 24 patch with the actual npm tarball. [Node 24 platform requirements](https://raw.githubusercontent.com/nodejs/node/v24.x/BUILDING.md)
 
-| Release artifact | Agreed CPU target | Supported OS floor and validation |
+| Native prebuild target in npm package | Agreed CPU target | Supported OS floor and validation |
 | --- | --- | --- |
-| macOS archive | Apple Silicon arm64 | macOS 15+; validate vendor-supported releases |
-| macOS archive | Intel x64 | macOS 15+; validate on an actual Intel Mac |
-| Windows archive | x64 | Windows 11 |
-| Linux archive | x64 | Ubuntu 24.04+; validate supported LTS releases |
+| darwin-arm64 | Apple Silicon arm64 | macOS 15+; native arm64 Node |
+| darwin-x64 | Intel x64 | macOS 15+; actual Intel validation; x64 Node selects x64 assets even under Rosetta |
+| win32-x64 | x64 | Windows 11; PowerShell and Command Prompt |
+| linux-x64 | x64 | Ubuntu 24.04+ glibc; supported LTS validation |
 
-First-release support floors are macOS 15+, Windows 11, and Ubuntu 24.04+ as the officially validated Linux family. Validate vendor-supported versions compatible with the pinned runtime; additional Linux distributions may work but receive no initial compatibility claim. Use a glibc-based Linux archive. Musl/Alpine, Windows/Linux ARM64, and 32-bit packages are outside the first artifact matrix. Verify shared-library prerequisites on a clean Linux image, preserve executable permissions, include runtime notices, and test extraction paths containing spaces and non-ASCII characters.
+The running Node process’s `process.platform` and `process.arch` select the helper, guard and connector target. Compile against an explicit stable Node-API level supported across the range and verify minimum/current patch loading; ABI stability does not make binaries portable across CPU/OS/libc. Hosts need no native build tools. [Node-API](https://nodejs.org/api/n-api.html)
+
+Musl/Alpine, Windows/Linux ARM64, 32-bit Node and additional distributions are outside this first support matrix. Linux shared-library prerequisites, native executable permissions, actual Intel hardware and OS power/process behavior require target evidence. Missing idle inhibition remains a warning; unavailable continuous clock/process ownership remains fatal. Test npm/npx wrapper lifetime, terminal close, abrupt CLI and wrapper-parent death, Windows nested Job Objects, and default-browser launch. Do not silently fall back to weaker clock or orphan-cleanup semantics. [Windows nested jobs](https://learn.microsoft.com/en-us/windows/win32/procthread/nested-jobs)
+
+Use package-relative resource lookup with no package-directory/CWD writes. Test read-only installations, paths with spaces/non-ASCII text, Windows drives and user-writable cache permissions. npm may invoke command wrappers; document `.cmd` invocation if a PowerShell script policy blocks a shim instead of advising global policy relaxation. No installation lifecycle scripts are needed, including under `--ignore-scripts`. [npm script configuration](https://docs.npmjs.com/cli/v11/using-npm/config/#script-shell)
 
 ### Content language scope
 
@@ -338,7 +348,7 @@ Support and test English-language prompts, answers, tier names, nicknames, and i
 
 ### Launcher contract and owner recovery
 
-The portable package contains its runtime, compiled server, compiled frontend assets, pinned verified connector, examples, notices, and platform launch script. It locates resources relative to its own package directory, not the caller's working directory. It never installs or downloads dependencies on launch.
+The planned npm package contains compiled application/frontend assets, native prebuilds, examples, notices and a CLI entry point. Hosts provide supported Node. It locates immutable resources relative to its installed package directory, not the caller’s working directory, and launches local setup without installing dependencies or downloading a connector. Only explicit Start hosting or prepare may populate the connector cache. Cache entries are version/hash keyed, verified before execution and atomically committed; concurrent preparation, interrupted/corrupt downloads and unwritable/noexec locations must have actionable failures. Runtime download proxy/CA configuration must be explicit rather than assumed to inherit npm registry settings. No secrets belong in a shared binary cache.
 
 The visible launcher/console exposes Start hosting, local setup access, Open host page after readiness, Finish hosting, and Quit. The browser setup surface provides equivalent lifecycle actions through its authenticated local controller. Closing the console also stops the server. Open host page creates a fresh one-use owner bootstrap token, opens the configured public host URL, and preserves the game, players, timers, and results. It is invoked through the local application, not an unauthenticated public endpoint. This action remains available after browser cookies are cleared.
 
@@ -562,17 +572,17 @@ Bind loopback port 3210, then try 3211–3220 if occupied. Configure the connect
 
 An Open host page console command works even if automatic browser opening fails. Keep power-request helpers and the tunnel connector attached to launcher lifetime and clean up their descendants on quit, including abnormal console closure. Stop accepting new commands during shutdown, attempt a best-effort game.closed notification, close sockets and listener, release power requests, terminate the connector, and exit; do not add a restart recovery file.
 
-Test the current and previous major Safari on iOS and current stable Chrome on Android, with desktop Chrome, Edge, Firefox, and Safari smoke tests. Freeze exact browser versions with each release's test report. Use [Vitest fake timers](https://vitest.dev/guide/mocking/timers) with an injected clock for core and protocol tests and [Playwright](https://playwright.dev/docs/intro) for browser flows; test the actual production build, not only the Vite development server. Validate native package startup on all four artifact targets and actual phone keyboards separately from viewport emulation.
+Test the current and previous major Safari on iOS and current stable Chrome on Android, with desktop Chrome, Edge, Firefox, and Safari smoke tests. Freeze exact browser versions with each release's test report. Use [Vitest fake timers](https://vitest.dev/guide/mocking/timers) with an injected clock for core and protocol tests and [Playwright](https://playwright.dev/docs/intro) for browser flows; test the actual production build, not only the Vite development server. Validate the installed npm CLI and selected native prebuild on all four supported targets, and test actual phone keyboards separately from viewport emulation.
 
-Public archives include version, platform, architecture, source revision, runtime manifest, notices, example pack, launch instructions, and checksums. Updates are manual downloads between games; no updater contacts the internet during hosting. Project signing is mandatory for the first public downloads, rather than deferred until a later release. Private developer builds may remain local test artifacts; they are not a substitute for signed public packages.
+The future npm release includes version/source/runtime-range metadata, native-target and connector manifests, notices, examples and CLI instructions. Updates are explicit npm operations between games; a running session never mutates its installed code or connector. Private tarballs are valid test artifacts, not publication evidence. `npm pack`/fresh install must verify artifact completeness without a repository checkout or user build step.
 
-For macOS, distribute the portable app bundle with Developer ID signing and notarization, and attach the notarization ticket for offline first-launch validation where supported. The enclosing download can remain an archive rather than an installer. Validate nested executables and bundled resources as part of the final app. [Apple distribution guidance](https://developer.apple.com/documentation/security/notarizing-macos-software-before-distribution)
+Native project authentication remains a release requirement. macOS native prebuilds must satisfy the applicable Developer ID/signing/notarization path; validate real installed npm resources on clean supported Macs rather than assuming package-manager installation bypasses OS policy. The old portable app-bundle signing recipe is historical and must be adapted to the native payload. [Apple distribution guidance](https://developer.apple.com/documentation/security/notarizing-macos-software-before-distribution)
 
-For Windows, use a signed project launcher with timestamped publisher signing and a publisher-authenticated manifest covering the bundled application code and resources. A vendor-signed Node executable alone does not authenticate this project's JavaScript. The package remains portable rather than becoming an MSIX installer. Validate the completed archive, extraction, and launcher signature on a clean test machine. Signed software can still receive download-reputation warnings. [Microsoft SmartScreen guidance](https://learn.microsoft.com/en-us/windows/security/operating-system-security/virus-and-threat-protection/microsoft-defender-smartscreen/)
+Windows native payload authentication and publisher identity remain required as applicable. The vendor-installed Node runtime does not authenticate this project’s JavaScript or native helper. Validate the npm command wrappers, native payload and content-manifest/authentication path on a clean Windows machine; no standalone signed project launcher/installer is newly required merely to preserve the retired archive shape. Signed binaries may still receive reputation warnings. [Microsoft SmartScreen guidance](https://learn.microsoft.com/en-us/windows/security/operating-system-security/virus-and-threat-protection/microsoft-defender-smartscreen/)
 
-For Linux, publish a project-signed archive or detached signature covering the release archive and its checksum, with a documented verification key and fingerprint. Linux does not use Apple's notarization process. Preserve all signature material and runtime notices in release automation.
+For Linux, preserve a documented publisher-authenticated native manifest/signature verification path and required notices; Apple notarization does not apply. For all targets, npm integrity/provenance, manifest digests and native OS signing are separate evidence. The exact npm publisher/provenance and native authentication procedures must be reconciled in Epic 6 before public publication, without silently waiving existing trust requirements.
 
-The release pipeline builds and tests the four artifacts, signs and notarizes platform outputs as applicable, verifies signatures and package contents, and only then publishes public downloads. Signing credentials and approved publisher identity must be supplied through release infrastructure; never include private signing keys in source or archives. Signing and distribution services are build-time dependencies. The tunnel provider participates in every live remote game and has connectivity and service-limit requirements; the default temporary flow does not require an operator account or domain. A missing signing identity blocks public publication rather than silently falling back to an unsigned download. Exact signing provider and accounts remain release setup decisions; no service purchase is authorized by this specification.
+The revised release pipeline builds one CLI tarball and four small native prebuilds, verifies packed installation and platform lifecycle behavior, signs/verifies native payloads as applicable, recomputes post-signing hashes and prepares npm publication. Actual publication remains separately authorized. Publisher identity/credentials are release inputs; never include private keys in source/packages, and no service purchase or public upload is authorized by this planning document. The provider and internet remain live-game dependencies.
 
 ## Implementation sequence and remaining evidence
 
@@ -610,7 +620,7 @@ The public listener serves only named build routes, hashed JS/CSS/font/SVG files
 
 `packaging/native/platform.c` implements synchronous Node-API access to the OS continuous clock and scoped idle protection. Windows assigns the launcher to a kill-on-close Job Object before creating children. POSIX connectors run under `packaging/native/guard.c`; its ownership pipe and process group terminate connector descendants if the Node owner exits. Linux uses a scoped systemd idle inhibitor and warns locally if unavailable. The guards are application resources, not runtime downloads.
 
-The portable archive preserves the repository's runtime directory layout, bundles pinned Node/cloudflared and production dependencies, and verifies resources before starting the application. Build recipes and private artifact instructions live in `packaging/README.md`. Public publisher authentication and signing/notarization remain Epic 6.
+Historical Epic 5 archives preserve the repository’s runtime layout and bundle Node/cloudflared. Those build recipes/evidence remain in `packaging/README.md`; they describe the implemented pre-migration artifacts. The [npm migration stories](implementation/epic-05-npm-distribution.md) replace this distribution path with one CLI tarball, bundled native prebuilds and explicit connector preparation. Public publisher authentication and applicable native signing/notarization remain Epic 6.
 
 The user explicitly deferred Windows, Linux and Intel Mac compatibility execution on November 16. That deferral permits this implementation handoff after available-Mac verification; it does not establish compatibility or change the release support matrix. See the Epic 5 evidence report for exact executed checks and remaining manual verification.
 

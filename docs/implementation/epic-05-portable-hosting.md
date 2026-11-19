@@ -2,11 +2,30 @@
 
 Tunnel baseline updated November 14, 2026. Current story status is maintained only in the [master backlog](../IMPLEMENTATION-PLAN.md#story-tracker); these cards define scope and evidence rather than claiming completion.
 
+> **Distribution supersession — npm migration planning:** The owner has selected npm as the complete host distribution route. The [npm distribution migration plan](epic-05-npm-distribution.md) is the active Epic 5 continuation. Its six E5-N stories replace the four self-contained archive deliverables and bundled-Node requirement below. Hosts install a supported Node runtime; the npm CLI includes compiled game/browser assets and prebuilt native helpers, and obtains the pinned connector through explicit setup into a per-user cache. These stories are planned only. The prior archives and their evidence remain historical results, not the release format to finish or evidence that npm installation works.
+
+The existing native clock, idle-power, process-ownership, private launcher and tunnel lifecycle behavior remains reusable. E5-S01–S05 are integration inputs to the migration; their platform evidence must still be rechecked against the installed npm artifact. E5-S06–S10 retain their original cards for traceability and are superseded for future distribution by E5-N04–N06. No status is changed by this note; consult the master tracker. Native code still requires four target builds and real target verification even though users receive one npm package and do not compile it.
+
+## Active npm continuation dependencies
+
+The detailed work, file references, compatibility cases and acceptance criteria are in the [npm migration plan](epic-05-npm-distribution.md). The following is the implementation order, not a completion claim. Names describe the planned scopes; story statuses belong in the master backlog.
+
+| Story | Planned outcome | Depends on |
+| --- | --- | --- |
+| E5-N01 | Supported runtime, CLI and immutable package-resource contract | Existing E5-S01–S05 implementation and accepted npm direction |
+| E5-N02 | Four-target prebuilt native helper matrix | E5-N01 |
+| E5-N03 | Pinned connector setup and per-user cache | E5-N01; integrate with E5-N02 |
+| E5-N04 | Standalone CLI tarball, server/worker bundles and runtime shrinkwrap | E5-N01–N03 |
+| E5-N05 | Installed launcher/setup, update and lifecycle integration | E5-N04 |
+| E5-N06 | Actual packed-install compatibility and evidence gate | E5-N05 |
+
+N06 supplies the npm installed-artifact evidence for the revised G5 gate. Final authenticated package/native resources, clean-target qualification and authorized registry publication remain the updated Epic 6 responsibilities; npm installation or registry integrity alone does not pass those checks. Missing target hardware remains explicit and does not justify substituting a cross-build for an executed test.
+
 > **Scope update — November 16, 2026:** The user authorized Epic 5 implementation with compatibility testing on the available Mac sufficient for this pass. Actual Windows, Linux and Intel Mac compatibility tests are deferred to the user. Build outputs and source checks must still be reported separately from executed platform tests. This supersedes the all-four-machine prerequisite for this development handoff; it does not certify the deferred platforms or remove final release qualification in Epic 6.
 
 ## Outcome
 
-Make the browser game practical to run from a self-contained local host on every promised platform.
+Historical archive outcome: make the browser game practical to run from a self-contained local host on every promised platform. The current distribution outcome is the npm continuation above; the original cards below record the previous implementation contract.
 
 ## Entry and required reading
 

@@ -1,5 +1,7 @@
 # Niche Out release preparation
 
+> **Active distribution plan:** [E5-N01–N06](../implementation/epic-05-npm-distribution.md) migrate future delivery fully to npm. Existing release scripts still inspect legacy portable artifacts and must be rewritten under revised E6-S06; they are not npm-readiness checks today. No npm package is implemented or published by the plan. The [signing plan](SIGNING.md) defines npm/native trust and separately authorized publication.
+
 This directory records **private candidate preparation**, not a published or publisher-signed release. Epic 6 does not silently waive the promised public signing or target checks. The owner explicitly deferred non-Mac compatibility testing until after this epic; those results remain required before those targets can be advertised as verified.
 
 - [Operator guide](OPERATOR-GUIDE.md): launch, public joining, recovery, diagnostics and manual updates.

@@ -1,5 +1,7 @@
 # Per-criterion release evidence
 
+> **Npm replan:** Archive-specific rows below retain their November 16 evidence scope. The active npm criterion replacements are in the [coverage override](../implementation/coverage.md#npm-distribution-coverage-override) and [migration plan](../implementation/epic-05-npm-distribution.md). E5-N06 and revised E6-S10/S11 must bind evidence to the actual installed npm artifact and final native payloads; historical archive passes do not certify them.
+
 Reviewed November 16, 2026. This accounts individually for all **28 PRD**, **35 UI/UX** and **26 additional architecture** criteria in [the baseline coverage map](../implementation/coverage.md). It is a release review ledger, not a declaration that G6 passed.
 
 **Recorded** means the named deterministic/prior integration evidence exists in the Epic 2–5 reports; the coordinator records the current regression rerun separately. **Partial** means a required boundary remains unverified. **Blocked release** means an unmet public-release prerequisite. Earlier passing checks do not certify changed final signed bytes or a different physical platform.

@@ -1,5 +1,7 @@
 # Niche Out development and testing
 
+> **Distribution planning update:** The owner selected [npm distribution](implementation/epic-05-npm-distribution.md). It is not implemented yet; current repository commands still use the pinned contributor toolchain and legacy resource layout. Future npm hosts will use precompiled assets/native helpers and supported installed Node. The networking baseline section below is historical; subsequent changes/evidence are in the [networking report](implementation/evidence/NETWORK-IMPROVEMENTS.md) and [S02/S03 follow-up](implementation/evidence/EPIC-6-S02-S03-FOLLOWUP.md).
+
 ## Networking investigation baseline
 
 The [baseline report](implementation/evidence/NETWORK-BASELINE.md) records the current 100-player failures, instrumentation overhead, per-stage broadcast costs and actual-browser recovery checks. It links permanent summaries and raw working measurements. No retry, transport, broadcast or provider optimization has been applied yet.

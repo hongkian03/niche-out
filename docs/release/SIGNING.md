@@ -1,4 +1,33 @@
-# Signing and final distribution work
+# npm authenticity and final distribution plan
+
+The [Epic 5 npm migration](../implementation/epic-05-npm-distribution.md) is the active plan. **No npm release, migrated signing pipeline or publication has occurred.** The portable signing design below is historical context; its standalone-container requirements are superseded by this section.
+
+## Active trust boundary
+
+The public CLI contains compiled JS/browser assets and four small native prebuilds. Hosts install Node `>=24.22.3 <25`. Connector acquisition uses explicit preparation/Start into a user-writable verified cache, not install hooks. npm registry/tarball integrity and provenance authenticate the distribution path; they do not establish immutable installed JavaScript, certify safety or replace native OS signing/notarization. User-installed Node and owner-writable package/cache locations are explicit parts of this operating model.
+
+Retain project authentication for native payloads: both macOS variants require applicable Developer ID/notarization work and clean native-loading tests; the Windows x64 helper requires publisher signing/timestamp verification; Linux/native release checksums require an approved persistent publisher signature. Verify pinned upstream cloudflared before execution. Its vendor signature does not authenticate Niche Out JS, and arbitrary locally modified connector bytes must not be accepted.
+
+The old standalone `.app`/Windows verifier sealing bundled Node and adjacent JS is replaced with npm installation integrity plus verified native/connector payloads. This plan makes no installed-JS tamper-resistance claim against a compromised owner-writable installation. Controlled tests still reject corrupt or missing native/cache payloads; no integrity bypass is added for a passing result.
+
+## Planned release sequence
+
+1. Freeze source/lock, package identity/version, native build inputs, connector pins and notices. Reuse the existing MIT root license/copyright; confirm publisher/package access and asset rights separately.
+2. Build/test native helpers for `darwin-arm64`, `darwin-x64`, `win32-x64`, `linux-x64`; preserve clock, idle-power and process ownership. Do not bundle Node or require end-user compilation.
+3. Apply approved native publisher authentication. Validate a suitable macOS notarization submission/delivery method for the actual npm-installed Mach-O assets; an npm `.tgz` is not automatically a stapleable `.app`. Verify Windows signing/timestamps and Linux/native-inventory signatures as applicable.
+4. Generate final native/resource hashes after signing changes bytes. Record source/build identity and final payload hashes separately from upstream connector archive/executable pins. Do not mutate signed inputs afterward.
+5. Pack outside the monorepo and test exact tarball bytes through clean global/local/npx installs with scripts disabled, spaces/Unicode paths, cold/warm caches and each target/runtime. Cross-compilation does not supply actual-machine execution evidence.
+6. Migrate `scripts/release-audit.mjs`, `scripts/release-plan.mjs`, `packaging/release/candidate.json` and release tests from archive assumptions. These are planned code tasks; populated configuration must not fabricate readiness or remain falsely blocked on obsolete standalone-container work.
+7. Configure approved npm namespace/account and trusted CI publishing. Prefer a compatible hosted workflow with provenance, separately pinned release tooling and explicit publish/promotion permissions. Keep credentials outside source/packages/logs. [Trusted publishing](https://docs.npmjs.com/trusted-publishers/) · [Provenance](https://docs.npmjs.com/generating-provenance-statements/)
+8. Registry provenance/signature verification occurs after publication; do not require published attestations to pass local pre-publication gates. A candidate tag is public distribution. Publish only the separately authorized candidate tarball; read back integrity/version/attestations and install it for final validation. Stable promotion is another explicit reviewed action. `npm audit signatures` verifies registry signatures/attestations, not OS-native trust. [Signature verification](https://docs.npmjs.com/cli/v11/commands/npm-audit/#audit-signatures)
+9. Update only between hosting sessions. No background updater changes package/cache bytes while running. Published versions are immutable; changed contents need another version. Any future multi-package split must verify all exact-version dependencies before main promotion rather than assume atomic publication.
+
+Host Node compatibility and release-CI Node/npm are separate pins. Official npm trusted-publishing/dist-tag operations have different minimum CLI versions and permissions; validate the selected publisher toolchain rather than assume the development npm pin supports every action. No enrollment, payment, key generation/import, notarization or publication is authorized by this plan.
+
+## Historical portable-artifact design
+
+The following records the earlier runtime-inclusive archive design. It explains existing private artifacts without reinstating standalone `.app`, Windows EXE, bundled runtime or no-setup-download requirements for npm.
+
 
 ## What exists today
 
