@@ -2,9 +2,9 @@
   "schemaVersion": 1,
   "title": "Niche Out: Singapore Edition",
   "settings": {
-    "readingSeconds": 3,
+    "readingSeconds": 10,
     "answerSeconds": 25,
-    "resultsSeconds": 10
+    "resultsSeconds": 15
   },
   "tiers": [
     {
