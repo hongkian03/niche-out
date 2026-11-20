@@ -20,3 +20,6 @@ work/
 
 # Local npm candidate tarballs and staging
 dist-npm/
+
+# my local games for testing
+examples/my_own_games/

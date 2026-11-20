@@ -1,4 +1,4 @@
-# Niche Out
+![Niche Out](https://raw.githubusercontent.com/hongkian03/niche-out/main/docs/assets/niche-out-header.png)
 
 ## About
 
