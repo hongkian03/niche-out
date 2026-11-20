@@ -38,7 +38,8 @@ for(const target of targets){
 }
 await writeFile(join(stage,'native-manifest.json'),JSON.stringify(nativeInventory,null,2)+'\n');
 await chmod(join(stage,'bin/niche-out.cjs'),0o755);
-await writeFile(join(stage,'README.md'),`# Niche Out\n\nInstall supported Node 24 (>=24.22.3 <25), then run \`niche-out\`. The local browser dashboard manages hosting. On explicit Start hosting or \`niche-out prepare\`, a pinned cloudflared binary is verified or downloaded to your user cache. No build tools or installation scripts are required. Keep the terminal open; Ctrl-C or Quit hosting ends the server and tunnel. Players join through the QR or public link.\n\nThis is a local, unpublished npm candidate. Mac Intel/Apple Silicon, Windows 11 x64 and Ubuntu 24.04 x64/glibc require their own executed compatibility evidence. Paid publisher signing/notarization is optional. Npm publication requires final scoped verification and explicit approval. See docs/release for operator instructions and known network limits. Stop hosting before updating or uninstalling. No game history survives process exit.\n`);
+// Use the repository README; the document pass below adjusts omitted-source links.
+await copy('README.md');
 // Seed the production graph from the reviewed workspace lock. npm prunes unused
 // entries but must not silently upgrade transitive dependencies while packaging.
 const sourceLock=JSON.parse(await readFile(join(root,'package-lock.json')));
