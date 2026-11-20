@@ -1,0 +1,761 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS",
+  "scope": "Read-only exact tarball payload comparison. Historical capacity outcome carries only for unchanged game/transport/runtime payloads; this is not a new load run or universal provider/hardware certification.",
+  "prior": {
+    "path": "work/npm-migration/capacity-candidate/niche-out-0.1.0.tgz",
+    "sha256": "7f9edc95fcd53beef68bf892fdc21d1b0397fdf8f6c6c92f85c55f40f8325c1f",
+    "bytes": 428541
+  },
+  "tested": {
+    "path": "work/s10-s11/tested-candidate/niche-out-0.1.0.tgz",
+    "sha256": "95e3978f1d408e0f736fb418bda3e94a1be56f2443e6ef10b80ba2cf247e1e89",
+    "bytes": 518364
+  },
+  "comparedEntries": 25,
+  "functionalEntries": 23,
+  "allFunctionalBytesAndModesEqual": true,
+  "entries": [
+    {
+      "path": "apps/server/dist/game/import-worker.js",
+      "prior": {
+        "sha256": "7dd45473d4e1a145828fc58b573d729309acee6a7d354abd35ca681a4e34df17",
+        "mode": 420,
+        "bytes": 29327
+      },
+      "tested": {
+        "sha256": "7dd45473d4e1a145828fc58b573d729309acee6a7d354abd35ca681a4e34df17",
+        "mode": 420,
+        "bytes": 29327
+      },
+      "bytesEqual": true,
+      "modeEqual": true
+    },
+    {
+      "path": "apps/server/dist/hosting/launch.js",
+      "prior": {
+        "sha256": "7ab25a009f93005636e49ee3a676e538fee910d0c0b30283b56562826957a2e5",
+        "mode": 420,
+        "bytes": 159916
+      },
+      "tested": {
+        "sha256": "7ab25a009f93005636e49ee3a676e538fee910d0c0b30283b56562826957a2e5",
+        "mode": 420,
+        "bytes": 159916
+      },
+      "bytesEqual": true,
+      "modeEqual": true
+    },
+    {
+      "path": "apps/server/hosting-assets/local/dashboard.js",
+      "prior": {
+        "sha256": "3a1fbf3860f756af38a43d2668512fb4cbe56676012214cefc8a4476deae0154",
+        "mode": 420,
+        "bytes": 8300
+      },
+      "tested": {
+        "sha256": "3a1fbf3860f756af38a43d2668512fb4cbe56676012214cefc8a4476deae0154",
+        "mode": 420,
+        "bytes": 8300
+      },
+      "bytesEqual": true,
+      "modeEqual": true
+    },
+    {
+      "path": "apps/server/hosting-assets/local/index.html",
+      "prior": {
+        "sha256": "638443f17cb1fc1bdd27ba74afde075f9714da0e613dc055f03aa34724c1cc9c",
+        "mode": 420,
+        "bytes": 2421
+      },
+      "tested": {
+        "sha256": "638443f17cb1fc1bdd27ba74afde075f9714da0e613dc055f03aa34724c1cc9c",
+        "mode": 420,
+        "bytes": 2421
+      },
+      "bytesEqual": true,
+      "modeEqual": true
+    },
+    {
+      "path": "apps/server/hosting-assets/local/style.css",
+      "prior": {
+        "sha256": "b25968cbbe55f1aebbe42538f7b9e6f62dd76678ebc3b8c60bd23f7d99cfa9f4",
+        "mode": 420,
+        "bytes": 1918
+      },
+      "tested": {
+        "sha256": "b25968cbbe55f1aebbe42538f7b9e6f62dd76678ebc3b8c60bd23f7d99cfa9f4",
+        "mode": 420,
+        "bytes": 1918
+      },
+      "bytesEqual": true,
+      "modeEqual": true
+    },
+    {
+      "path": "apps/web/dist/VT323-OFL.txt",
+      "prior": {
+        "sha256": "27d9af34210253e7ca1251fbace86c6f65b40031d6ce1a75493a1b2093631298",
+        "mode": 420,
+        "bytes": 4367
+      },
+      "tested": {
+        "sha256": "27d9af34210253e7ca1251fbace86c6f65b40031d6ce1a75493a1b2093631298",
+        "mode": 420,
+        "bytes": 4367
+      },
+      "bytesEqual": true,
+      "modeEqual": true
+    },
+    {
+      "path": "apps/web/dist/asset-notices.txt",
+      "prior": {
+        "sha256": "68463190d02f627e4b0833bf5645e7cc619a3c8e254088d45edbd39b54f9359e",
+        "mode": 420,
+        "bytes": 463
+      },
+      "tested": {
+        "sha256": "d854fff0d8643572b4e95f12f5a2e87609a199810fe659fa3f9a3f3ce7d4376e",
+        "mode": 420,
+        "bytes": 695
+      },
+      "bytesEqual": false,
+      "modeEqual": true
+    },
+    {
+      "path": "apps/web/dist/assets/VT323-Regular-DICElq-Y.ttf",
+      "prior": {
+        "sha256": "cf4de751ada78ceac033dbe16a687742939995b77bc2a052ae17a4957958594d",
+        "mode": 420,
+        "bytes": 153116
+      },
+      "tested": {
+        "sha256": "cf4de751ada78ceac033dbe16a687742939995b77bc2a052ae17a4957958594d",
+        "mode": 420,
+        "bytes": 153116
+      },
+      "bytesEqual": true,
+      "modeEqual": true
+    },
+    {
+      "path": "apps/web/dist/assets/index-B9eN9Lxp.js",
+      "prior": {
+        "sha256": "096ff2332fc60de376b1111aa9c6d40b8a59775ad6e46e0f3d74116725c92ff1",
+        "mode": 420,
+        "bytes": 457652
+      },
+      "tested": {
+        "sha256": "096ff2332fc60de376b1111aa9c6d40b8a59775ad6e46e0f3d74116725c92ff1",
+        "mode": 420,
+        "bytes": 457652
+      },
+      "bytesEqual": true,
+      "modeEqual": true
+    },
+    {
+      "path": "apps/web/dist/assets/index-lb1N9Y27.css",
+      "prior": {
+        "sha256": "209206b3945ee221138addfb23334a4020d2bac5dc7fc87b4c929692afae7c19",
+        "mode": 420,
+        "bytes": 21676
+      },
+      "tested": {
+        "sha256": "209206b3945ee221138addfb23334a4020d2bac5dc7fc87b4c929692afae7c19",
+        "mode": 420,
+        "bytes": 21676
+      },
+      "bytesEqual": true,
+      "modeEqual": true
+    },
+    {
+      "path": "apps/web/dist/game-format.txt",
+      "prior": {
+        "sha256": "0e2df84683466ef4a2cbea8fa301ad4422d0f60cdb723eee7da7ca5d6e1e8283",
+        "mode": 420,
+        "bytes": 1496
+      },
+      "tested": {
+        "sha256": "0e2df84683466ef4a2cbea8fa301ad4422d0f60cdb723eee7da7ca5d6e1e8283",
+        "mode": 420,
+        "bytes": 1496
+      },
+      "bytesEqual": true,
+      "modeEqual": true
+    },
+    {
+      "path": "apps/web/dist/game.example.json",
+      "prior": {
+        "sha256": "5a1f6f383fb35b923ed8d56dd93932c62dc0cbef3718233b4712a9e600158735",
+        "mode": 420,
+        "bytes": 897
+      },
+      "tested": {
+        "sha256": "5a1f6f383fb35b923ed8d56dd93932c62dc0cbef3718233b4712a9e600158735",
+        "mode": 420,
+        "bytes": 897
+      },
+      "bytesEqual": true,
+      "modeEqual": true
+    },
+    {
+      "path": "apps/web/dist/index.html",
+      "prior": {
+        "sha256": "6543693e2956a6b10ef6c689f7c3c6e8281920e069539861c3dbb61d21afdb07",
+        "mode": 420,
+        "bytes": 519
+      },
+      "tested": {
+        "sha256": "6543693e2956a6b10ef6c689f7c3c6e8281920e069539861c3dbb61d21afdb07",
+        "mode": 420,
+        "bytes": 519
+      },
+      "bytesEqual": true,
+      "modeEqual": true
+    },
+    {
+      "path": "bin/niche-out.cjs",
+      "prior": {
+        "sha256": "b4f63f2b6cbcde8fe9d701222084e57f56e6089298d600ffb1994b02c5fc99d6",
+        "mode": 493,
+        "bytes": 2430
+      },
+      "tested": {
+        "sha256": "b4f63f2b6cbcde8fe9d701222084e57f56e6089298d600ffb1994b02c5fc99d6",
+        "mode": 493,
+        "bytes": 2430
+      },
+      "bytesEqual": true,
+      "modeEqual": true
+    },
+    {
+      "path": "bin/runtime.cjs",
+      "prior": {
+        "sha256": "f27af8b90a9a23017a64eee5c032899f2918c0b6a4665ae09c1e3d6b87d69bd2",
+        "mode": 420,
+        "bytes": 5522
+      },
+      "tested": {
+        "sha256": "f27af8b90a9a23017a64eee5c032899f2918c0b6a4665ae09c1e3d6b87d69bd2",
+        "mode": 420,
+        "bytes": 5522
+      },
+      "bytesEqual": true,
+      "modeEqual": true
+    },
+    {
+      "path": "native-manifest.json",
+      "prior": {
+        "sha256": "7a95197dc5fc0bbcc242adb53b7d6241cb964c2dd8e42885df8717e045ab4d9b",
+        "mode": 420,
+        "bytes": 2139
+      },
+      "tested": {
+        "sha256": "7c2a471890fc75de190248c5ed4537973a8d2fb822924f535ae17d05ab1d2609",
+        "mode": 420,
+        "bytes": 2199
+      },
+      "bytesEqual": false,
+      "modeEqual": true
+    },
+    {
+      "path": "native/darwin-arm64/niche-guard",
+      "prior": {
+        "sha256": "af52ee94d1ac4ad6aee9de205a3579ad8c76609689d8b3962b61c3eacad345c1",
+        "mode": 493,
+        "bytes": 34344
+      },
+      "tested": {
+        "sha256": "af52ee94d1ac4ad6aee9de205a3579ad8c76609689d8b3962b61c3eacad345c1",
+        "mode": 493,
+        "bytes": 34344
+      },
+      "bytesEqual": true,
+      "modeEqual": true
+    },
+    {
+      "path": "native/darwin-arm64/niche-platform.node",
+      "prior": {
+        "sha256": "5454b5f6c8fec63c4345f02cf4b7f8b67bb8e883f169ef86e31e6ca4d73b1d80",
+        "mode": 493,
+        "bytes": 51296
+      },
+      "tested": {
+        "sha256": "5454b5f6c8fec63c4345f02cf4b7f8b67bb8e883f169ef86e31e6ca4d73b1d80",
+        "mode": 493,
+        "bytes": 51296
+      },
+      "bytesEqual": true,
+      "modeEqual": true
+    },
+    {
+      "path": "native/darwin-x64/niche-guard",
+      "prior": {
+        "sha256": "33c1f9b0922ee7159229fb5c516c4a16828cdcc2026f665e114c6f11f8542ab0",
+        "mode": 493,
+        "bytes": 9352
+      },
+      "tested": {
+        "sha256": "33c1f9b0922ee7159229fb5c516c4a16828cdcc2026f665e114c6f11f8542ab0",
+        "mode": 493,
+        "bytes": 9352
+      },
+      "bytesEqual": true,
+      "modeEqual": true
+    },
+    {
+      "path": "native/darwin-x64/niche-platform.node",
+      "prior": {
+        "sha256": "891774b6224dd4a37261c653b526894c983b5ac8b99dd323965458331904650e",
+        "mode": 493,
+        "bytes": 13936
+      },
+      "tested": {
+        "sha256": "891774b6224dd4a37261c653b526894c983b5ac8b99dd323965458331904650e",
+        "mode": 493,
+        "bytes": 13936
+      },
+      "bytesEqual": true,
+      "modeEqual": true
+    },
+    {
+      "path": "native/linux-x64/niche-guard",
+      "prior": {
+        "sha256": "62f894c9a32da8ec9b45456abc3f0fbd7d8de85c7dd0855104c3609dae1a0ec0",
+        "mode": 493,
+        "bytes": 14800
+      },
+      "tested": {
+        "sha256": "62f894c9a32da8ec9b45456abc3f0fbd7d8de85c7dd0855104c3609dae1a0ec0",
+        "mode": 493,
+        "bytes": 14800
+      },
+      "bytesEqual": true,
+      "modeEqual": true
+    },
+    {
+      "path": "native/linux-x64/niche-platform.node",
+      "prior": {
+        "sha256": "ced03669c2a18df7f5f5b2e55331db92bfff5e282950688b97593b87fccb401e",
+        "mode": 493,
+        "bytes": 17088
+      },
+      "tested": {
+        "sha256": "ced03669c2a18df7f5f5b2e55331db92bfff5e282950688b97593b87fccb401e",
+        "mode": 493,
+        "bytes": 17088
+      },
+      "bytesEqual": true,
+      "modeEqual": true
+    },
+    {
+      "path": "native/win32-x64/niche-platform.node",
+      "prior": {
+        "sha256": "b29dba7ccd6e194aa266b1be7fefb0cab707f70c13bd82209b8f91c2b28ec995",
+        "mode": 493,
+        "bytes": 220160
+      },
+      "tested": {
+        "sha256": "b29dba7ccd6e194aa266b1be7fefb0cab707f70c13bd82209b8f91c2b28ec995",
+        "mode": 493,
+        "bytes": 220160
+      },
+      "bytesEqual": true,
+      "modeEqual": true
+    },
+    {
+      "path": "npm-shrinkwrap.json",
+      "prior": {
+        "sha256": "01a336eba87774f726e5fc722421f7871f6d7c6a71477324788e5b6d38f9f89d",
+        "mode": 420,
+        "bytes": 43182
+      },
+      "tested": {
+        "sha256": "01a336eba87774f726e5fc722421f7871f6d7c6a71477324788e5b6d38f9f89d",
+        "mode": 420,
+        "bytes": 43182
+      },
+      "bytesEqual": true,
+      "modeEqual": true
+    },
+    {
+      "path": "scripts/cloudflared-manifest.json",
+      "prior": {
+        "sha256": "f0f2dc922a6cfcf7d0f33f053a1d87d8be20dcbcef183d4d87da2f5ce84ff427",
+        "mode": 420,
+        "bytes": 2286
+      },
+      "tested": {
+        "sha256": "f0f2dc922a6cfcf7d0f33f053a1d87d8be20dcbcef183d4d87da2f5ce84ff427",
+        "mode": 420,
+        "bytes": 2286
+      },
+      "bytesEqual": true,
+      "modeEqual": true
+    }
+  ],
+  "packageRuntimeManifestFields": {
+    "name": {
+      "equal": true,
+      "value": "niche-out"
+    },
+    "version": {
+      "equal": true,
+      "value": "0.1.0"
+    },
+    "type": {
+      "equal": true,
+      "value": "module"
+    },
+    "bin": {
+      "equal": true,
+      "value": {
+        "niche-out": "bin/niche-out.cjs"
+      }
+    },
+    "engines": {
+      "equal": true,
+      "value": {
+        "node": ">=24.22.3 <25"
+      }
+    },
+    "dependencies": {
+      "equal": true,
+      "value": {
+        "fastify": "5.12.8",
+        "qrcode": "1.5.4",
+        "socket.io": "4.8.4",
+        "zod": "4.6.7"
+      }
+    },
+    "scripts": {
+      "equal": true,
+      "value": null
+    },
+    "devDependencies": {
+      "equal": true,
+      "value": null
+    },
+    "optionalDependencies": {
+      "equal": true,
+      "value": null
+    }
+  },
+  "intentionalMetadataChanges": [
+    {
+      "path": "apps/web/dist/asset-notices.txt",
+      "description": "Original-art MIT owner approval/attribution and Niche Out notice heading; declarative credits text, no executable behavior",
+      "priorText": "Niche browser assets\n\nVT323, Copyright 2011, The VT323 Project Authors.\nDistributed under the SIL Open Font License, Version 1.1.\nThe complete license is available at /VT323-OFL.txt.\nSource: https://github.com/google/fonts/tree/main/ofl/vt323\n\nOcean, submarine, bubbles, plant shapes, and visual layout are original\nproject artwork implemented in SVG and CSS. No Krillion image assets ship\nwith the application. The QR generator runs locally in the host browser.\n",
+      "testedText": "Niche Out browser assets\n\nVT323, Copyright 2011, The VT323 Project Authors.\nDistributed under the SIL Open Font License, Version 1.1.\nThe complete license is available at /VT323-OFL.txt.\nSource: https://github.com/google/fonts/tree/main/ofl/vt323\n\nOcean, submarine, bubbles, plant shapes, and visual layout are original\nproject artwork implemented in SVG and CSS. No Krillion image assets ship\nwith the application. The QR generator runs locally in the host browser.\n\nOriginal project SVG/CSS artwork is distributed under the project MIT license,\nCopyright (c) 2026 Kian Hong Tan. Owner distribution approval: 19 November 2026.\nThird-party font materials retain the SIL Open Font License above.\n"
+    },
+    {
+      "path": "native-manifest.json",
+      "description": "Only authentication-policy description changed. API/source/build/target/native file hashes unchanged.",
+      "priorAuthentication": "private-unsigned; publisher authentication remains Epic 6",
+      "testedAuthentication": "No project publisher authentication asserted; preserve platform/linker signatures; paid publisher signing is optional",
+      "allOtherNativeManifestFieldsEqual": true
+    }
+  ],
+  "packagingMetadata": {
+    "addedFiles": [
+      "release/build-manifest.json",
+      "release/notices.json",
+      "release/notices/cloudflared/inventory.json",
+      "release/notices/cloudflared/modules/000/LICENSE",
+      "release/notices/cloudflared/modules/001/COPYING",
+      "release/notices/cloudflared/modules/001/cmd/toml-test-decoder/COPYING",
+      "release/notices/cloudflared/modules/001/cmd/toml-test-encoder/COPYING",
+      "release/notices/cloudflared/modules/001/cmd/tomlv/COPYING",
+      "release/notices/cloudflared/modules/001/internal/toml-test/COPYING",
+      "release/notices/cloudflared/modules/002/LICENSE.txt",
+      "release/notices/cloudflared/modules/003/LICENSE",
+      "release/notices/cloudflared/modules/003/assets/LICENSE.md",
+      "release/notices/cloudflared/modules/004/LICENSE",
+      "release/notices/cloudflared/modules/005/LICENSE",
+      "release/notices/cloudflared/modules/005/NOTICE",
+      "release/notices/cloudflared/modules/006/LICENSE",
+      "release/notices/cloudflared/modules/006/NOTICE",
+      "release/notices/cloudflared/modules/007/LICENSE.md",
+      "release/notices/cloudflared/modules/008/LICENSE",
+      "release/notices/cloudflared/modules/009/license",
+      "release/notices/cloudflared/modules/010/AUTHORS",
+      "release/notices/cloudflared/modules/010/LICENSE",
+      "release/notices/cloudflared/modules/011/LICENSE",
+      "release/notices/cloudflared/modules/012/LICENSE",
+      "release/notices/cloudflared/modules/013/LICENSE",
+      "release/notices/cloudflared/modules/014/LICENSE",
+      "release/notices/cloudflared/modules/014/json/LICENSE",
+      "release/notices/cloudflared/modules/015/LICENSE",
+      "release/notices/cloudflared/modules/016/LICENSE",
+      "release/notices/cloudflared/modules/017/LICENSE",
+      "release/notices/cloudflared/modules/018/LICENSE",
+      "release/notices/cloudflared/modules/019/LICENSE",
+      "release/notices/cloudflared/modules/020/LICENSE",
+      "release/notices/cloudflared/modules/021/AUTHORS",
+      "release/notices/cloudflared/modules/021/LICENSE",
+      "release/notices/cloudflared/modules/022/LICENSE",
+      "release/notices/cloudflared/modules/023/AUTHORS",
+      "release/notices/cloudflared/modules/023/LICENSE",
+      "release/notices/cloudflared/modules/024/LICENSE",
+      "release/notices/cloudflared/modules/024/internal/casing/LICENSE.md",
+      "release/notices/cloudflared/modules/025/LICENSE",
+      "release/notices/cloudflared/modules/026/LICENSE",
+      "release/notices/cloudflared/modules/027/LICENSE",
+      "release/notices/cloudflared/modules/027/gzhttp/LICENSE",
+      "release/notices/cloudflared/modules/027/internal/lz4ref/LICENSE",
+      "release/notices/cloudflared/modules/027/internal/snapref/LICENSE",
+      "release/notices/cloudflared/modules/027/s2/LICENSE",
+      "release/notices/cloudflared/modules/027/s2/cmd/internal/filepathx/LICENSE",
+      "release/notices/cloudflared/modules/027/s2/cmd/internal/readahead/LICENSE",
+      "release/notices/cloudflared/modules/027/snappy/AUTHORS",
+      "release/notices/cloudflared/modules/027/snappy/LICENSE",
+      "release/notices/cloudflared/modules/027/snappy/xerial/LICENSE",
+      "release/notices/cloudflared/modules/027/zstd/internal/xxhash/LICENSE.txt",
+      "release/notices/cloudflared/modules/028/LICENSE",
+      "release/notices/cloudflared/modules/029/LICENSE",
+      "release/notices/cloudflared/modules/030/LICENSE",
+      "release/notices/cloudflared/modules/031/LICENSE",
+      "release/notices/cloudflared/modules/032/LICENSE",
+      "release/notices/cloudflared/modules/033/LICENSE",
+      "release/notices/cloudflared/modules/034/LICENSE",
+      "release/notices/cloudflared/modules/035/LICENSE",
+      "release/notices/cloudflared/modules/035/NOTICE",
+      "release/notices/cloudflared/modules/035/internal/github.com/golang/gddo/LICENSE",
+      "release/notices/cloudflared/modules/036/LICENSE",
+      "release/notices/cloudflared/modules/036/NOTICE",
+      "release/notices/cloudflared/modules/037/LICENSE",
+      "release/notices/cloudflared/modules/037/NOTICE",
+      "release/notices/cloudflared/modules/038/LICENSE",
+      "release/notices/cloudflared/modules/038/NOTICE",
+      "release/notices/cloudflared/modules/039/LICENSE",
+      "release/notices/cloudflared/modules/039/hlog/internal/mutil/LICENSE",
+      "release/notices/cloudflared/modules/040/LICENSE.txt",
+      "release/notices/cloudflared/modules/041/LICENSE",
+      "release/notices/cloudflared/modules/042/LICENSE",
+      "release/notices/cloudflared/modules/043/LICENSE",
+      "release/notices/cloudflared/modules/044/LICENSE",
+      "release/notices/cloudflared/modules/045/LICENSE",
+      "release/notices/cloudflared/modules/046/LICENSE",
+      "release/notices/cloudflared/modules/047/LICENSE",
+      "release/notices/cloudflared/modules/048/LICENSE",
+      "release/notices/cloudflared/modules/049/LICENSE",
+      "release/notices/cloudflared/modules/050/LICENSE",
+      "release/notices/cloudflared/modules/051/LICENSE",
+      "release/notices/cloudflared/modules/052/LICENSE",
+      "release/notices/cloudflared/modules/053/LICENSE",
+      "release/notices/cloudflared/modules/054/LICENSE",
+      "release/notices/cloudflared/modules/054/PATENTS",
+      "release/notices/cloudflared/modules/055/LICENSE",
+      "release/notices/cloudflared/modules/055/PATENTS",
+      "release/notices/cloudflared/modules/056/LICENSE",
+      "release/notices/cloudflared/modules/057/LICENSE",
+      "release/notices/cloudflared/modules/057/PATENTS",
+      "release/notices/cloudflared/modules/058/LICENSE",
+      "release/notices/cloudflared/modules/058/PATENTS",
+      "release/notices/cloudflared/modules/059/LICENSE",
+      "release/notices/cloudflared/modules/059/PATENTS",
+      "release/notices/cloudflared/modules/060/LICENSE",
+      "release/notices/cloudflared/modules/060/PATENTS",
+      "release/notices/cloudflared/modules/061/LICENSE",
+      "release/notices/cloudflared/modules/062/LICENSE",
+      "release/notices/cloudflared/modules/063/AUTHORS",
+      "release/notices/cloudflared/modules/063/LICENSE",
+      "release/notices/cloudflared/modules/063/NOTICE.txt",
+      "release/notices/cloudflared/modules/064/LICENSE",
+      "release/notices/cloudflared/modules/064/PATENTS",
+      "release/notices/cloudflared/modules/065/LICENSE",
+      "release/notices/cloudflared/modules/066/LICENSE",
+      "release/notices/cloudflared/modules/066/LICENSE.libyaml",
+      "release/notices/cloudflared/modules/066/NOTICE",
+      "release/notices/cloudflared/modules/067/LICENSE",
+      "release/notices/cloudflared/modules/067/NOTICE",
+      "release/notices/cloudflared/modules/068/LICENSE.txt",
+      "release/notices/cloudflared/modules/069/AUTHORS",
+      "release/notices/cloudflared/modules/069/LICENSE",
+      "release/notices/cloudflared/runtime/LICENSE",
+      "release/notices/cloudflared/runtime/PATENTS",
+      "release/notices/node_modules/@fastify/ajv-compiler/LICENSE",
+      "release/notices/node_modules/@fastify/deepmerge/LICENSE",
+      "release/notices/node_modules/@fastify/error/LICENSE",
+      "release/notices/node_modules/@fastify/fast-json-stringify-compiler/LICENSE",
+      "release/notices/node_modules/@fastify/forwarded/LICENSE",
+      "release/notices/node_modules/@fastify/merge-json-schemas/LICENSE",
+      "release/notices/node_modules/@fastify/proxy-addr/LICENSE",
+      "release/notices/node_modules/@pinojs/redact/LICENSE",
+      "release/notices/node_modules/@socket.io/component-emitter/LICENSE",
+      "release/notices/node_modules/@types/cors/LICENSE",
+      "release/notices/node_modules/@types/node/LICENSE",
+      "release/notices/node_modules/@types/ws/LICENSE",
+      "release/notices/node_modules/abstract-logging/LICENSE.upstream.txt",
+      "release/notices/node_modules/accepts/LICENSE",
+      "release/notices/node_modules/ajv-formats/LICENSE",
+      "release/notices/node_modules/ajv/LICENSE",
+      "release/notices/node_modules/ajv/node_modules/fast-uri/LICENSE",
+      "release/notices/node_modules/ansi-regex/license",
+      "release/notices/node_modules/ansi-styles/license",
+      "release/notices/node_modules/atomic-sleep/LICENSE",
+      "release/notices/node_modules/avvio/LICENSE",
+      "release/notices/node_modules/camelcase/license",
+      "release/notices/node_modules/cliui/LICENSE.txt",
+      "release/notices/node_modules/color-convert/LICENSE",
+      "release/notices/node_modules/color-name/LICENSE",
+      "release/notices/node_modules/cookie/LICENSE",
+      "release/notices/node_modules/cors/LICENSE",
+      "release/notices/node_modules/debug/LICENSE",
+      "release/notices/node_modules/decamelize/license",
+      "release/notices/node_modules/dequal/license",
+      "release/notices/node_modules/dijkstrajs/LICENSE.md",
+      "release/notices/node_modules/emoji-regex/LICENSE-MIT.txt",
+      "release/notices/node_modules/engine.io-client/LICENSE",
+      "release/notices/node_modules/engine.io-parser/LICENSE",
+      "release/notices/node_modules/engine.io/LICENSE",
+      "release/notices/node_modules/engine.io/node_modules/cookie/LICENSE",
+      "release/notices/node_modules/esbuild/LICENSE.md",
+      "release/notices/node_modules/fast-decode-uri-component/LICENSE",
+      "release/notices/node_modules/fast-deep-equal/LICENSE",
+      "release/notices/node_modules/fast-json-stringify/LICENSE",
+      "release/notices/node_modules/fast-querystring/LICENSE",
+      "release/notices/node_modules/fast-uri/LICENSE",
+      "release/notices/node_modules/fastify/LICENSE",
+      "release/notices/node_modules/fastq/LICENSE",
+      "release/notices/node_modules/find-my-way/LICENSE",
+      "release/notices/node_modules/find-up/license",
+      "release/notices/node_modules/get-caller-file/LICENSE.md",
+      "release/notices/node_modules/ipaddr.js/LICENSE",
+      "release/notices/node_modules/is-fullwidth-code-point/license",
+      "release/notices/node_modules/json-schema-ref-resolver/LICENSE",
+      "release/notices/node_modules/json-schema-traverse/LICENSE",
+      "release/notices/node_modules/light-my-request/LICENSE",
+      "release/notices/node_modules/locate-path/license",
+      "release/notices/node_modules/mime-db/LICENSE",
+      "release/notices/node_modules/mime-types/LICENSE",
+      "release/notices/node_modules/ms/license.md",
+      "release/notices/node_modules/negotiator/LICENSE",
+      "release/notices/node_modules/object-assign/license",
+      "release/notices/node_modules/on-exit-leak-free/LICENSE",
+      "release/notices/node_modules/p-limit/license",
+      "release/notices/node_modules/p-locate/license",
+      "release/notices/node_modules/p-try/license",
+      "release/notices/node_modules/path-exists/license",
+      "release/notices/node_modules/pino-abstract-transport/LICENSE",
+      "release/notices/node_modules/pino-std-serializers/LICENSE",
+      "release/notices/node_modules/pino/LICENSE",
+      "release/notices/node_modules/pngjs/LICENSE",
+      "release/notices/node_modules/process-warning/LICENSE",
+      "release/notices/node_modules/qrcode/license",
+      "release/notices/node_modules/quick-format-unescaped/LICENSE",
+      "release/notices/node_modules/react-dom/LICENSE",
+      "release/notices/node_modules/react/LICENSE",
+      "release/notices/node_modules/real-require/LICENSE.md",
+      "release/notices/node_modules/require-directory/LICENSE",
+      "release/notices/node_modules/require-from-string/license",
+      "release/notices/node_modules/require-main-filename/LICENSE.txt",
+      "release/notices/node_modules/ret/LICENSE",
+      "release/notices/node_modules/reusify/LICENSE",
+      "release/notices/node_modules/rfdc/LICENSE",
+      "release/notices/node_modules/safe-regex2/LICENSE",
+      "release/notices/node_modules/safe-stable-stringify/LICENSE",
+      "release/notices/node_modules/scheduler/LICENSE",
+      "release/notices/node_modules/secure-json-parse/LICENSE",
+      "release/notices/node_modules/semver/LICENSE",
+      "release/notices/node_modules/set-blocking/LICENSE.txt",
+      "release/notices/node_modules/set-cookie-parser/LICENSE",
+      "release/notices/node_modules/socket.io-adapter/LICENSE",
+      "release/notices/node_modules/socket.io-client/LICENSE",
+      "release/notices/node_modules/socket.io-parser/LICENSE",
+      "release/notices/node_modules/socket.io/LICENSE",
+      "release/notices/node_modules/sonic-boom/LICENSE",
+      "release/notices/node_modules/split2/LICENSE",
+      "release/notices/node_modules/string-width/license",
+      "release/notices/node_modules/strip-ansi/license",
+      "release/notices/node_modules/thread-stream/LICENSE",
+      "release/notices/node_modules/toad-cache/LICENSE",
+      "release/notices/node_modules/undici-types/LICENSE",
+      "release/notices/node_modules/vary/LICENSE",
+      "release/notices/node_modules/which-module/LICENSE",
+      "release/notices/node_modules/wrap-ansi/license",
+      "release/notices/node_modules/ws/LICENSE",
+      "release/notices/node_modules/xmlhttprequest-ssl/LICENSE",
+      "release/notices/node_modules/y18n/LICENSE",
+      "release/notices/node_modules/yargs-parser/LICENSE.txt",
+      "release/notices/node_modules/yargs/LICENSE",
+      "release/notices/node_modules/zod/LICENSE",
+      "release/source-files.json",
+      "scripts/notices/abstract-logging-2.0.1-LICENSE.txt",
+      "scripts/notices/abstract-logging-2.0.1-source.json"
+    ],
+    "removedFiles": [],
+    "note": "Added provenance, third-party permission text/inventories and associated resource/README/release-document metadata are not game/transport payload changes. Full resource hash/integrity checks and startup are freshly exercised by S10; historical capacity startup/readiness timings are not asserted for new packaging."
+  },
+  "historicalCapacity": {
+    "report": "docs/implementation/evidence/epic5-npm/capacity.json",
+    "reportSha256": "7a4a09f2102b96e4c133900d682994706a4151c69f176579caceec9dba0dcb24",
+    "status": "PASS",
+    "started": "2026-11-19T02:20:22.776Z",
+    "ended": "2026-11-19T02:22:55.396Z",
+    "machine": {
+      "uplink": "eduroam",
+      "cpu": "Apple M3 Pro",
+      "cores": 11,
+      "memoryBytes": 19327352832,
+      "kernel": "25.5.0",
+      "node": "v24.22.3",
+      "uplinkSource": "Owner confirmed in call_571a3de5bc754fe89072470832ee23f3; launch-time field was unconfirmed"
+    },
+    "workload": {
+      "count": 100,
+      "transport": "mixed",
+      "rounds": 20,
+      "games": 1,
+      "instrumentation": "light",
+      "reconnectBurst": true,
+      "creationBatch": 5,
+      "submitBatch": 100,
+      "playerSplit": {
+        "websocket": 80,
+        "polling": 20
+      }
+    },
+    "checks": [
+      "100 simulated players connected; each fetched production JS/CSS assets",
+      "101st admission rejected while admitted identities retained",
+      "100-player reconnect 0 preserved identity/control while full",
+      "1 complete 20-round games: correct scores, duplicate replay idempotent"
+    ],
+    "transportErrors": [
+      {
+        "category": "dns",
+        "message": "xhr poll error",
+        "status": 0,
+        "cause": "ENOTFOUND",
+        "atMs": 148191.901417,
+        "stage": "game-0-round-19-accepted-submit"
+      }
+    ],
+    "recoveries": [
+      {
+        "transport": "polling",
+        "attempts": 1,
+        "durationMs": 1888.4027910000004
+      }
+    ]
+  },
+  "decision": {
+    "carryApplicable": true,
+    "carryEvidence": [
+      "100-player admission and 101st rejection",
+      "100-player full-capacity reconnect identity/control preservation",
+      "20-round expected authored scoring and duplicate request replay idempotency",
+      "Observed game/transport handler and end-to-end behavior under the historical mixed workload"
+    ],
+    "newRunRequiredForChangedRuntime": false,
+    "notClaimed": [
+      "A new 100-player test on tested candidate",
+      "Current provider/network availability or identical latency",
+      "All-polling certification",
+      "Other-platform execution",
+      "8 GiB reference-host qualification",
+      "100 physical phones",
+      "Unchanged package startup/verification costs"
+    ],
+    "qualification": "Historical run used 80 WebSocket/20 polling clients on available 18 GiB Apple M3 Pro Mac over eduroam; one ENOTFOUND polling DNS failure recovered. These limitations remain."
+  }
+}

@@ -7,6 +7,8 @@ import { join, resolve } from 'node:path';
 import type { NativePlatform } from '../../apps/server/src/hosting/platform/index.js';
 const root=resolve('.'), guard=join(root,'tooling/niche-guard');
 const available=process.platform==='darwin' && existsSync(join(root,'tooling/niche-platform.node'));
+// Other host sessions may legitimately hold the same-named assertion.
+const ownsAssertion=(report:string)=>report.split('\n').some(line=>new RegExp('^\\s*pid\\s+'+process.pid+'\\b').test(line)&&line.includes('Niche Out active game'));
 const wait=(ms:number)=>new Promise(resolve=>setTimeout(resolve,ms));
 async function until(check:()=>boolean){for(let i=0;i<100;i++){if(check())return;await wait(50);}throw new Error('Native condition timed out');}
 function alive(pid:number){try{return !execFileSync('/bin/ps',['-o','stat=','-p',String(pid)],{encoding:'utf8',stdio:['ignore','pipe','ignore']}).trim().startsWith('Z');}catch{return false;}}
@@ -14,8 +16,8 @@ describe.skipIf(!available)('available Mac native integration',()=>{
   it('advances synchronous continuous time and releases the OS idle assertion',async()=>{
     const native=createRequire(import.meta.url)(join(root,'tooling/niche-platform.node')) as NativePlatform;
     const before=native.now();await wait(30);expect(native.now()-before).toBeGreaterThanOrEqual(20);
-    try{expect(native.setActive(true)).toBe(true);const report=execFileSync('/usr/bin/pmset',['-g','assertions'],{encoding:'utf8'});expect(report).toContain('Niche Out active game');}finally{native.setActive(false);}
-    expect(execFileSync('/usr/bin/pmset',['-g','assertions'],{encoding:'utf8'})).not.toContain('Niche Out active game');
+    try{expect(native.setActive(true)).toBe(true);const report=execFileSync('/usr/bin/pmset',['-g','assertions'],{encoding:'utf8'});expect(ownsAssertion(report)).toBe(true);}finally{native.setActive(false);}
+    await until(()=>!ownsAssertion(execFileSync('/usr/bin/pmset',['-g','assertions'],{encoding:'utf8'})));
   });
   it.each(['eof','parent-kill'] as const)('reaps owned connector descendants after %s',async(mode)=>{
     const dir=mkdtempSync(join(tmpdir(),'niche-platform-'));

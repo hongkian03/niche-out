@@ -1,0 +1,20 @@
+{
+  "status": "PASS",
+  "started": "2026-11-20T00:14:54.224Z",
+  "node": "v24.22.3",
+  "platform": "darwin",
+  "arch": "arm64",
+  "terminationTarget": "npm-wrapper",
+  "signal": "SIGKILL",
+  "tarballSha256": "781e4709af83d8cd0d723e5ef33e19c73534dee180e54d0dac10d1aeef5fc62a",
+  "hosting": false,
+  "scope": "Actual npm-exec installed tarball, isolated npm cache and unrelated CWD; Termination targets only the owned wrapper or installed CLI named in terminationTarget/signal. Optional --hosting starts one owned Quick Tunnel; default is setup only. No other-platform inference.",
+  "checks": [
+    "Actual npm-exec installed CLI serves its loopback dashboard from unrelated CWD",
+    "Killing only npm wrapper terminates installed Node CLI and its loopback listener",
+    "No public hosting session or connector started"
+  ],
+  "ownedProcessCount": 2,
+  "closedListenerCount": 1,
+  "ended": "2026-11-20T00:14:59.026Z"
+}

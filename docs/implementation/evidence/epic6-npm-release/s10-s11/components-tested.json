@@ -1,0 +1,17 @@
+{
+  "status": "PASS",
+  "started": "2026-11-20T00:07:04.043Z",
+  "node": "v24.22.3",
+  "target": "darwin-arm64",
+  "checks": [
+    "Actual installed worker compiles all three shipped example packs and rejects invalid JSON contract",
+    "Explicit preparation cold-downloads and verifies pinned vendor component in an owned private cache",
+    "Separate-process warm preparation reuses verified cache with unreachable proxy and no download",
+    "Corrupt owned cache cannot execute and preparation fails safely when reacquisition is blocked",
+    "Cold offline preparation reports safe failure without creating a public endpoint",
+    "Changed installed web asset is rejected before local setup or native startup",
+    "Changed installed native helper is rejected before local setup or native startup"
+  ],
+  "scope": "Actual installed package worker, explicit private-cache cold/warm/offline/corrupt preparation and owned writable sibling copies for resource corruption. Original package/user cache untouched; no public endpoint or GUI.",
+  "ended": "2026-11-20T00:07:08.628Z"
+}

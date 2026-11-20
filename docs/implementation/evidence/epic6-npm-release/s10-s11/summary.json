@@ -1,0 +1,308 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS",
+  "localDate": "2026-11-19",
+  "generatedAt": "2026-11-20T00:17:27.664457+00:00",
+  "stories": [
+    "E6-S10",
+    "E6-S11"
+  ],
+  "decision": {
+    "scopedReleasePreparationReady": true,
+    "description": "Exact local npm candidate ready for owner publication review on the recorded available Apple Silicon Mac tuple.",
+    "knownBlockingDefectsWithinDeclaredScope": [],
+    "publicationAuthorized": false,
+    "published": false,
+    "nextRequiredAction": "E6-S12 requires separate owner authorization for this concrete artifact/destination, account/name recheck, secure npm upload and exact registry/install readback."
+  },
+  "coordination": {
+    "coordinator": "root integration and actual execution",
+    "parallelReviews": [
+      "package/runtime/integrity and byte binding",
+      "browser/recovery/privacy harness coverage",
+      "requirement/release-claim review"
+    ],
+    "reviewResult": "No material remaining blocker within declared scope; stale tracker references corrected; summary created at reviewed link."
+  },
+  "machine": {
+    "platform": "darwin-arm64",
+    "cpu": "Apple M3 Pro",
+    "memoryBytes": 19327352832,
+    "macOS": "26.5.2",
+    "darwin": "25.5.0",
+    "node": "v24.22.3",
+    "npm": "11.19.1",
+    "chrome": "157.0.8103.79",
+    "uplink": "Not re-queried for this scoped two-browser run; owner-confirmed eduroam belongs to the separately dated historical capacity record."
+  },
+  "artifact": {
+    "name": "niche-out",
+    "version": "0.1.0",
+    "filename": "niche-out-0.1.0.tgz",
+    "bytes": 518389,
+    "sha256": "781e4709af83d8cd0d723e5ef33e19c73534dee180e54d0dac10d1aeef5fc62a",
+    "integrity": "sha512-JdBjuqxcnQIZg7j+qWEpiAcxouwY4hlOLqyF+S9MD5ovYLzHljIRA1mhmQ6g5A4kS3fUGN2NiviTGIFWnxnvWA==",
+    "path": "dist-npm/niche-out-0.1.0.tgz",
+    "candidateMetadata": "dist-npm/candidate.json"
+  },
+  "testedCandidateA": {
+    "name": "niche-out",
+    "version": "0.1.0",
+    "filename": "niche-out-0.1.0.tgz",
+    "bytes": 518364,
+    "sha256": "95e3978f1d408e0f736fb418bda3e94a1be56f2443e6ef10b80ba2cf247e1e89",
+    "integrity": "sha512-y/19ZHOn6S7hfC/9exKxMArGcAPf6Al8awJYiiPtJ8/IyKLFVQoCx6nbkBLrA2s3iL622rRqJiNUt8oGuKGFng=="
+  },
+  "sourceBuild": {
+    "manifestSha256": "59242d71f2bc2c5494abe1a06660b34e7d190c84a8e48dc0582916d87034494b",
+    "sourceSha256": "6a29cdfdc90f3afd6e66509c9c49f61cd7ca30d6dca394011f58afb97bf170c8",
+    "lockSha256": "7d923786b6612ff0d83d83a3255deddab582eb51dcae807b547a203adfed12ba",
+    "gitCommit": "66be721cc3b43574a523d7a15682a3d1d217842c",
+    "node": "24.22.3",
+    "npm": "npm@11.19.1"
+  },
+  "bindings": {
+    "resourcesSha256": "3dbbf766d5f35ea6e233597ad1394bc61fdd12c7c2cd2f45f69876d5953b137e",
+    "nativeManifestSha256": "7c2a471890fc75de190248c5ed4537973a8d2fb822924f535ae17d05ab1d2609",
+    "connectorManifestSha256": "f0f2dc922a6cfcf7d0f33f053a1d87d8be20dcbcef183d4d87da2f5ce84ff427",
+    "shrinkwrapSha256": "01a336eba87774f726e5fc722421f7871f6d7c6a71477324788e5b6d38f9f89d",
+    "noticesSha256": "0557d9ae2df4ac1e51517def43366bb5d6b38d48c1fd449d7e64d53a4b1e7c82"
+  },
+  "inventory": {
+    "fileCount": 263,
+    "sourceFileCount": 465,
+    "nativeTargets": [
+      "darwin-arm64",
+      "darwin-x64",
+      "win32-x64",
+      "linux-x64"
+    ],
+    "productionDependencyCount": 99,
+    "noticeDependencyCount": 106
+  },
+  "workingTree": {
+    "baseCommit": "66be721cc3b43574a523d7a15682a3d1d217842c",
+    "uncommittedSourceChanges": true,
+    "identity": "Frozen source-file hashes/sourceSha256 bind these edits; base Git commit alone does not represent this working tree. Generated evidence directory is excluded from the source digest."
+  },
+  "commands": [
+    {
+      "stage": "source-regression",
+      "command": "npm test -- --reporter=dot",
+      "result": "PASS: 485 tests / 37 files"
+    },
+    {
+      "stage": "standalone",
+      "command": "node --test scripts/npm/document-links.check.mjs scripts/npm/npm-command.check.mjs tests/packaging/package.check.mjs tests/release/release.check.mjs",
+      "result": "PASS: 35 tests"
+    },
+    {
+      "stage": "types",
+      "command": "npm run typecheck",
+      "result": "PASS"
+    },
+    {
+      "stage": "assembly",
+      "command": "npm run package:npm",
+      "result": "PASS; final selected artifact below"
+    },
+    {
+      "stage": "audit",
+      "command": "node scripts/release-audit.mjs --out=work/s10-s11/audit-final.json",
+      "result": "PASS; no integrity problems"
+    },
+    {
+      "stage": "plan",
+      "command": "node scripts/release-plan.mjs --out=work/s10-s11/plan-final.json",
+      "result": "PASS; preparationReady true, publicationAuthorized false"
+    },
+    {
+      "stage": "installation",
+      "command": "node scripts/npm/check-install.mjs --out-dir=work/s10-s11/install-final",
+      "result": "PASS: 6 checks"
+    },
+    {
+      "stage": "native",
+      "command": "node scripts/npm/check-native.mjs --install-report=work/s10-s11/install-final/report.json --out=work/s10-s11/native-final.json",
+      "result": "PASS: 3 checks"
+    },
+    {
+      "stage": "components",
+      "command": "node scripts/npm/check-components.mjs --install-report=work/s10-s11/install-final/report.json --out-dir=work/s10-s11/components-final",
+      "result": "PASS: 7 checks"
+    },
+    {
+      "stage": "game-and-recovery",
+      "command": "node scripts/npm/smoke.mjs --install-report=work/s10-s11/install-tested/report.json --out-dir=work/s10-s11/browser",
+      "result": "PASS: 6 grouped checks on A; unchanged runtime carried to final B"
+    },
+    {
+      "stage": "active-wrapper-cleanup",
+      "command": "node scripts/npm/check-wrapper.mjs --hosting --out-dir=work/s10-s11/wrapper-active",
+      "result": "PASS: A, 3 checks / 3 owned descendants / 2 listeners closed; carried to final B"
+    },
+    {
+      "stage": "final-local-wrapper-cleanup",
+      "command": "node scripts/npm/check-wrapper.mjs --out-dir=work/s10-s11/wrapper-final-local",
+      "result": "PASS: final B, 3 checks / 2 owned descendants / 1 listener closed; no public tunnel"
+    },
+    {
+      "stage": "controlled-final-damage",
+      "command": "auditRelease(root,{candidate:\"work/s10-s11/corrupt-final/candidate.json\"}) on a one-byte-changed disposable tarball copy",
+      "result": "PASS: both SHA-256 and npm integrity mismatch required; original unchanged"
+    },
+    {
+      "stage": "runtime-carry",
+      "command": "readNpmTarball comparison of all entries/modes in preserved A and final B",
+      "result": "PASS: 263 entries, 258 identical; 5 allowed docs/provenance changes"
+    },
+    {
+      "stage": "whitespace",
+      "command": "git diff --check",
+      "result": "PASS"
+    }
+  ],
+  "regression": {
+    "tests": 485,
+    "files": 37,
+    "status": "PASS",
+    "log": "work/s10-s11/unit-final.log",
+    "logSha256": "01143046c8ef90123a810ebd547193afdf696b1e0cbaf4bcc4382f914677c730",
+    "standaloneChecks": 35,
+    "standaloneLog": "work/s10-s11/standalone.log",
+    "standaloneLogSha256": "f057b6feefc73cfb30e882503c215291343190a879612629e162802f1c5f5441",
+    "selectedTestCoverage": "Project-owned tests only; ignored download/cache sources are excluded. Application runtime did not change after this regression; later changes are release/tracker prose only."
+  },
+  "failuresAndCorrections": [
+    {
+      "failure": "Default Vitest discovery collected two upstream grpc-gateway .spec.js files from an ignored Go module investigation cache; missing swagger-client dependency failed collection.",
+      "change": "Added vitest.config.ts include for project tests/**/*.test.{js,mjs,cjs,ts,tsx}.",
+      "outcome": "37 project files / 485 tests passed; cached upstream test code is not project coverage."
+    },
+    {
+      "failure": "Native idle assertion test asserted global absence while an unrelated running Niche Out host legitimately held the same named assertion.",
+      "change": "Check only assertion lines belonging to process.pid and wait for that process to release it.",
+      "outcome": "Full regression passed; unrelated host process left untouched."
+    },
+    {
+      "finding": "Old current documentation implied mandatory paid signing, staged promotion, validated Ubuntu or universal OS/runtime support; two stale tracker status references survived the first closure edit.",
+      "change": "Reconciled lean policy/actual tuple and final S10/S11 status; final source rebuilt and retested after corrections.",
+      "outcome": "Readiness claims limited to observed evidence; no optional signing or deferred platform result invented."
+    }
+  ],
+  "changes": {
+    "applicationRuntimeChanged": false,
+    "newHarness": "scripts/npm/check-components.mjs",
+    "strengthenedBrowserHarness": "scripts/npm/smoke.mjs",
+    "testIsolation": [
+      "vitest.config.ts",
+      "tests/hosting/platform-native.test.ts"
+    ],
+    "documentation": [
+      "docs/ARCHITECTURE.md",
+      "docs/IMPLEMENTATION-PLAN.md",
+      "docs/implementation/evidence/EPIC-6.md",
+      "docs/implementation/evidence/E6-S10-S11.md",
+      "docs/release/OPERATOR-GUIDE.md",
+      "docs/release/OWNER-DECISIONS.md",
+      "docs/release/RELEASE-NOTES.md",
+      "docs/release/REQUIREMENT-EVIDENCE.md"
+    ]
+  },
+  "visualReview": {
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "answerWidthChecks": 4,
+    "horizontalOverflowFound": false,
+    "screenshots": [
+      "player-answering-390.png",
+      "player-finished-390.png"
+    ],
+    "observed": "Answer field/Submit readable and reachable; standings and personal recap readable with ordinary vertical scrolling.",
+    "limitations": "Headless desktop Chrome at a phone viewport; no new physical phone, mobile keyboard or screen-reader certification."
+  },
+  "priorEvidenceCarried": {
+    "capacityRuntimeBinding": "capacity-runtime-binding.json",
+    "finalRuntimeBinding": "final-runtime-binding.json",
+    "notFreshLoadRun": true,
+    "qualification": "Prior 100 simulated players, 20 rounds, 80 WebSocket/20 polling on M3 Pro/18 GiB/eduroam; one polling ENOTFOUND DNS error recovered. Runtime byte binding carries behavior, not current provider uptime or new packaging startup cost."
+  },
+  "requirementReview": {
+    "criterionCount": 89,
+    "breakdown": {
+      "PRD": 28,
+      "UI_UX": 35,
+      "architecture": 26
+    },
+    "ledger": "docs/release/REQUIREMENT-EVIDENCE.md",
+    "npmOverride": "docs/implementation/coverage.md#npm-distribution-coverage-override",
+    "interpretation": "Dated Partial/Blocked rows retain historical scope; current lean policy and scoped handoff govern initial readiness. No blanket all-requirements/platform certification."
+  },
+  "knownLimitsAndDeferred": [
+    "Included Intel Mac, Windows and Linux prebuilds remain unverified/experimental; actual other-target execution is owner-deferred.",
+    "Available 18 GiB M3 Pro is not an 8 GiB reference-host test, 100 physical phones or a venue-network qualification.",
+    "All-polling full-game reliability and provider limits remain open; Quick Tunnel/DNS/network outages can interrupt service.",
+    "No new physical sleep/wake, terminal closure, clock-jump, clean-machine/quarantine, broader browser/keyboard or assistive-technology certification.",
+    "No paid publisher signing/notarization or independent publisher-signature root; integrity checks detect damaged bytes, not independently authenticate publisher identity.",
+    "xmlhttprequest-ssl has complete MIT permission text but missing upstream metadata label; retained informational notice finding.",
+    "Game state remains in-memory; process restart or replacement public origin requires a fresh hosting/game session."
+  ],
+  "evidenceFiles": {
+    "audit-tested.json": {
+      "sha256": "6bc15724c19ed6a84b78981ab908a9018d0567bf10bdf5ab5f1e3acccac739a1"
+    },
+    "plan-tested.json": {
+      "sha256": "91419d7ba682bbfd225729a4cccd512bf5d8b8523dd780d3fdbcc3928fd06279"
+    },
+    "install-tested.json": {
+      "sha256": "f851ecf73292fad91e64dc599cb8f69a0c8b021dcf554213bd645dc5fbf97924"
+    },
+    "native-tested.json": {
+      "sha256": "cc850af21c444fbc1ec82e595cf7b798f5472014642442775b7fc3a1576326ea"
+    },
+    "components-tested.json": {
+      "sha256": "c02aab28a4bc526dad002f96cedf96915ce921bbc90d31650d36bc7525a2505d"
+    },
+    "browser-tested.json": {
+      "sha256": "e9078febce1e4a55da9e7087ad9334599ac886565228944a12ee7f8adc2762f1"
+    },
+    "wrapper-active-tested.json": {
+      "sha256": "d96d194a4e652788bc74b4ff515e422d78a03adb1c3cea67a2ffc42180d424b4"
+    },
+    "audit-final.json": {
+      "sha256": "7d6c6eba8f1838e13ee0ec16c2686a3c30a18a1229bb318cc0c5d78e604f1d63"
+    },
+    "plan-final.json": {
+      "sha256": "67a35f2475216f11d24f18a21d73d8b26acdeaf1a13ca93b71580aa5f0c1cad4"
+    },
+    "install-final.json": {
+      "sha256": "2396970d908b261b6235acf961d0c8df6539f412d0b07e46d92d03eb8132a8d2"
+    },
+    "native-final.json": {
+      "sha256": "cc850af21c444fbc1ec82e595cf7b798f5472014642442775b7fc3a1576326ea"
+    },
+    "components-final.json": {
+      "sha256": "0eded97b6fd3bbd07ea53910760a936d9ee01095e69903fb353917ab8492c9bc"
+    },
+    "wrapper-final-local.json": {
+      "sha256": "38c6ad8f4d47f8863e93ca6ff267b80cf9049fc328b3301d874f03c6a0d13a45"
+    },
+    "corrupt-final.json": {
+      "sha256": "8e4e21285f9f125dcd465f264ad8dcf9aa70e3fa9873c09d54943982dde41683"
+    },
+    "capacity-runtime-binding.json": {
+      "sha256": "3ed0269b6613eead78f4d23d53a56cbb1b937a30e0a23bea69a9f44fea82e564"
+    },
+    "final-runtime-binding.json": {
+      "sha256": "823e7947ac4a2f22744ebcf57fb7327f2892efeb0cb71f3e91e333884602836c"
+    },
+    "player-answering-390.png": {
+      "sha256": "b7377c8a4a57e701ce45715306890cba4bffd46d245ef71ea98e76d2dda79c1c"
+    },
+    "player-finished-390.png": {
+      "sha256": "edbb0473470c4a0cc67a64cde7fe08e2b070a3fb53316a53d5c4c2e4c1bd55be"
+    }
+  }
+}

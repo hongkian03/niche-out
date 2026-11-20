@@ -1,0 +1,28 @@
+{
+  "status": "PASS",
+  "scope": "Controlled one-byte damage in a final-candidate copy, safe rejection required",
+  "originalSha256": "781e4709af83d8cd0d723e5ef33e19c73534dee180e54d0dac10d1aeef5fc62a",
+  "expectedRejection": {
+    "schemaVersion": 2,
+    "distribution": "npm",
+    "generatedAt": "2026-11-20T00:15:43.113Z",
+    "scope": "Actual npm tarball contents and frozen source/native/dependency/notice inventory; integrity is not publisher authentication or legal clearance.",
+    "problems": [
+      "Tarball SHA-256 mismatch",
+      "Tarball npm integrity mismatch",
+      "incorrect length check"
+    ],
+    "noticeFindings": [],
+    "integrityPassed": false,
+    "publicReleaseReady": false,
+    "releaseConfigSha256": "7bec35edd5ea60f367bc0784c90dbc2219c125622b9d27ece5110acdfa2c63ff",
+    "artifact": {
+      "name": "niche-out",
+      "version": "0.1.0",
+      "filename": "niche-out-0.1.0.tgz",
+      "bytes": 518389,
+      "sha256": "5bdd76c6f697c2409f3876dd3bfc116bff98390a2d68c465e50b592e5da3bef0",
+      "integrity": "sha512-GnLxmrH5C6c/4gCcTcOU3sWC6eN2xd3YpLrt6Kv11zchHPPrlECOZGjuUU4wMqs9W6RyDqqxAxGNQx6bxeWkdg=="
+    }
+  }
+}

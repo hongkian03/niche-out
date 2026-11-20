@@ -1,5 +1,7 @@
 # Epic 6 testing and release-preparation report
 
+> **Current handoff — November 19, 2026:** The [S10/S11 exact-package review](E6-S10-S11.md) records scoped npm release-preparation completion under the owner-approved lean policy. The November 16 archive/signing conclusions below are historical; paid signing and universal platform qualification are no longer initial-release prerequisites. Known network/device limits remain visible, and S12 publication is separately authorized and unstarted.
+
 November 16, 2026. Work was split between load/stress, browser/accessibility and release agents, with a coordinating integration review, additional import-capacity testing and extracted-package verification. The owner explicitly deferred other host-platform execution until after this work.
 
 **Epic 6's full G6 release gate remains open.** This is a private-candidate testing and preparation handoff, not a public release approval. The game implementation and available-Mac testing are separate from publisher signing, physical-device qualification and clean-target compatibility. The master backlog remains the story-status source.

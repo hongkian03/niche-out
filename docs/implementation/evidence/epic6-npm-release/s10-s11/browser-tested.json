@@ -1,0 +1,50 @@
+{
+  "status": "PASS",
+  "started": "2026-11-20T00:07:34.402Z",
+  "node": "v24.22.3",
+  "installRoot": "/var/folders/z9/pl3cxz554v9ckwsz0kv8cj2c0000gn/T/niche npm installed é BV3bQ3/local/node_modules/niche-out",
+  "scope": "Actual installed npm tarball, fresh Chrome390px player, host-installed Node and selected native helper, real owned Quick Tunnel. No physical phone or other platform certification.",
+  "checks": [
+    "Installed launcher/native helper and explicit connector preparation reach real public readiness",
+    "Actual bundled worker, two phone-size players, rejection/retry, aliases and joint200 scores",
+    "Installed production browser refresh restores admitted identity and final results",
+    "Browser closure leaves hosting alive and private owner recovery preserves final state",
+    "Clearing public-origin host cookies preserves private controller access and owner recovery restores final scores",
+    "Explicit quit closes installed npm launcher and owned tunnel"
+  ],
+  "preparationStates": [
+    "Ready to host",
+    "Preparing your tunnel component…",
+    "Connecting your tunnel…",
+    "Your session is ready"
+  ],
+  "browser": "157.0.8103.79",
+  "phoneLayouts": [
+    {
+      "round": 1,
+      "player": 0,
+      "viewport": 390,
+      "content": 390
+    },
+    {
+      "round": 1,
+      "player": 1,
+      "viewport": 390,
+      "content": 390
+    },
+    {
+      "round": 2,
+      "player": 0,
+      "viewport": 390,
+      "content": 390
+    },
+    {
+      "round": 2,
+      "player": 1,
+      "viewport": 390,
+      "content": 390
+    }
+  ],
+  "importDiagnostics": [],
+  "ended": "2026-11-20T00:09:10.888Z"
+}

@@ -14,11 +14,11 @@ Updated November 19, 2026, following the owner's explicit decisions during E6-S0
 | Native signing | **Optional future enhancement**, not required for scoped first npm release | No Apple/Windows certificate purchase or signing enrollment is needed now; preserve OS-required/ad-hoc signatures |
 | Trusted publishing | Recommended optional automation | Secure authenticated manual npm publishing is acceptable; if CI publishing is chosen, configure its provenance/permissions explicitly |
 | Final platform/device checks | Owner will perform on their own schedule | Retain exact artifact identity; mark Intel/Windows/Linux unverified/experimental until executed. They do not block a scoped Mac-qualified release |
-| Publication | **Not authorized** | Review exact final tarball/version/integrity and explicitly authorize candidate upload and eventual promotion |
+| Publication | **Not authorized** | Review exact final tarball/version/integrity and explicitly authorize one initial npm publication with registry/install readback; a separate candidate/stable promotion workflow is optional |
 
 An npm account manages ownership and publication of a package. A personal account is sufficient to own an unscoped package; an organization can manage team access. The owner selected personal account `hongkian03`; no organization is selected. Do not send passwords, access tokens, private keys or keychain exports.
 
-`packaging/release/candidate.json` records these decisions in npm schema 2. `release-plan` exposes deferred inputs and later signing/qualification gates without invoking them. There is no requirement to create an account or upload a package to audit a local candidate.
+`packaging/release/candidate.json` records these decisions in npm schema 2. `release-plan` exposes required local preparation and scoped S10/S11/S12 checks without invoking them. Paid signing and hosted-publisher/provenance follow-ups remain optional. There is no requirement to create an account or upload a package to audit a local candidate.
 
 ## Account/name preflight — November 19
 
