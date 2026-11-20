@@ -30,7 +30,7 @@ Normally for Boston University Singapore Student Association's annual Great Sing
 
 ## How to download
 
-**[Niche Out 0.1.1 is available on npm](https://www.npmjs.com/package/niche-out/v/0.1.1).** The host installs Node.js, then runs the command below. Players only need a web browser. You do not need to clone this repository or create an npm or Cloudflare account to play or host.
+**[Niche Out 0.1.1 is available on npm](https://www.npmjs.com/package/niche-out/v/0.1.1).** The host installs Node.js through NVM, then runs the command below. Players only need a web browser. You do not need to clone this repository or create an npm or Cloudflare account to play or host.
 
 ### Host requirements
 
@@ -40,18 +40,74 @@ Normally for Boston University Singapore Student Association's annual Great Sing
 
 The current release is verified on an Apple Silicon Mac. Included Intel Mac, Windows and Linux helpers remain unverified pending further testing. Intended host targets are macOS 15+ on Apple Silicon/Intel, Windows 11 x64 and Ubuntu 24.04+ x64/glibc. Linux also needs `xdg-open` to open the browser and systemd/logind with `systemd-inhibit` for idle-sleep prevention. The package includes compiled application assets and native helpers; hosts do not need a compiler or application build.
 
-### Install Node.js
+### Install Node.js with NVM (recommended)
 
-1. Get a supported **Node.js 24.x** release from the [official Node.js downloads](https://nodejs.org/en/download). Choose at least **24.22.3** and the installer for your operating system and processor. npm is included with the standard Node.js installation.
-2. After installing, open a new **Terminal** window on macOS/Linux or **Command Prompt** on Windows.
-3. Check that both commands work:
+**Use NVM to select Node.js `24.22.3` before running Niche Out locally.** NVM (Node Version Manager) lets you keep multiple Node.js versions installed and switch between them for different projects. This is particularly useful if your other projects use a different Node.js version. These instructions use the exact version tested for Niche Out; the application also accepts newer 24.x versions, but not Node 25 or newer.
+
+On **macOS/Linux**, use [nvm-sh/nvm](https://github.com/nvm-sh/nvm). On **Windows**, use [NVM for Windows](https://github.com/nvm-windows/nvm), a separate project with its own installer. Choose either setup option below; both use NVM to manage Node.js and npm.
+
+#### Option 1: Follow the official NVM website/installation guide
+
+1. Install the version manager for your operating system:
+   - **macOS/Linux:** follow the [official NVM installation guide](https://github.com/nvm-sh/nvm#install--update-script), including its shell setup instructions.
+   - **Windows:** download and run the free Community Build installer from the [official NVM for Windows installation page](https://docs.nvm-windows.com/install/installers/). Follow its guidance for migrating any existing Node.js installation.
+2. Open a new **Terminal** window on macOS/Linux or **Command Prompt** on Windows, then run:
 
 ```sh
+nvm install 24.22.3
+nvm use 24.22.3
 node --version
 npm --version
 ```
 
-The first should print `v24.22.3` or a newer `v24.x` version; the second should print an npm version number. If either command is missing, reopen your terminal after installing Node.js.
+`node --version` should print **`v24.22.3`**; `npm --version` should print a version number. npm comes with the Node.js version installed by NVM.
+
+#### Option 2: Set up NVM and Node.js from the terminal
+
+**macOS/Linux — Bash or Zsh**
+
+If NVM is already installed, skip the installation block and run the Node.js commands below. Otherwise, install NVM and load it into your current shell:
+
+```sh
+export NVM_DIR="${NVM_DIR:-$HOME/.nvm}"
+mkdir -p "$NVM_DIR"
+curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.41.0/install.sh | bash
+. "$NVM_DIR/nvm.sh"
+```
+
+Then install and select the tested Node.js version:
+
+```sh
+nvm install 24.22.3
+nvm use 24.22.3
+node --version
+npm --version
+```
+
+This uses the [official NVM installer](https://github.com/nvm-sh/nvm#install--update-script), which updates your shell profile to load NVM on future terminal sessions. If a new terminal cannot find `nvm`, follow the installer's shell-profile instructions. If macOS requests Xcode Command Line Tools, run `xcode-select --install`, finish that installation, then retry the NVM installation block. These are NVM setup requirements, not a Niche Out source build.
+
+**Windows — PowerShell or Command Prompt**
+
+With [WinGet](https://learn.microsoft.com/en-us/windows/package-manager/winget/) available, install the NVM for Windows Community Build from a normal, non-administrator terminal:
+
+```powershell
+winget install --id AuthorSoftware.NVMWindows --exact --source winget
+```
+
+Close that terminal and open a new **Command Prompt** so the updated PATH is loaded. Then run:
+
+```bat
+nvm install 24.22.3
+nvm use 24.22.3
+node --version
+npm --version
+```
+
+If WinGet is unavailable, use Option 1's installer. See the [NVM for Windows installation documentation](https://docs.nvm-windows.com/install/installers/) for existing-install migration and PATH setup.
+
+#### Switch versions before playing
+
+Once Node.js is installed, you only need `nvm use 24.22.3` before launching Niche Out. When returning to another project, use NVM to select that project's Node.js version. If `node --version` still shows the wrong version, check NVM's PATH/troubleshooting guidance before launching the game. Global npm commands may need installing separately for each Node.js version; the `npm exec` launch command below avoids relying on a global Niche Out installation.
 
 See the [changelog](docs/release/RELEASE-NOTES.md) for this release's changes.
 
@@ -78,6 +134,7 @@ Source builds require the development toolchain and native build prerequisites i
 With supported Node.js and npm installed, paste this into your terminal. It works from any directory:
 
 ```sh
+nvm use 24.22.3
 npm exec --yes --ignore-scripts --package=niche-out@0.1.1 -- niche-out
 ```
 
