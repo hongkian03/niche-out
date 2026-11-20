@@ -30,9 +30,9 @@ Normally for Boston University Singapore Student Association's annual Great Sing
 
 ## How to download
 
-The project now builds a **local npm candidate**, `dist-npm/niche-out-0.1.0.tgz`. It is not published to the npm registry yet. Obtain that file from the maintainer, or build it from a source checkout using the [development guide](docs/DEVELOPMENT.md#build-and-check-the-npm-candidate).
+**Niche Out 0.1.0 is available on [npm](https://www.npmjs.com/package/niche-out).** You can run it directly with npm using the command below, or install it globally. Source-build instructions remain in the [development guide](docs/DEVELOPMENT.md#build-and-check-the-npm-candidate).
 
-Hosts need supported **Node.js `>=24.22.3 <25`** with npm. The candidate contains compiled application assets and prebuilt native helpers; installing/running it requires no compiler or application build. Players need only a browser.
+Hosts need supported **Node.js `>=24.22.3 <25`** with npm. The package contains compiled application assets and prebuilt native helpers; installing/running it requires no compiler or application build. Players need only a browser.
 
 For contributors, [download the source ZIP](https://github.com/hongkian03/niche-out/archive/refs/heads/main.zip) or clone the repository:
 
@@ -47,16 +47,16 @@ The intended targets are macOS 15+ Apple Silicon/Intel, Windows 11 x64 and Ubunt
 
 ### Set up the host
 
-With supported Node/npm installed, run the local candidate from the repository directory:
+With supported Node/npm installed, run this from any directory:
 
 ```sh
-npm exec --yes --ignore-scripts --package=./dist-npm/niche-out-0.1.0.tgz -- niche-out
+npm exec --yes --ignore-scripts --package=niche-out@0.1.0 -- niche-out
 ```
 
-If the tarball is somewhere else, replace the package path with its quoted absolute path. This uses the local file, not a published `niche-out` registry package. npm installs the candidate's runtime dependencies; there are no install hooks or native build steps. An optional preparation command verifies/downloads the tunnel component without starting hosting:
+npm downloads the published package and its runtime dependencies; there are no install hooks or native build steps. You do not need to clone this repository. If you prefer a global command, run `npm install --global --ignore-scripts niche-out@0.1.0`, then `niche-out`. An optional preparation command verifies/downloads the tunnel component without starting hosting:
 
 ```sh
-npm exec --yes --ignore-scripts --package=./dist-npm/niche-out-0.1.0.tgz -- niche-out prepare
+npm exec --yes --ignore-scripts --package=niche-out@0.1.0 -- niche-out prepare
 ```
 
 The normal command opens the private local hosting dashboard. **Start hosting** verifies the user-cached cloudflared executable and downloads the pinned component if missing; progress and errors appear in setup. Cold preparation and tunneled play need internet. Keep the CLI terminal open; Ctrl-C or **Quit launcher** stops it. Stop hosting and quit before updating or uninstalling the package.
@@ -87,6 +87,7 @@ Start with one of the [example game files](examples/):
 
 - [One-round example](examples/game.example.json) for a quick check.
 - [Five-round example](examples/game.five-rounds.json) for testing the game flow.
+- [Ten-round Singapore example](examples/game.singapore.json) for a themed game.
 
 Copy an example, edit its prompts, answers, aliases, tiers, and timers, then upload it through the host page. Scoring follows the tiers in the JSON; answer popularity during play does not change the points. See the [game format guide](examples/FORMAT.md) for the full structure and validation rules.
 

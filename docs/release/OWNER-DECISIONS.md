@@ -2,19 +2,19 @@
 
 The November 19 lean-release policy makes paid native signing and exhaustive platform qualification optional/deferred for the initial scoped npm release; see [release policy](SIGNING.md).
 
-Updated November 19, 2026, following the owner's explicit decisions during E6-S06. The npm candidate and local release tools are implemented. No package has been published, reserved or assigned to an npm account.
+Updated November 19, 2026, following the owner's explicit decisions during E6-S06. The npm release tools are implemented. Story 12 published and verified `niche-out@0.1.0` under personal account `hongkian03`; see the [publication record](../implementation/evidence/E6-S12.md).
 
 | Input | Current decision | Remaining action |
 | --- | --- | --- |
-| Product / package | **Niche Out** / **`niche-out`**, name approved by owner | Registry returned 404 November 19; name currently has no published package. Recheck before first publication; name is not reserved |
+| Product / package | **Niche Out** / **`niche-out`**, name approved by owner | Initial preflight returned 404; publication/readback now confirm `niche-out@0.1.0`. Recheck access and unused version for future releases |
 | Source license / copyright | Existing **MIT**; **Copyright (c) 2026 Kian Hong Tan** | Reused from root LICENSE; no new license choice required |
-| npm account or organization | **Personal account `hongkian03`**, confirmed by owner November 19 | `npm whoami` verified `hongkian03` November 19. First accepted publication establishes package ownership; recheck access then |
+| npm account or organization | **Personal account `hongkian03`**, confirmed by owner November 19 | Public registry metadata verifies `hongkian03` as publisher and maintainer of the published package |
 | Release publisher | **Kian Hong Tan**, display name approved November 19 | Optional native publisher identities are needed only if later signing enhancements are chosen |
 | Artwork / example rights | **Approved November 19** for original SVG/CSS and authored example packs, including Singapore, under MIT | Third-party materials retain their own licenses |
 | Native signing | **Optional future enhancement**, not required for scoped first npm release | No Apple/Windows certificate purchase or signing enrollment is needed now; preserve OS-required/ad-hoc signatures |
 | Trusted publishing | Recommended optional automation | Secure authenticated manual npm publishing is acceptable; if CI publishing is chosen, configure its provenance/permissions explicitly |
 | Final platform/device checks | Owner will perform on their own schedule | Retain exact artifact identity; mark Intel/Windows/Linux unverified/experimental until executed. They do not block a scoped Mac-qualified release |
-| Publication | **Not authorized** | Review exact final tarball/version/integrity and explicitly authorize one initial npm publication with registry/install readback; a separate candidate/stable promotion workflow is optional |
+| Publication | **Authorized and completed for `0.1.0`** | Exact reviewed bytes published and independently verified; future releases require their own reviewed version and authorization |
 
 An npm account manages ownership and publication of a package. A personal account is sufficient to own an unscoped package; an organization can manage team access. The owner selected personal account `hongkian03`; no organization is selected. Do not send passwords, access tokens, private keys or keychain exports.
 
@@ -27,3 +27,7 @@ Read-only requests to the official registry returned HTTP 404 for `niche-out`, a
 ## Original-material approval — November 19
 
 The owner explicitly approved MIT distribution of original SVG/CSS artwork and authored example packs, including Singapore. The graphics are inline SVG/CSS in `apps/web/src/components.tsx` and `styles.css`; VT323 is the separate third-party OFL font. Example source citations and editorial rarity limitations are retained. This approval covers our original material, without assigning third-party font, reference-site or name rights to the project.
+
+## Publication completion — November 19
+
+The owner explicitly requested Story 12 and completed npm browser authentication. The exact reviewed `0.1.0` tarball was published, independently downloaded, integrity-checked and clean-installed by public name/version. S12 records the current outcome; `packaging/release/candidate.json` and S10/S11 evidence remain the historical prepublication snapshot rather than being rewritten after the fact. No second version or repository push was performed.

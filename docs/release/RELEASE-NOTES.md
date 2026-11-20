@@ -1,5 +1,11 @@
 # Niche Out release direction and private candidate history
 
+## Published 0.1.0 — November 19, 2026
+
+[Niche Out 0.1.0](https://www.npmjs.com/package/niche-out) is the first public npm release, published by `hongkian03` after owner authorization. The [S12 record](https://github.com/hongkian03/niche-out/blob/main/docs/implementation/evidence/E6-S12.md) confirms exact reviewed tarball integrity, a fresh public-registry installation, the Singapore import worker and native/local-launcher startup/cleanup. Run `npm exec --yes --ignore-scripts --package=niche-out@0.1.0 -- niche-out` with supported Node `>=24.22.3 <25`.
+
+This changes distribution availability, not game rules or platform/network qualification. The immutable package retains prepublication wording in bundled guides; the repository README/operator guide contain current public commands. Older private-candidate statements below describe their dated snapshots. No replacement `0.1.0` or additional version was uploaded.
+
 ## Lean initial npm release policy — November 19, 2026
 
 This owner-approved policy supersedes earlier mandatory paid publisher-signing and exhaustive qualification wording. A scoped first release requires an exact installable npm tarball, intact resource/native/connector digests, source/dependency traceability, complete license notices, meaningful functional/security/recovery checks, accurate platform/network limitations, and explicit publication approval. Keep any platform-required or linker-generated ad-hoc signatures. Paid Apple Developer ID/notarization, Windows publisher certificates, independently signed Linux/native inventories and a desktop installer/container are optional future enhancements, not initial-release gates.

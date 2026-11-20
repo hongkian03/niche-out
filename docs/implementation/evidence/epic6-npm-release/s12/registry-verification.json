@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS",
+  "started": "2026-11-20T00:27:24.074Z",
+  "checks": [
+    "Public version, latest tag, publisher/maintainer and npm integrity match the approved release",
+    "Independently downloaded registry tarball is byte-identical to S10/S11 reviewed bytes",
+    "Fresh isolated npm install by public name/version resolves the reviewed registry tarball with scripts disabled",
+    "All 263 installed packed files match the public tarball; executable modes retained",
+    "Installed CLI help/version and registry npm-exec work from an unrelated directory",
+    "Actual registry-installed worker compiles the shipped Singapore example",
+    "Registry-installed resources and native helper start a private loopback hosting dashboard",
+    "Registry-installed launcher shutdown closes its private listener; no public tunnel started"
+  ],
+  "node": "v24.22.3",
+  "target": "darwin-arm64",
+  "scope": "Actual public npm registry metadata and independent tarball download, fresh by-name install and npm-exec with isolated caches, all packed file bytes, worker, native selection, private local dashboard and shutdown. No new public game/load/platform qualification.",
+  "registry": {
+    "name": "niche-out",
+    "version": "0.1.0",
+    "publisher": "hongkian03",
+    "maintainers": [
+      "hongkian03"
+    ],
+    "tag": "0.1.0",
+    "tarball": "https://registry.npmjs.org/niche-out/-/niche-out-0.1.0.tgz",
+    "sha256": "781e4709af83d8cd0d723e5ef33e19c73534dee180e54d0dac10d1aeef5fc62a",
+    "integrity": "sha512-JdBjuqxcnQIZg7j+qWEpiAcxouwY4hlOLqyF+S9MD5ovYLzHljIRA1mhmQ6g5A4kS3fUGN2NiviTGIFWnxnvWA==",
+    "bytes": 518389
+  },
+  "installRoot": "/var/folders/z9/pl3cxz554v9ckwsz0kv8cj2c0000gn/T/niche npm public é yqkpCC/local/node_modules/niche-out",
+  "temporary": "/var/folders/z9/pl3cxz554v9ckwsz0kv8cj2c0000gn/T/niche npm public é yqkpCC",
+  "installedFileCount": 263,
+  "ended": "2026-11-20T00:27:28.199Z"
+}

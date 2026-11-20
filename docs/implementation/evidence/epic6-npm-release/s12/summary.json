@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "story": "E6-S12",
+  "status": "PASS",
+  "recordedAt": "2026-11-20T00:29:33.108131+00:00",
+  "localDate": "2026-11-19",
+  "publicationAuthorized": true,
+  "published": true,
+  "packageUrl": "https://www.npmjs.com/package/niche-out",
+  "registry": {
+    "name": "niche-out",
+    "version": "0.1.0",
+    "publisher": "hongkian03",
+    "maintainers": [
+      "hongkian03"
+    ],
+    "tag": "0.1.0",
+    "tarball": "https://registry.npmjs.org/niche-out/-/niche-out-0.1.0.tgz",
+    "sha256": "781e4709af83d8cd0d723e5ef33e19c73534dee180e54d0dac10d1aeef5fc62a",
+    "integrity": "sha512-JdBjuqxcnQIZg7j+qWEpiAcxouwY4hlOLqyF+S9MD5ovYLzHljIRA1mhmQ6g5A4kS3fUGN2NiviTGIFWnxnvWA==",
+    "bytes": 518389
+  },
+  "checks": [
+    "Public version, latest tag, publisher/maintainer and npm integrity match the approved release",
+    "Independently downloaded registry tarball is byte-identical to S10/S11 reviewed bytes",
+    "Fresh isolated npm install by public name/version resolves the reviewed registry tarball with scripts disabled",
+    "All 263 installed packed files match the public tarball; executable modes retained",
+    "Installed CLI help/version and registry npm-exec work from an unrelated directory",
+    "Actual registry-installed worker compiles the shipped Singapore example",
+    "Registry-installed resources and native helper start a private loopback hosting dashboard",
+    "Registry-installed launcher shutdown closes its private listener; no public tunnel started"
+  ],
+  "actualEnvironment": {
+    "target": "darwin-arm64",
+    "node": "v24.22.3",
+    "scope": "Available Apple Silicon Mac; same scoped limitations as S10/S11"
+  },
+  "authorization": "authorization.json",
+  "prepublicationAudit": "prepublication-audit.json",
+  "verification": "registry-verification.json",
+  "initialReadback": "initial-readback.json",
+  "verificationScript": {
+    "snapshot": "verify-published.mjs",
+    "executedPath": "work/s12/verify-published.mjs",
+    "command": "node work/s12/verify-published.mjs",
+    "note": "Snapshot uses original work/s12 relative imports; reproduce from that path in the source checkout."
+  },
+  "publicationCommand": "npm publish ./niche-out-0.1.0.tgz --ignore-scripts --access=public --tag=latest --registry=https://registry.npmjs.org --loglevel=warn",
+  "publicationWorkingDirectory": "work/s12/publisher",
+  "timeline": [
+    "Exact S10/S11 artifact audit and SHA256/npm integrity recheck passed; whoami hongkian03, registry404, dry-run passed.",
+    "User authorized Story12 and completed npm browser authentication.",
+    "npm publish returned exit0 after HTTP202; initial registry readback exposed only placeholder0.0.0-stage, and the bounded0.1.0 readback failed.",
+    "No blind repeat publication or version bump occurred. Stage-list queries returned empty; registry subsequently exposed0.1.0. Internal registry processing cause was not established.",
+    "Fresh cache-busted readback confirmed latest0.1.0, publisher/maintainer hongkian03 and matching integrity; independent public download and fresh by-name install passed all8checks."
+  ],
+  "artifactUnchanged": true,
+  "additionalReleasePublished": false,
+  "noNewLoadOrPlatformCertification": true,
+  "knownLimits": [
+    "Intel/Windows/Linux actual execution remains owner-deferred/unverified; prior mixed100player evidence is unchanged.",
+    "QuickTunnel/DNS/provider/network limitations and all-polling qualification remain as documented.",
+    "The immutable0.1.0 tarball includes prepublication candidate wording in its bundled README/guides. Current repository instructions are updated; future documentation refresh requires a new reviewed version.",
+    "No npm credentials, private launcher URLs or authentication codes are retained in tracked evidence."
+  ],
+  "repositoryPushPerformed": false,
+  "sourceSnapshotNote": "Post-publication documentation edits do not alter published0.1.0. packaging/release/candidate.json and S10/S11 records retain their historical prepublication state; S12 record is the publication truth. Any new artifact needs its own freeze/version/review.",
+  "evidenceSha256": {
+    "authorization.json": "989d3c7598c0cdfd69faec5a31baaca8d0336fa84013a6226b38f7289ac276da",
+    "prepublication-audit.json": "14ba8ce0efc081a8515893a0fe36d11c627ac455cf16bd458f967bb15ea1fcae",
+    "registry-verification.json": "3c5ca9e8f59509f120c085fc48f7a1448e659dc4c767658fc7887ec626a60681",
+    "initial-readback.json": "38559a9468961db50af148231c147193e912492c25a31495431624da4a16457f",
+    "verify-published.mjs": "c22a0ffae4ac9fe6b22830d447851283d0d8558368054567db1848dd1046d30f"
+  },
+  "postPublicationDocumentation": [
+    "README.md",
+    "docs/DEVELOPMENT.md",
+    "docs/IMPLEMENTATION-PLAN.md",
+    "docs/implementation/evidence/EPIC-6.md",
+    "docs/implementation/evidence/E6-S12.md",
+    "docs/release/OPERATOR-GUIDE.md",
+    "docs/release/OWNER-DECISIONS.md",
+    "docs/release/RELEASE-NOTES.md",
+    "docs/release/REQUIREMENT-EVIDENCE.md"
+  ],
+  "postPublicationChecks": {
+    "documentLinkFixtures": "2 passed",
+    "gitDiffCheck": "PASS",
+    "runtimeCodeChanged": false
+  }
+}

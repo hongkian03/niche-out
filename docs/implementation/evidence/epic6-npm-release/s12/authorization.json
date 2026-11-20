@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "story": "E6-S12",
+  "recordedAt": "2026-11-20T00:22:58.366126+00:00",
+  "authorization": {
+    "source": "User explicitly requested proceeding with Story 12 immediately after reviewing its exact npm-publication scope.",
+    "userRequest": "ok, lets embark on story 12!! exciting!",
+    "destination": "https://registry.npmjs.org",
+    "account": "hongkian03",
+    "package": "niche-out",
+    "version": "0.1.0",
+    "tag": "latest",
+    "access": "public",
+    "artifact": {
+      "name": "niche-out",
+      "version": "0.1.0",
+      "filename": "niche-out-0.1.0.tgz",
+      "bytes": 518389,
+      "sha256": "781e4709af83d8cd0d723e5ef33e19c73534dee180e54d0dac10d1aeef5fc62a",
+      "integrity": "sha512-JdBjuqxcnQIZg7j+qWEpiAcxouwY4hlOLqyF+S9MD5ovYLzHljIRA1mhmQ6g5A4kS3fUGN2NiviTGIFWnxnvWA==",
+      "path": "dist-npm/niche-out-0.1.0.tgz",
+      "candidateMetadata": "dist-npm/candidate.json"
+    },
+    "scope": "One reviewed initial publication and registry/download/install readback; no additional release, hosting service, signing enrollment or repository push."
+  },
+  "preflight": {
+    "checkedAt": "2026-11-20T00:21:23.174Z",
+    "registry": "https://registry.npmjs.org",
+    "packageName": "niche-out",
+    "status": 404
+  },
+  "accountMatches": true,
+  "dryRunPassed": true,
+  "publicationStatus": "Published and independently verified as niche-out@0.1.0",
+  "sourceFreeze": "Original S10/S11 tarball retained unchanged; generated S12 evidence excluded from source digest.",
+  "verificationRecord": "registry-verification.json"
+}

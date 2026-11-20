@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "status": "FAIL",
+  "started": "2026-11-20T00:24:43.988Z",
+  "checks": [],
+  "node": "v24.22.3",
+  "target": "darwin-arm64",
+  "scope": "Actual public npm registry metadata and independent tarball download, fresh by-name install and npm-exec with isolated caches, all packed file bytes, worker, native selection, private local dashboard and shutdown. No new public game/load/platform qualification.",
+  "error": "Published version not available after bounded readback",
+  "ended": "2026-11-20T00:25:47.258Z"
+}

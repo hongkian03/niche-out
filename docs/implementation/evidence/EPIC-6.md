@@ -1,6 +1,6 @@
 # Epic 6 testing and release-preparation report
 
-> **Current handoff — November 19, 2026:** The [S10/S11 exact-package review](E6-S10-S11.md) records scoped npm release-preparation completion under the owner-approved lean policy. The November 16 archive/signing conclusions below are historical; paid signing and universal platform qualification are no longer initial-release prerequisites. Known network/device limits remain visible, and S12 publication is separately authorized and unstarted.
+> **Current handoff — November 19, 2026:** The [S10/S11 exact-package review](E6-S10-S11.md) records scoped npm release-preparation completion under the owner-approved lean policy. The November 16 archive/signing conclusions below are historical; paid signing and universal platform qualification are no longer initial-release prerequisites. Known network/device limits remain visible. The owner subsequently authorized [S12 publication](E6-S12.md); `niche-out@0.1.0` is now public and independently verified.
 
 November 16, 2026. Work was split between load/stress, browser/accessibility and release agents, with a coordinating integration review, additional import-capacity testing and extracted-package verification. The owner explicitly deferred other host-platform execution until after this work.
 
