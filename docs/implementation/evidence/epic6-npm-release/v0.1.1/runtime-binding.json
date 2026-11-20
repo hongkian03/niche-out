@@ -1,0 +1,124 @@
+{
+  "status": "PASS",
+  "runtimeFiles": [
+    {
+      "path": "native/darwin-arm64/niche-guard",
+      "sha256": "af52ee94d1ac4ad6aee9de205a3579ad8c76609689d8b3962b61c3eacad345c1",
+      "mode": 493
+    },
+    {
+      "path": "native/darwin-x64/niche-guard",
+      "sha256": "33c1f9b0922ee7159229fb5c516c4a16828cdcc2026f665e114c6f11f8542ab0",
+      "mode": 493
+    },
+    {
+      "path": "native/linux-x64/niche-guard",
+      "sha256": "62f894c9a32da8ec9b45456abc3f0fbd7d8de85c7dd0855104c3609dae1a0ec0",
+      "mode": 493
+    },
+    {
+      "path": "bin/niche-out.cjs",
+      "sha256": "b4f63f2b6cbcde8fe9d701222084e57f56e6089298d600ffb1994b02c5fc99d6",
+      "mode": 493
+    },
+    {
+      "path": "bin/runtime.cjs",
+      "sha256": "f27af8b90a9a23017a64eee5c032899f2918c0b6a4665ae09c1e3d6b87d69bd2",
+      "mode": 420
+    },
+    {
+      "path": "apps/web/dist/assets/index-lb1N9Y27.css",
+      "sha256": "209206b3945ee221138addfb23334a4020d2bac5dc7fc87b4c929692afae7c19",
+      "mode": 420
+    },
+    {
+      "path": "apps/server/hosting-assets/local/style.css",
+      "sha256": "b25968cbbe55f1aebbe42538f7b9e6f62dd76678ebc3b8c60bd23f7d99cfa9f4",
+      "mode": 420
+    },
+    {
+      "path": "apps/server/hosting-assets/local/index.html",
+      "sha256": "638443f17cb1fc1bdd27ba74afde075f9714da0e613dc055f03aa34724c1cc9c",
+      "mode": 420
+    },
+    {
+      "path": "apps/web/dist/index.html",
+      "sha256": "6543693e2956a6b10ef6c689f7c3c6e8281920e069539861c3dbb61d21afdb07",
+      "mode": 420
+    },
+    {
+      "path": "apps/server/hosting-assets/local/dashboard.js",
+      "sha256": "3a1fbf3860f756af38a43d2668512fb4cbe56676012214cefc8a4476deae0154",
+      "mode": 420
+    },
+    {
+      "path": "apps/server/dist/game/import-worker.js",
+      "sha256": "7dd45473d4e1a145828fc58b573d729309acee6a7d354abd35ca681a4e34df17",
+      "mode": 420
+    },
+    {
+      "path": "apps/web/dist/assets/index-B9eN9Lxp.js",
+      "sha256": "096ff2332fc60de376b1111aa9c6d40b8a59775ad6e46e0f3d74116725c92ff1",
+      "mode": 420
+    },
+    {
+      "path": "apps/server/dist/hosting/launch.js",
+      "sha256": "7ab25a009f93005636e49ee3a676e538fee910d0c0b30283b56562826957a2e5",
+      "mode": 420
+    },
+    {
+      "path": "scripts/cloudflared-manifest.json",
+      "sha256": "f0f2dc922a6cfcf7d0f33f053a1d87d8be20dcbcef183d4d87da2f5ce84ff427",
+      "mode": 420
+    },
+    {
+      "path": "apps/web/dist/game.example.json",
+      "sha256": "5a1f6f383fb35b923ed8d56dd93932c62dc0cbef3718233b4712a9e600158735",
+      "mode": 420
+    },
+    {
+      "path": "native/darwin-arm64/niche-platform.node",
+      "sha256": "5454b5f6c8fec63c4345f02cf4b7f8b67bb8e883f169ef86e31e6ca4d73b1d80",
+      "mode": 493
+    },
+    {
+      "path": "native/darwin-x64/niche-platform.node",
+      "sha256": "891774b6224dd4a37261c653b526894c983b5ac8b99dd323965458331904650e",
+      "mode": 493
+    },
+    {
+      "path": "native/linux-x64/niche-platform.node",
+      "sha256": "ced03669c2a18df7f5f5b2e55331db92bfff5e282950688b97593b87fccb401e",
+      "mode": 493
+    },
+    {
+      "path": "native/win32-x64/niche-platform.node",
+      "sha256": "b29dba7ccd6e194aa266b1be7fefb0cab707f70c13bd82209b8f91c2b28ec995",
+      "mode": 493
+    },
+    {
+      "path": "apps/web/dist/assets/VT323-Regular-DICElq-Y.ttf",
+      "sha256": "cf4de751ada78ceac033dbe16a687742939995b77bc2a052ae17a4957958594d",
+      "mode": 420
+    },
+    {
+      "path": "apps/web/dist/asset-notices.txt",
+      "sha256": "d854fff0d8643572b4e95f12f5a2e87609a199810fe659fa3f9a3f3ce7d4376e",
+      "mode": 420
+    },
+    {
+      "path": "apps/web/dist/game-format.txt",
+      "sha256": "0e2df84683466ef4a2cbea8fa301ad4422d0f60cdb723eee7da7ca5d6e1e8283",
+      "mode": 420
+    },
+    {
+      "path": "apps/web/dist/VT323-OFL.txt",
+      "sha256": "27d9af34210253e7ca1251fbace86c6f65b40031d6ce1a75493a1b2093631298",
+      "mode": 420
+    }
+  ],
+  "dependenciesUnchanged": true,
+  "readmeMatchesSource": true,
+  "changelogIncluded": true,
+  "scope": "Runtime file bytes/modes compared to independently downloaded public 0.1.0; README only differs from source in omitted-source link destinations."
+}

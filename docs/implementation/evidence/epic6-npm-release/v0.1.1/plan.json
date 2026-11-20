@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 2,
+  "distribution": "npm",
+  "product": "Niche Out",
+  "packageName": "niche-out",
+  "version": "0.1.1",
+  "mode": "review-only",
+  "executionImplemented": false,
+  "publicReleaseReady": false,
+  "publicationAuthorized": false,
+  "preparationReady": true,
+  "localIntegrityPassed": true,
+  "artifact": {
+    "name": "niche-out",
+    "version": "0.1.1",
+    "filename": "niche-out-0.1.1.tgz",
+    "bytes": 521744,
+    "sha256": "c68cca5e2d753258381a4e4719a1fffd8c05f7e1ee29920b5ae0697590adb3a9",
+    "integrity": "sha512-flcp7KmOWKSLdRFeUZrwVAu6djx3tMd5gU3DU1fq05UlvDWd93Fr+8YctKRERvLNNpt4c1g5ZP99SW82q4cqbg=="
+  },
+  "bindings": {
+    "resourcesSha256": "0c2a11fbd114b9a5010172b29dd61b6a0d95dbad1b51895487cfb5e70fe9bdc6",
+    "nativeManifestSha256": "7c2a471890fc75de190248c5ed4537973a8d2fb822924f535ae17d05ab1d2609",
+    "connectorManifestSha256": "f0f2dc922a6cfcf7d0f33f053a1d87d8be20dcbcef183d4d87da2f5ce84ff427",
+    "shrinkwrapSha256": "840b9fa97b5264dd98d01fdf34fc33d6388ba88cf54ae0b94cdae2895470abf4",
+    "noticesSha256": "e4b228fed1208966c27fa4c19e5b4117e0ffd95c60fabd9c935c1610301cf6a6"
+  },
+  "blockers": [],
+  "releaseScope": {
+    "name": "lean-initial-npm",
+    "qualifiedExecutionTargets": [
+      "darwin-arm64"
+    ],
+    "includedUnverifiedTargets": [
+      "darwin-x64",
+      "win32-x64",
+      "linux-x64"
+    ],
+    "nativePublisherSigning": "optional",
+    "hostedRegistryProvenance": "optional",
+    "platformRequiredSignatures": "preserve",
+    "finalInstalledPackageReview": "required-on-declared-qualified-targets",
+    "knownCorrectnessPrivacySecurityDefects": "must-resolve-before-release",
+    "publicationAuthorization": "separate-explicit-approval"
+  },
+  "optionalEnhancements": [
+    "E6-S07: macOS Developer ID/notarization",
+    "E6-S08: Windows publisher certificate/timestamp",
+    "E6-S09: independently signed release inventory",
+    "Hosted trusted publishing and registry provenance",
+    "Separate prerelease/stable promotion workflow"
+  ],
+  "requiredNextChecks": [
+    "S10: Verify final exact installed npm bytes on declared qualified target(s); config fields are not execution evidence",
+    "S11: Review actual game/mobile/recovery evidence, unresolved correctness/privacy/security defects and accurately scoped known limits",
+    "S12: Obtain separate explicit approval, recheck account/name access, publish exact reviewed bytes, then verify registry integrity and installed published version"
+  ],
+  "stages": [
+    "S06: Audit exact tarball, source/lock/native/connector bindings, notices and approved release metadata",
+    "S10: Fresh installed-package qualification on available Mac; retain linker/platform signatures and mark included other targets unverified until tested",
+    "S11: Minimum release review with dated evidence and known limits; broad hardware/device/venue matrices and distribution polish are deferred",
+    "S12: After explicit authorization, perform secure authenticated npm publication and exact-version registry/install readback; hosted provenance and staged promotion are optional"
+  ],
+  "note": "Preparation readiness is not final release approval. This review-only tool never signs, reads keys or uploads. Optional signing/provenance and deferred unverified targets do not block a scoped initial release."
+}

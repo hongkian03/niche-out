@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS",
+  "started": "2026-11-20T00:48:21.509Z",
+  "checks": [
+    "Public version, latest tag, publisher/maintainer and npm integrity match the approved release",
+    "Independently downloaded registry tarball is byte-identical to S10/S11 reviewed bytes",
+    "Fresh isolated npm install by public name/version resolves the reviewed registry tarball with scripts disabled",
+    "All 263 installed packed files match the public tarball; executable modes retained",
+    "Installed CLI help/version and registry npm-exec work from an unrelated directory",
+    "Actual registry-installed worker compiles the shipped Singapore example",
+    "Registry-installed resources and native helper start a private loopback hosting dashboard",
+    "Registry-installed launcher shutdown closes its private listener; no public tunnel started"
+  ],
+  "node": "v24.22.3",
+  "target": "darwin-arm64",
+  "scope": "Actual public npm registry metadata and independent tarball download, fresh by-name install and npm-exec with isolated caches, all packed file bytes, worker, native selection, private local dashboard and shutdown. No new public game/load/platform qualification.",
+  "readmeAndChangelogVerified": true,
+  "registry": {
+    "name": "niche-out",
+    "version": "0.1.1",
+    "publisher": "hongkian03",
+    "maintainers": [
+      "hongkian03"
+    ],
+    "tag": "0.1.1",
+    "tarball": "https://registry.npmjs.org/niche-out/-/niche-out-0.1.1.tgz",
+    "sha256": "c68cca5e2d753258381a4e4719a1fffd8c05f7e1ee29920b5ae0697590adb3a9",
+    "integrity": "sha512-flcp7KmOWKSLdRFeUZrwVAu6djx3tMd5gU3DU1fq05UlvDWd93Fr+8YctKRERvLNNpt4c1g5ZP99SW82q4cqbg==",
+    "bytes": 521744
+  },
+  "installRoot": "/var/folders/z9/pl3cxz554v9ckwsz0kv8cj2c0000gn/T/niche npm public é VBgw3D/local/node_modules/niche-out",
+  "temporary": "/var/folders/z9/pl3cxz554v9ckwsz0kv8cj2c0000gn/T/niche npm public é VBgw3D",
+  "installedFileCount": 263,
+  "ended": "2026-11-20T00:48:26.150Z"
+}

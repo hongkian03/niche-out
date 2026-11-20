@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 2,
+  "distribution": "npm",
+  "generatedAt": "2026-11-20T00:44:02.990Z",
+  "scope": "Actual npm tarball contents and frozen source/native/dependency/notice inventory; integrity is not publisher authentication or legal clearance.",
+  "problems": [],
+  "noticeFindings": [
+    {
+      "path": "node_modules/xmlhttprequest-ssl",
+      "kind": "missing-license-metadata"
+    }
+  ],
+  "integrityPassed": true,
+  "publicReleaseReady": false,
+  "releaseConfigSha256": "4d869707744acace7d382aa12b3332cc42df42d34612fa9364ef8124542c9243",
+  "artifact": {
+    "name": "niche-out",
+    "version": "0.1.1",
+    "filename": "niche-out-0.1.1.tgz",
+    "bytes": 521744,
+    "sha256": "c68cca5e2d753258381a4e4719a1fffd8c05f7e1ee29920b5ae0697590adb3a9",
+    "integrity": "sha512-flcp7KmOWKSLdRFeUZrwVAu6djx3tMd5gU3DU1fq05UlvDWd93Fr+8YctKRERvLNNpt4c1g5ZP99SW82q4cqbg=="
+  },
+  "inventory": {
+    "fileCount": 263,
+    "sourceFileCount": 466,
+    "nativeTargets": [
+      "darwin-arm64",
+      "darwin-x64",
+      "win32-x64",
+      "linux-x64"
+    ],
+    "productionDependencyCount": 99,
+    "noticeDependencyCount": 106
+  },
+  "sourceBuild": {
+    "manifestSha256": "d7dfd9da9ab08c8c60378b6e970f65cf98d106134ed1d001d633b076e95bb3d9",
+    "sourceSha256": "6af740d7bb28f6c2120f63eedc1bf09cd8da3b027842cf86c099adb6f7d80692",
+    "lockSha256": "86254102f356d8b71c758c31cb2c69f31f2bff14057e39d9f3b79073d91a5062",
+    "gitCommit": "7fdfc4864ffcbad748c4aab15dea6071883d58ae",
+    "node": "24.22.3",
+    "npm": "npm@11.19.1"
+  },
+  "bindings": {
+    "resourcesSha256": "0c2a11fbd114b9a5010172b29dd61b6a0d95dbad1b51895487cfb5e70fe9bdc6",
+    "nativeManifestSha256": "7c2a471890fc75de190248c5ed4537973a8d2fb822924f535ae17d05ab1d2609",
+    "connectorManifestSha256": "f0f2dc922a6cfcf7d0f33f053a1d87d8be20dcbcef183d4d87da2f5ce84ff427",
+    "shrinkwrapSha256": "840b9fa97b5264dd98d01fdf34fc33d6388ba88cf54ae0b94cdae2895470abf4",
+    "noticesSha256": "e4b228fed1208966c27fa4c19e5b4117e0ffd95c60fabd9c935c1610301cf6a6"
+  }
+}

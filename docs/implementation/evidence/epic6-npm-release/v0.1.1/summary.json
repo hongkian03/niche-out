@@ -1,0 +1,1468 @@
+{
+  "status": "PASS",
+  "authorization": "User explicitly requested publishing0.1.1 with an appropriate changelog.",
+  "artifact": {
+    "schemaVersion": 1,
+    "name": "niche-out",
+    "version": "0.1.1",
+    "tarball": "/Users/kianhong/Projects/niche_out/dist-npm/niche-out-0.1.1.tgz",
+    "sha256": "c68cca5e2d753258381a4e4719a1fffd8c05f7e1ee29920b5ae0697590adb3a9",
+    "integrity": "sha512-flcp7KmOWKSLdRFeUZrwVAu6djx3tMd5gU3DU1fq05UlvDWd93Fr+8YctKRERvLNNpt4c1g5ZP99SW82q4cqbg==",
+    "size": 521744,
+    "unpackedSize": 2150437,
+    "files": [
+      {
+        "path": "LICENSE",
+        "size": 1070,
+        "mode": 420
+      },
+      {
+        "path": "README.md",
+        "size": 8586,
+        "mode": 420
+      },
+      {
+        "path": "apps/server/dist/game/import-worker.js",
+        "size": 29327,
+        "mode": 420
+      },
+      {
+        "path": "apps/server/dist/hosting/launch.js",
+        "size": 159916,
+        "mode": 420
+      },
+      {
+        "path": "apps/server/hosting-assets/local/dashboard.js",
+        "size": 8300,
+        "mode": 420
+      },
+      {
+        "path": "apps/server/hosting-assets/local/index.html",
+        "size": 2421,
+        "mode": 420
+      },
+      {
+        "path": "apps/server/hosting-assets/local/style.css",
+        "size": 1918,
+        "mode": 420
+      },
+      {
+        "path": "apps/web/dist/asset-notices.txt",
+        "size": 695,
+        "mode": 420
+      },
+      {
+        "path": "apps/web/dist/assets/index-B9eN9Lxp.js",
+        "size": 457652,
+        "mode": 420
+      },
+      {
+        "path": "apps/web/dist/assets/index-lb1N9Y27.css",
+        "size": 21676,
+        "mode": 420
+      },
+      {
+        "path": "apps/web/dist/assets/VT323-Regular-DICElq-Y.ttf",
+        "size": 153116,
+        "mode": 420
+      },
+      {
+        "path": "apps/web/dist/game-format.txt",
+        "size": 1496,
+        "mode": 420
+      },
+      {
+        "path": "apps/web/dist/game.example.json",
+        "size": 897,
+        "mode": 420
+      },
+      {
+        "path": "apps/web/dist/index.html",
+        "size": 519,
+        "mode": 420
+      },
+      {
+        "path": "apps/web/dist/VT323-OFL.txt",
+        "size": 4367,
+        "mode": 420
+      },
+      {
+        "path": "bin/niche-out.cjs",
+        "size": 2430,
+        "mode": 493
+      },
+      {
+        "path": "bin/runtime.cjs",
+        "size": 5522,
+        "mode": 420
+      },
+      {
+        "path": "docs/release/OPERATOR-GUIDE.md",
+        "size": 10940,
+        "mode": 420
+      },
+      {
+        "path": "docs/release/RELEASE-NOTES.md",
+        "size": 10385,
+        "mode": 420
+      },
+      {
+        "path": "docs/release/SIGNING.md",
+        "size": 13166,
+        "mode": 420
+      },
+      {
+        "path": "examples/FORMAT.md",
+        "size": 2521,
+        "mode": 420
+      },
+      {
+        "path": "examples/game.example.json",
+        "size": 897,
+        "mode": 420
+      },
+      {
+        "path": "examples/game.five-rounds.json",
+        "size": 4109,
+        "mode": 420
+      },
+      {
+        "path": "examples/game.singapore.json",
+        "size": 39600,
+        "mode": 420
+      },
+      {
+        "path": "examples/game.singapore.sources.md",
+        "size": 32984,
+        "mode": 420
+      },
+      {
+        "path": "native-manifest.json",
+        "size": 2199,
+        "mode": 420
+      },
+      {
+        "path": "native/darwin-arm64/niche-guard",
+        "size": 34344,
+        "mode": 493
+      },
+      {
+        "path": "native/darwin-arm64/niche-platform.node",
+        "size": 51296,
+        "mode": 493
+      },
+      {
+        "path": "native/darwin-x64/niche-guard",
+        "size": 9352,
+        "mode": 493
+      },
+      {
+        "path": "native/darwin-x64/niche-platform.node",
+        "size": 13936,
+        "mode": 493
+      },
+      {
+        "path": "native/linux-x64/niche-guard",
+        "size": 14800,
+        "mode": 493
+      },
+      {
+        "path": "native/linux-x64/niche-platform.node",
+        "size": 17088,
+        "mode": 493
+      },
+      {
+        "path": "native/win32-x64/niche-platform.node",
+        "size": 220160,
+        "mode": 493
+      },
+      {
+        "path": "npm-shrinkwrap.json",
+        "size": 43182,
+        "mode": 420
+      },
+      {
+        "path": "package.json",
+        "size": 710,
+        "mode": 420
+      },
+      {
+        "path": "release/build-manifest.json",
+        "size": 9979,
+        "mode": 420
+      },
+      {
+        "path": "release/notices.json",
+        "size": 47336,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/inventory.json",
+        "size": 54284,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/000/LICENSE",
+        "size": 1058,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/001/cmd/toml-test-decoder/COPYING",
+        "size": 1079,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/001/cmd/toml-test-encoder/COPYING",
+        "size": 1079,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/001/cmd/tomlv/COPYING",
+        "size": 1079,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/001/COPYING",
+        "size": 1079,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/001/internal/toml-test/COPYING",
+        "size": 1079,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/002/LICENSE.txt",
+        "size": 1068,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/003/assets/LICENSE.md",
+        "size": 1413,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/003/LICENSE",
+        "size": 1091,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/004/LICENSE",
+        "size": 1266,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/005/LICENSE",
+        "size": 11325,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/005/NOTICE",
+        "size": 126,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/006/LICENSE",
+        "size": 10273,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/006/NOTICE",
+        "size": 126,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/007/LICENSE.md",
+        "size": 1077,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/008/LICENSE",
+        "size": 11357,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/009/license",
+        "size": 1080,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/010/AUTHORS",
+        "size": 1785,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/010/LICENSE",
+        "size": 1542,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/011/LICENSE",
+        "size": 1093,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/012/LICENSE",
+        "size": 1123,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/013/LICENSE",
+        "size": 1154,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/014/json/LICENSE",
+        "size": 1479,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/014/LICENSE",
+        "size": 11358,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/015/LICENSE",
+        "size": 11357,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/016/LICENSE",
+        "size": 11357,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/017/LICENSE",
+        "size": 1119,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/018/LICENSE",
+        "size": 1082,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/019/LICENSE",
+        "size": 1106,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/020/LICENSE",
+        "size": 1106,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/021/AUTHORS",
+        "size": 1743,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/021/LICENSE",
+        "size": 1555,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/022/LICENSE",
+        "size": 1480,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/023/AUTHORS",
+        "size": 234,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/023/LICENSE",
+        "size": 1312,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/024/internal/casing/LICENSE.md",
+        "size": 1486,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/024/LICENSE",
+        "size": 1511,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/025/LICENSE",
+        "size": 1084,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/026/LICENSE",
+        "size": 1070,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/027/gzhttp/LICENSE",
+        "size": 11361,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/027/internal/lz4ref/LICENSE",
+        "size": 1477,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/027/internal/snapref/LICENSE",
+        "size": 1486,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/027/LICENSE",
+        "size": 16733,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/027/s2/cmd/internal/filepathx/LICENSE",
+        "size": 1061,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/027/s2/cmd/internal/readahead/LICENSE",
+        "size": 1100,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/027/s2/LICENSE",
+        "size": 1538,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/027/snappy/AUTHORS",
+        "size": 560,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/027/snappy/LICENSE",
+        "size": 1486,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/027/snappy/xerial/LICENSE",
+        "size": 1106,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/027/zstd/internal/xxhash/LICENSE.txt",
+        "size": 1068,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/028/LICENSE",
+        "size": 1085,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/029/LICENSE",
+        "size": 1099,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/030/LICENSE",
+        "size": 1085,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/031/LICENSE",
+        "size": 11357,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/032/LICENSE",
+        "size": 11357,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/033/LICENSE",
+        "size": 1546,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/034/LICENSE",
+        "size": 1312,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/035/internal/github.com/golang/gddo/LICENSE",
+        "size": 1479,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/035/LICENSE",
+        "size": 11357,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/035/NOTICE",
+        "size": 631,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/036/LICENSE",
+        "size": 11357,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/036/NOTICE",
+        "size": 167,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/037/LICENSE",
+        "size": 11357,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/037/NOTICE",
+        "size": 178,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/038/LICENSE",
+        "size": 11357,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/038/NOTICE",
+        "size": 237,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/039/hlog/internal/mutil/LICENSE",
+        "size": 1098,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/039/LICENSE",
+        "size": 1072,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/040/LICENSE.txt",
+        "size": 1416,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/041/LICENSE",
+        "size": 3147,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/042/LICENSE",
+        "size": 1519,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/043/LICENSE",
+        "size": 11358,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/044/LICENSE",
+        "size": 1081,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/045/LICENSE",
+        "size": 11357,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/046/LICENSE",
+        "size": 11357,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/047/LICENSE",
+        "size": 12892,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/048/LICENSE",
+        "size": 12892,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/049/LICENSE",
+        "size": 12892,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/050/LICENSE",
+        "size": 12892,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/051/LICENSE",
+        "size": 12892,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/052/LICENSE",
+        "size": 11357,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/053/LICENSE",
+        "size": 1066,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/054/LICENSE",
+        "size": 1453,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/054/PATENTS",
+        "size": 1303,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/055/LICENSE",
+        "size": 1453,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/055/PATENTS",
+        "size": 1303,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/056/LICENSE",
+        "size": 1453,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/057/LICENSE",
+        "size": 1453,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/057/PATENTS",
+        "size": 1303,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/058/LICENSE",
+        "size": 1453,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/058/PATENTS",
+        "size": 1303,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/059/LICENSE",
+        "size": 1453,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/059/PATENTS",
+        "size": 1303,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/060/LICENSE",
+        "size": 1453,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/060/PATENTS",
+        "size": 1303,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/061/LICENSE",
+        "size": 11358,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/062/LICENSE",
+        "size": 11358,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/063/AUTHORS",
+        "size": 12,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/063/LICENSE",
+        "size": 11358,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/063/NOTICE.txt",
+        "size": 554,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/064/LICENSE",
+        "size": 1479,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/064/PATENTS",
+        "size": 1303,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/065/LICENSE",
+        "size": 1077,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/066/LICENSE",
+        "size": 11357,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/066/LICENSE.libyaml",
+        "size": 1313,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/066/NOTICE",
+        "size": 560,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/067/LICENSE",
+        "size": 2151,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/067/NOTICE",
+        "size": 560,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/068/LICENSE.txt",
+        "size": 1068,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/069/AUTHORS",
+        "size": 1093,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/modules/069/LICENSE",
+        "size": 1328,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/runtime/LICENSE",
+        "size": 1453,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/cloudflared/runtime/PATENTS",
+        "size": 1303,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/@fastify/ajv-compiler/LICENSE",
+        "size": 1123,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/@fastify/deepmerge/LICENSE",
+        "size": 1123,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/@fastify/error/LICENSE",
+        "size": 1123,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/@fastify/fast-json-stringify-compiler/LICENSE",
+        "size": 1123,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/@fastify/forwarded/LICENSE",
+        "size": 1174,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/@fastify/merge-json-schemas/LICENSE",
+        "size": 1123,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/@fastify/proxy-addr/LICENSE",
+        "size": 1174,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/@pinojs/redact/LICENSE",
+        "size": 1076,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/@socket.io/component-emitter/LICENSE",
+        "size": 1104,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/@types/cors/LICENSE",
+        "size": 1141,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/@types/node/LICENSE",
+        "size": 1141,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/@types/ws/LICENSE",
+        "size": 1141,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/abstract-logging/LICENSE.upstream.txt",
+        "size": 1113,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/accepts/LICENSE",
+        "size": 1167,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/ajv-formats/LICENSE",
+        "size": 1074,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/ajv/LICENSE",
+        "size": 1090,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/ajv/node_modules/fast-uri/LICENSE",
+        "size": 1813,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/ansi-regex/license",
+        "size": 1109,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/ansi-styles/license",
+        "size": 1109,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/atomic-sleep/LICENSE",
+        "size": 1087,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/avvio/LICENSE",
+        "size": 1162,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/camelcase/license",
+        "size": 1109,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/cliui/LICENSE.txt",
+        "size": 731,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/color-convert/LICENSE",
+        "size": 1087,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/color-name/LICENSE",
+        "size": 1085,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/cookie/LICENSE",
+        "size": 1175,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/cors/LICENSE",
+        "size": 1095,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/debug/LICENSE",
+        "size": 1139,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/decamelize/license",
+        "size": 1119,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/dequal/license",
+        "size": 1114,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/dijkstrajs/LICENSE.md",
+        "size": 714,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/emoji-regex/LICENSE-MIT.txt",
+        "size": 1077,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/engine.io-client/LICENSE",
+        "size": 1113,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/engine.io-parser/LICENSE",
+        "size": 1112,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/engine.io/LICENSE",
+        "size": 1123,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/engine.io/node_modules/cookie/LICENSE",
+        "size": 1175,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/esbuild/LICENSE.md",
+        "size": 1069,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/fast-decode-uri-component/LICENSE",
+        "size": 1174,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/fast-deep-equal/LICENSE",
+        "size": 1074,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/fast-json-stringify/LICENSE",
+        "size": 1165,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/fast-querystring/LICENSE",
+        "size": 1057,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/fast-uri/LICENSE",
+        "size": 1813,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/fastify/LICENSE",
+        "size": 1123,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/fastq/LICENSE",
+        "size": 765,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/find-my-way/LICENSE",
+        "size": 1080,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/find-up/license",
+        "size": 1109,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/get-caller-file/LICENSE.md",
+        "size": 745,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/ipaddr.js/LICENSE",
+        "size": 1087,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/is-fullwidth-code-point/license",
+        "size": 1109,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/json-schema-ref-resolver/LICENSE",
+        "size": 1123,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/json-schema-traverse/LICENSE",
+        "size": 1074,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/light-my-request/LICENSE",
+        "size": 1828,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/locate-path/license",
+        "size": 1109,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/mime-db/LICENSE",
+        "size": 1172,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/mime-types/LICENSE",
+        "size": 1167,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/ms/license.md",
+        "size": 1079,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/negotiator/LICENSE",
+        "size": 1177,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/object-assign/license",
+        "size": 1119,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/on-exit-leak-free/LICENSE",
+        "size": 1071,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/p-limit/license",
+        "size": 1109,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/p-locate/license",
+        "size": 1109,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/p-try/license",
+        "size": 1109,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/path-exists/license",
+        "size": 1109,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/pino-abstract-transport/LICENSE",
+        "size": 1061,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/pino-std-serializers/LICENSE",
+        "size": 1084,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/pino/LICENSE",
+        "size": 1212,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/pngjs/LICENSE",
+        "size": 1151,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/process-warning/LICENSE",
+        "size": 1123,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/qrcode/license",
+        "size": 1076,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/quick-format-unescaped/LICENSE",
+        "size": 1091,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/react-dom/LICENSE",
+        "size": 1088,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/react/LICENSE",
+        "size": 1088,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/real-require/LICENSE.md",
+        "size": 1114,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/require-directory/LICENSE",
+        "size": 1099,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/require-from-string/license",
+        "size": 1128,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/require-main-filename/LICENSE.txt",
+        "size": 731,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/ret/LICENSE",
+        "size": 1065,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/reusify/LICENSE",
+        "size": 1087,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/rfdc/LICENSE",
+        "size": 1101,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/safe-regex2/LICENSE",
+        "size": 1123,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/safe-stable-stringify/LICENSE",
+        "size": 1079,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/scheduler/LICENSE",
+        "size": 1088,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/secure-json-parse/LICENSE",
+        "size": 1768,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/semver/LICENSE",
+        "size": 765,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/set-blocking/LICENSE.txt",
+        "size": 731,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/set-cookie-parser/LICENSE",
+        "size": 1126,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/socket.io-adapter/LICENSE",
+        "size": 1113,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/socket.io-client/LICENSE",
+        "size": 1116,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/socket.io-parser/LICENSE",
+        "size": 1113,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/socket.io/LICENSE",
+        "size": 1113,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/sonic-boom/LICENSE",
+        "size": 1071,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/split2/LICENSE",
+        "size": 764,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/string-width/license",
+        "size": 1109,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/strip-ansi/license",
+        "size": 1109,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/thread-stream/LICENSE",
+        "size": 1071,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/toad-cache/LICENSE",
+        "size": 1067,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/undici-types/LICENSE",
+        "size": 1090,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/vary/LICENSE",
+        "size": 1094,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/which-module/LICENSE",
+        "size": 731,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/wrap-ansi/license",
+        "size": 1109,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/ws/LICENSE",
+        "size": 1183,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/xmlhttprequest-ssl/LICENSE",
+        "size": 1077,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/y18n/LICENSE",
+        "size": 731,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/yargs-parser/LICENSE.txt",
+        "size": 731,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/yargs/LICENSE",
+        "size": 1146,
+        "mode": 420
+      },
+      {
+        "path": "release/notices/node_modules/zod/LICENSE",
+        "size": 1072,
+        "mode": 420
+      },
+      {
+        "path": "release/source-files.json",
+        "size": 63154,
+        "mode": 420
+      },
+      {
+        "path": "resources.json",
+        "size": 42283,
+        "mode": 420
+      },
+      {
+        "path": "scripts/cloudflared-manifest.json",
+        "size": 2286,
+        "mode": 420
+      },
+      {
+        "path": "scripts/notices/abstract-logging-2.0.1-LICENSE.txt",
+        "size": 1113,
+        "mode": 420
+      },
+      {
+        "path": "scripts/notices/abstract-logging-2.0.1-source.json",
+        "size": 806,
+        "mode": 420
+      },
+      {
+        "path": "scripts/notices/cloudflared-LICENSE.txt",
+        "size": 11357,
+        "mode": 420
+      }
+    ],
+    "nativeInventory": {
+      "schemaVersion": 1,
+      "napiVersion": 8,
+      "sourceSha256": "5c557a3b50ac264c9c0bf1938ee2d5c7f7ddbec33b623164217981e756b0231e",
+      "authentication": "No project publisher authentication asserted; preserve platform/linker signatures; paid publisher signing is optional",
+      "targets": {
+        "darwin-arm64": {
+          "buildNode": "v24.22.3",
+          "buildHost": "darwin-arm64",
+          "compiler": "cc",
+          "executed": "requires recorded native tests",
+          "files": [
+            {
+              "path": "native/darwin-arm64/niche-platform.node",
+              "sha256": "5454b5f6c8fec63c4345f02cf4b7f8b67bb8e883f169ef86e31e6ca4d73b1d80"
+            },
+            {
+              "path": "native/darwin-arm64/niche-guard",
+              "sha256": "af52ee94d1ac4ad6aee9de205a3579ad8c76609689d8b3962b61c3eacad345c1"
+            }
+          ]
+        },
+        "darwin-x64": {
+          "buildNode": "v24.22.3",
+          "buildHost": "darwin-arm64",
+          "compiler": "cc",
+          "executed": "not executed on build host",
+          "files": [
+            {
+              "path": "native/darwin-x64/niche-platform.node",
+              "sha256": "891774b6224dd4a37261c653b526894c983b5ac8b99dd323965458331904650e"
+            },
+            {
+              "path": "native/darwin-x64/niche-guard",
+              "sha256": "33c1f9b0922ee7159229fb5c516c4a16828cdcc2026f665e114c6f11f8542ab0"
+            }
+          ]
+        },
+        "win32-x64": {
+          "buildNode": "v24.22.3",
+          "buildHost": "darwin-arm64",
+          "compiler": "zig",
+          "executed": "not executed on build host",
+          "files": [
+            {
+              "path": "native/win32-x64/niche-platform.node",
+              "sha256": "b29dba7ccd6e194aa266b1be7fefb0cab707f70c13bd82209b8f91c2b28ec995"
+            }
+          ]
+        },
+        "linux-x64": {
+          "buildNode": "v24.22.3",
+          "buildHost": "darwin-arm64",
+          "compiler": "zig",
+          "executed": "not executed on build host",
+          "files": [
+            {
+              "path": "native/linux-x64/niche-platform.node",
+              "sha256": "ced03669c2a18df7f5f5b2e55331db92bfff5e282950688b97593b87fccb401e"
+            },
+            {
+              "path": "native/linux-x64/niche-guard",
+              "sha256": "62f894c9a32da8ec9b45456abc3f0fbd7d8de85c7dd0855104c3609dae1a0ec0"
+            }
+          ]
+        }
+      }
+    },
+    "privateCandidate": true,
+    "published": false
+  },
+  "checks": {
+    "releaseFixtures": 35,
+    "installationChecks": 6,
+    "nativeChecks": 3,
+    "runtimeFilesUnchanged": 23,
+    "dependenciesUnchanged": true,
+    "repoReadmeIncluded": true,
+    "changelogIncluded": true
+  },
+  "initialTestFailure": "Four release fixtures coupled to live0.1.0/new-name metadata. Corrected fixture version isolation and existing-owner assumptions, then35/35passed. No application runtime change.",
+  "sourceChanges": [
+    "package.json",
+    "package-lock.json",
+    "packaging/release/candidate.json",
+    "README.md",
+    "docs/release/OPERATOR-GUIDE.md",
+    "docs/release/RELEASE-NOTES.md",
+    "tests/release/release.check.mjs"
+  ],
+  "published": true,
+  "publicationCommand": "npm publish ./niche-out-0.1.1.tgz --ignore-scripts --access=public --tag=latest --registry=https://registry.npmjs.org --loglevel=warn",
+  "publicationDirectory": "work/release-0.1.1/publisher",
+  "sourceFreezeNote": "Generated version evidence is excluded from source inventory; reviewed tarball is not rebuilt after publication.",
+  "completedAt": "2026-11-20T00:49:16.039483+00:00",
+  "localDate": "2026-11-19",
+  "packageUrl": "https://www.npmjs.com/package/niche-out/v/0.1.1",
+  "registry": {
+    "name": "niche-out",
+    "version": "0.1.1",
+    "publisher": "hongkian03",
+    "maintainers": [
+      "hongkian03"
+    ],
+    "tag": "0.1.1",
+    "tarball": "https://registry.npmjs.org/niche-out/-/niche-out-0.1.1.tgz",
+    "sha256": "c68cca5e2d753258381a4e4719a1fffd8c05f7e1ee29920b5ae0697590adb3a9",
+    "integrity": "sha512-flcp7KmOWKSLdRFeUZrwVAu6djx3tMd5gU3DU1fq05UlvDWd93Fr+8YctKRERvLNNpt4c1g5ZP99SW82q4cqbg==",
+    "bytes": 521744
+  },
+  "publicVerification": "registry-verification.json",
+  "changelog": "docs/release/RELEASE-NOTES.md#011--november-19-2026",
+  "publicChecks": 8,
+  "readmeAndChangelogVerified": true,
+  "metadataPropagation": "First fresh name-based install returned ETARGET after direct metadata/download matched. Both metadata representations subsequently included0.1.1; repeated fresh isolated install passed. No repeat publish, version bump or alternate artifact upload.",
+  "regressionScope": "35 release fixtures plus6 local-install and3 native checks.23 runtime files and dependency graph unchanged; no new load/device/platform campaign.",
+  "legacyHarnessLabel": "The reused public-verification harness calls the expected bytes S10/S11-reviewed in one message; this run actually binds against work/release-0.1.1/publisher/candidate.json and its fresh0.1.1 prepublication audit, not the old0.1.0 tarball.",
+  "commands": [
+    "node --test scripts/npm/document-links.check.mjs scripts/npm/npm-command.check.mjs tests/packaging/package.check.mjs tests/release/release.check.mjs",
+    "npm run package:npm",
+    "node scripts/release-audit.mjs --out=work/release-0.1.1/audit.json",
+    "node scripts/release-plan.mjs --out=work/release-0.1.1/plan.json",
+    "node scripts/npm/check-install.mjs --out-dir=work/release-0.1.1/install",
+    "node scripts/npm/check-native.mjs --install-report=work/release-0.1.1/install/report.json --out=work/release-0.1.1/native.json",
+    "node work/release-0.1.1/verify-published.mjs"
+  ],
+  "gitCommitOrPushPerformed": false,
+  "remainingOwnerAction": "Commit/push the local version metadata, release notes, quick-start and test-fixture updates. The earlier README-packaging change was already committed by the owner.",
+  "evidenceSha256": {
+    "runtime-binding.json": "39ea0565d6eee4b277ea8adb42cffe660f85b02bb4b435c2abf9e071ba5c4382",
+    "audit.json": "d2571e19855e88c83a12a5d88f8ee179b5b07fc3a48495d4f431b9411856ce8f",
+    "plan.json": "e14bb8c86cd2ddccf937d4adfecd100e5daeb23fb6710b2285e237c0d0b82353",
+    "registry-verification.json": "2b79020aae77fa14c6e67536bf2c8fa16f2ab11a6454712b3f10bf5d68076351",
+    "native.json": "cc850af21c444fbc1ec82e595cf7b798f5472014642442775b7fc3a1576326ea",
+    "access.json": "e0c8dd0f912dd399a9c3903c1827eae27fbd1419be329ad2bd0282c8748f3d05",
+    "initial-install-failure.json": "76b84428e465c21bafa7bf2a5d78e09020f976bff70ce71b78f8d37ef997e11f",
+    "install.json": "d045a9a305b70da6f3d976024e0ffdff1ef1390ce524ecf2431500bdf989d77b"
+  }
+}

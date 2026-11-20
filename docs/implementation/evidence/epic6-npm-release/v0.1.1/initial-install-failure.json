@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "status": "FAIL",
+  "started": "2026-11-20T00:46:30.296Z",
+  "checks": [
+    "Public version, latest tag, publisher/maintainer and npm integrity match the approved release",
+    "Independently downloaded registry tarball is byte-identical to S10/S11 reviewed bytes"
+  ],
+  "node": "v24.22.3",
+  "target": "darwin-arm64",
+  "scope": "Actual public npm registry metadata and independent tarball download, fresh by-name install and npm-exec with isolated caches, all packed file bytes, worker, native selection, private local dashboard and shutdown. No new public game/load/platform qualification.",
+  "readmeAndChangelogVerified": true,
+  "registry": {
+    "name": "niche-out",
+    "version": "0.1.1",
+    "publisher": "hongkian03",
+    "maintainers": [
+      "hongkian03"
+    ],
+    "tag": "0.1.1",
+    "tarball": "https://registry.npmjs.org/niche-out/-/niche-out-0.1.1.tgz",
+    "sha256": "c68cca5e2d753258381a4e4719a1fffd8c05f7e1ee29920b5ae0697590adb3a9",
+    "integrity": "sha512-flcp7KmOWKSLdRFeUZrwVAu6djx3tMd5gU3DU1fq05UlvDWd93Fr+8YctKRERvLNNpt4c1g5ZP99SW82q4cqbg==",
+    "bytes": 521744
+  },
+  "error": "Command failed: /Users/kianhong/Documents/Codex/2026-11-12/in-this-project-directory-i-want/work/node-v24.22.3-darwin-arm64/bin/node /Users/kianhong/Documents/Codex/2026-11-12/in-this-project-directory-i-want/work/node-v24.22.3-darwin-arm64/lib/node_modules/npm/bin/npm-cli.js --registry=[redacted URL] --cache /var/folders/z9/pl3cxz554v9ckwsz0kv8cj2c0000gn/T/niche npm public é ns7bWV/npm-cache install --ignore-scripts --no-audit --no-fund --engine-strict --save-exact niche-out@0.1.1\nnpm error code ETARGET\nnpm error notarget No matching version found for niche-out@0.1.1.\nnpm error notarget In most cases you or one of your dependencies are requesting a package version that doesn't exist.\nnpm error A complete log of this run can be found in: /var/folders/z9/pl3cxz554v9ckwsz0kv8cj2c0000gn/T/niche npm public é ns7bWV/npm-cache/_logs/2026-11-20T00_47_29_370Z-debug-0.log\n",
+  "ended": "2026-11-20T00:47:29.737Z"
+}

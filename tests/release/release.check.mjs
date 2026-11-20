@@ -28,7 +28,7 @@ async function fixture(){
  const license='MIT License\nCopyright (c) 2026 Kian Hong Tan\nPermission text';
  const sourceLock={version:'0.1.0',packages:{'node_modules/fastify':{version:'1.0.0',integrity:'sha512-fake',resolved:'https://registry.npmjs.org/fastify/-/fastify-1.0.0.tgz',license:'MIT'},'node_modules/esbuild':{version:'1.0.0',dev:true,license:'MIT'}}};
  const lockBytes=JSON.stringify(sourceLock),connector=JSON.stringify({version:'fixture',platforms:{}}),sourceFiles=[['src/input.js',sha256('source')]];
- await put('packaging/release/candidate.json',JSON.stringify(config));await put('LICENSE',license);await put('package-lock.json',lockBytes);await put('scripts/cloudflared-manifest.json',connector);await put('packaging/native/platform.c','platform');await put('packaging/native/guard.c','guard');await put('src/input.js','source');
+ await put('packaging/release/candidate.json',JSON.stringify({...config,version:'0.1.0'}));await put('LICENSE',license);await put('package-lock.json',lockBytes);await put('scripts/cloudflared-manifest.json',connector);await put('packaging/native/platform.c','platform');await put('packaging/native/guard.c','guard');await put('src/input.js','source');
  const lock={version:'0.1.0',packages:{'':{dependencies:{fastify:'1.0.0'}},'node_modules/fastify':sourceLock.packages['node_modules/fastify']}};
  add('package.json',{name:'niche-out',version:'0.1.0',license:'MIT',type:'module',bin:{'niche-out':'bin/niche-out.cjs'},engines:{node:'>=24.22.3 <25'},repository:{url:'git+https://github.com/hongkian03/niche-out.git'},dependencies:{fastify:'1.0.0'}});
  add('LICENSE',license);add('npm-shrinkwrap.json',lock);
@@ -47,7 +47,7 @@ async function fixture(){
 }
 test('checked-in metadata reuses MIT and npm direction, retaining deferred owner inputs',()=>{
  assert.equal(config.schemaVersion,2);assert.equal(config.distribution,'npm');assert.equal(config.ownerDecisions.projectLicenseSpdx,'MIT');
- const p=planRelease(config);assert.equal(config.ownerDecisions.npmAccountOrOrganization,'hongkian03');assert.equal(config.ownerDecisions.publisher,'Kian Hong Tan');assert(!p.blockers.some(b=>b.includes('Owner input deferred: npmAccountOrOrganization')||b.includes('Owner input deferred: publisher')));assert.equal(config.npmAccessCheck.loggedInAccount,'hongkian03');assert.equal(config.npmAccessCheck.registryStatus,404);assert(!p.blockers.some(b=>b.includes('ownership verification')));assert(!p.blockers.some(b=>b.includes('projectLicenseSpdx')));assert(!p.stages.join(' ').includes('four private candidates'));assert.equal(p.publicReleaseReady,false);
+ const p=planRelease(config);assert.equal(config.ownerDecisions.npmAccountOrOrganization,'hongkian03');assert.equal(config.ownerDecisions.publisher,'Kian Hong Tan');assert(!p.blockers.some(b=>b.includes('Owner input deferred: npmAccountOrOrganization')||b.includes('Owner input deferred: publisher')));assert.equal(config.npmAccessCheck.loggedInAccount,'hongkian03');assert([200,404].includes(config.npmAccessCheck.registryStatus));assert(!p.blockers.some(b=>b.includes('ownership verification')));assert(!p.blockers.some(b=>b.includes('projectLicenseSpdx')));assert(!p.stages.join(' ').includes('four private candidates'));assert.equal(p.publicReleaseReady,false);
 });
 test('populated fields cannot manufacture publisher or registry attestation evidence',()=>{
  const c=structuredClone(config);Object.assign(c.ownerDecisions,{publisher:'fixture',npmAccountOrOrganization:'fixture',packageOwnershipVerified:true,assetRightsApproved:true});for(const name of Object.keys(c.signing))c.signing[name]='fixture';c.signing.windowsTimestampUrl='http://bad.invalid';c.unimplementedPrerequisites=[];c.noticeReviewComplete=true;c.publisherToolchain.trustedPublisherConfigured=true;c.publicationAuthorized=true;
@@ -113,9 +113,9 @@ test('CLI executable mode must survive actual packing, not just candidate metada
 
 test('new-package access record does not grant access to a different account or existing package',()=>{
  for(const replacement of [{loggedInAccount:'other-account'},{registryStatus:200}]){
-  const c=structuredClone(config);Object.assign(c.npmAccessCheck,replacement);assert(planRelease(c).blockers.some(b=>b.includes('ownership verification')));
+  const c=structuredClone(config);c.ownerDecisions.packageOwnershipVerified=false;Object.assign(c.npmAccessCheck,{registryStatus:404,loggedInAccount:c.ownerDecisions.npmAccountOrOrganization},replacement);assert(planRelease(c).blockers.some(b=>b.includes('ownership verification')));
  }
- assert.equal(config.ownerDecisions.packageOwnershipVerified,false);
+ const newPackage=structuredClone(config);newPackage.ownerDecisions.packageOwnershipVerified=false;newPackage.npmAccessCheck.registryStatus=404;assert(!planRelease(newPackage).blockers.some(b=>b.includes('ownership verification')));
  assert.equal(planRelease(config).publicReleaseReady,false);
 });
 

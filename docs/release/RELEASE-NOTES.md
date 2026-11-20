@@ -1,5 +1,16 @@
 # Niche Out release direction and private candidate history
 
+## 0.1.1 — November 19, 2026
+
+### Changed
+
+- The npm package README now comes from the repository README, so installation instructions, gameplay guidance, examples, credits and network limitations share one source.
+- Removed the separate generated README that described the npm package as an unpublished candidate.
+- Updated current quick-start commands to `niche-out@0.1.1` and linked these release notes from the README.
+- Packaging preserves links to shipped files and redirects omitted source-document links to GitHub.
+
+This is a documentation/packaging patch. Game rules, server/browser runtime, native helpers, runtime dependency versions and connector behavior are unchanged. Existing platform/network qualification limits still apply.
+
 ## Published 0.1.0 — November 19, 2026
 
 [Niche Out 0.1.0](https://www.npmjs.com/package/niche-out) is the first public npm release, published by `hongkian03` after owner authorization. The [S12 record](https://github.com/hongkian03/niche-out/blob/main/docs/implementation/evidence/E6-S12.md) confirms exact reviewed tarball integrity, a fresh public-registry installation, the Singapore import worker and native/local-launcher startup/cleanup. Run `npm exec --yes --ignore-scripts --package=niche-out@0.1.0 -- niche-out` with supported Node `>=24.22.3 <25`.

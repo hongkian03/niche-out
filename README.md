@@ -30,43 +30,94 @@ Normally for Boston University Singapore Student Association's annual Great Sing
 
 ## How to download
 
-**Niche Out 0.1.0 is available on [npm](https://www.npmjs.com/package/niche-out).** You can run it directly with npm using the command below, or install it globally. Source-build instructions remain in the [development guide](docs/DEVELOPMENT.md#build-and-check-the-npm-candidate).
+**[Niche Out 0.1.1 is available on npm](https://www.npmjs.com/package/niche-out/v/0.1.1).** The host installs Node.js, then runs the command below. Players only need a web browser. You do not need to clone this repository or create an npm or Cloudflare account to play or host.
 
-Hosts need supported **Node.js `>=24.22.3 <25`** with npm. The package contains compiled application assets and prebuilt native helpers; installing/running it requires no compiler or application build. Players need only a browser.
+### Host requirements
 
-For contributors, [download the source ZIP](https://github.com/hongkian03/niche-out/archive/refs/heads/main.zip) or clone the repository:
+- **Node.js 24.22.3 or a newer 24.x version**, with npm. The supported range is `>=24.22.3 <25`; Node 25 and newer are outside that range.
+- An internet connection for the host and every player. They can use different networks, including cellular data.
+- A host computer that stays awake with its terminal running throughout the game.
+
+The current release is verified on an Apple Silicon Mac. Included Intel Mac, Windows and Linux helpers remain unverified pending further testing. Intended host targets are macOS 15+ on Apple Silicon/Intel, Windows 11 x64 and Ubuntu 24.04+ x64/glibc. Linux also needs `xdg-open` to open the browser and systemd/logind with `systemd-inhibit` for idle-sleep prevention. The package includes compiled application assets and native helpers; hosts do not need a compiler or application build.
+
+### Install Node.js
+
+1. Get a supported **Node.js 24.x** release from the [official Node.js downloads](https://nodejs.org/en/download). Choose at least **24.22.3** and the installer for your operating system and processor. npm is included with the standard Node.js installation.
+2. After installing, open a new **Terminal** window on macOS/Linux or **Command Prompt** on Windows.
+3. Check that both commands work:
+
+```sh
+node --version
+npm --version
+```
+
+The first should print `v24.22.3` or a newer `v24.x` version; the second should print an npm version number. If either command is missing, reopen your terminal after installing Node.js.
+
+See the [changelog](docs/release/RELEASE-NOTES.md) for this release's changes.
+
+<details>
+<summary>For contributors: get the source code</summary>
+
+The commands below are for working on the project. Normal hosts can go straight to **How to use**.
+
+[Download the source ZIP](https://github.com/hongkian03/niche-out/archive/refs/heads/main.zip), or clone it:
 
 ```sh
 git clone https://github.com/hongkian03/niche-out.git
 cd niche-out
 ```
 
-The intended targets are macOS 15+ Apple Silicon/Intel, Windows 11 x64 and Ubuntu 24.04+ x64/glibc. Available-Mac execution is tested separately; native cross-builds alone do not certify Intel Mac, Windows or Linux compatibility. Earlier self-contained archives are historical private test builds.
+Source builds require the development toolchain and native build prerequisites in the [development guide](docs/DEVELOPMENT.md). The published npm package does not require those build tools.
+
+</details>
 
 ## How to use
 
 ### Set up the host
 
-With supported Node/npm installed, run this from any directory:
+With supported Node.js and npm installed, paste this into your terminal. It works from any directory:
 
 ```sh
-npm exec --yes --ignore-scripts --package=niche-out@0.1.0 -- niche-out
+npm exec --yes --ignore-scripts --package=niche-out@0.1.1 -- niche-out
 ```
 
-npm downloads the published package and its runtime dependencies; there are no install hooks or native build steps. You do not need to clone this repository. If you prefer a global command, run `npm install --global --ignore-scripts niche-out@0.1.0`, then `niche-out`. An optional preparation command verifies/downloads the tunnel component without starting hosting:
+npm downloads version **0.1.1** and its runtime dependencies, then opens the **private local hosting dashboard** in your default browser. The first run needs internet access and may take longer while downloading. If the browser does not open, check that a default browser is configured, then press **Enter** in the launcher terminal to try again.
+
+**Keep that terminal open.** Closing the browser leaves hosting running; **Ctrl-C** in the terminal or **Quit launcher** in the dashboard stops the application. Stop hosting and quit before updating or uninstalling.
+
+On Windows, use **Command Prompt** if PowerShell blocks npm's `.ps1` launcher. You can also replace `npm` with `npm.cmd` in the command above. No machine-wide execution-policy change is needed.
+
+<details>
+<summary>Optional: install a reusable global command</summary>
+
+Instead of the command above, install the same release globally:
 
 ```sh
-npm exec --yes --ignore-scripts --package=niche-out@0.1.0 -- niche-out prepare
+npm install --global --ignore-scripts niche-out@0.1.1
+niche-out
 ```
 
-The normal command opens the private local hosting dashboard. **Start hosting** verifies the user-cached cloudflared executable and downloads the pinned component if missing; progress and errors appear in setup. Cold preparation and tunneled play need internet. Keep the CLI terminal open; Ctrl-C or **Quit launcher** stops it. Stop hosting and quit before updating or uninstalling the package.
+On later runs, just enter `niche-out`. If global installation fails because your npm installation directory is not writable, use the recommended `npm exec` command above.
 
-Windows hosts can use Command Prompt or the npm `.cmd` launcher if PowerShell blocks its `.ps1` shim. Do not weaken machine-wide execution policy. Source-contributor commands such as `npm run host` still require the exact development toolchain and native build prerequisites described in the [development guide](docs/DEVELOPMENT.md).
+</details>
+
+<details>
+<summary>Optional: prepare the tunnel component in advance</summary>
+
+This verifies or downloads the pinned cloudflared component into your user cache without opening a hosting session:
+
+```sh
+npm exec --yes --ignore-scripts --package=niche-out@0.1.1 -- niche-out prepare
+```
+
+This is optional: **Start hosting** performs the same preparation automatically. A cold download needs internet access. Playing still requires internet even when the component is cached.
+
+</details>
 
 ### Host a game
 
-1. Click **Start hosting** and wait until the session is ready. A new temporary address can take a few minutes to become reachable.
-2. Click **Open host page** and upload a game JSON file.
+1. In the dashboard, click **Start hosting**. The application verifies or downloads its cloudflared component, then creates a temporary public address. Wait until the session is ready; a new address can take a few minutes to become reachable. No Cloudflare account, domain or router configuration is required.
+2. Click **Open host page** and upload a game JSON file. For a first test, download the [one-round example](examples/game.example.json): open it on GitHub, select **Raw**, and save it as a `.json` file. The [five-round](examples/game.five-rounds.json) and [Singapore](examples/game.singapore.json) packs are available for longer games.
 3. Review the game summary, then click **Create lobby**.
 4. Share the lobby's player QR code or join link. Players enter a nickname; they do not need to use your Wi-Fi.
 5. Click **Start game** once everyone has joined. New players cannot join after the game starts.

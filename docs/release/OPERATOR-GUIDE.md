@@ -4,20 +4,20 @@ Niche Out runs the game on the host's laptop. A managed Cloudflare Quick Tunnel 
 
 ## Published npm installation and startup
 
-[Niche Out 0.1.0 is published on npm](https://www.npmjs.com/package/niche-out). The [S12 record](https://github.com/hongkian03/niche-out/blob/main/docs/implementation/evidence/E6-S12.md) verifies the public tarball against the exact S10/S11-reviewed bytes, including a fresh install and launcher check. Paid native publisher signing is optional; Intel Mac/Windows/Linux execution remains owner-deferred and those included targets are unverified/experimental.
+[Niche Out on npm](https://www.npmjs.com/package/niche-out). The first release’s [S12 record](https://github.com/hongkian03/niche-out/blob/main/docs/implementation/evidence/E6-S12.md) verifies the public tarball against the exact S10/S11-reviewed bytes, including a fresh install and launcher check. Paid native publisher signing is optional; Intel Mac/Windows/Linux execution remains owner-deferred and those included targets are unverified/experimental.
 
 Install supported Node (`>=24.22.3 <25`) with npm on an intended target: macOS 15+ Apple Silicon/Intel, Windows 11 x64 or Ubuntu 24.04+ x64/glibc. The package contains compiled application/browser assets and prebuilt native helpers. Hosts require no compiler, source build or install lifecycle hooks. Native target selection rejects unsupported combinations; an included binary is not proof of actual target execution. The recorded host execution scope is Apple Silicon on the available Mac (M3 Pro, 18 GiB RAM, Darwin 25.5.0, Node 24.22.3); the intended OS floors above are not a claim that every OS/CPU/runtime combination has been tested. The final S10 record identifies the exact candidate and execution tuple.
 
 From any directory with supported Node/npm installed, run:
 
 ```sh
-npm exec --yes --ignore-scripts --package=niche-out@0.1.0 -- niche-out
+npm exec --yes --ignore-scripts --package=niche-out@0.1.1 -- niche-out
 ```
 
-npm installs the public version and its pinned runtime dependencies. Alternatively install `npm install --global --ignore-scripts niche-out@0.1.0`, then run `niche-out`. A locally built tarball can still be used by substituting its quoted path for `niche-out@0.1.0`. To prepare the pinned connector explicitly without opening a hosting session:
+npm installs the public version and its pinned runtime dependencies. Alternatively install `npm install --global --ignore-scripts niche-out@0.1.1`, then run `niche-out`. A locally built tarball can still be used by substituting its quoted path for `niche-out@0.1.1`. To prepare the pinned connector explicitly without opening a hosting session:
 
 ```sh
-npm exec --yes --ignore-scripts --package=niche-out@0.1.0 -- niche-out prepare
+npm exec --yes --ignore-scripts --package=niche-out@0.1.1 -- niche-out prepare
 ```
 
 The normal CLI opens private local setup. Start hosting displays component checking/download/verification when needed, followed by tunnel readiness. The connector cache is user-writable and separate from the immutable package. Cold preparation requires internet; warm verified entries avoid repeat downloads. Tunneled play still needs internet. Retry a failed preparation through the dashboard; never bypass checksum checks or run an arbitrary replacement binary.
