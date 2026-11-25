@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type FormEvent, type KeyboardEvent } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState, type FormEvent, type KeyboardEvent } from 'react';
 import { codePointCount, trimOuterWhitespace } from '@rarity/contracts';
 import type { ClientSnapshot, GameClient } from './client.js';
 import { AnswerGroups, Dialog, Standings, Timer } from './components.js';
@@ -221,9 +221,21 @@ function LiveRound({ client, state, view }: PlayerProps & { view: Extract<Player
   </section>;
 }
 
-function Results({ state, view }: { state: ClientSnapshot; view: Extract<PlayerView, { phase: 'Results' }> }) {
+function Results({ state, view, cinematic }: {
+  state: ClientSnapshot;
+  view: Extract<PlayerView, { phase: 'Results' }>;
+  cinematic: boolean;
+}) {
   const [tab, setTab] = useState<'answers' | 'standings'>('answers');
   const buttons = useRef<(HTMLButtonElement | null)[]>([]);
+  const heading = useRef<HTMLHeadingElement>(null);
+  const covered = useRef(cinematic);
+  useLayoutEffect(() => {
+    const restored = covered.current && !cinematic;
+    covered.current = cinematic;
+    if (restored && state.status === 'connected' && !document.hidden && document.hasFocus() &&
+      document.activeElement === document.body) heading.current?.focus({ preventScroll: true });
+  }, [cinematic, state.status]);
   function tabKey(event: KeyboardEvent<HTMLButtonElement>) {
     if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
     event.preventDefault();
@@ -234,8 +246,8 @@ function Results({ state, view }: { state: ClientSnapshot; view: Extract<PlayerV
   return <section className="player-results" aria-labelledby="results-heading">
     <div className="status-strip"><span>Round {view.roundIndex + 1} of {view.promptCount}</span><span>{view.standings.find((row) => row.playerId === view.ownPlayer.playerId)?.publishedTotal ?? 0} points</span></div>
     <div className="panel result-card">
-      <h1 id="results-heading" data-phase-heading tabIndex={-1}>Round complete</h1>
-      <div aria-live="polite"><PersonalOutcome result={view.ownResult} /></div>
+      <h1 ref={heading} id="results-heading" data-phase-heading tabIndex={-1} aria-describedby="personal-result">Round complete</h1>
+      <div id="personal-result" aria-live="polite"><PersonalOutcome result={view.ownResult} /></div>
       <Timer deadlineMs={view.phaseDeadlineMs} clockOffsetMs={state.clockOffsetMs} phaseId={view.phaseId} label={view.roundIndex + 1 === view.promptCount ? 'Final results in' : 'Next round in'} />
     </div>
     <div className="result-tabs" role="tablist" aria-label="Round results">
@@ -290,7 +302,7 @@ function Finished({ client, state, view }: PlayerProps & { view: Extract<PlayerV
   </section>;
 }
 
-export function Player({ client, state }: PlayerProps) {
+export function Player({ client, state, revealActive = false, cinematic = false }: PlayerProps & { revealActive?: boolean; cinematic?: boolean }) {
   const [help, setHelp] = useState(false);
   const view = state.view?.viewRole === 'player' ? state.view : null;
   const canHelp = !view || view.phase === 'Lobby';
@@ -299,11 +311,11 @@ export function Player({ client, state }: PlayerProps) {
   const content = state.status === 'removed' || state.status === 'closed' ? <Terminal state={state} />
     : view?.phase === 'Lobby' ? <Lobby view={view} showHelp={() => setHelp(true)} />
     : view?.phase === 'Reading' || view?.phase === 'Answering' ? <LiveRound key={`${contextKey}:${view.roundId}`} client={client} state={state} view={view} />
-    : view?.phase === 'Results' ? <Results key={`${contextKey}:${view.roundId}`} state={state} view={view} />
+    : view?.phase === 'Results' ? <Results key={`${contextKey}:${view.roundId}`} state={state} view={view} cinematic={cinematic} />
     : view?.phase === 'Finished' ? <Finished key={contextKey} client={client} state={state} view={view} />
     : state.session?.role === 'guest' ? <Join client={client} state={state} showHelp={() => setHelp(true)} />
     : <section className="panel rejoining-panel" aria-labelledby="rejoining-heading"><h1 id="rejoining-heading" data-phase-heading tabIndex={-1}>Rejoining game…</h1><p>Checking this browser’s session with the host.</p></section>;
-  return <main className="player-screen">
+  return <main className="player-screen" data-round-reveal={revealActive ? 'playing' : undefined}>
     {!['closed', 'removed'].includes(state.status) && <ConnectionNotice client={client} state={state} />}
     {content}
     {help && canHelp && <HowToPlay close={() => setHelp(false)} />}

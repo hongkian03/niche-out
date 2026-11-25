@@ -5,6 +5,9 @@ import { resolve, extname, sep } from 'node:path';
 import { once } from 'node:events';
 import { buildFixtures, fixtureOutput } from '../probes/web/build.mjs';
 import { launchBrowser } from '../probes/browser.mjs';
+import { verifyRevealLifecycle } from '../probes/web/reveal-lifecycle.mjs';
+import { verifyFollowDive } from '../probes/web/follow-dive.mjs';
+import { verifyHostReveal } from '../probes/web/host-reveal.mjs';
 
 await buildFixtures();
 const output = resolve('work/web-ui'); await mkdir(output, { recursive: true });
@@ -254,10 +257,27 @@ try {
   assert(await phone.getByLabel('Your answer', { exact: true }).isDisabled(), 'Disconnected answer remained editable');
   assert(await phone.getByRole('button', { name: 'Submit', exact: true }).isDisabled(), 'Disconnected Submit remained available');
   await phoneContext.close();
+  const revealPage = await context.newPage();
+  revealPage.on('pageerror', error => errors.push(error.message));
+  revealPage.on('request', request => requests.add(request.url()));
+  const revealChecks = await verifyRevealLifecycle(revealPage, origin);
+  await revealPage.close();
+  const followPage = await context.newPage();
+  await followPage.setViewportSize({ width: 390, height: 844 });
+  followPage.on('pageerror', error => errors.push(error.message));
+  followPage.on('request', request => requests.add(request.url()));
+  const followChecks = await verifyFollowDive(followPage, origin);
+  await followPage.close();
+  const hostRevealPage = await context.newPage();
+  await hostRevealPage.setViewportSize({ width: 1920, height: 1080 });
+  hostRevealPage.on('pageerror', error => errors.push(error.message));
+  hostRevealPage.on('request', request => requests.add(request.url()));
+  const hostRevealChecks = await verifyHostReveal(hostRevealPage, origin);
+  await hostRevealPage.close();
   assert.deepEqual(errors, [], 'Browser fixture errors');
   assert([...requests].every(url => url.startsWith(origin) || url.startsWith('data:')), 'A fixture requested a nonlocal asset');
   const result = { status: layoutFailures.length ? 'FAIL' : 'PASS', browser: browser.version(), layoutChecks: layout.length, layout, layoutFailures, contrastChecks, screenshots,
-    checks: ['role fixtures', 'long content and safe integer scores', 'bounded keyboard-scrollable personal result wording preserves reveal countdown', '100-player roster', 'local font and assets', 'seven portrait/desktop widths plus phone landscape', '200% equivalent reflow (not browser zoom)', 'short viewport manual-scroll reachability', 'stable timer ring width when crossing one minute within a phase', 'desktop answer-phase focus and same-prompt scroll preservation', 'explicit Enter and modeled composition guard', 'pending duplicate prevention and rejection wording/focus preservation', 'accepted wording and focus dismissal', 'result tab keyboard navigation and phase-aware reset', 'nested dialog focus containment and Cancel', 'pending removal dismissal', 'phase-change focus fallback', 'reduced motion', 'touch-emulated focus requires tap', 'same-document disconnected draft preserved and editing/submission disabled'],
+    checks: ['role fixtures', 'long content and safe integer scores', 'bounded keyboard-scrollable personal result wording preserves reveal countdown', '100-player roster', 'local font and assets', 'seven portrait/desktop widths plus phone landscape', '200% equivalent reflow (not browser zoom)', 'short viewport manual-scroll reachability', 'stable timer ring width when crossing one minute within a phase', 'desktop answer-phase focus and same-prompt scroll preservation', 'explicit Enter and modeled composition guard', 'pending duplicate prevention and rejection wording/focus preservation', 'accepted wording and focus dismissal', 'result tab keyboard navigation and phase-aware reset', 'nested dialog focus containment and Cancel', 'pending removal dismissal', 'phase-change focus fallback', 'reduced motion', 'touch-emulated focus requires tap', 'same-document disconnected draft preserved and editing/submission disabled', ...revealChecks, ...followChecks, ...hostRevealChecks],
     notVerified: ['actual mobile keyboard and operating-system IME', 'real device zoom and assistive technology', 'network/production protocol (separate test-browser-game)'] };
   await writeFile(resolve(output, 'layout-report.json'), JSON.stringify(result, null, 2));
   console.log(JSON.stringify({ ...result, layout: undefined }));

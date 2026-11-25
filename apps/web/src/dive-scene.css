@@ -1,0 +1,143 @@
+.player-cinematic {
+  --scene-height: 100dvh;
+  --scene-width: 100vw;
+  --award-width: min(calc(.82 * var(--scene-width)), 360px);
+  --water-top: #134052;
+  --water-bottom: #070f20;
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+  overflow: hidden;
+  isolation: isolate;
+  background: #080f1e;
+  pointer-events: none;
+}
+
+.player-cinematic__water {
+  position: absolute;
+  inset: 0 0 calc(-1.03 * var(--scene-height));
+  background:
+    linear-gradient(112deg, transparent 20%, #7de9e310 20% 27%, transparent 27% 43%, #7de9e308 43% 53%, transparent 53%),
+    linear-gradient(180deg, var(--water-top), #0c2d41 37%, #10243a 55%, var(--water-bottom) 94%);
+}
+
+.player-cinematic__terrain {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: calc(1.97 * var(--scene-height));
+}
+
+.player-cinematic__shelf { fill: #89e7ec18; }
+.player-cinematic__far-rock { fill: #0c1a2c80; }
+.player-cinematic__near-rock { fill: #081525bb; }
+.player-cinematic__strata {
+  fill: none;
+  stroke: #7ed6df3b;
+  stroke-width: 1.25;
+  vector-effect: non-scaling-stroke;
+}
+
+.player-cinematic__particles {
+  position: absolute;
+  inset: 0 0 calc(-1 * var(--scene-height));
+  opacity: .58;
+  background:
+    radial-gradient(circle at 36% 34%, #72dfe68c 0 1px, transparent 2px) 15px 60px / 91px 144px,
+    radial-gradient(circle at 40% 67%, #bceee950 0 1px, transparent 2px) 0 20px / 71px 103px;
+}
+
+.player-cinematic__water,
+.player-cinematic__terrain,
+.player-cinematic__particles {
+  transform: translateY(var(--scenery-rise));
+  animation: cinematic-rise var(--dive-duration) var(--dive-lead-in) both;
+}
+
+.player-cinematic__craft {
+  position: absolute;
+  left: 50%;
+  top: 23%;
+  width: clamp(126px, calc(.39 * var(--scene-width)), 246px);
+  transform: translate(-50%, var(--craft-drop));
+  animation: cinematic-descend var(--dive-duration) var(--dive-lead-in) both;
+}
+
+.player-cinematic__sub {
+  width: 100%;
+  display: block;
+  filter: drop-shadow(0 6px 8px #030a10);
+  animation: cinematic-pitch var(--dive-duration) var(--dive-lead-in) both;
+}
+
+.player-cinematic__wake { position: absolute; inset: 0; }
+.player-cinematic__wake i {
+  position: absolute;
+  width: var(--size, 7px);
+  height: var(--size, 7px);
+  top: 21%;
+  left: var(--left, 35%);
+  border: 1px solid #7bdee6b0;
+  border-radius: 50%;
+  animation: cinematic-bubble 550ms calc(var(--dive-lead-in) + var(--delay, 150ms)) both;
+}
+.player-cinematic__wake i:nth-child(2) { --size: 5px; --left: 48%; --delay: 300ms; }
+.player-cinematic__wake i:nth-child(3) { --size: 9px; --left: 32%; --delay: 440ms; }
+.player-cinematic__wake i:nth-child(4) { --size: 6px; --left: 62%; --delay: 530ms; }
+
+.player-cinematic__award {
+  position: absolute;
+  top: 88%;
+  left: 50%;
+  width: var(--award-width);
+  text-align: center;
+  color: #e8f7fb;
+  text-shadow: 0 2px 8px #08121e, 0 1px 3px #08121e;
+  line-height: .94;
+  animation: cinematic-award var(--dive-duration) var(--dive-lead-in) both;
+}
+
+.player-cinematic__award strong {
+  display: block;
+  --normal-size: clamp(44px, calc(.13 * var(--scene-width)), 76px);
+  font: 400 min(var(--normal-size), calc(var(--award-width) / var(--award-columns) * 1.5))/.9 VT323, monospace;
+  color: #d6f36a;
+}
+
+.player-cinematic__award span {
+  display: block;
+  margin-block-start: 6px;
+  overflow-wrap: anywhere;
+  line-height: 1.1;
+}
+
+@keyframes cinematic-rise {
+  0%, 5% { transform: translateY(0); }
+  69%, 100% { transform: translateY(var(--scenery-rise)); }
+}
+
+@keyframes cinematic-descend {
+  0%, 5% { transform: translate(-50%, 0); }
+  69%, 100% { transform: translate(-50%, var(--craft-drop)); }
+}
+
+@keyframes cinematic-pitch {
+  0%, 69%, 100% { transform: rotate(0); }
+  28% { transform: rotate(11deg); }
+}
+
+@keyframes cinematic-award {
+  0%, 55% { opacity: 0; transform: translate(-50%, 6px); }
+  72%, 100% { opacity: 1; transform: translate(-50%, 0); }
+}
+
+@keyframes cinematic-bubble {
+  from { opacity: 0; transform: translateY(4px) scale(.65); }
+  25% { opacity: 1; }
+  to { opacity: 0; transform: translateY(-72px) scale(1.5); }
+}
+
+@media (max-height: 520px) {
+  .player-cinematic__craft { width: min(34vw, 155px); top: 13%; }
+  .player-cinematic__award strong { --normal-size: 38px; }
+}

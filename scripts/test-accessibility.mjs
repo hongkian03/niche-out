@@ -53,6 +53,37 @@ try {
     if (viewport.width === 390) await screenshot(page, 'phone-remove-dialog.png');
     await context.close();
   }
+  // Sample the production DOM while each motion cue is active and after it settles.
+  for (const role of ['player', 'host']) {
+    const player = role === 'player';
+    const viewport = player ? { width:320,height:740 } : { width:1920,height:1080 };
+    const context = await browser.newContext({ viewport });
+    const page = await context.newPage(); page.on('pageerror', e => errors.push(e.message));
+    await page.goto(`${origin}/?fixture=${role}-answering`);
+    await page.waitForFunction(() => window.webFixture);
+    await page.addScriptTag({ content: axeSource });
+    const cue = page.locator(player ? '.player-cinematic' : '.host-sonar-pulse');
+    await page.evaluate(({ role, player }) => {
+      const fixture = window.webFixture;
+      const prior = fixture.state().view;
+      const { view } = fixture.snapshot(player ? 'player-all-used' : 'host-results');
+      const now = Date.now();
+      fixture.changeView({
+        ...view,
+        revision: prior.revision + 1,
+        serverNowMs: now,
+        phaseDeadlineMs: now + 10000,
+        ...(role === 'player' ? { ownResult: { ...view.ownResult, diveBand: 'high' } } : {}),
+      });
+    }, { role, player });
+    await cue.waitFor();
+    assert.equal(await cue.getAttribute('aria-hidden'), 'true');
+    await audit(page, `${role}-motion-active`);
+    await cue.waitFor({ state: 'detached' });
+    await audit(page, `${role}-motion-settled`);
+    await context.close();
+  }
+
   let status = 'idle', sessionId = null;
   const manager = { snapshot: () => ({ status, sessionId, publicOrigin: status === 'ready' ? 'https://fixture.example' : null }),
     async start() { status = 'ready'; sessionId = 'fixture-session'; }, async stop() { status = 'idle'; sessionId = null; },

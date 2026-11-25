@@ -1,0 +1,92 @@
+.tier-comparison {
+  max-width: 900px;
+  margin-inline: auto;
+  padding: clamp(12px, 3vw, 28px);
+}
+
+.tier-comparison__back { color: var(--cyan); }
+.tier-comparison h1 {
+  font: 400 clamp(2rem, 6vw, 3.25rem)/1 var(--pixel);
+  margin: 14px 0 8px;
+}
+.tier-comparison > p {
+  color: var(--muted);
+  margin: 8px 0 14px;
+}
+.tier-comparison > button { margin-bottom: 14px; }
+.tier-comparison .tier-comparison__reduced { display: none; }
+
+.tier-comparison__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(5px, 1.3vw, 13px);
+}
+
+.tier-comparison__card {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  overflow: hidden;
+}
+.tier-comparison__card figcaption {
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  flex: 1;
+  gap: 4px;
+  padding: 8px 4px;
+  text-align: center;
+}
+.tier-comparison__card strong {
+  color: var(--lime);
+  font: 400 clamp(1.75rem, 5vw, 2.75rem)/.9 var(--pixel);
+}
+.tier-comparison__card :is(figcaption span, p) {
+  font-size: clamp(.75rem, 2.6vw, .95rem);
+}
+.tier-comparison__card p {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+  padding: 7px 4px;
+  color: var(--muted);
+  text-align: center;
+}
+.tier-comparison__frame {
+  position: relative;
+  container-type: size;
+  height: clamp(14rem, 52vw, 26rem);
+  isolation: isolate;
+}
+.tier-comparison__frame .player-cinematic {
+  --scene-height: 100cqh;
+  --scene-width: 100cqw;
+  position: absolute;
+  z-index: auto;
+}
+.tier-comparison__frame .player-cinematic[data-landed=true] * {
+  animation: none;
+}
+.tier-comparison__frame .player-cinematic[data-landed=true] .player-cinematic__wake {
+  display: none;
+}
+.tier-comparison__frame .player-cinematic__craft {
+  top: 23%;
+  width: min(60%, 148px);
+}
+.tier-comparison__frame .player-cinematic__award {
+  display: none;
+}
+.tier-comparison__start {
+  position: absolute;
+  inset: 23% 0 auto;
+  border-top: 1px dashed #7ed6df88;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tier-comparison .tier-comparison__reduced { display: block; }
+  .tier-comparison__frame .player-cinematic__wake { display: none; }
+}

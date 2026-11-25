@@ -2,7 +2,7 @@
 
 Status on November 16, 2026: the original foundations and managed hosting implementation are available. S13's feasibility report is reconciled with native-tab and actual connector follow-up evidence. S15–S20 are implemented and verified; all 20 Epic 1 stories are complete. [Managed hosting handoff](implementation/evidence/EPIC-1-MANAGED.md) · [Historical tunnel evidence](implementation/evidence/EPIC-1-TUNNEL.md).
 
-The original backlog contains **six epics and 77 stories**: 75 implementation, validation, and release-preparation stories, one conditional publication story, and one optional information-site story. Extensions add eight E6 networking stories and six E5 npm migration stories (91 story entries total); original IDs/evidence are retained. Epic 1 and its managed-hosting gate G1 are **complete**. All nine Epic 2 stories and deterministic core gate G2 are complete. All 13 Epic 3 stories and production protocol gate G3 are complete. All 12 Epic 4 stories and browser-game gate G4 are complete. [Epic 4 handoff](implementation/evidence/EPIC-4.md). Epic 5's original implementation and four private archives are historical deliverables; the new local npm candidate, installed-Mac checks and installed-package 100-player mixed-transport game are delivered in the [npm handoff](implementation/evidence/EPIC-5-NPM.md). The owner marked Epic 5 complete on November 18 and accepted G5 for progression to Epic 6, deferring remaining manual/platform checks to their own schedule. This is project closure, not a claim of unexecuted compatibility certification. The [original Epic 5 handoff](implementation/evidence/EPIC-5.md) retains the earlier archive evidence. [Epic 3 handoff](implementation/evidence/EPIC-3.md). [Epic 2 handoff](implementation/evidence/EPIC-2.md). E3 still requires the deterministic core gate G2 as well as managed-hosting G1.
+The original backlog contains **six epics and 77 stories**: 75 implementation, validation, and release-preparation stories, one conditional publication story, and one optional information-site story. Earlier extensions add eight E6 networking stories and six E5 npm migration stories (91 story entries before Epic 7). Epic 7 adds six stories for reference research, player motion and shared reveals. Epic 1 and its managed-hosting gate G1 are **complete**. All nine Epic 2 stories and deterministic core gate G2 are complete. All 13 Epic 3 stories and production protocol gate G3 are complete. All 12 Epic 4 stories and browser-game gate G4 are complete. [Epic 4 handoff](implementation/evidence/EPIC-4.md). Epic 5's original implementation and four private archives are historical deliverables; the new local npm candidate, installed-Mac checks and installed-package 100-player mixed-transport game are delivered in the [npm handoff](implementation/evidence/EPIC-5-NPM.md). The owner marked Epic 5 complete on November 18 and accepted G5 for progression to Epic 6, deferring remaining manual/platform checks to their own schedule. This is project closure, not a claim of unexecuted compatibility certification. The [original Epic 5 handoff](implementation/evidence/EPIC-5.md) retains the earlier archive evidence. [Epic 3 handoff](implementation/evidence/EPIC-3.md). [Epic 2 handoff](implementation/evidence/EPIC-2.md). E3 still requires the deterministic core gate G2 as well as managed-hosting G1.
 
 ## What we are building
 
@@ -47,6 +47,7 @@ Keep exact tarball/source/lock/native/connector/notice inventory, package/compon
 | G4 | [E4 Complete browser game](implementation/epic-04-browser-game.md) — 12 stories | Working host/player browser flows, results/recaps, presentation, and recovery. |
 | G5 | [E5 Portable hosting and machine lifecycle](implementation/epic-05-portable-hosting.md) — 10 historical stories + 6 npm migration stories | One installable npm CLI across four native targets, with lifecycle evidence; original private archives remain historical. |
 | G6 | [E6 Validation and npm release](implementation/epic-06-validation-release.md) — 8 evidence/preparation stories + 3 optional signing enhancements | Exact integrity-checked npm candidate, installed evidence for the declared scope and honest defect/limitation review; paid signing and unexecuted wider matrices are not prerequisites. |
+| G7 | [E7 Player motion and shared round reveals](implementation/epic-07-player-motion.md) — 6 stories | Personal score feedback, a coordinated room reveal and verification through the existing timed game. |
 
 E6-S12 publishes the separately authorized release after G6. E6-S13 optionally supplies a static information website. Neither is needed to complete private release preparation, and the website never becomes a gameplay dependency.
 
@@ -57,7 +58,8 @@ flowchart LR
     E3 --> E4[E4 Browser game]
     E4 --> E5[E5 Portable hosts]
     E5 --> E6[E6 Validation and npm candidate]
-    E6 --> P[Conditional authorized publication]
+    E6 --> P[Authorized initial publication]
+    P --> E7[E7 Player motion and shared reveals]
     E6 -. Optional .-> W[Static information site]
 ```
 
@@ -373,6 +375,19 @@ The owner authorized parallel execution on the available Mac and later requested
 | E6-F05 | Verify exact final npm bytes on available qualified target, review material defects/known limits and request authorization for that scope | S10/S11 are DONE for the [recorded scoped candidate](implementation/evidence/E6-S10-S11.md). Fresh exact-package checks and runtime-byte bindings support that decision; S12 subsequently published and verified those bytes with owner authorization. |
 
 E6-S01 is DONE: reproducible production workloads, calibrated counters and measured boundaries are available. E6-S03 has actual 30-game churn, bounded metadata pressure, simultaneous reconnects and short connector suspension evidence; full network/process-failure and longer endurance qualification remain visible. E6-S12 publication is complete for `0.1.0`; E6-S13 optional site remains unstarted and separately authorized.
+
+### Epic 7
+
+Entry is the released browser game from E4-S12 and the initial public npm release from E6-S12. The [Epic 7 document](implementation/epic-07-player-motion.md) defines the exploratory storyboard, tradeoffs and acceptance checks. The [Krillion reference study](implementation/evidence/E7-S01-KRILLION-MOTION.md) records the initial research. The [storyboard and prototype review](implementation/evidence/E7-S02-MOTION-PROTOTYPE.md) includes two player and two host reveal variants, screenshots, and motion demos. E7-S02 is complete. The owner approved Follow dive with a 250 ms lead-in and 300 ms landing hold. E7-S03 is complete. The player app now provides a phase-safe reveal window, with verification in the [lifecycle evidence](implementation/evidence/E7-S03-REVEAL-LIFECYCLE.md). E7-S04 ships the player Follow dive and per-prompt depth mapping in the built app, with verification in the [personal reveal evidence](implementation/evidence/E7-S04-PERSONAL-FOLLOW-DIVE.md). E7-S05 adds the [host sonar cue](implementation/evidence/E7-S05-HOST-SONAR.md), and E7-S06 records [integrated motion verification](implementation/evidence/E7-S06-MOTION-VERIFICATION.md) and release-device checks still to run. All six Epic 7 development stories are complete.
+
+| Story | Outcome | Size | Direct story prerequisites | Status |
+| --- | --- | --- | --- | --- |
+| [E7-S01](implementation/epic-07-player-motion.md#e7-s01-reference-study) | Daily Dive and Puffer Party reference study | 1 | E4-S12, E6-S12 | DONE |
+| [E7-S02](implementation/epic-07-player-motion.md#e7-s02-storyboard-and-motion-prototypes) | Compare personal and shared motion prototypes | 2 | E7-S01 | DONE |
+| [E7-S03](implementation/epic-07-player-motion.md#e7-s03-phase-safe-reveal-lifecycle) | Phase-safe triggers, cancellation and static recovery | 2 | E7-S02 | DONE |
+| [E7-S04](implementation/epic-07-player-motion.md#e7-s04-personal-tier-and-score-reveal) | Personal motion and readable score/tier reveal | 2 | E7-S03 | DONE |
+| [E7-S05](implementation/epic-07-player-motion.md#e7-s05-shared-host-and-player-reveal) | Shared host sonar cue beside grouped results and standings | 2 | E7-S04 | DONE |
+| [E7-S06](implementation/epic-07-player-motion.md#e7-s06-accessibility-and-multiplayer-verification) | Motion, accessibility and multiplayer verification | 2 | E7-S05 | DONE |
 
 ## Requirement traceability
 

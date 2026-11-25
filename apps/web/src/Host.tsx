@@ -3,6 +3,7 @@ import QRCode from 'qrcode';
 import type { HostingStatus, Invitation } from '@rarity/contracts';
 import type { ClientSnapshot, GameClient } from './client.js';
 import { AnswerGroups, Dialog, RoundRecaps, Standings, Timer } from './components.js';
+import { hostRevealDurationMs } from './round-reveal.js';
 import { filterHostRoster, formatFieldPath, hostHasPlayer, hostPhaseLabel, type HostRoster, type HostView } from './host-helpers.js';
 
 type HostProps = { client: GameClient; state: ClientSnapshot };
@@ -147,7 +148,7 @@ function HostUpload({ client, state, view, onBack }: HostProps & { view: HostVie
   </section>;
 }
 
-export function Host({ client, state }: HostProps) {
+export function Host({ client, state, revealActive = false }: HostProps & { revealActive?: boolean }) {
   const view = state.view?.viewRole === 'host' ? state.view : null;
   const [uploadOpen, setUploadOpen] = useState(false);
   const [helpOpen, setHelpOpen] = useState(false);
@@ -208,7 +209,13 @@ export function Host({ client, state }: HostProps) {
 
     {timed && <div className="host-stage"><div className="phase-strip"><div><p className="eyebrow">Round {view.roundIndex + 1} of {view.promptCount}</p><h1 id="phase-heading" data-phase-heading tabIndex={-1}>{hostPhaseLabel(view)}</h1></div>{phaseTimer}</div>
       <progress className="round-progress" value={view.roundIndex} max={view.promptCount} aria-label={`${view.roundIndex} of ${view.promptCount} rounds completed`} />
-      <section className="panel prompt-panel"><div className="prompt-scroll" role="region" aria-label="Current prompt" tabIndex={0}><h2 className="prompt-text">{view.prompt}</h2></div></section>
+      <section className="panel prompt-panel">
+        {revealActive && view.phase === 'Results' && <svg className="host-sonar-pulse" viewBox="0 0 1000 18" preserveAspectRatio="none"
+          aria-hidden="true" focusable="false" style={{ animationDuration: `${hostRevealDurationMs}ms` }}>
+          <path d="M0 9h403l19-2 12 4 14-2h20l10-5 8 10 8-13 10 16 10-14 9 11 8-7 10 2h20l10-3 10 5 12-2h405" />
+        </svg>}
+        <div className="prompt-scroll" role="region" aria-label="Current prompt" tabIndex={0}><h2 className="prompt-text">{view.prompt}</h2></div>
+      </section>
       {(view.phase === 'Reading' || view.phase === 'Answering') && <div className="host-readiness"><p className="readiness-count"><strong>{view.readiness.accepted}</strong> of {view.readiness.eligible} answers locked</p>
         {view.readiness.eligible === 0 ? <p>No players remaining. The scheduled game continues.</p> : <p className="muted">{view.phase === 'Reading' ? 'Give your crew a moment to read.' : 'Players answer on their own devices.'}</p>}
       </div>}

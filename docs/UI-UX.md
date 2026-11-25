@@ -210,13 +210,9 @@ Disable input and dismiss the phone keyboard when Answering closes, even if no a
 
 ## Round results and standings
 
-Replace the prompt panel with a short reveal sequence while keeping the ocean and header position stable:
+The live player view uses Follow dive when a positive score has a depth band and the current Results phase has enough time. The dive runs for 1.95 seconds, including a 250 ms opening pause and a 300 ms hold with the exact points and tier beside the submarine. The personal result, countdown and result tabs return together. The server's Results countdown runs throughout. Show results immediately for accepted zero, misses, reduced motion, a recovered Results view or a results window too short for motion. [Epic 7 reveal](implementation/epic-07-player-motion.md#e7-s04-personal-tier-and-score-reveal)
 
-1. Show Round complete.
-2. Reveal the player's canonical answer, custom tier name, and awarded points together.
-3. Update the total and standings, and show submitted-answer counts and the unused-answer example.
-
-Fit this sequence within roughly 600 ms for the default 10-second results phase; shorten it for shorter configured phases. Rendering and motion must never delay the next server phase. Show Next round in X seconds, or Final results in X seconds after the last prompt. There is no manual Next control.
+The host gets a single 600 ms sonar pulse along the prompt border on a live Results transition. Keep the prompt, grouped results, standings, countdown and Manage players available throughout. Show Next round in X seconds, or Final results in X seconds after the last prompt. The server advances automatically.
 
 The personal result uses a large point value, an original small tier symbol, and a clear tier label. If an alias was entered, show the canonical answer prominently and the submitted wording secondarily. Misses show No accepted answer and +0. Valid zero-point answers keep their tier name and acceptance treatment.
 
@@ -276,7 +272,7 @@ During Checking…, keep the submitted wording fixed and disable further submiss
 
 Apply complete server views using their instance, game, revision, and phase identities. Skipped revision numbers do not require replaying patches. Preserve local input/focus/scroll/tab state where the agreed phase rules allow, and discard delayed older views. Readiness updates can be batched for up to 50 ms, but acknowledgements, phase changes, and loss of control are immediate; no client transition waits for a decorative animation.
 
-Format countdowns from the shared deadline, clamping at zero and rounding remaining seconds upward; use m:ss for durations of at least a minute. At the local estimate of zero, disable submission and show Closing round… until the current server phase is known. Never extend the round locally. On every phase change, cancel obsolete animations and reset phase-specific feedback. For very short phases or a late results snapshot, show the permitted content immediately rather than spending the remaining interval on a reveal animation. Keep the default 600 ms reveal within the available server phase and bypass it for reduced motion.
+Format countdowns from the shared deadline, clamping at zero and rounding remaining seconds upward; use m:ss for durations of at least a minute. At the local estimate of zero, disable submission and show Closing round… until the current server phase is known. Never extend the round locally. On every phase change, cancel obsolete animations and reset phase-specific feedback. For very short phases or a late results snapshot, show the permitted content immediately rather than spending the remaining interval on a reveal animation. Keep the Follow dive within the available server phase and bypass it for reduced motion.
 
 If nobody submitted an accepted answer, show No accepted answers this round in the grouped list and still show the highest-scoring unused example. If no standings rows remain after removals, show No players remaining instead of a winner or rank. Retained removed-player answers can still appear in grouped statistics, so do not force those counts to match the current roster count.
 
@@ -328,6 +324,8 @@ Keep long prompts, answers, tier labels, names, and unbroken text readable with 
 Respect device safe areas. Use tabular numerals for timers and scores so they do not shift horizontally. Preserve the typed answer and server session when the viewport changes or the device rotates.
 
 ## Motion and accessibility
+
+The [Epic 7 exploration](implementation/epic-07-player-motion.md) proposes a personal score reveal and a shared room cue. Prototype review will determine their final motion and placement. The rules in this section continue to apply.
 
 Use slow bubbles, fish drift, and light shafts behind the interface, with a small submarine idle motion. Scene descent occurs at round boundaries. Use 150–250 ms control and panel transitions and brief result emphasis. No animation may hold up the clock, swallow input, or reveal a hidden tier.
 

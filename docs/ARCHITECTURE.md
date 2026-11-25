@@ -513,6 +513,8 @@ Grouped answer projections contain counts, tier labels, and points, ordered by a
 
 Do not send a full answer sheet at any phase. Include only submitted canonical answers and the selected unused example in completed-round views. Use a separate published-total field or projection computed solely from finalized rounds, so an internally precomputed current-round score cannot leak through a snapshot or refresh. Where standings are included for host live or revealed views, return complete standings of at most 100 players; the frontend chooses which rows to show prominently.
 
+Positive personal Results can include a bounded `ownResult.diveBand` of `low`, `medium` or `high`. Prompt compilation indexes distinct positive scores reachable from that prompt's authored answers, and Results projection looks up the player's own score in that index. The hint affects presentation only. Players receiving an older view without the field see static results. Serve the matching browser and server build together. [Epic 7 depth mapping](implementation/epic-07-player-motion.md#how-tiers-could-affect-motion)
+
 ### Timing and state ownership
 
 A submission is eligible only when its first complete application-handler receipt time is strictly less than the Answering deadline and its game, round, role, and control generation are valid. Equality with the deadline is EXPIRED. Use the monotonic clock for ordinary deadlines and a tested suspension-aware clock adapter for resume behavior.

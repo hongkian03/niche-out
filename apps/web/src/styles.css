@@ -205,6 +205,9 @@ progress::-moz-progress-bar {
   min-height:100svh;
   padding:24px max(16px,env(safe-area-inset-right)) max(24px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left))
 }
+.app-frame[data-follow-dive] {
+  visibility:hidden
+}
 .app-header {
   max-width:1440px;
   margin:0 auto 24px;
@@ -1078,7 +1081,35 @@ th:nth-child(2) {
   margin-bottom:24px
 }
 .host-stage .prompt-panel {
+  position:relative;
   padding:32px
+}
+.host-sonar-pulse {
+  position:absolute;
+  top:7px;
+  left:8px;
+  width:calc(100% - 16px);
+  height:12px;
+  pointer-events:none;
+  transform-origin:left center;
+  animation-name:host-sonar-sweep;
+  animation-timing-function:ease-out;
+  animation-fill-mode:both
+}
+.host-sonar-pulse path {
+  fill:none;
+  stroke:var(--cyan);
+  stroke-width:1.5;
+  vector-effect:non-scaling-stroke
+}
+@keyframes host-sonar-sweep {
+  0% { transform:scaleX(0.12); opacity:0 }
+  35% { opacity:0.92 }
+  70% { transform:scaleX(1); opacity:0.8 }
+  100% { transform:scaleX(1); opacity:0 }
+}
+@media (prefers-reduced-motion:reduce) {
+  .host-sonar-pulse { display:none }
 }
 .host-stage .prompt-scroll {
   max-height:34vh

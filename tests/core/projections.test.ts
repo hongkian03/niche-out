@@ -135,6 +135,100 @@ describe('role-filtered complete views', () => {
     for (const view of [host, own, s.player(c)]) expect(completeView.safeParse(view).success).toBe(true);
   });
 
+  it('ranks reachable positive points per prompt, preserving ties and safe integer awards', () => {
+    const largeAward = Number.MAX_SAFE_INTEGER - 96;
+    const pack: GamePackInput = {
+      schemaVersion: 1, title: 'Depth calibration',
+      tiers: [
+        { id: 'large', name: 'Ordinary', points: largeAward },
+        { id: 'small', name: 'Rare', points: 10 },
+        { id: 'tie-a', name: 'Find A', points: 12 },
+        { id: 'middle', name: 'Find C', points: 38 },
+        { id: 'tie-b', name: 'Find B', points: 12 },
+        { id: 'zero', name: 'Accepted zero', points: 0 },
+        { id: 'global-only', name: 'Other', points: 1 },
+      ],
+      prompts: [
+        { id: 'first', text: 'Pick a first-round answer.', answers: [
+          { text: 'Large', tierId: 'large' },
+          { text: 'Twin A', tierId: 'tie-a' },
+          { text: 'Small', tierId: 'small' },
+          { text: 'Twin B', tierId: 'tie-b', aliases: ['Alias B'] },
+          { text: 'Unsubmitted', tierId: 'middle' },
+          { text: 'Zero', tierId: 'zero' },
+        ] },
+        { id: 'second', text: 'Pick a second-round answer.', answers: [
+          { text: 'Small', tierId: 'small' }, { text: 'Twin A', tierId: 'tie-a' },
+        ] },
+      ],
+    };
+    const s = scenario(pack); s.commit();
+    const a = s.add('Ada'); const b = s.add('Bo'); const c = s.add('Cal');
+    const d = s.add('Dio'); const e = s.add('Eve'); const f = s.add('Flo');
+    s.start(); s.expire();
+    expect(s.answer(a, 'Twin A').ok).toBe(true);
+    expect(s.answer(b, 'alias b').ok).toBe(true);
+    expect(s.answer(d, 'Zero').ok).toBe(true);
+    expect(s.answer(e, 'Large').ok).toBe(true);
+    expect(s.answer(f, 'Small').ok).toBe(true);
+    expect(JSON.stringify(s.player(a))).not.toContain('diveBand');
+    s.expire();
+
+    expect(s.player(a)).toMatchObject({ ownResult: { points: 12, tierName: 'Find A', diveBand: 'medium' } });
+    expect(s.player(b)).toMatchObject({ ownResult: {
+      points: 12, tierName: 'Find B', canonicalText: 'Twin B', submittedText: 'alias b', diveBand: 'medium',
+    } });
+    expect(s.player(e)).toMatchObject({ ownResult: { points: largeAward, tierName: 'Ordinary', diveBand: 'high' } });
+    expect(s.player(f)).toMatchObject({ ownResult: { points: 10, tierName: 'Rare', diveBand: 'low' } });
+    for (const playerId of [c, d]) expect(s.player(playerId)).not.toHaveProperty('ownResult.diveBand');
+    expect(JSON.stringify(s.host())).not.toContain('diveBand');
+
+    s.expire(); s.expire();
+    expect(s.answer(a, 'Twin A').ok).toBe(true);
+    expect(s.answer(f, 'Small').ok).toBe(true);
+    s.expire();
+    expect(s.player(a)).toMatchObject({ ownResult: { points: 12, diveBand: 'high' } });
+    expect(s.player(f)).toMatchObject({ ownResult: { points: 10, diveBand: 'low' } });
+    s.expire();
+    const final = s.player(a);
+    expect(final).toMatchObject({ phase: 'Finished', rounds: [
+      { ownResult: { points: 12, tierName: 'Find A' } },
+      { ownResult: { points: 12, tierName: 'Find A' } },
+    ] });
+    expect(JSON.stringify(final)).not.toContain('diveBand');
+  });
+
+  it('accepts older Results and restricts the optional band to positive personal awards in Results', () => {
+    const s = scenario(); s.commit();
+    const a = s.add('Ada'); const b = s.add('Bo'); const c = s.add('Cal');
+    s.start(); s.expire();
+    expect(s.answer(a, 'Ink fin').ok).toBe(true);
+    expect(s.answer(b, 'Haddock').ok).toBe(true);
+    s.expire();
+
+    const positive = s.player(a);
+    const zero = s.player(b);
+    const missed = s.player(c);
+    if (positive.phase !== 'Results' || positive.ownResult.outcome !== 'accepted' ||
+        zero.phase !== 'Results' || missed.phase !== 'Results') throw new Error('Expected player Results');
+    const { diveBand, ...oldResult } = positive.ownResult;
+    expect(diveBand).toBe('medium');
+    expect(completeView.safeParse({ ...positive, ownResult: oldResult }).success).toBe(true);
+    expect(completeView.safeParse({ ...positive, ownResult: { ...oldResult, diveBand: 'extreme' } }).success).toBe(false);
+    for (const view of [zero, missed]) {
+      expect(completeView.safeParse({ ...view, ownResult: { ...view.ownResult, diveBand: 'medium' } }).success).toBe(false);
+    }
+
+    while (s.engine.state().phase !== 'Finished') s.expire();
+    const final = s.player(a);
+    if (final.phase !== 'Finished') throw new Error('Expected Finished');
+    const [first, ...later] = final.rounds;
+    expect(completeView.safeParse({ ...final, rounds: [
+      { ...first, ownResult: { ...first.ownResult, diveBand: 'medium' } },
+      ...later,
+    ] }).success).toBe(false);
+  });
+
   it('retains disconnected members, denies removed or unknown players, and excludes removed standings', () => {
     const s = scenario(); s.commit();
     const a = s.add('Ada'); const b = s.add('Bo');

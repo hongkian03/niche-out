@@ -187,9 +187,12 @@ export function projectPlayer(state: EngineSnapshot, context: PlayerViewContext)
   }
   if (state.phase === 'Results') {
     const round = currentRound(state);
+    const ownResult = result(round, player.playerId);
+    const diveBand = state.definition!.prompts[round.roundIndex].diveBand(ownResult.points);
     return playerView.parse({
       ...timed(state, context), phase: 'Results', viewRole: 'player', ownPlayer,
-      ownResult: result(round, player.playerId), results: publicResults(round), standings: roundStandings(state, round),
+      ownResult: diveBand ? { ...ownResult, diveBand } : ownResult,
+      results: publicResults(round), standings: roundStandings(state, round),
     });
   }
   if (state.phase !== 'Finished') throw new ProjectionError('NO_GAME');

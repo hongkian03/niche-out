@@ -1,0 +1,67 @@
+.motion-review-controls {
+  display: grid;
+  gap: 12px;
+  padding: 16px;
+  background: #07131f;
+  border-bottom: 1px solid #365568;
+}
+.motion-review-heading p {
+  margin: 4px 0 0;
+  color: var(--muted);
+}
+.motion-review-options,
+.motion-review-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 16px;
+}
+.motion-review-options label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+}
+.motion-review-options select {
+  color: var(--text);
+  background: var(--panel);
+  border: 1px solid var(--border);
+  padding: 6px;
+}
+.motion-review-options input[type=checkbox] { min-height: 0; }
+.motion-review-actions :is(button, a) {
+  font: inherit;
+  min-height: 44px;
+  padding: 6px 12px;
+  color: var(--text);
+  background: var(--panel);
+  border: 1px solid var(--border);
+}
+.motion-review-actions button[aria-pressed=true] { border-color: var(--cyan); }
+
+.motion-review-heading h1 {
+  margin: 0;
+  font: 400 clamp(30px, 5vw, 48px)/1 var(--pixel);
+}
+.motion-review-primary :is(button, a) {
+  border-color: var(--cyan);
+  padding-inline: 14px;
+}
+.motion-review-primary :is(button, a):hover {
+  background: #21394a;
+}
+.motion-review-controls details > :is(.motion-review-options, .motion-review-actions) {
+  margin-top: 10px;
+}
+
+.motion-review-actions a {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* The cinematic owns the viewport briefly. The results remain mounted so the
+   server-driven view and countdown are ready as soon as the scene clears. */
+.motion-preview:has(.player-cinematic) > :is(.app-header, .app-footer, .ocean-scene, .player-motion-prototype) {
+  visibility: hidden;
+}
+

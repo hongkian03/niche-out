@@ -32,9 +32,17 @@ const publicResults = z.strictObject({
   groups: z.array(z.strictObject({ ...revealedFields, count: z.int().min(1).max(1000) })),
   unused: z.strictObject(revealedFields).nullable(),
 });
-const personalResult = z.discriminatedUnion("outcome", [
-  z.strictObject({ outcome: z.literal("accepted"), submittedText: answerTextSchema, ...revealedFields }),
-  z.strictObject({ outcome: z.literal("miss"), points: z.literal(0) }),
+const acceptedResult = z.strictObject({ outcome: z.literal("accepted"), submittedText: answerTextSchema, ...revealedFields });
+const missedResult = z.strictObject({ outcome: z.literal("miss"), points: z.literal(0) });
+const personalResult = z.discriminatedUnion("outcome", [acceptedResult, missedResult]);
+const diveBandSchema = z.enum(["low", "medium", "high"]);
+export type DiveBand = z.infer<typeof diveBandSchema>;
+const personalRoundResult = z.discriminatedUnion("outcome", [
+  acceptedResult.extend({ diveBand: diveBandSchema.optional() }).refine(
+    (result) => result.diveBand === undefined || result.points > 0,
+    { path: ["diveBand"], message: "Dive depth applies to positive awards." },
+  ),
+  missedResult,
 ]);
 const roundFields = { roundId: id, roundIndex: z.int().min(0).max(19), prompt: promptTextSchema };
 const recapIndex = z.strictObject(roundFields);
@@ -74,7 +82,7 @@ const resultsHost = z.strictObject({
 });
 const resultsPlayer = z.strictObject({
   ...timed, phase: z.literal("Results"), viewRole: player,
-  ownPlayer, ownResult: personalResult, results: publicResults, standings: roundStandings,
+  ownPlayer, ownResult: personalRoundResult, results: publicResults, standings: roundStandings,
 });
 const finalFields = {
   ...committed, ...inactive, phase: z.literal("Finished"), standings: publishedStandings,

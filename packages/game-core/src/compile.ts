@@ -1,4 +1,4 @@
-import { gamePackSchema, matchingKey, packFieldErrors } from '@rarity/contracts';
+import { gamePackSchema, matchingKey, packFieldErrors, type DiveBand } from '@rarity/contracts';
 
 export interface CompiledTier {
   readonly id: string;
@@ -22,6 +22,8 @@ export interface CompiledPrompt {
   readonly answers: readonly CompiledAnswer[];
   /** Server-private lookup. Never serialize a compiled definition as a view. */
   readonly match: (text: string) => CompiledAnswer | undefined;
+  /** Server-private motion band for a positive award on this prompt. */
+  readonly diveBand: (points: number) => DiveBand | undefined;
 }
 
 export interface CompiledPack {
@@ -111,6 +113,17 @@ export function compilePack(input: unknown): CompiledPack {
     tiers: pack.tiers, prompts, maximumTotalPoints });
 }
 
+function calibrateDiveBands(answers: readonly CompiledAnswer[]): ReadonlyMap<number, DiveBand> {
+  const positivePoints = new Set<number>();
+  for (const answer of answers) if (answer.points > 0) positivePoints.add(answer.points);
+  const ordered = [...positivePoints].sort((a, b) => a - b);
+  // Rank the reachable scores, so an outlying award cannot flatten the visual scale.
+  const bands = ['low', 'medium', 'high'] as const;
+  return new Map(ordered.map((points, index) => [
+    points, ordered.length === 1 ? 'medium' : bands[Math.round(2 * index / (ordered.length - 1))],
+  ]));
+}
+
 /** Structured-cloneable output for the trusted import worker to send to its parent. */
 export function serializeCompiledPack(pack: CompiledPack): CompiledPackTransfer {
   const transfer = transfers.get(pack);
@@ -142,7 +155,9 @@ export function hydrateTrustedCompiledPack(input: CompiledPackTransfer): Compile
     tiers: data.tiers, maximumTotalPoints: data.maximumTotalPoints,
     prompts: Object.freeze(data.prompts.map(prompt => {
       const lookup = new Map(prompt.lookup);
+      const diveBands = calibrateDiveBands(prompt.answers);
       return Object.freeze({ id: prompt.id, text: prompt.text, index: prompt.index, answers: prompt.answers,
+        diveBand: Object.freeze((points: number) => diveBands.get(points)),
         match: Object.freeze((text: string): CompiledAnswer | undefined => {
           const index = lookup.get(matchingKey(text));
           return index === undefined ? undefined : prompt.answers[index];

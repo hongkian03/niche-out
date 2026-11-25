@@ -119,12 +119,12 @@ function show(name: string) {
   document.documentElement.dataset.fixture = name;
 }
 declare global { interface Window { webFixture: {
-  names: readonly string[]; show: (name: string) => void; state: () => ClientSnapshot;
+  names: readonly string[]; show: (name: string) => void; state: () => ClientSnapshot; snapshot: (name: FixtureName) => ClientSnapshot;
   patch: (patch: Partial<ClientSnapshot>) => void; nextModalPhase: () => void;
   changeView: (view: CompleteView) => void;
   submittedAnswers: () => string[]; clearSubmittedAnswers: () => void;
 } } }
-window.webFixture = { names: fixtureNames, show, state: () => client.state, patch: client.set, nextModalPhase: () => modalPhase?.(),
+window.webFixture = { names: fixtureNames, show, state: () => client.state, snapshot: makeState, patch: client.set, nextModalPhase: () => modalPhase?.(),
   changeView: (view) => client.set({ view: completeView.parse(view) }),
   submittedAnswers: () => [...client.submittedAnswers], clearSubmittedAnswers: () => { client.submittedAnswers = []; } };
 show(new URLSearchParams(location.search).get('fixture') ?? 'host-lobby');
