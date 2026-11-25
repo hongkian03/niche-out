@@ -30,7 +30,7 @@ Normally for Boston University Singapore Student Association's annual Great Sing
 
 ## How to download
 
-**[Niche Out 0.1.1 is available on npm](https://www.npmjs.com/package/niche-out/v/0.1.1).** The host installs Node.js through NVM, then runs the command below. Players only need a web browser. You do not need to clone this repository or create an npm or Cloudflare account to play or host.
+**[Niche Out 0.2.0 is available on npm](https://www.npmjs.com/package/niche-out/v/0.2.0).** The host installs Node.js through NVM, then runs the command below. Players only need a web browser. You do not need to clone this repository or create an npm or Cloudflare account to play or host.
 
 ### Host requirements
 
@@ -135,10 +135,10 @@ With supported Node.js and npm installed, paste this into your terminal. It work
 
 ```sh
 nvm use 24.22.3
-npm exec --yes --ignore-scripts --package=niche-out@0.1.1 -- niche-out
+npm exec --yes --ignore-scripts --package=niche-out@0.2.0 -- niche-out
 ```
 
-npm downloads version **0.1.1** and its runtime dependencies, then opens the **private local hosting dashboard** in your default browser. The first run needs internet access and may take longer while downloading. If the browser does not open, check that a default browser is configured, then press **Enter** in the launcher terminal to try again.
+npm downloads version **0.2.0** and its runtime dependencies, then opens the **private local hosting dashboard** in your default browser. The first run needs internet access and may take longer while downloading. If the browser does not open, check that a default browser is configured, then press **Enter** in the launcher terminal to try again.
 
 **Keep that terminal open.** Closing the browser leaves hosting running; **Ctrl-C** in the terminal or **Quit launcher** in the dashboard stops the application. Stop hosting and quit before updating or uninstalling.
 
@@ -150,7 +150,7 @@ On Windows, use **Command Prompt** if PowerShell blocks npm's `.ps1` launcher. Y
 Instead of the command above, install the same release globally:
 
 ```sh
-npm install --global --ignore-scripts niche-out@0.1.1
+npm install --global --ignore-scripts niche-out@0.2.0
 niche-out
 ```
 
@@ -164,7 +164,7 @@ On later runs, just enter `niche-out`. If global installation fails because your
 This verifies or downloads the pinned cloudflared component into your user cache without opening a hosting session:
 
 ```sh
-npm exec --yes --ignore-scripts --package=niche-out@0.1.1 -- niche-out prepare
+npm exec --yes --ignore-scripts --package=niche-out@0.2.0 -- niche-out prepare
 ```
 
 This is optional: **Start hosting** performs the same preparation automatically. A cold download needs internet access. Playing still requires internet even when the component is cached.

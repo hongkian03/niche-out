@@ -1,5 +1,12 @@
 # Niche Out release direction and private candidate history
 
+## 0.2.0 — November 24, 2026
+
+- Positive scores can trigger a 1.95-second Follow dive on the player screen. Each prompt has up to three dive depths based on its distinct positive scores. The dive shows the exact points and authored tier.
+- The host screen plays a 600 ms sonar pulse when Results begins. The prompt, countdown, grouped answers, standings, and host controls stay available.
+- Reveal timing follows the server deadline. Reduced motion, reconnects during Results, and short Results windows show scores immediately. The player view retains an accessible heading during the full-screen dive.
+- Local checks covered both reveals together, ties, reconnects, and a 100 ms Results window. Physical-device and screen-reader checks remain separate from automated and simulator evidence. [Epic 7 verification](../implementation/evidence/E7-S06-MOTION-VERIFICATION.md)
+
 ## 0.1.1 — November 19, 2026
 
 ### Changed
